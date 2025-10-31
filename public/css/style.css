@@ -1,49 +1,235 @@
+/* ========================
+   🎨 Theme Variables
+======================== */
 :root {
-  --brand: #f6a800;
-  --brand-2: #ffcd50;
-  --dark: #1f1f1f;
-  --light: #fffaf1;
+  --orange: #f6a800;
+  --yellow: #ffc81a;
+  --text-dark: #1f1f1f;
+  --footer-bg: #2e2e2e;
+  --footer-text: #fff;
 }
 
-/* RESET */
-body {
-  font-family: "Poppins", sans-serif;
-  background: var(--light);
-  color: var(--dark);
-  margin: 0;
-  padding: 0;
+/* ========================
+   🔸 Navbar
+======================== */
+.bg-orange {
+  background: var(--orange);
+}
+.navbar a.nav-link {
+  color: #fff !important;
+  transition: 0.3s;
+}
+.navbar a.nav-link:hover {
+  color: #000 !important;
 }
 
-/* HERO */
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-              url('/img/hero.jpg') center/cover no-repeat;
-  height: 85vh;
+/* ========================
+   🔸 Hero Section
+======================== */
+.hero-section {
+  background-color: var(--yellow);
+  color: var(--text-dark);
+  padding: 4rem 0;
+}
+.hero-section h1 {
+  font-size: 3rem;
+  text-shadow: 2px 2px #fff;
+}
+.hero-img {
+  width: 85%;
+  max-width: 400px;
+}
+.feature {
+  text-align: center;
+}
+.feature i {
+  font-size: 2rem;
+  color: var(--orange);
+}
+.feature p {
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+/* ========================
+   🔸 Footer Section (Final)
+======================== */
+.footer-section {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  font-family: "Noto Sans Thai", sans-serif;
+  padding: 4rem 0 2rem;
+  margin-top: 4rem;
+}
+
+/* Align layout */
+.footer-section .row {
   display: flex;
-  align-items: center;
+  align-items: center; /* ✅ กึ่งกลางแนวตั้ง */
   justify-content: center;
 }
 
-/* SHADOW UTIL */
-.shadow-soft {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+/* Company Info */
+.footer-logo {
+  width: 120px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.footer-company p {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
 }
 
-/* RESPONSIVE */
+/* Subscribe Section */
+.footer-subscribe {
+  text-align: center;
+}
+.footer-subscribe h5 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.footer-subscribe p {
+  color: #ddd;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.footer-subscribe form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.footer-subscribe input[type="email"] {
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 260px;
+  max-width: 280px;
+  font-size: 0.95rem;
+}
+.footer-subscribe .btn-warning {
+  background-color: var(--yellow);
+  border: none;
+  color: var(--text-dark);
+  font-weight: 600;
+  padding: 10px 16px;
+  transition: 0.3s;
+}
+.footer-subscribe .btn-warning:hover {
+  background-color: #ffda4d;
+}
+
+/* Social Section */
+.footer-social {
+  text-align: center;
+}
+.footer-social p {
+  margin-top: 0.8rem;
+  color: #fff;
+}
+.social-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 6px;
+  transition: 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.social-img:hover {
+  transform: translateY(-3px);
+  opacity: 0.85;
+}
+
+/* QR Code */
+.qr-code {
+  width: 130px;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Footer Links */
+.footer-links {
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 1rem;
+  margin-top: 2rem;
+}
+.footer-links a {
+  color: #dcdcdc;
+  font-size: 0.9rem;
+  margin: 0 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer-links a:hover {
+  color: var(--yellow);
+  text-decoration: underline;
+}
+
+/* Copyright */
+.footer-bottom {
+  text-align: center;
+  color: #cfcfcf;
+  font-size: 0.85rem;
+  padding-top: 0.6rem;
+}
+
+/* ========================
+   🔸 Responsive
+======================== */
 @media (max-width: 992px) {
-  .hero h1 {
-    font-size: 2rem;
+  .footer-section .row {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
   }
-  .section {
-    padding: 48px 0;
+  .footer-subscribe form {
+    flex-direction: column;
+  }
+  .footer-subscribe input[type="email"] {
+    width: 100%;
+  }
+  .footer-subscribe .btn-warning {
+    width: 100%;
+  }
+  .footer-social .qr-code {
+    width: 110px;
   }
 }
 
-@media (max-width: 576px) {
-  .hero h1 {
-    font-size: 1.6rem;
+/* ========================
+   🔸 Hero Responsive
+======================== */
+@media (max-width: 768px) {
+  .hero-section h1 {
+    font-size: 2.2rem;
   }
-  .hero p {
-    font-size: 1rem;
+  .hero-img {
+    width: 70%;
+  }
+}
+
+/* ========================
+   🔸 Extra small devices
+======================== */
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 3rem 1rem;
+  }
+  .footer-subscribe .btn-warning {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+  .social-img {
+    width: 36px;
+    height: 36px;
+  }
+  .qr-code {
+    width: 90px;
   }
 }

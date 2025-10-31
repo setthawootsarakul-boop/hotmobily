@@ -1,17 +1,22 @@
-<nav class="navbar navbar-expand-lg sticky-top py-2 shadow-sm bg-warning">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top bg-orange shadow-sm">
   <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-      <img src="{{ asset('img/logo.png') }}" alt="Logo" width="40" height="40" class="rounded-circle shadow-sm">
-      <span class="fw-bold">HotMobily</span>
+    <a class="navbar-brand d-flex align-items-center" href="/">
+      <img src="{{ asset('images/logo.png') }}" alt="Hotmobily" height="50" class="me-2">
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div id="nav" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="#why">ทำไมต้องเรา</a></li>
-        <li class="nav-item"><a class="nav-link" href="#steps">ขั้นตอน</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">ติดต่อเรา</a></li>
+    <div id="navbarNav" class="collapse navbar-collapse justify-content-end">
+      <ul class="navbar-nav align-items-center gap-3">
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#faq">คำถามที่พบบ่อย</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">ติดต่อเรา</a></li>
+        <li class="nav-item">
+          <a href="#" class="nav-link position-relative fs-4 text-dark">
+            <i class="bi bi-cart"></i>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
