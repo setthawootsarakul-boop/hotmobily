@@ -1,77 +1,160 @@
-/* ========================
+/* ======================== 
    🎨 Theme Variables
 ======================== */
 :root {
-  --orange: #f6a800;
-  --yellow: #ffc81a;
-  --text-dark: #1f1f1f;
+  /* 🔸 Navbar Theme */
+  --navbar-bg: #fbab00;
+  --navbar-text: #000;
+  --navbar-hover-bg: rgba(0, 0, 0, 0.2);
+  --navbar-hover-text: #fff;
+
+  /* 🔸 Hero Section Theme */
+  --hero-bg: #ffc81a;
+  --hero-text: #1f1f1f;
+  --hero-highlight: #f7f7f7;
+
+  /* 🔸 Footer */
   --footer-bg: #2e2e2e;
   --footer-text: #fff;
+  --divider: #f6a800;
 }
 
 /* ========================
    🔸 Navbar
 ======================== */
-.bg-orange {
-  background: var(--orange);
+.navbar {
+  font-family: "Noto Sans Thai", sans-serif;
+  padding: 0.8rem 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
+
+/* ✅ สีพื้นหลัง Navbar (มี fallback) */
+.bg-orange {
+  background-color: #fbab00 !important;
+  background-color: var(--navbar-bg) !important;
+}
+
+/* ✅ โลโก้ */
+.navbar-brand img {
+  height: 70px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+/* ✅ เมนูหลัก (จัดกลาง + เพิ่มช่องไฟ) */
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* ✅ ลิงก์ใน Navbar */
 .navbar a.nav-link {
-  color: #fff !important;
-  transition: 0.3s;
+  color: var(--navbar-text) !important;
+  font-weight: 600;
+  transition: 0.3s ease;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
 }
 .navbar a.nav-link:hover {
-  color: #000 !important;
+  color: var(--navbar-hover-text) !important;
+  background-color: var(--navbar-hover-bg);
+}
+
+/* ✅ ตะกร้า */
+.cart-link {
+  color: var(--navbar-text);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.cart-link:hover {
+  transform: scale(1.1);
+  color: var(--navbar-hover-text);
+}
+
+/* ✅ ปุ่มมือถือ */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+}
+.navbar-toggler-icon {
+  filter: brightness(0.2);
 }
 
 /* ========================
    🔸 Hero Section
 ======================== */
 .hero-section {
-  background-color: var(--yellow);
-  color: var(--text-dark);
+  background-color: var(--hero-bg);
+  color: var(--hero-text);
   padding: 4rem 0;
-}
-.hero-section h1 {
-  font-size: 3rem;
-  text-shadow: 2px 2px #fff;
 }
 .hero-img {
   width: 85%;
   max-width: 400px;
+}
+
+/* ✅ หัวข้อหลัก */
+.brand-highlight {
+  color: var(--hero-highlight);
+  text-shadow: 4px 4px #000;
+  font-weight: 800;
+}
+
+/* ✅ คำอธิบาย */
+.brand-desc {
+  color: var(--hero-text);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ✅ จุดเด่น */
+.brand-features {
+  color: var(--hero-highlight);
+  font-weight: 700;
 }
 .feature {
   text-align: center;
 }
 .feature i {
   font-size: 2rem;
-  color: var(--orange);
+  color: var(--hero-highlight);
 }
 .feature p {
   margin-top: 0.3rem;
   font-weight: 600;
+  color: var(--hero-text);
 }
 
 /* ========================
-   🔸 Footer Section (Final)
+   🔸 Footer Section
 ======================== */
 .footer-section {
   background-color: var(--footer-bg);
   color: var(--footer-text);
   font-family: "Noto Sans Thai", sans-serif;
-  padding: 4rem 0 2rem;
+  padding: 4rem 0 0;
   margin-top: 4rem;
 }
-
-/* Align layout */
-.footer-section .row {
-  display: flex;
-  align-items: center; /* ✅ กึ่งกลางแนวตั้ง */
-  justify-content: center;
+.footer-section .container {
+  padding: 0 1rem;
 }
 
-/* Company Info */
+/* ✅ แนวนอน 3 คอลัมน์ */
+.footer-section .row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* 🔹 Company Info */
 .footer-logo {
-  width: 120px;
+  width: 80px;
   height: auto;
   margin-bottom: 1rem;
 }
@@ -79,10 +162,18 @@
   margin-bottom: 0.4rem;
   line-height: 1.6;
 }
+.footer-company a {
+  color: #fff;
+  text-decoration: none;
+}
+.footer-company a:hover {
+  color: var(--hero-bg);
+}
 
-/* Subscribe Section */
+/* 🔹 Subscribe Section */
 .footer-subscribe {
   text-align: center;
+  padding-top: 4rem;
 }
 .footer-subscribe h5 {
   color: #fff;
@@ -111,9 +202,9 @@
   font-size: 0.95rem;
 }
 .footer-subscribe .btn-warning {
-  background-color: var(--yellow);
+  background-color: var(--hero-bg);
   border: none;
-  color: var(--text-dark);
+  color: var(--hero-text);
   font-weight: 600;
   padding: 10px 16px;
   transition: 0.3s;
@@ -122,9 +213,10 @@
   background-color: #ffda4d;
 }
 
-/* Social Section */
+/* 🔹 Social Section */
 .footer-social {
   text-align: center;
+  padding-top: 2rem;
 }
 .footer-social p {
   margin-top: 0.8rem;
@@ -143,8 +235,6 @@
   transform: translateY(-3px);
   opacity: 0.85;
 }
-
-/* QR Code */
 .qr-code {
   width: 130px;
   border-radius: 8px;
@@ -152,12 +242,19 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Footer Links */
-.footer-links {
+/* 🔹 Divider */
+.footer-divider {
+  height: 3px;
+  background-color: var(--divider);
+  width: 100%;
+  margin-top: 3rem;
+}
+
+/* 🔹 Footer Links */
+.footer-links-section {
+  background-color: #1f1f1f;
+  padding: 1rem 0;
   text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  padding-top: 1rem;
-  margin-top: 2rem;
 }
 .footer-links a {
   color: #dcdcdc;
@@ -167,69 +264,32 @@
   transition: 0.3s;
 }
 .footer-links a:hover {
-  color: var(--yellow);
+  color: var(--hero-bg);
   text-decoration: underline;
 }
 
-/* Copyright */
-.footer-bottom {
+/* 🔹 Copyright */
+.footer-bottom-section {
+  background-color: #000;
   text-align: center;
-  color: #cfcfcf;
-  font-size: 0.85rem;
-  padding-top: 0.6rem;
+  color: #ccc;
+  font-size: 0.9rem;
+  padding: 0.8rem 0;
 }
 
 /* ========================
-   🔸 Responsive
+   🔹 Responsive
 ======================== */
 @media (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 0.8rem 0;
+  }
   .footer-section .row {
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
-  }
-  .footer-subscribe form {
-    flex-direction: column;
-  }
-  .footer-subscribe input[type="email"] {
-    width: 100%;
-  }
-  .footer-subscribe .btn-warning {
-    width: 100%;
-  }
-  .footer-social .qr-code {
-    width: 110px;
-  }
-}
-
-/* ========================
-   🔸 Hero Responsive
-======================== */
-@media (max-width: 768px) {
-  .hero-section h1 {
-    font-size: 2.2rem;
-  }
-  .hero-img {
-    width: 70%;
-  }
-}
-
-/* ========================
-   🔸 Extra small devices
-======================== */
-@media (max-width: 480px) {
-  .hero-section {
-    padding: 3rem 1rem;
-  }
-  .footer-subscribe .btn-warning {
-    width: 100%;
-    margin-top: 0.5rem;
-  }
-  .social-img {
-    width: 36px;
-    height: 36px;
-  }
-  .qr-code {
-    width: 90px;
+    gap: 1rem;
   }
 }
