@@ -1,49 +1,295 @@
+/* ======================== 
+   🎨 Theme Variables
+======================== */
 :root {
-  --brand: #f6a800;
-  --brand-2: #ffcd50;
-  --dark: #1f1f1f;
-  --light: #fffaf1;
+  /* 🔸 Navbar Theme */
+  --navbar-bg: #fbab00;
+  --navbar-text: #000;
+  --navbar-hover-bg: rgba(0, 0, 0, 0.2);
+  --navbar-hover-text: #fff;
+
+  /* 🔸 Hero Section Theme */
+  --hero-bg: #ffc81a;
+  --hero-text: #1f1f1f;
+  --hero-highlight: #f7f7f7;
+
+  /* 🔸 Footer */
+  --footer-bg: #2e2e2e;
+  --footer-text: #fff;
+  --divider: #f6a800;
 }
 
-/* RESET */
-body {
-  font-family: "Poppins", sans-serif;
-  background: var(--light);
-  color: var(--dark);
-  margin: 0;
-  padding: 0;
+/* ========================
+   🔸 Navbar
+======================== */
+.navbar {
+  font-family: "Noto Sans Thai", sans-serif;
+  padding: 0.8rem 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* HERO */
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-              url('/img/hero.jpg') center/cover no-repeat;
-  height: 85vh;
+/* ✅ สีพื้นหลัง Navbar (มี fallback) */
+.bg-orange {
+  background-color: #fbab00 !important;
+  background-color: var(--navbar-bg) !important;
+}
+
+/* ✅ โลโก้ */
+.navbar-brand img {
+  height: 70px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+/* ✅ เมนูหลัก (จัดกลาง + เพิ่มช่องไฟ) */
+.navbar-nav {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
 }
 
-/* SHADOW UTIL */
-.shadow-soft {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+/* ✅ ลิงก์ใน Navbar */
+.navbar a.nav-link {
+  color: var(--navbar-text) !important;
+  font-weight: 600;
+  transition: 0.3s ease;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+.navbar a.nav-link:hover {
+  color: var(--navbar-hover-text) !important;
+  background-color: var(--navbar-hover-bg);
 }
 
-/* RESPONSIVE */
+/* ✅ ตะกร้า */
+.cart-link {
+  color: var(--navbar-text);
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.cart-link:hover {
+  transform: scale(1.1);
+  color: var(--navbar-hover-text);
+}
+
+/* ✅ ปุ่มมือถือ */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+}
+.navbar-toggler-icon {
+  filter: brightness(0.2);
+}
+
+/* ========================
+   🔸 Hero Section
+======================== */
+.hero-section {
+  background-color: var(--hero-bg);
+  color: var(--hero-text);
+  padding: 4rem 0;
+}
+.hero-img {
+  width: 85%;
+  max-width: 400px;
+}
+
+/* ✅ หัวข้อหลัก */
+.brand-highlight {
+  color: var(--hero-highlight);
+  text-shadow: 4px 4px #000;
+  font-weight: 800;
+}
+
+/* ✅ คำอธิบาย */
+.brand-desc {
+  color: var(--hero-text);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+/* ✅ จุดเด่น */
+.brand-features {
+  color: var(--hero-highlight);
+  font-weight: 700;
+}
+.feature {
+  text-align: center;
+}
+.feature i {
+  font-size: 2rem;
+  color: var(--hero-highlight);
+}
+.feature p {
+  margin-top: 0.3rem;
+  font-weight: 600;
+  color: var(--hero-text);
+}
+
+/* ========================
+   🔸 Footer Section
+======================== */
+.footer-section {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  font-family: "Noto Sans Thai", sans-serif;
+  padding: 4rem 0 0;
+  margin-top: 4rem;
+}
+.footer-section .container {
+  padding: 0 1rem;
+}
+
+/* ✅ แนวนอน 3 คอลัมน์ */
+.footer-section .row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+/* 🔹 Company Info */
+.footer-logo {
+  width: 80px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+.footer-company p {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+.footer-company a {
+  color: #fff;
+  text-decoration: none;
+}
+.footer-company a:hover {
+  color: var(--hero-bg);
+}
+
+/* 🔹 Subscribe Section */
+.footer-subscribe {
+  text-align: center;
+  padding-top: 4rem;
+}
+.footer-subscribe h5 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin-bottom: 0.5rem;
+}
+.footer-subscribe p {
+  color: #ddd;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.footer-subscribe form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+.footer-subscribe input[type="email"] {
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 260px;
+  max-width: 280px;
+  font-size: 0.95rem;
+}
+.footer-subscribe .btn-warning {
+  background-color: var(--hero-bg);
+  border: none;
+  color: var(--hero-text);
+  font-weight: 600;
+  padding: 10px 16px;
+  transition: 0.3s;
+}
+.footer-subscribe .btn-warning:hover {
+  background-color: #ffda4d;
+}
+
+/* 🔹 Social Section */
+.footer-social {
+  text-align: center;
+  padding-top: 2rem;
+}
+.footer-social p {
+  margin-top: 0.8rem;
+  color: #fff;
+}
+.social-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 6px;
+  transition: 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.social-img:hover {
+  transform: translateY(-3px);
+  opacity: 0.85;
+}
+.qr-code {
+  width: 130px;
+  border-radius: 8px;
+  margin-top: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 🔹 Divider */
+.footer-divider {
+  height: 3px;
+  background-color: var(--divider);
+  width: 100%;
+  margin-top: 3rem;
+}
+
+/* 🔹 Footer Links */
+.footer-links-section {
+  background-color: #1f1f1f;
+  padding: 1rem 0;
+  text-align: center;
+}
+.footer-links a {
+  color: #dcdcdc;
+  font-size: 0.9rem;
+  margin: 0 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer-links a:hover {
+  color: var(--hero-bg);
+  text-decoration: underline;
+}
+
+/* 🔹 Copyright */
+.footer-bottom-section {
+  background-color: #000;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+  padding: 0.8rem 0;
+}
+
+/* ========================
+   🔹 Responsive
+======================== */
 @media (max-width: 992px) {
-  .hero h1 {
-    font-size: 2rem;
+  .navbar-nav {
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 0.8rem 0;
   }
-  .section {
-    padding: 48px 0;
-  }
-}
-
-@media (max-width: 576px) {
-  .hero h1 {
-    font-size: 1.6rem;
-  }
-  .hero p {
-    font-size: 1rem;
+  .footer-section .row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
 }
