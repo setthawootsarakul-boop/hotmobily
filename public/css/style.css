@@ -1,0 +1,49 @@
+:root {
+  --brand: #f6a800;
+  --brand-2: #ffcd50;
+  --dark: #1f1f1f;
+  --light: #fffaf1;
+}
+
+/* RESET */
+body {
+  font-family: "Poppins", sans-serif;
+  background: var(--light);
+  color: var(--dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+              url('/img/hero.jpg') center/cover no-repeat;
+  height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SHADOW UTIL */
+.shadow-soft {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .section {
+    padding: 48px 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 1.6rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+}
