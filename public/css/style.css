@@ -293,3 +293,67 @@
     gap: 1rem;
   }
 }
+
+/* ========================
+   🔸 Why Choose Us Section
+======================== */
+.why-section {
+  background-color: #fff;
+  position: relative;
+}
+
+.why-section h2 {
+  color: #444;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-weight: 700;
+}
+
+/* 🔸 Icon Circle */
+.why-icon {
+  background-color: #f6a800;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-icon img {
+  width: 70px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.why-item:hover .why-icon {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔸 Text */
+.why-text {
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+/* 🔸 Responsive */
+@media (max-width: 768px) {
+  .why-icon {
+    width: 120px;
+    height: 120px;
+  }
+
+  .why-icon img {
+    width: 50px;
+  }
+
+  .why-text {
+    font-size: 0.95rem;
+  }
+}
+
