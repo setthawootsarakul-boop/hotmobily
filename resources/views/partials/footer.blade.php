@@ -1,8 +1,8 @@
-<footer class="footer-section text-light pt-5">
+<footer class="footer-section text-light pt-5"> 
   <!-- 🔸 กล่องหลักทั้งหมด -->
   <div class="footer-box">
     <div class="container pb-4 border-bottom border-secondary">
-      <div class="row gy-4 align-items-start">
+      <div class="row gy-4 align-items-stretch">
         
         <!-- 🔹 Company Info -->
         <div class="col-md-4 text-center text-md-start footer-company">
@@ -30,7 +30,7 @@
 
         <!-- 🔹 Social + QR -->
         <div class="col-md-4 text-center text-md-start footer-social">
-          <div class="d-flex justify-content-md-start justify-content-center gap-3 mb-3">
+          <div class="social-icons">
             <a href="#"><img src="{{ asset('images/fb.png') }}" class="social-img" alt="Facebook"></a>
             <a href="#"><img src="{{ asset('images/line.png') }}" class="social-img" alt="LINE"></a>
             <a href="#"><img src="{{ asset('images/x.jpg') }}" class="social-img" alt="X"></a>

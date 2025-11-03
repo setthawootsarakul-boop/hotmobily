@@ -281,30 +281,49 @@
 }
 
 /* ========================
-   🔸 FOOTER SECTION
+   🔸 FOOTER SECTION (ปรับปรุงใหม่สุด)
 ======================== */
 .footer-section {
   background-color: var(--footer-bg);
   color: var(--footer-text);
   font-family: "Noto Sans Thai", sans-serif;
-  padding: 4rem 0 0;
-  margin-top: 4rem;
+  padding: 3rem 0 0;
+  margin-top: 3rem;
 }
+
 .footer-section .container {
   padding: 0 1rem;
 }
 
-/* ✅ 3 คอลัมน์หลัก */
+/* ✅ จัดคอลัมน์หลักให้ชัดและไม่ตกบรรทัด */
 .footer-section .row {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-start; /* จัดให้เริ่มจากด้านบน */
   justify-content: space-between;
+  flex-wrap: nowrap; /* ❗ ป้องกันหล่นลงบรรทัดใหม่ */
+  gap: 2rem;
+}
+
+/* ✅ ให้ทุกคอลัมน์มีความสูงสมดุล */
+.footer-company,
+.footer-subscribe,
+.footer-social {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 0 auto;
+  align-items: flex-start; /* 💻 desktop: ข้อความชิดซ้าย */
+  text-align: left;
+  justify-content: flex-start;
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 /* 🔹 ข้อมูลบริษัท */
 .footer-logo {
-  width: 80px;
-  margin-bottom: 1rem;
+  width: 90px;
+  display: block;
+  margin: 0 auto 1rem; /* 💻 desktop: โลโก้อยู่กลาง */
 }
 .footer-company p {
   margin-bottom: 0.4rem;
@@ -321,18 +340,18 @@
 /* 🔹 Subscribe */
 .footer-subscribe {
   text-align: center;
-  padding-top: 4rem;
+  padding-top: 0; /* ❗ ลดระยะดันขึ้นให้อยู่แนวเดียวกัน */
 }
 .footer-subscribe h5 {
   color: #fff;
   font-weight: 700;
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
 }
 .footer-subscribe p {
   color: #ddd;
   font-size: 0.95rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 .footer-subscribe form {
   display: flex;
@@ -361,10 +380,21 @@
   background-color: #ffda4d;
 }
 
-/* 🔹 โซเชียล */
+/* 🔹 Social + QR */
 .footer-social {
+  align-items: center;
   text-align: center;
-  padding-top: 2rem;
+  justify-content: flex-start; /* ❗ ปรับให้อยู่แนวบนเดียวกับคอลัมน์อื่น */
+  padding-top: 0;
+}
+.footer-social .social-icons {
+  margin-bottom: 0.8rem;
+}
+.footer-social .qr-code {
+  width: 120px;
+  border-radius: 8px;
+  margin: 1rem 0 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .footer-social p {
   margin-top: 0.8rem;
@@ -383,19 +413,13 @@
   transform: translateY(-3px);
   opacity: 0.85;
 }
-.qr-code {
-  width: 130px;
-  border-radius: 8px;
-  margin-top: 0.8rem;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
 
 /* 🔹 เส้นคั่น */
 .footer-divider {
   height: 3px;
   background-color: var(--divider);
   width: 100%;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 /* 🔹 ลิงก์ */
@@ -484,21 +508,54 @@
   }
 }
 
-/* Mobile - Footer */
-@media (max-width: 576px) {
+/* ========================
+   📱 RESPONSIVE DESIGN
+======================== */
+/* ✅ เคาะลงเฉพาะ Desktop */
+@media (min-width: 992px) {
+  .footer-subscribe {
+    padding-top: 5rem; /* เดิม 3rem → เพิ่มได้ตามต้องการ เช่น 5rem */
+  }
+}
+
+@media (min-width: 992px) {
+  .footer-social {
+    margin-top: 2.5rem; /* เคาะให้ส่วนนี้ลงมาห่างขึ้น (ปรับได้เช่น 3rem ถ้าอยากลงอีก) */
+  }
+
+  .footer-social .qr-code {
+    width: 200px; /* ขยายขนาดจาก 130px → 160px */
+    margin-top: 1rem; /* เพิ่มระยะเล็กน้อยจากไอคอน */
+  }
+}
+@media (max-width: 992px) {
   .footer-section .row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-company {
+    align-items: center; /* โลโก้ + ข้อความอยู่กลาง */
     text-align: center;
   }
-  .footer-company,
-  .footer-subscribe,
+}
+
+@media (max-width: 576px) {
   .footer-social {
-    margin-bottom: 1.5rem;
-  }
-  .footer-subscribe form {
+    display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    align-items: center;
   }
-  .footer-subscribe input[type="email"] {
-    width: 90%;
+  .footer-social .qr-code {
+    order: 1;
+    margin-bottom: 1rem;
+  }
+  .footer-social .social-icons {
+    order: 2;
+    margin-top: 0.5rem;
   }
 }
