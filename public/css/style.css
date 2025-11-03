@@ -357,3 +357,87 @@
   }
 }
 
+/* ===============================
+   CONTACT & STEPS CARD STYLE
+================================= */
+
+#contact, #steps {
+  background-color: #F6F1E9;
+}
+
+#contact h3, #steps h3 {
+  color: #444;
+  font-weight: 700;
+}
+
+#contact .contact-card,
+#steps .contact-card {
+  width: 95%;                 /* 🔹 ลดขนาดรวมลง */
+  max-width: 320px;           /* 🔹 จำกัดความกว้างสูงสุด */
+  border-radius: 22px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem 1.2rem;     /* 🔹 ลด padding ข้างใน */
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+}
+
+.contact-card img.contact-icon {
+  width: 60px;
+  height: auto;
+}
+
+.contact-card h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.contact-card p {
+  font-size: 1rem;
+}
+
+@media (max-width: 992px) {
+  .contact-card {
+    max-width: 300px;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-card {
+    max-width: 270px;
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .contact-card {
+    max-width: 260px; /* ลดลงอีกนิดสำหรับ tablet */
+  }
+}
+
+@media (max-width: 576px) {
+  .contact-card {
+    max-width: 230px; /* มือถือจะเล็กลงพอดี */
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #steps .row,
+  #contact .row {
+    justify-content: center !important;
+    padding: 0 10px; /* เพิ่มระยะขอบซ้าย-ขวา */
+  }
+
+  #steps .contact-card,
+  #contact .contact-card {
+    margin: 0 auto; /* บังคับให้อยู่ตรงกลาง */
+  }
+}
