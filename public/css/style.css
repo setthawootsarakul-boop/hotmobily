@@ -1,5 +1,5 @@
-/* ======================== 
-   🎨 Theme Variables
+/* ========================
+   🎨 THEME VARIABLES (ตัวแปรธีมหลัก)
 ======================== */
 :root {
   /* 🔸 Navbar Theme */
@@ -13,14 +13,14 @@
   --hero-text: #1f1f1f;
   --hero-highlight: #f7f7f7;
 
-  /* 🔸 Footer */
+  /* 🔸 Footer Theme */
   --footer-bg: #2e2e2e;
   --footer-text: #fff;
   --divider: #f6a800;
 }
 
 /* ========================
-   🔸 Navbar
+   🔸 NAVBAR SECTION
 ======================== */
 .navbar {
   font-family: "Noto Sans Thai", sans-serif;
@@ -29,7 +29,7 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ✅ สีพื้นหลัง Navbar (มี fallback) */
+/* ✅ สีพื้นหลัง Navbar */
 .bg-orange {
   background-color: #fbab00 !important;
   background-color: var(--navbar-bg) !important;
@@ -37,7 +37,7 @@
 
 /* ✅ โลโก้ */
 .navbar-brand img {
-  height: 70px;
+  height: 60px;
   width: auto;
   transition: transform 0.3s ease;
 }
@@ -45,7 +45,7 @@
   transform: scale(1.05);
 }
 
-/* ✅ เมนูหลัก (จัดกลาง + เพิ่มช่องไฟ) */
+/* ✅ เมนูหลัก */
 .navbar-nav {
   display: flex;
   justify-content: center;
@@ -69,12 +69,12 @@
 
 /* ✅ ตะกร้า */
 .cart-link {
-  color: var(--navbar-text);
+  color: #fff !important;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 .cart-link:hover {
   transform: scale(1.1);
-  color: var(--navbar-hover-text);
+  color: #ffeb99 !important;
 }
 
 /* ✅ ปุ่มมือถือ */
@@ -86,6 +86,14 @@
   filter: brightness(0.2);
 }
 
+/* ✅ ปรับสีตะกร้าใน Navbar สีส้ม */
+.navbar.bg-orange .cart-link {
+  color: #fff !important;
+}
+.navbar.bg-orange .cart-link:hover {
+  color: #ffeb99 !important;
+}
+
 /* ========================
    🔸 Hero Section
 ======================== */
@@ -94,9 +102,10 @@
   color: var(--hero-text);
   padding: 4rem 0;
 }
+
 .hero-img {
   width: 85%;
-  max-width: 400px;
+  max-width: 350px;
 }
 
 /* ✅ หัวข้อหลัก */
@@ -111,28 +120,168 @@
   color: var(--hero-text);
   font-size: 1.1rem;
   line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-/* ✅ จุดเด่น */
+/* ✅ ส่วนของฟีเจอร์ */
 .brand-features {
-  color: var(--hero-highlight);
-  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap; /* ❗ บังคับให้อยู่บรรทัดเดียว */
+  gap: 4rem; /* ลดจาก 5rem → 4rem ให้ลงตัวพอดีจอ */
+  margin-top: 2.5rem;
+  flex-shrink: 0;
 }
-.feature {
+
+/* ✅ ปรับแต่ละฟีเจอร์ให้ขนาดเท่ากัน */
+.brand-features .feature {
   text-align: center;
+  width: 200px;  /* กำหนดความกว้างแน่นอนให้เท่ากันทุกช่อง */
 }
-.feature i {
-  font-size: 2rem;
-  color: var(--hero-highlight);
+
+/* ✅ ไอคอนวงกลม */
+.icon-circle {
+  background-color: #fff;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
 }
-.feature p {
-  margin-top: 0.3rem;
+
+.icon-circle i {
+  font-size: 42px;
+  color: #fca311;
+}
+
+/* ✅ ข้อความใต้ไอคอน */
+.brand-features .feature p {
+  font-size: 1.05rem;
   font-weight: 600;
-  color: var(--hero-text);
+  color: #000;
+  margin-top: 0.5rem;
+}
+
+
+/* ✅ Responsive ปรับกลับมาแน่นนิดหน่อยตอนมือถือ */
+@media (max-width: 768px) {
+  .brand-features {
+    gap: 2rem;
+  }
+
+  .icon-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .icon-circle i {
+    font-size: 36px;
+  }
+
+  .brand-features .feature p {
+    font-size: 0.95rem;
+  }
 }
 
 /* ========================
-   🔸 Footer Section
+   🔸 WHY CHOOSE US SECTION
+======================== */
+.why-section {
+  background-color: #fff;
+  position: relative;
+}
+
+.why-section h2 {
+  color: #444;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-weight: 700;
+}
+
+/* 🔸 วงกลมไอคอน */
+.why-icon {
+  background-color: #f6a800;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-icon img {
+  width: 70px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.why-item:hover .why-icon {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔸 ข้อความ */
+.why-text {
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+/* ===============================
+   🔸 CONTACT & STEPS SECTION
+================================= */
+#contact, #steps {
+  background-color: #F6F1E9;
+}
+
+#contact h3, #steps h3 {
+  color: #444;
+  font-weight: 700;
+}
+
+/* ✅ กล่องการ์ด */
+#contact .contact-card,
+#steps .contact-card {
+  width: 95%;
+  max-width: 320px;
+  border-radius: 22px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  padding: 1.5rem 1.2rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+}
+
+.contact-card img.contact-icon {
+  width: 60px;
+  height: auto;
+}
+
+.contact-card h4 {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.contact-card p {
+  font-size: 1rem;
+}
+
+/* ========================
+   🔸 FOOTER SECTION
 ======================== */
 .footer-section {
   background-color: var(--footer-bg);
@@ -145,17 +294,16 @@
   padding: 0 1rem;
 }
 
-/* ✅ แนวนอน 3 คอลัมน์ */
+/* ✅ 3 คอลัมน์หลัก */
 .footer-section .row {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
 
-/* 🔹 Company Info */
+/* 🔹 ข้อมูลบริษัท */
 .footer-logo {
   width: 80px;
-  height: auto;
   margin-bottom: 1rem;
 }
 .footer-company p {
@@ -170,7 +318,7 @@
   color: var(--hero-bg);
 }
 
-/* 🔹 Subscribe Section */
+/* 🔹 Subscribe */
 .footer-subscribe {
   text-align: center;
   padding-top: 4rem;
@@ -213,7 +361,7 @@
   background-color: #ffda4d;
 }
 
-/* 🔹 Social Section */
+/* 🔹 โซเชียล */
 .footer-social {
   text-align: center;
   padding-top: 2rem;
@@ -242,7 +390,7 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* 🔹 Divider */
+/* 🔹 เส้นคั่น */
 .footer-divider {
   height: 3px;
   background-color: var(--divider);
@@ -250,7 +398,7 @@
   margin-top: 3rem;
 }
 
-/* 🔹 Footer Links */
+/* 🔹 ลิงก์ */
 .footer-links-section {
   background-color: #1f1f1f;
   padding: 1rem 0;
@@ -268,7 +416,7 @@
   text-decoration: underline;
 }
 
-/* 🔹 Copyright */
+/* 🔹 ลิขสิทธิ์ */
 .footer-bottom-section {
   background-color: #000;
   text-align: center;
@@ -278,8 +426,10 @@
 }
 
 /* ========================
-   🔹 Responsive
+   📱 RESPONSIVE DESIGN
 ======================== */
+
+/* Tablet - Navbar & Footer */
 @media (max-width: 992px) {
   .navbar-nav {
     flex-direction: column;
@@ -294,150 +444,61 @@
   }
 }
 
-/* ========================
-   🔸 Why Choose Us Section
-======================== */
-.why-section {
-  background-color: #fff;
-  position: relative;
-}
-
-.why-section h2 {
-  color: #444;
-  font-family: "Noto Sans Thai", sans-serif;
-  font-weight: 700;
-}
-
-/* 🔸 Icon Circle */
-.why-icon {
-  background-color: #f6a800;
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.why-icon img {
-  width: 70px;
-  height: auto;
-  filter: brightness(0) invert(1);
-}
-
-.why-item:hover .why-icon {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-}
-
-/* 🔸 Text */
-.why-text {
-  color: #000;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.4;
-  font-family: "Noto Sans Thai", sans-serif;
-}
-
-/* 🔸 Responsive */
+/* Mobile - Hero & Features */
+/* ✅ Responsive (มือถือ) */
 @media (max-width: 768px) {
-  .why-icon {
-    width: 120px;
-    height: 120px;
+  .brand-features {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
   }
 
-  .why-icon img {
-    width: 50px;
+  .icon-circle {
+    width: 100px;
+    height: 100px;
   }
 
-  .why-text {
-    font-size: 0.95rem;
+  .icon-circle i {
+    font-size: 32px;
   }
-}
 
-/* ===============================
-   CONTACT & STEPS CARD STYLE
-================================= */
-
-#contact, #steps {
-  background-color: #F6F1E9;
-}
-
-#contact h3, #steps h3 {
-  color: #444;
-  font-weight: 700;
-}
-
-#contact .contact-card,
-#steps .contact-card {
-  width: 95%;                 /* 🔹 ลดขนาดรวมลง */
-  max-width: 320px;           /* 🔹 จำกัดความกว้างสูงสุด */
-  border-radius: 22px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  padding: 1.5rem 1.2rem;     /* 🔹 ลด padding ข้างใน */
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
-}
-
-.contact-card img.contact-icon {
-  width: 60px;
-  height: auto;
-}
-
-.contact-card h4 {
-  font-size: 1.4rem;
-  font-weight: 700;
-}
-
-.contact-card p {
-  font-size: 1rem;
-}
-
-@media (max-width: 992px) {
-  .contact-card {
-    max-width: 300px;
-    padding: 1.5rem;
+  .brand-features .feature p {
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 576px) {
-  .contact-card {
-    max-width: 270px;
-    margin-bottom: 1rem;
-  }
-}
-
-@media (max-width: 992px) {
-  .contact-card {
-    max-width: 260px; /* ลดลงอีกนิดสำหรับ tablet */
-  }
-}
-
-@media (max-width: 576px) {
-  .contact-card {
-    max-width: 230px; /* มือถือจะเล็กลงพอดี */
-    padding: 1.2rem;
-  }
-}
-
+/* Mobile - Steps & Contact Cards */
 @media (max-width: 576px) {
   #steps .row,
   #contact .row {
     justify-content: center !important;
-    padding: 0 10px; /* เพิ่มระยะขอบซ้าย-ขวา */
+    padding: 0 10px;
   }
-
   #steps .contact-card,
   #contact .contact-card {
-    margin: 0 auto; /* บังคับให้อยู่ตรงกลาง */
+    margin: 0 auto;
+  }
+  .contact-card {
+    max-width: 230px;
+    padding: 1.2rem;
+  }
+}
+
+/* Mobile - Footer */
+@media (max-width: 576px) {
+  .footer-section .row {
+    text-align: center;
+  }
+  .footer-company,
+  .footer-subscribe,
+  .footer-social {
+    margin-bottom: 1.5rem;
+  }
+  .footer-subscribe form {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .footer-subscribe input[type="email"] {
+    width: 90%;
   }
 }
