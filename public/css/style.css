@@ -281,7 +281,7 @@
 }
 
 /* ========================
-   🔸 FOOTER SECTION (ปรับปรุงใหม่สุด)
+   🔸 FOOTER SECTION (Final Clean Version)
 ======================== */
 .footer-section {
   background-color: var(--footer-bg);
@@ -295,35 +295,30 @@
   padding: 0 1rem;
 }
 
-/* ✅ จัดคอลัมน์หลักให้ชัดและไม่ตกบรรทัด */
+/* ✅ Layout คอลัมน์หลัก */
 .footer-section .row {
   display: flex;
-  align-items: flex-start; /* จัดให้เริ่มจากด้านบน */
+  align-items: flex-start;
   justify-content: space-between;
-  flex-wrap: nowrap; /* ❗ ป้องกันหล่นลงบรรทัดใหม่ */
+  flex-wrap: nowrap;
   gap: 2rem;
 }
 
-/* ✅ ให้ทุกคอลัมน์มีความสูงสมดุล */
-.footer-company,
-.footer-subscribe,
-.footer-social {
+/* ========================
+   🔹 Company Info
+======================== */
+.footer-company {
   display: flex;
   flex-direction: column;
-  max-width: 300px;
-  margin: 0 auto;
-  align-items: flex-start; /* 💻 desktop: ข้อความชิดซ้าย */
+  align-items: flex-start;
   text-align: left;
-  justify-content: flex-start;
   flex: 1 1 0;
-  min-width: 0;
+  max-width: 300px;
 }
-
-/* 🔹 ข้อมูลบริษัท */
 .footer-logo {
   width: 90px;
   display: block;
-  margin: 0 auto 1rem; /* 💻 desktop: โลโก้อยู่กลาง */
+  margin: 0 auto 1rem;
 }
 .footer-company p {
   margin-bottom: 0.4rem;
@@ -337,28 +332,45 @@
   color: var(--hero-bg);
 }
 
-/* 🔹 Subscribe */
+/* ========================
+   🔹 Subscribe
+======================== */
+/* 🔹 Subscribe (ปรับใหม่ให้ข้อความตรงกลางแนวดิ่งกับช่อง) */
+/* 🔹 Subscribe (ข้อความชิดซ้าย + ช่องกรอกตรงแนวกลาง) */
 .footer-subscribe {
-  text-align: center;
-  padding-top: 0; /* ❗ ลดระยะดันขึ้นให้อยู่แนวเดียวกัน */
+  text-align: left;                  /* ✅ เปลี่ยนจาก center → left */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;           /* แนวกึ่งกลางในแนวดิ่ง */
+  align-items: flex-start;           /* ✅ ขยับชิดซ้าย */
+  min-height: 220px;
+  padding-top: 20px;
+  padding-bottom: 0;
+  padding-left: 40px;                /* ✅ เพิ่มระยะขอบซ้ายให้อ่านง่าย */
 }
+
 .footer-subscribe h5 {
   color: #fff;
   font-weight: 700;
   font-size: 1.3rem;
   margin-bottom: 0.4rem;
 }
+
 .footer-subscribe p {
   color: #ddd;
   font-size: 0.95rem;
   margin-bottom: 1.2rem;
+  text-align: left;                  /* ✅ เผื่อ text-align แยก */
+  width: 100%;
 }
+
 .footer-subscribe form {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;       /* ✅ ช่องกรอก + ปุ่มชิดซ้าย */
   align-items: center;
   gap: 0.5rem;
 }
+
 .footer-subscribe input[type="email"] {
   background-color: #fff;
   border: none;
@@ -368,6 +380,7 @@
   max-width: 280px;
   font-size: 0.95rem;
 }
+
 .footer-subscribe .btn-warning {
   background-color: var(--hero-bg);
   border: none;
@@ -376,22 +389,27 @@
   padding: 10px 16px;
   transition: 0.3s;
 }
+
 .footer-subscribe .btn-warning:hover {
   background-color: #ffda4d;
 }
 
-/* 🔹 Social + QR */
+/* ========================
+   🔹 Social + QR
+======================== */
 .footer-social {
-  align-items: center;
+  flex: 1 1 0;
   text-align: center;
-  justify-content: flex-start; /* ❗ ปรับให้อยู่แนวบนเดียวกับคอลัมน์อื่น */
+  align-items: center;
+  justify-content: flex-start;
   padding-top: 0;
+  max-width: 300px;
 }
 .footer-social .social-icons {
   margin-bottom: 0.8rem;
 }
 .footer-social .qr-code {
-  width: 120px;
+  width: 130px;
   border-radius: 8px;
   margin: 1rem 0 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -414,15 +432,15 @@
   opacity: 0.85;
 }
 
-/* 🔹 เส้นคั่น */
+/* ========================
+   🔹 เส้นคั่น / ลิงก์ / ลิขสิทธิ์
+======================== */
 .footer-divider {
   height: 3px;
   background-color: var(--divider);
   width: 100%;
   margin-top: 2rem;
 }
-
-/* 🔹 ลิงก์ */
 .footer-links-section {
   background-color: #1f1f1f;
   padding: 1rem 0;
@@ -439,8 +457,6 @@
   color: var(--hero-bg);
   text-decoration: underline;
 }
-
-/* 🔹 ลิขสิทธิ์ */
 .footer-bottom-section {
   background-color: #000;
   text-align: center;
@@ -511,51 +527,255 @@
 /* ========================
    📱 RESPONSIVE DESIGN
 ======================== */
-/* ✅ เคาะลงเฉพาะ Desktop */
-@media (min-width: 992px) {
-  .footer-subscribe {
-    padding-top: 5rem; /* เดิม 3rem → เพิ่มได้ตามต้องการ เช่น 5rem */
-  }
-}
 
-@media (min-width: 992px) {
-  .footer-social {
-    margin-top: 2.5rem; /* เคาะให้ส่วนนี้ลงมาห่างขึ้น (ปรับได้เช่น 3rem ถ้าอยากลงอีก) */
-  }
-
-  .footer-social .qr-code {
-    width: 200px; /* ขยายขนาดจาก 130px → 160px */
-    margin-top: 1rem; /* เพิ่มระยะเล็กน้อยจากไอคอน */
-  }
-}
+/* ✅ Tablet (≤992px) */
 @media (max-width: 992px) {
   .footer-section .row {
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-toggler {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .cart-link i {
+    font-size: 1.6rem;
+    color: white;
   }
 }
 
+/* ✅ Mobile (≤768px) */
 @media (max-width: 768px) {
-  .footer-company {
-    align-items: center; /* โลโก้ + ข้อความอยู่กลาง */
-    text-align: center;
-  }
-}
 
-@media (max-width: 576px) {
+  /* --- จัด layout หลักให้เป็นแนวตั้ง --- */
+  .footer-section .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+    flex-wrap: wrap; /* ✅ ให้ wrap ได้ในแนวตั้ง */
+    gap: 2rem;
+  }
+
+  /* --- คอลัมน์ทั้งหมดจัดตรงกลาง --- */
+  .footer-company,
+  .footer-subscribe,
   .footer-social {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- ข้อความสมัครสมาชิก --- */
+  .footer-subscribe {
+    margin-top: 1rem;
+    padding-left: 0 !important;   /* ✅ ยกเลิกระยะขอบซ้ายของ desktop */
+    align-items: center !important;
+  }
+
+  .footer-subscribe h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-subscribe p {
+    white-space: nowrap;
+    overflow: hidden;             /* ✅ ปิด scrollbar แน่นอน */
+    text-overflow: ellipsis;
+    text-align: center;
+    font-size: 0.95rem;
+    display: inline-block;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+
+  /* --- ฟอร์ม input + ปุ่ม --- */
+  .footer-subscribe form {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
   }
-  .footer-social .qr-code {
-    order: 1;
-    margin-bottom: 1rem;
+
+  .footer-subscribe input[type="email"] {
+    width: 90%;
+    max-width: 320px;
+    height: 44px;
+    text-align: center;
+    border-radius: 6px;
   }
+
+  .footer-subscribe .btn-warning {
+    width: fit-content;
+    height: 44px;
+    padding: 0 1.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  /* --- โซเชียล --- */
+  .footer-social {
+    margin-top: 1.2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   .footer-social .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-social .qr-code {
+    width: 160px;
+    margin: 1.2rem auto 0;
+    display: block;
+  }
+  /* ✅ Navbar mobile */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .menu-toggle {
+    order: 3;
+  }
+
+  .navbar-logo {
+    order: 1;
+  }
+
+  .cart-icon {
     order: 2;
-    margin-top: 0.5rem;
+  }
+}
+
+
+/* ✅ Desktop (≥992px) */
+@media (min-width: 992px) {
+  /* --- Footer Layout ให้สมดุลทั้งแถว --- */
+  .footer-section .row {
+    display: flex;
+    align-items: center;        /* ✅ จัดให้คอลัมน์อยู่ระดับเดียวกัน */
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* --- คอลัมน์สมัครสมาชิก (ตรงกลาง) --- */
+  .footer-subscribe {
+    margin-top: 0;              /* ✅ ไม่มีเด้งลงหรือขึ้นเกินไป */
+    position: relative;
+    top: -6px;                  /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับโลโก้และ QR */
+    text-align: center;
+  }
+
+  .footer-subscribe h5,
+  .footer-subscribe p {
+    margin: 0.3rem 0;
+    position: relative;
+    top: -2px;                  /* ปรับข้อความให้อยู่กึ่งกลางกับช่องกรอก */
+  }
+
+  .footer-subscribe form {
+    display: flex;
+    align-items: center;        /* ✅ ช่องกรอก + ปุ่มอยู่ระดับเดียวกัน */
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .footer-subscribe input[type="email"] {
+    height: 46px;
+    padding: 0 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    line-height: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-subscribe .btn-warning {
+    height: 46px;
+    padding: 0 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- คอลัมน์ขวา (QR + Social) --- */
+  .footer-social {
+    position: relative;
+    top: 20px;     /* 🔽 จาก 30px → 18px ขยับลงเล็กน้อยให้บาลานซ์กับ subscribe */
+    margin-top: 0; /* ไม่ต้องเพิ่มช่องว่างพิเศษแล้ว */
+  }
+
+  /* เพื่อให้แน่ใจว่าทั้งแถวอยู่ระดับเดียวกัน */
+  .footer-section .row {
+    align-items: center;
+  }
+
+  .footer-social .qr-code {
+    width: 200px;
+    margin-top: 1rem;
+  }
+
+  /* --- คอลัมน์ซ้าย (บริษัท) --- */
+  .footer-company {
+    position: relative;
+    top: -4px;              /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับ subscribe */
+    text-align: center;     /* ✅ เปลี่ยนให้ align เหมือนกลางและขวา */
+    align-items: center;    /* ✅ จัดให้อยู่ตรงกลางในแนวตั้ง */
+  }
+
+  .footer-company .footer-logo {
+    margin: 0 auto 1rem;    /* ✅ โลโก้อยู่กลาง */
+  }
+
+  .footer-company p,
+  .footer-company a {
+    text-align: center;     /* ✅ ให้ข้อความอยู่ตรงกลางแนวเดียวกับส่วนอื่น */
   }
 }
