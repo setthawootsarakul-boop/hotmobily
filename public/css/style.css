@@ -237,47 +237,65 @@
 }
 
 /* ===============================
-   🔸 CONTACT & STEPS SECTION
+   🔸 CONTACT & STEPS SECTION (fixed layout)
 ================================= */
 #contact, #steps {
   background-color: #F6F1E9;
+  padding: 4rem 0;
 }
 
 #contact h3, #steps h3 {
   color: #444;
   font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
-/* ✅ กล่องการ์ด */
-#contact .contact-card,
-#steps .contact-card {
-  width: 95%;
-  max-width: 320px;
-  border-radius: 22px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-  padding: 1.5rem 1.2rem;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
+/* ✅ กล่อง contact-card — ขนาดเท่ากันแนวนอน */
+
+#steps .contact-card,
+#contact .contact-card {
+  flex: 0 1 360px;             /* ✅ กำหนดความยาวแนวนอนของแต่ละกล่อง */
+  max-width: 360px;            /* ✅ จำกัดความกว้างไม่ให้ล้นจอ */
+  border-radius: 20px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: 0.3s ease;
 }
 
 .contact-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
 }
 
+/* ✅ รูปและข้อความในกล่อง */
 .contact-card img.contact-icon {
-  width: 60px;
+  width: 65px;
   height: auto;
+  margin-bottom: 0.8rem;
 }
 
 .contact-card h4 {
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   font-weight: 700;
+  margin-bottom: 0.4rem;
 }
 
 .contact-card p {
   font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ✅ จัด row ให้เรียงแนวนอนอยู่กึ่งกลาง */
+#steps .row,
+#contact .row {
+  display: flex;
+  justify-content: center;     /* ให้ทุกกล่องอยู่กึ่งกลางแนวนอน */
+  align-items: stretch;
+  flex-wrap: nowrap;           /* ✅ ให้กล่องอยู่ในบรรทัดเดียว */
+  gap: 10rem;                 /* ✅ เพิ่มระยะห่างระหว่างกล่อง */
 }
 
 /* ========================
@@ -483,6 +501,19 @@
     gap: 1rem;
   }
 }
+/* ปรับให้ responsive เวลาอยู่บนมือถือ */
+@media (max-width: 992px) {
+  #steps .row,
+  #contact .row {
+    flex-wrap: wrap;           /* ✅ ให้ย่อเป็นหลายบรรทัดเมื่อจอแคบ */
+  }
+
+  #steps .contact-card,
+  #contact .contact-card {
+    flex: 0 1 80%;             /* ✅ กล่องขยายเต็มจอมือถือ */
+    max-width: 80%;
+  }
+}
 
 /* Mobile - Hero & Features */
 /* ✅ Responsive (มือถือ) */
@@ -522,8 +553,45 @@
     max-width: 230px;
     padding: 1.2rem;
   }
+  .contact-card {
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-5px);
+  }
 }
 
+/* 🔧 ปรับแนวศูนย์กลางของ sections ให้ตรงกัน */
+#steps,
+#contact {
+  padding-top: 4rem;  /* ให้มีระยะห่างเท่ากัน */
+  padding-bottom: 4rem;
+}
+
+#steps .container,
+#contact .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ปรับ heading ให้แนวกึ่งกลางตรงกับกล่อง */
+#steps h3,
+#contact h3 {
+  text-align: center;
+  margin-bottom: 2.5rem; /* ระยะห่างจากกล่องด้านล่างเท่ากัน */
+}
+
+/* ปรับให้ row ทั้งสอง section กึ่งกลางเท่ากัน */
+#steps .row,
+#contact .row {
+  justify-content: center;
+  align-items: center;
+}
 /* ========================
    📱 RESPONSIVE DESIGN
 ======================== */
