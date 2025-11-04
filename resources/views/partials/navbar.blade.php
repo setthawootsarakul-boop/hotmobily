@@ -6,16 +6,10 @@
       <img src="{{ asset('images/logo.png') }}" alt="Hotmobily Logo" height="40">
     </a>
 
-    <!-- 🔹 ปุ่มตะกร้า + เมนู (มือถือ) -->
-    <div class="d-flex align-items-center gap-2">
-      <a href="#" class="nav-link fs-4 text-white cart-link">
-        <i class="bi bi-cart"></i>
-      </a>
-
-      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
+    <!-- 🔹 ปุ่มเมนู (มือถือเท่านั้น) -->
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <!-- 🔹 เมนู (ตรงกลาง) -->
     <div id="navbarNav" class="collapse navbar-collapse justify-content-center">
@@ -26,6 +20,11 @@
         <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">ติดต่อเรา</a></li>
       </ul>
     </div>
+
+    <!-- 🔹 รถเข็น (อยู่ขวาสุดใน desktop) -->
+    <a href="#" class="nav-link fs-4 text-white cart-link d-none d-lg-block">
+      <i class="bi bi-cart"></i>
+    </a>
 
   </div>
 </nav>
