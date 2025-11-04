@@ -1,28 +1,42 @@
-<section class="section">
-  <div class="container">
-    <div class="row align-items-center g-4">
-      <div class="col-lg-6">
-        <div class="p-4 bg-white rounded-4 shadow-soft">
-          <h3 class="fw-bold mb-3">ขั้นตอนการสั่งผลิต</h3>
-          <ol class="mb-0 text-secondary">
-            <li class="mb-2">ส่งไฟล์และรายละเอียดชิ้นงาน</li>
-            <li class="mb-2">รับใบเสนอราคาและยืนยันแบบ</li>
-            <li class="mb-2">เริ่มผลิตตามคิว (7–14 วันทำการ)</li>
-            <li class="mb-0">จัดส่งถึงมือ ตรวจรับสินค้า</li>
-          </ol>
-        </div>
+<section id="steps" class="py-5" style="background-color: #F6F1E9;">
+  <div class="container text-center">
+    {{-- <h3 class="fw-bold mb-4">ขั้นตอนการสั่งผลิต</h3> --}}
+
+    <div class="row justify-content-center g-5">
+
+      <!-- Box 1: ขอใบเสนอราคา -->
+      <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+        <a href="#" class="text-decoration-none w-100">
+          <div class="contact-card text-white text-center p-4" style="background-color: #5DA8FF;">
+            <img src="{{ asset('images/quote.png') }}" alt="ขอใบเสนอราคา" class="mb-3 contact-icon">
+            <h4 class="fw-bold mb-1">ขอใบเสนอราคา</h4>
+            <p class="fw-semibold small mb-0">เมื่อเช็คราคาโปรโมชั่นพิเศษ</p>
+          </div>
+        </a>
       </div>
-      <div class="col-lg-6">
-        <div class="p-4 bg-white rounded-4 shadow-soft">
-          <h3 class="fw-bold mb-3">สเปคมาตรฐาน</h3>
-          <ul class="mb-0 text-secondary">
-            <li class="mb-1">วัสดุอะคริลิค/ยาง นูน/เคลือบเงา</li>
-            <li class="mb-1">พิมพ์ 2 หน้า สีเต็มพื้น</li>
-            <li class="mb-1">อุปกรณ์ห่วง/โซ่ ตามเลือก</li>
-            <li class="mb-0">แพ็คป้องกันรอยก่อนจัดส่ง</li>
-          </ul>
-        </div>
+
+      <!-- Box 2: โทรหาเรา -->
+      <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+        <a href="tel:0123456789" class="text-decoration-none w-100">
+          <div class="contact-card text-white text-center p-4" style="background-color: #FF3B30;">
+            <img src="{{ asset('images/call.png') }}" alt="โทรหาเรา" class="mb-3 contact-icon">
+            <h4 class="fw-bold mb-1">โทรหาเรา</h4>
+            <p class="fw-semibold small mb-0">เมื่อเช็คราคาโปรโมชั่นพิเศษ</p>
+          </div>
+        </a>
       </div>
+
+      <!-- Box 3: แอดไลน์ -->
+      <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
+        <a href="https://lin.ee/xxxxxx" target="_blank" class="text-decoration-none w-100">
+          <div class="contact-card text-white text-center p-4" style="background-color: #2ECC71;">
+            <img src="{{ asset('images/line.png') }}" alt="แอดไลน์" class="mb-3 contact-icon">
+            <h4 class="fw-bold mb-1">แอดไลน์</h4>
+            <p class="fw-semibold small mb-0">เมื่อเช็คราคาโปรโมชั่นพิเศษ</p>
+          </div>
+        </a>
+      </div>
+
     </div>
   </div>
 </section>
