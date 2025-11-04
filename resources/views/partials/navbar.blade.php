@@ -14,10 +14,34 @@
     <!-- 🔹 เมนู (ตรงกลาง) -->
     <div id="navbarNav" class="collapse navbar-collapse justify-content-center">
       <ul class="navbar-nav align-items-center gap-4">
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#faq">คำถามที่พบบ่อย</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#contact">ติดต่อเรา</a></li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="#faq">คำถามที่พบบ่อย</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a>
+        </li>
+
+        <!-- 🔹 เมนูติดต่อเรา (Dropdown) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ติดต่อเรา
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarContact">
+            <li>
+              <a class="dropdown-item" href="{{ route('contact.full') }}">ติดต่อบริษัท</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="#contact">แบบฟอร์มย่อ</a>
+            </li>
+          </ul>
+        </li>
+
       </ul>
     </div>
 
