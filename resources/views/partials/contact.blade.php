@@ -6,11 +6,14 @@
 
       <!-- Box 1: ขอใบเสนอราคา -->
       <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-center">
-        <div class="contact-card text-white text-center p-4" style="background-color: #5DA8FF;">
-          <img src="{{ asset('images/quote.png') }}" alt="ขอใบเสนอราคา" class="mb-3 contact-icon">
-          <h4 class="fw-bold mb-1">ขอใบเสนอราคา</h4>
-          <p class="fw-semibold small mb-0">เพื่อเช็คราคาโปรโมชั่นพิเศษ</p>
-        </div>
+        <a href="{{ url('/contact-full') }}" class="text-decoration-none w-100 d-flex justify-content-center">
+          <div class="contact-card text-white text-center p-4"
+              style="background-color: #5DA8FF; cursor: pointer; border-radius: 12px; transition: 0.3s;">
+            <img src="{{ asset('images/quote.png') }}" alt="ขอใบเสนอราคา" class="mb-3 contact-icon">
+            <h4 class="fw-bold mb-1">ขอใบเสนอราคา</h4>
+            <p class="fw-semibold small mb-0">เพื่อเช็คราคาโปรโมชั่นพิเศษ</p>
+          </div>
+        </a>
       </div>
 
       <!-- Box 2: โทรหาเรา -->
