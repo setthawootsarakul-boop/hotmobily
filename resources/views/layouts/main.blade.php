@@ -12,7 +12,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     {{-- ✅ Custom CSS --}}
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/style.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/contact-full.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/variables.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/hero.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/variables.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/why.css') }}" rel="stylesheet">
+    
 </head>
 <body>
 

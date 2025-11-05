@@ -1,0 +1,94 @@
+/* ========================
+   🔸 Hero Section
+======================== */
+.hero-section {
+  background-color: var(--hero-bg);
+  color: var(--hero-text);
+  padding: 4rem 0;
+}
+
+.hero-img {
+  width: 85%;
+  max-width: 350px;
+}
+
+/* ✅ หัวข้อหลัก */
+.brand-highlight {
+  color: var(--hero-highlight);
+  text-shadow: 4px 4px #000;
+  font-weight: 800;
+}
+
+/* ✅ คำอธิบาย */
+.brand-desc {
+  color: var(--hero-text);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ✅ ส่วนของฟีเจอร์ */
+.brand-features {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap; /* ❗ บังคับให้อยู่บรรทัดเดียว */
+  gap: 4rem; /* ลดจาก 5rem → 4rem ให้ลงตัวพอดีจอ */
+  margin-top: 2.5rem;
+  flex-shrink: 0;
+}
+
+/* ✅ ปรับแต่ละฟีเจอร์ให้ขนาดเท่ากัน */
+.brand-features .feature {
+  text-align: center;
+  width: 200px;  /* กำหนดความกว้างแน่นอนให้เท่ากันทุกช่อง */
+}
+
+/* ✅ ไอคอนวงกลม */
+.icon-circle {
+  background-color: #fff;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+}
+
+.icon-circle i {
+  font-size: 42px;
+  color: #fca311;
+}
+
+/* ✅ ข้อความใต้ไอคอน */
+.brand-features .feature p {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #000;
+  margin-top: 0.5rem;
+}
+
+
+/* ✅ Responsive ปรับกลับมาแน่นนิดหน่อยตอนมือถือ */
+@media (max-width: 768px) {
+  .brand-features {
+    gap: 2rem;
+  }
+
+  .icon-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .icon-circle i {
+    font-size: 36px;
+  }
+
+  .brand-features .feature p {
+    font-size: 0.95rem;
+  }
+}
