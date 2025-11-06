@@ -164,7 +164,7 @@
 <!-- 🔹 ส่วนฟีเจอร์บริษัทในเครือ -->
 <section class="network-section py-5" style="background-color: #F6F1E9;">
     <div class="container text-center">
-        <h2 class="fw-bold mb-4">เว็บไซต์เครือในบริษัทของเรา</h2>
+        <h2 class="fw-bold mb-4">เว็บไซต์ในเครือบริษัทของเรา</h2>
         <div class="row justify-content-center g-4">
             <div class="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3">
                 <a href="https://www.youandearth-th.com/" target="_blank">

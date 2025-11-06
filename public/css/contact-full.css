@@ -182,6 +182,7 @@
     font-size: 2.4rem;
     font-weight: 700;
     margin-bottom: 4rem !important;
+    letter-spacing: 3.55px; /* ✅ เพิ่มช่องไฟระหว่างตัวอักษร */
     color: #222;
   }
 
