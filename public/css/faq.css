@@ -1,0 +1,94 @@
+/* 🎨 THEME สำหรับหน้า FAQ */
+body {
+  background-color: #fff8ec;
+  font-family: "Noto Sans Thai", "Prompt", sans-serif;
+}
+
+/* 🔹 ส่วนหัว */
+.faq-header {
+  background-color: #fff8ec;
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+.faq-header h1 {
+  font-weight: 900;        /* หนามากขึ้น */
+  font-size: 2.4rem;       /* ใหญ่ขึ้นให้เหมือนในภาพ */
+  color: #000;
+  margin-top: 25px;
+}
+
+.faq-contact-btn {
+  display: inline-block;
+  background-color: #fbab00;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  padding: 14px 40px;
+  border-radius: 6px;
+  margin-bottom: 45px;
+  transition: all 0.25s ease-in-out;
+  text-decoration: none;
+}
+
+.faq-contact-btn:hover {
+  background-color: #e89a00;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* 🔹 ส่วนรายการบทความ */
+.faq-section {
+  background-color: #fff8ec;
+  padding: 20px 10%; /* ✅ กลับมาใช้แบบเดิม ไม่จัดกลาง */
+}
+
+.faq-item {
+  border-bottom: 1px solid #aaa;
+  padding: 25px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 800;        /* หนาขึ้น */
+  font-size: 1.35rem;      /* ใหญ่ขึ้น */
+  color: #000;
+  text-align: left;        /* ✅ บังคับให้ชิดซ้าย */
+}
+
+.faq-item:hover {
+  color: #fbab00;
+}
+
+/* ✅ ให้บรรทัดสุดท้ายมีเส้นใต้เหมือนกัน */
+.faq-item:last-child {
+  border-bottom: 1px solid #aaa;
+}
+
+/* 🔸 หัวข้อย่อยภายในหน้าเต็ม (ถ้ามี) */
+.faq-subtitle {
+  font-weight: 800;
+  font-size: 1.4rem;
+  margin: 40px 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #fbab00;
+  color: #000;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 768px) {
+  .faq-section {
+    padding: 20px;
+  }
+
+  .faq-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .faq-item {
+    font-size: 1.1rem;
+  }
+
+  .faq-contact-btn {
+    font-size: 1rem;
+    padding: 10px 25px;
+  }
+}

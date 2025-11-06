@@ -9,9 +9,32 @@
     <!-- 🔹 เมนูหลัก (Desktop เท่านั้น) -->
     <div id="navbarNav" class="collapse navbar-collapse justify-content-center order-2 order-lg-1 d-none d-lg-flex">
       <ul class="navbar-nav align-items-center gap-4">
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#faq">คำถามที่พบบ่อย</a></li>
-        <li class="nav-item"><a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a></li>
+        <!-- 🔸 สินค้าทั้งหมด -->
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a>
+        </li>
+
+        <!-- 🔸 คำถามที่พบบ่อย (Dropdown) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            คำถามที่พบบ่อย
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarFAQ">
+            <li><a class="dropdown-item" href="{{ route('faq') }}">คำถามที่พบบ่อย</a></li>
+            <li><a class="dropdown-item" href="{{ route('faq') }}#how-to-order">วิธีการสั่งสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('faq') }}#payment">วิธีการชำระเงิน</a></li>
+            <li><a class="dropdown-item" href="{{ route('faq') }}#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="{{ route('faq') }}#cancel">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('faq') }}#cookie-policy">นโยบายคุกกี้</a></li>
+          </ul>
+        </li>
+
+        <!-- 🔸 รายละเอียดเพิ่มเติม -->
+        <li class="nav-item">
+          <a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a>
+        </li>
+
+        <!-- 🔸 ติดต่อเรา (Dropdown) -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             ติดต่อเรา
@@ -38,7 +61,7 @@
   </div>
 </nav>
 
-<!-- 📱 เมนู Offcanvas สำหรับมือถือเท่านั้น -->
+<!-- 📱 เมนู Offcanvas สำหรับมือถือ -->
 <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
   <div class="offcanvas-header align-items-center border-bottom">
     <div class="d-flex align-items-center">
@@ -51,8 +74,25 @@
   <div class="offcanvas-body">
     <ul class="navbar-nav flex-column gap-2">
       <li class="nav-item"><a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a></li>
-      <li class="nav-item"><a class="nav-link fw-semibold" href="#faq">คำถามที่พบบ่อย</a></li>
+
+      <!-- 🔸 Dropdown: FAQ -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          คำถามที่พบบ่อย
+        </a>
+        <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="mobileFAQ">
+          <li><a class="dropdown-item" href="{{ route('faq') }}">คำถามที่พบบ่อย</a></li>
+          <li><a class="dropdown-item" href="{{ route('faq') }}#how-to-order">วิธีการสั่งสินค้า</a></li>
+          <li><a class="dropdown-item" href="{{ route('faq') }}#payment">วิธีการชำระเงิน</a></li>
+          <li><a class="dropdown-item" href="{{ route('faq') }}#design">วิธีการออกแบบ</a></li>
+          <li><a class="dropdown-item" href="{{ route('faq') }}#cancel">วิธีการยกเลิกสินค้า</a></li>
+          <li><a class="dropdown-item" href="{{ route('faq') }}#cookie-policy">นโยบายคุกกี้</a></li>
+        </ul>
+      </li>
+
       <li class="nav-item"><a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a></li>
+
+      <!-- 🔸 Dropdown: Contact -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           ติดต่อเรา
