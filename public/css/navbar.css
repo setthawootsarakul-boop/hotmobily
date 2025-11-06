@@ -100,6 +100,7 @@
   margin-left: 1rem;
   border-radius: 10px;
 }
+
 /* ========================
    🌟 NAVBAR STYLE (Desktop)
 ======================== */
@@ -223,6 +224,7 @@
    📱 NAVBAR STYLE (Mobile)
 ======================== */
 @media (max-width: 991px) {
+
   .navbar-collapse {
     display: none;
   }
@@ -236,22 +238,32 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
+  /* 🔸 Layout Navbar */
   .navbar-nav {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
+    align-items: stretch !important;
+    width: 100% !important;
+    gap: 0.4rem !important; /* ✅ เว้นระยะระหว่างแท็บหลัก */
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
+  /* 🔸 เมนูหลัก */
   .navbar a.nav-link {
     color: #5C4033 !important;
     font-weight: 600;
+    font-size: 1.05rem !important;
+    text-align: left !important;
+    padding: 0.85rem 1.25rem !important; /* ✅ เพิ่ม padding แนวตั้งเล็กน้อย */
+    line-height: 1.5 !important; /* ✅ ระยะระหว่างบรรทัดชัดเจนขึ้น */
   }
 
   .navbar a.nav-link:hover {
     color: #FFA726 !important;
   }
 
+  /* 🔸 Reset dropdown */
   .dropdown-menu {
     position: static;
     float: none;
@@ -271,47 +283,49 @@
     background-color: transparent;
   }
 
-  /* ✅ รีเซ็ตตะกร้าในมือถือ */
+  /* ✅ รีเซ็ตตะกร้า */
   .cart-link {
     left: 0;
     transform: none;
   }
 
-  /* ✅ ตัวเมนูหลักใน offcanvas */
+  /* ✅ ตัวเมนูหลักใน Offcanvas */
   .offcanvas.offcanvas-start .navbar-nav .nav-link {
     color: #5C4033 !important;
     text-align: left !important;
-    padding: 0.75rem 1rem !important;
+    padding: 0.9rem 1.25rem !important;
     font-weight: 600 !important;
+    font-size: 1.05rem !important;
+    line-height: 1.5 !important; /* ✅ เพิ่มระยะบรรทัด */
     display: flex !important;
     justify-content: space-between !important;
     align-items: center !important;
-    border-radius: 8px !important;
+    border-radius: 0 !important;
+    width: 100% !important;
     background-color: transparent !important;
-    transition: all 0.2s ease-in-out !important; /* 🎨 เพิ่มความนุ่ม */
+    transition: all 0.25s ease-in-out !important;
+    position: relative !important;
   }
 
-  /* ✅ Hover สีพื้นจาง ๆ */
+  /* ✅ Hover สีพื้น */
   .offcanvas.offcanvas-start .navbar-nav .nav-link:hover {
     background-color: #fff5e0 !important;
   }
 
-  /* ✅ caret (ลูกศร dropdown) */
+  /* ✅ caret */
   .offcanvas.offcanvas-start .navbar-nav .nav-link.dropdown-toggle::after {
-    margin-left: auto !important;
-    border-top: 5px solid #5C4033 !important;  /* สีปกติ */
+    content: "" !important;
+    display: inline-block;
+    border-top: 5px solid #5C4033 !important;
     border-left: 5px solid transparent !important;
     border-right: 5px solid transparent !important;
-    content: "" !important;
-
-    /* ✅ ต้องมีสองบรรทัดนี้ถึงจะหมุนได้ */
-    display: inline-block;
+    margin-left: auto !important;
+    flex-shrink: 0 !important;
     transform-origin: center;
-
     transition: transform 0.3s ease, border-top-color 0.3s ease;
   }
 
-  /* ✅ หมุนลูกศรเมื่อเมนูเปิด */
+  /* ✅ caret หมุน */
   .offcanvas.offcanvas-start .navbar-nav .nav-item.show .nav-link.dropdown-toggle::after {
     transform: rotate(180deg);
   }
@@ -321,58 +335,32 @@
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
-    margin-top: 0 !important;
-    margin-left: 0.5rem !important;
-    padding-left: 1rem !important;
+    position: static !important;
+    margin: 0 !important;
+    padding: 0.4rem 0 !important; /* ✅ เว้นระยะด้านในของรายการย่อย */
+    width: 100% !important;
   }
 
-  /* ✅ รายการใน dropdown */
+  /* ✅ dropdown item */
   .offcanvas.offcanvas-start .dropdown-menu .dropdown-item {
-    color: #000000 !important;
+    color: #5C4033 !important;
     font-weight: 500 !important;
-    padding: 0.4rem 0 !important;
+    font-size: 0.98rem !important;
+    line-height: 1.6 !important; /* ✅ ระยะระหว่างบรรทัดชัดเจนเหมือนรูปสอง */
+    padding: 0.5rem 1.8rem !important; /* ✅ ระยะห่างแนวตั้ง */
     text-align: left !important;
-    padding-left: 1rem !important; /* 🎯 ซ้อนชั้นสวย */
+    width: 100% !important;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   .offcanvas.offcanvas-start .dropdown-menu .dropdown-item:hover {
     color: #020101 !important;
-    background: transparent !important;
+    background-color: #fff9ef !important;
   }
 
-  .offcanvas.offcanvas-start .navbar-nav {
-    align-items: flex-start !important;
-    width: 100% !important;
-    padding-left: 0.5rem !important;
-  }
-
-  /* ✅ ปรับระยะ text ให้ชิดซ้ายพอดี */
-  .offcanvas.offcanvas-start .navbar-nav .nav-item {
-    width: 100% !important;
-    margin-bottom: 0.25rem !important; /* 🎨 เพิ่มช่องไฟแนวตั้ง */
-  }
-
-  .offcanvas.offcanvas-start .navbar-nav .nav-link {
-    width: 100% !important;
-    text-align: left !important;
-    padding-left: 1.25rem !important;
-  }
-
-  /* ✅ dropdown ภายในก็ชิดซ้าย */
-  .offcanvas.offcanvas-start .dropdown-menu {
-    margin-left: 1.25rem !important;
-    padding-left: 0.5rem !important;
-  }
-
-  /* ✅ ลูกศรอยู่ขวาสุด */
-  .offcanvas.offcanvas-start .navbar-nav .nav-link.dropdown-toggle {
-    justify-content: space-between !important;
-  }
-
-  /* ✅ 🔹 ปรับส่วนโลโก้และชื่อบริษัทให้เด่น */
+  /* ✅ ส่วนหัว */
   .offcanvas-header {
-    padding-top: 1.25rem !important;
-    padding-bottom: 1.25rem !important;
+    padding: 1.25rem !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-start !important;
@@ -380,80 +368,70 @@
   }
 
   .offcanvas-header img {
-    height: 90px !important;  /* ↑ เพิ่มจาก 70 → 90 */
+    height: 90px !important;
     width: auto !important;
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
   }
 
   .offcanvas-header h5 {
-    font-size: 1.8rem !important;  /* ↑ เพิ่มจาก 1.5 → 1.8 */
+    font-size: 1.8rem !important;
     font-weight: 600 !important;
-    color: var(--navbar-text, #000) !important;
+    color: var(--navbar-text, #000000) !important;
     letter-spacing: 0.6px;
     line-height: 1.1;
   }
 
-  .offcanvas-header .d-flex {
-    align-items: center !important;
-    gap: 0.9rem !important;
-  }
-
-  /* ✅ เพิ่มระยะห่างด้านล่างโลโก้ถ้ามี element ถัดไป */
   .offcanvas-body {
-    padding-top: 0.5rem !important;
+    padding: 0 !important; /* 💥 สีเต็มแท็บแนวนอน */
   }
 
-  /* ✅ สีเมนูเปิดอยู่ */
+  /* ✅ เมนูเปิดอยู่ */
   .offcanvas.offcanvas-start .navbar-nav .nav-item.show > .nav-link {
     background-color: #5C4033 !important;
     color: #fff !important;
   }
 
-  /* หมุน caret และเปลี่ยนเป็นสีขาว */
-  .offcanvas.offcanvas-start .navbar-nav .nav-item.show > .nav-link {
-    background-color: #9C5504 !important;
-    color: #fffcfb !important;
-    border-radius: 0 !important;
-    width: calc(100% + 2rem) !important;
-    margin-left: -1rem !important;
-    padding-left: 1.25rem !important;
-  }
-  /* เมื่อ hover เมนูปกติ ให้คงสีอ่อน */
+  /* ✅ Hover เมนู */
   .offcanvas.offcanvas-start .navbar-nav .nav-link:hover {
     background-color: #9C5504 !important;
     color: #fffcfb !important;
-    border-radius: 0 !important;
-    width: calc(100% + 2rem) !important; /* ขยายให้เต็มแถบ */
-    margin-left: -1rem !important; /* ดึงให้เต็มจากขอบซ้าย */
-    padding-left: 1.25rem !important;
     transition: background-color 0.25s ease, color 0.25s ease;
   }
 
-  /* เมื่อ hover เมนูที่เปิดอยู่ — ไม่เปลี่ยนสี */
-  .offcanvas.offcanvas-start .navbar-nav .nav-item.show > .nav-link:hover {
-    background-color: #5C4033 !important;
-    color: #fff !important;
-  }
-  .offcanvas.offcanvas-start .navbar-nav .nav-item.show > .nav-link.dropdown-toggle::after {
-    transform: rotate(180deg);
-    border-top-color: #fff !important;
-  }
-  /* ✅ เมื่อ hover เมนูปกติให้เปลี่ยนสีลูกศรด้วย */
+  /* ✅ caret hover */
   .offcanvas.offcanvas-start .navbar-nav .nav-link:hover::after {
     border-top-color: #fff !important;
   }
-    /* ✅ บังคับให้ลูกศรหมุนเมื่อ dropdown เปิดใน offcanvas */
+
+  /* ✅ caret ตอนเปิด */
   .offcanvas.offcanvas-start .navbar-nav .nav-link.dropdown-toggle[aria-expanded="true"]::after {
     transform: rotate(180deg) !important;
-    border-top-color: #fff !important; /* เปลี่ยนสีลูกศรเป็นขาว */
+    border-top-color: #fff !important;
   }
 
+  /* ✅ dropdown เปิด */
   .offcanvas.offcanvas-start .navbar-nav .nav-link.dropdown-toggle[aria-expanded="true"] {
     background-color: #9C5504 !important;
     color: #fffcfb !important;
+  }
+
+  .offcanvas.offcanvas-start .dropdown-menu.show {
+    margin-top: 0 !important;
+    transform: translateY(-6px) !important;
+  }
+
+  /* ✅ ปรับบรรทัด dropdown สวยงาม */
+  .offcanvas.offcanvas-start .dropdown-menu .dropdown-item {
+    padding-top: 0.45rem !important;
+    padding-bottom: 0.45rem !important;
+    line-height: 1.55 !important;
+  }
+
+  /* ✅ เมนูเต็มแท็บ */
+  .offcanvas.offcanvas-start .navbar-nav .nav-link,
+  .offcanvas.offcanvas-start .navbar-nav .nav-item.show > .nav-link {
     border-radius: 0 !important;
-    width: calc(100% + 2rem) !important; /* ขยายเต็มแทบ */
-    margin-left: -1rem !important;
-    padding-left: 1.25rem !important;
+    width: 100% !important;
+    margin: -2px !important;
   }
 }
