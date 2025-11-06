@@ -73,3 +73,84 @@
 .navbar.bg-orange .cart-link:hover {
   color: #ffeb99 !important;
 }
+
+/* ========================
+   🌟 NAVBAR STYLE (Desktop)
+======================== */
+@media (min-width: 992px) {
+  .navbar.bg-orange {
+    background-color: #FFA726 !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* 🔸 เมนูปกติ */
+  .navbar a.nav-link {
+    color: #5C4033 !important;
+    font-weight: 600;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    transition: all 0.25s ease-in-out;
+  }
+
+  /* 🔸 เมื่อ hover */
+  .navbar a.nav-link:hover {
+    color: #ffffff !important;
+    background-color: #A65D08 !important;
+    transform: translateY(-1px);
+  }
+
+  /* 🔸 เมนูที่ Active (หน้าอยู่ปัจจุบัน) */
+  .navbar a.nav-link.active {
+    color: #ffffff !important;
+    background-color: #A65D08 !important;
+    font-weight: 700;
+  }
+
+  .navbar .dropdown-menu {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    padding: 0.6rem 0;
+    margin-top: 0.5rem;
+  }
+
+  /* ตัวอักษรใน dropdown */
+  .navbar .dropdown-item {
+    color: #000000;
+    font-weight: 500;
+    padding: 0.6rem 1.2rem;
+    transition: color 0.25s ease;
+    background-color: transparent;
+  }
+
+  /* hover แล้วตัวหนังสือเปลี่ยนเป็นสี #FFC81A */
+  .navbar .dropdown-item:hover {
+    color: #FFC81A;
+    background-color: transparent;
+  }
+
+  /* active (เช่น เมนูที่อยู่ในหน้าปัจจุบัน) */
+  .navbar .dropdown-item.active {
+    color: #FFC81A;
+    font-weight: 600;
+    background-color: transparent;
+  }
+
+  /* ทำให้ caret (ลูกศรลง) เรียบหรู */
+  .navbar .nav-link.dropdown-toggle::after {
+    margin-left: 0.4rem;
+    border-top-color: #5C4033;
+    transition: transform 0.2s ease;
+  }
+  .navbar .nav-item.dropdown:hover .nav-link.dropdown-toggle::after {
+    transform: rotate(180deg);
+  }
+
+  /* ตะกร้า hover ให้มีมิติ */
+  .cart-link:hover {
+    transform: scale(1.15);
+    color: #fff3b0 !important;
+    text-shadow: 0 0 6px rgba(255,255,255,0.7);
+  }
+}
