@@ -534,8 +534,8 @@
   .footer-company {
     position: relative;
     top: -4px;              /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับ subscribe */
-    text-align: center;     /* ✅ เปลี่ยนให้ align เหมือนกลางและขวา */
-    align-items: center;    /* ✅ จัดให้อยู่ตรงกลางในแนวตั้ง */
+    text-align: left;     /* ✅ เปลี่ยนให้ align เหมือนกลางและขวา */
+    align-items: left;    /* ✅ จัดให้อยู่ตรงกลางในแนวตั้ง */
   }
 
   .footer-company .footer-logo {
@@ -544,6 +544,7 @@
 
   .footer-company p,
   .footer-company a {
-    text-align: center;     /* ✅ ให้ข้อความอยู่ตรงกลางแนวเดียวกับส่วนอื่น */
+    text-align: left !important;    /* ✅ บังคับชิดซ้ายเฉพาะ Desktop */
   }
+
 }
