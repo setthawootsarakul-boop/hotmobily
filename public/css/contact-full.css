@@ -170,3 +170,46 @@
         row-gap: 2rem;
     }
 }
+
+@media (min-width: 992px) {
+  .network-section {
+    text-align: center;
+    padding: 60px 0;
+    background-color: #f6f1e8; /* พื้นหลังนวลๆ */
+  }
+
+  .network-section h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 4rem !important;
+    color: #222;
+  }
+
+  .network-section .row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 320px); /* ✅ 2 คอลัมน์ ขนาดคงที่ */
+    grid-template-rows: repeat(2, auto);
+    justify-content: center; /* ✅ จัดให้อยู่กึ่งกลางแนวนอน */
+    align-items: center;     /* ✅ จัดให้อยู่กึ่งกลางแนวตั้ง */
+    gap: 1.5rem 3rem; /* ✅ ระยะห่างแถว/คอลัมน์เหมือนในภาพ */
+  }
+
+  .network-section .col-10 {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .network-section .network-logo {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .network-section .network-logo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+}
