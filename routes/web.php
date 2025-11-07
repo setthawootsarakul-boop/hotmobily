@@ -14,3 +14,6 @@ Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.
 
 Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+Route::get('/order-guide', function () {
+    return view('order-guide');
+})->name('order-guide');    

@@ -1,0 +1,91 @@
+.order-guide-container {
+  background-color: #fffaf2;
+  padding: 40px 20px;
+}
+
+.guide-header h1 {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.step-box {
+  display: flex;
+  align-items: flex-start;
+  background: #fff;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.step-number {
+  background-color: #fcb900;
+  color: #fff;
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.section-divider {
+  border: none;
+  border-top: 2px solid #e6e6e6;
+  margin: 40px 0;
+}
+
+/* ===============================
+   📘 ORDER GUIDE PAGE STYLES
+=============================== */
+
+.order-guide-page {
+  background-color: #faf7f2;
+}
+
+.order-box {
+  max-width: 900px;
+  padding: 2.5rem;
+}
+
+.order-guide-page h2 {
+  color: #000;
+}
+
+.step {
+  align-items: flex-start;
+}
+
+.step-number {
+  background-color: #fbab00;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+
+/* ===============================
+   Responsive
+=============================== */
+@media (max-width: 576px) {
+  .order-box {
+    padding: 1.5rem;
+  }
+  .step-number {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}

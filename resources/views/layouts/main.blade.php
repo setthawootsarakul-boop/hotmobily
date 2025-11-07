@@ -18,6 +18,7 @@
     <link href="{{ asset('css/why.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-full.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/order-guide.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
     
