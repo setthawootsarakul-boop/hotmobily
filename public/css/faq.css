@@ -12,18 +12,22 @@ body {
 }
 
 .faq-header h1 {
-  font-weight: 900;        /* หนามากขึ้น */
-  font-size: 2.4rem;       /* ใหญ่ขึ้นให้เหมือนในภาพ */
+  font-weight: 900;
+  font-size: 2.4rem;
   color: #000;
   margin-top: 25px;
 }
 
+/* 🔹 ปุ่มติดต่อเรา */
 .faq-contact-btn {
   display: inline-block;
   background-color: #fbab00;
+  max-width: 700px;
+  border-radius: 0px !important;
   color: #fff;
-  font-weight: 700;
-  font-size: 1.2rem;
+  font-weight: 650;
+  font-size: 1.5rem;
+
   padding: 14px 40px;
   border-radius: 6px;
   margin-bottom: 45px;
@@ -37,10 +41,101 @@ body {
   transform: translateY(-2px);
 }
 
-/* 🔹 ส่วนรายการบทความ */
+/* =============================
+   🔸 SECTION 1: Q&A (จากฐานข้อมูล)
+============================= */
+.faq-list {
+  background-color: #fff;
+  margin: 40px auto;
+  width: 100%;
+  max-width: 1300px;
+  border-radius: 0px !important;
+  padding: 40px 50px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;       /* ✅ เพิ่มขอบเทาอ่อนรอบกรอบ */
+}
+
+/* 🔹 กล่องแต่ละคำถาม */
+.faq-box {
+  border-bottom: unset !important;
+  padding: 22px 0;
+}
+
+.faq-question {
+  font-weight: 800;
+  color: #000;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question:hover {
+  color: #fbab00;
+}
+
+.faq-answer {
+  display: none;
+  font-size: 1.1rem;
+  color: #333;
+  margin-top: 10px;
+  line-height: 1.6;
+  padding-left: 10px;
+}
+
+.faq-box.active .faq-answer {
+  display: block;
+}
+
+.faq-box.active .faq-question {
+  color: #11100e;
+}
+
+/* 🔸 ปุ่ม pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  gap: 10px;
+}
+
+.pagination a,
+.pagination span {
+  color: #000;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.pagination a:hover {
+  background-color: #0a0101;
+  color: #fff;
+}
+
+.pagination .active {
+  background-color: #000000;
+  color: #fff;
+}
+
+/* 🔹 ปุ่มอยู่นอกกรอบ */
+.faq-contact-area {
+  text-align: center;
+  margin-top: 50px;
+}
+.page-item:not(:first-child) .page-link {
+    margin-left: 0px!important; 
+}
+
+/* =============================
+   🔸 SECTION 2: บทความที่คุณอาจสนใจ
+============================= */
 .faq-section {
   background-color: #fff8ec;
-  padding: 20px 10%; /* ✅ กลับมาใช้แบบเดิม ไม่จัดกลาง */
+  padding: 40px 10%;
 }
 
 .faq-item {
@@ -48,22 +143,20 @@ body {
   padding: 25px 0;
   cursor: pointer;
   transition: all 0.2s;
-  font-weight: 800;        /* หนาขึ้น */
-  font-size: 1.35rem;      /* ใหญ่ขึ้น */
+  font-weight: 800;
+  font-size: 1.35rem;
   color: #000;
-  text-align: left;        /* ✅ บังคับให้ชิดซ้าย */
+  text-align: left;
 }
 
 .faq-item:hover {
   color: #fbab00;
 }
 
-/* ✅ ให้บรรทัดสุดท้ายมีเส้นใต้เหมือนกัน */
 .faq-item:last-child {
   border-bottom: 1px solid #aaa;
 }
 
-/* 🔸 หัวข้อย่อยภายในหน้าเต็ม (ถ้ามี) */
 .faq-subtitle {
   font-weight: 800;
   font-size: 1.4rem;
@@ -72,15 +165,29 @@ body {
   border-bottom: 2px solid #fbab00;
   color: #000;
 }
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: #0e0d0d !important;
+    border-color: #070707 !important;
+}
 
 /* 🔹 Responsive */
 @media (max-width: 768px) {
+  .faq-header {
+    background-color: #fff8ec;
+    text-align: center;
+    padding: 40px 34px 29px;
+  }
+
   .faq-section {
     padding: 20px;
   }
 
   .faq-header h1 {
-    font-size: 1.8rem;
+    font-weight: 500;
+    font-size: 1.9rem;
+    margin-top: -5px;
   }
 
   .faq-item {
@@ -88,7 +195,24 @@ body {
   }
 
   .faq-contact-btn {
-    font-size: 1rem;
+    font-size: 1.2rem;
+    max-width: 350px;
+    border-radius: 0px;
     padding: 10px 25px;
+  }
+
+  .faq-list {
+    border-radius: 1px;
+    margin: -1px auto;
+    width: 100%;
+    padding: 25px;
+  }
+
+  .faq-question {
+    font-size: 1.15rem;
+  }
+
+  .faq-answer {
+    font-size: 1rem;
   }
 }
