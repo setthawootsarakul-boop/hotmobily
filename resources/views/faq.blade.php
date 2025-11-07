@@ -53,7 +53,7 @@
 </div>
 
 <div class="faq-section">
-  <div class="faq-item" onclick="location.href='{{ route('faq') }}#how-to-order'">
+  <div class="faq-item" onclick="location.href='{{ route('order-guide') }}#how-to-order'">
     ขั้นตอนการสั่งซื้อสินค้า
   </div>
   <div class="faq-item" onclick="location.href='{{ route('faq') }}#design'">

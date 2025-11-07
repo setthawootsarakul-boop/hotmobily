@@ -1,3 +1,16 @@
+/* ===============================
+   🎨 ORDER GUIDE PAGE STYLES
+=============================== */
+.interest-section {
+  background-color: #fcf9f4; /* หรือให้เหมือนกับ body */
+  margin: 0;
+  padding-top: 40px;
+}
+
+body {
+  background-color: #fcf9f4; /* ให้เป็นสีเดียวกัน */
+}
+
 .order-guide-container {
   background-color: #fffaf2;
   padding: 40px 20px;
@@ -19,32 +32,14 @@
   box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
 
-.step-number {
-  background-color: #fcb900;
-  color: #fff;
-  font-weight: 700;
-  font-size: 20px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 15px;
-}
-
 .section-divider {
   border: none;
   border-top: 2px solid #e6e6e6;
   margin: 40px 0;
 }
 
-/* ===============================
-   📘 ORDER GUIDE PAGE STYLES
-=============================== */
-
 .order-guide-page {
-  background-color: #faf7f2;
+  background-color: #faf7f2; /* ✅ สีครีมหลัก */
 }
 
 .order-box {
@@ -75,17 +70,69 @@
   flex-shrink: 0;
 }
 
+/* ===============================
+   📘 SECTION: บทความที่คุณอาจสนใจ
+   (พื้นหลังกลืนกับหน้า Order Guide)
+=============================== */
+
+.faq-header {
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 25px;
+}
+
+.faq-header h1 {
+  font-size: 2rem;              /* ✅ ขยายขนาด */
+  font-weight: 800;
+  color: #000;
+}
+
+.faq-section {
+  background-color: #faf7f2;     /* ✅ ใช้สีพื้นหลังเดียวกับ order-guide-page */
+  padding: 45px 10%;
+  border-radius: 16px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.faq-item {
+  border-bottom: 1px solid #bfbfbf;
+  padding: 30px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 700;
+  font-size: 1.25rem;           /* ✅ ตัวใหญ่ขึ้น */
+  color: #000;
+  text-align: left;
+}
+
+.faq-item:hover {
+  color: #fbab00;
+  transform: translateX(6px);
+}
 
 /* ===============================
-   Responsive
+   📱 Responsive
 =============================== */
 @media (max-width: 576px) {
   .order-box {
     padding: 1.5rem;
   }
+
   .step-number {
     width: 40px;
     height: 40px;
     font-size: 1rem;
+  }
+
+  .faq-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .faq-section {
+    padding: 25px 6%;
+  }
+
+  .faq-item {
+    font-size: 1.05rem;
   }
 }

@@ -87,48 +87,64 @@
         </div>
       </div>
 
-    <!-- 🔸 ส่วนบัญชีชำระเงิน -->
-    <h4 class="text-center fw-bold mb-3" style=" font-size: 2.5rem; color:#000;padding: 42px;">บัญชีชำระเงิน</h4>
+      <!-- 🔸 ส่วนบัญชีชำระเงิน -->
+      <h4 class="text-center fw-bold mb-3" style=" font-size: 2.5rem; color:#000;padding: 42px;">บัญชีชำระเงิน</h4>
+      
+      <!-- กล่องแสดงบัญชี -->
+      <div style="position: relative; display: inline-block; width: 100%; margin: 0 auto;">
+        <img src="{{ asset('images/scb-logo.png') }}" 
+             alt="SCB Logo Banner" 
+             style="width: 100%; display: block; border-radius: 0px;">
+        <button id="copyBtn"
+                style="
+                  position: absolute;
+                  right: 11px;
+                  top: 75%;
+                  transform: translateY(-50%);
+                  background-color: #fbab00;
+                  color: #000000;
+                  font-weight: bold;
+                  border: orange;
+                  width: 20%;
+                  padding: 8px 10px;
+                  border-radius: 10px;
+                  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+                  cursor: pointer;">
+          คัดลอก
+        </button>
+      </div>
+    </div> <!-- ✅ ปิดกรอบพื้นขาว -->
+  </div> <!-- ✅ ปิด container -->
+</div> <!-- ✅ ปิดพื้นหลังครีม -->
 
-    <!-- กล่องแสดงบัญชี -->
-    <div style="position: relative; display: inline-block; width: 100%; margin: 0 auto;">
+<!-- =========================
+     🔹 ส่วนที่ 2: บทความที่คุณอาจสนใจ (เหมือนหน้า FAQ)
+========================= -->
+<div class="faq-header" style="padding-top: 20px;">
+  <h1>บทความที่คุณอาจสนใจ</h1>
+</div>
 
-      <!-- 🔸 รูปแบนเนอร์ธนาคาร (ขยายเต็ม) -->
-      <img src="{{ asset('images/scb-logo.png') }}" 
-           alt="SCB Logo Banner" 
-           style="width: 100%; display: block; border-radius: 0px;">
+<div class="faq-section">
+  <div class="faq-item" onclick="location.href='{{ route('order-guide') }}#how-to-order'">
+    ขั้นตอนการสั่งซื้อสินค้า
+  </div>
+  <div class="faq-item" onclick="location.href='{{ route('faq') }}#faq'">
+    คำถามที่พบบ่อย (FAQ)
+  </div>
+  <div class="faq-item" onclick="location.href='{{ route('faq') }}#design'">
+    วิธีการออกแบบ
+  </div>
+</div>
 
-      <!-- 🔸 ปุ่มคัดลอก (ทับบนปุ่มในรูป) -->
-      <button id="copyBtn"
-              style="
-                position: absolute;
-                right: 11px;
-                top: 75%;
-                transform: translateY(-50%);
-                background-color: #fbab00;
-                color: #000000;
-                font-weight: bold;
-                border: orange;
-                width: 20%;
-                padding: 8px 10px;
-                border-radius: 10px;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-                cursor: pointer;
-              ">
-        คัดลอก
-      </button>
-    </div>
-
-    <!-- 🔸 สคริปต์คัดลอกเลขบัญชี -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const copyBtn = document.getElementById('copyBtn');
-        copyBtn.addEventListener('click', function() {
-          navigator.clipboard.writeText('1912139535');
-          copyBtn.innerText = 'คัดลอกแล้ว ✓';
-          setTimeout(() => copyBtn.innerText = 'คัดลอก', 2000);
-        });
-      });
-    </script>
-    
+<!-- 🔸 Script คัดลอก -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const copyBtn = document.getElementById('copyBtn');
+    copyBtn.addEventListener('click', function() {
+      navigator.clipboard.writeText('1912139535');
+      copyBtn.innerText = 'คัดลอกแล้ว ✓';
+      setTimeout(() => copyBtn.innerText = 'คัดลอก', 2000);
+    });
+  });
+</script>
 @endsection
