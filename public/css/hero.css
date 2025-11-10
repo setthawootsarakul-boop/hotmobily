@@ -5,11 +5,13 @@
   background-color: var(--hero-bg);
   color: var(--hero-text);
   padding: 4rem 0;
+  position: relative; /* เพื่อให้วาง .image-dots-wrapper ได้ */
 }
 
 .hero-img {
   width: 85%;
   max-width: 350px;
+  transition: opacity 0.4s ease;
 }
 
 /* ✅ หัวข้อหลัก */
@@ -33,8 +35,8 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  flex-wrap: nowrap; /* ❗ บังคับให้อยู่บรรทัดเดียว */
-  gap: 4rem; /* ลดจาก 5rem → 4rem ให้ลงตัวพอดีจอ */
+  flex-wrap: nowrap;
+  gap: 4rem;
   margin-top: 2.5rem;
   flex-shrink: 0;
 }
@@ -42,7 +44,7 @@
 /* ✅ ปรับแต่ละฟีเจอร์ให้ขนาดเท่ากัน */
 .brand-features .feature {
   text-align: center;
-  width: 200px;  /* กำหนดความกว้างแน่นอนให้เท่ากันทุกช่อง */
+  width: 200px;
 }
 
 /* ✅ ไอคอนวงกลม */
@@ -72,8 +74,52 @@
   margin-top: 0.5rem;
 }
 
+/* ========================
+   🔸 ปุ่มเปลี่ยนรูป (ขีด 4 อัน)
+======================== */
+.image-dots-wrapper {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+}
 
-/* ✅ Responsive ปรับกลับมาแน่นนิดหน่อยตอนมือถือ */
+.image-dots {
+  display: inline-block;
+  background: unset;
+  padding: 0px 18px;
+  border-radius: 20px;
+}
+
+.dot {
+  display: inline-block;
+  width: 35px;
+  height: 6px;
+  margin: 0 5px;
+  background-color: #fff;
+  opacity: 0.5;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  opacity: 1;
+  background-color: #fff;
+  width: 50px;
+}
+/* 🔸 เอฟเฟกต์ crossfade นุ่ม ๆ */
+.hero-img {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.hero-img.show {
+  opacity: 1;
+}
+
+/* ✅ Responsive */
 @media (max-width: 768px) {
   .brand-features {
     gap: 2rem;
@@ -90,5 +136,14 @@
 
   .brand-features .feature p {
     font-size: 0.95rem;
+  }
+
+  .image-dots-wrapper {
+    bottom: 20px;
+  }
+
+  .dot {
+    width: 25px;
+    height: 5px;
   }
 }

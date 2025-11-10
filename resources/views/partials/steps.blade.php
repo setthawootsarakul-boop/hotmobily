@@ -19,7 +19,7 @@
              style="background-color: #FF3B30; cursor: pointer;"
              data-bs-toggle="modal"
              data-bs-target="#callModal">
-          <img src="{{ asset('images/call.png') }}" alt="โทรหาเรา" class="mb-3 contact-icon">
+          <img src="{{ asset('images/icons8-phone-96.png') }}" alt="โทรหาเรา" class="mb-3 contact-icon">
           <h4 class="fw-bold mb-1">โทรหาเรา</h4>
           <p class="fw-semibold small mb-0">เพื่อเช็คราคาโปรโมชั่นพิเศษ</p>
         </div>
