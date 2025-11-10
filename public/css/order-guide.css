@@ -174,27 +174,51 @@ body {
 =============================== */
 @media (max-width: 768px) {
   .order-guide-page {
-    padding: 40px 20px;
+    padding: 0;
   }
 
   .order-box {
-    padding: 25px;
+    width: 103vw;            /* ✅ ให้กว้างเต็มจอ */
+    max-width: none;         /* ✅ ยกเลิกขีดจำกัดเดิม */
+    margin-left: -20px;      /* ✅ ดึงออกจาก padding ของ container */
+    margin-right: -20px;
+    border-radius: 0;        /* ✅ ให้ขอบตรง ไม่โค้ง */
+    padding: 25px 20px;      /* ✅ padding ภายในพอดี */
+    box-shadow: none;        /* ✅ ตัดเงาออกให้เรียบแบบ full width */
   }
 
+  /* ✅ ให้เลขอยู่ "หน้า" ข้อความเหมือนภาพ */
   .step {
-    flex-direction: column;
-    padding: 18px 0;
+    display: flex;
+    flex-direction: row;     /* ✅ แสดงแนวนอน */
+    align-items: flex-start;
+    gap: 15px;
+    padding: 20px 0;
+    border-bottom: unset;
+  }
+
+  .step:last-child {
+    border-bottom: none;
   }
 
   .step-number {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-    margin-bottom: 10px;
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+    flex-shrink: 0;
   }
 
   .step h5 {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+
+  .step p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333;
   }
 
   .faq-section {
