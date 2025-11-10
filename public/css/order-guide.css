@@ -1,67 +1,62 @@
 /* ===============================
-   🎨 ORDER GUIDE PAGE STYLES
+   🎨 ORDER GUIDE PAGE STYLES (統一กับ FAQ)
 =============================== */
-.interest-section {
-  background-color: #fcf9f4; /* หรือให้เหมือนกับ body */
-  margin: 0;
-  padding-top: 40px;
-}
 
+/* 🔸 พื้นหลังและฟอนต์หลัก */
 body {
-  background-color: #fcf9f4; /* ให้เป็นสีเดียวกัน */
-}
-
-.order-guide-container {
-  background-color: #fffaf2;
-  padding: 40px 20px;
-}
-
-.guide-header h1 {
-  text-align: center;
-  font-weight: 700;
-  margin-bottom: 40px;
-}
-
-.step-box {
-  display: flex;
-  align-items: flex-start;
-  background: #fff;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  padding: 20px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-}
-
-.section-divider {
-  border: none;
-  border-top: 2px solid #e6e6e6;
-  margin: 40px 0;
-}
-
-.order-guide-page {
-  background-color: #faf7f2; /* ✅ สีครีมหลัก */
-}
-
-.order-box {
-  max-width: 900px;
-  padding: 2.5rem;
-}
-
-.order-guide-page h2 {
+  background-color: #fff8ec;
+  font-family: "Noto Sans Thai", "Prompt", sans-serif;
   color: #000;
 }
 
+/* 🔹 SECTION: พื้นหลังรวม */
+.order-guide-page {
+  background-color: #fff8ec;
+  padding: 80px 20px 40px;
+}
+
+/* 🔹 หัวข้อหลัก */
+.order-guide-page h2 {
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.4rem;
+  color: #000;
+  margin-bottom: 80px;
+}
+
+/* 🔹 กล่องพื้นขาว */
+.order-box {
+  background-color: #fff;
+  margin: 0 auto 40px;
+  width: 100%;
+  max-width: 1300px;
+  border-radius: 0;
+  padding: 40px 50px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e0e0e0;
+}
+
+/* ===============================
+   🔸 STEP LIST
+=============================== */
 .step {
+  display: flex;
   align-items: flex-start;
+  padding: 22px 0;
+  border-bottom:  unset;
+}
+
+.step:last-child {
+  border-bottom: none;
 }
 
 .step-number {
   background-color: #fbab00;
   color: #fff;
-  font-weight: bold;
+  font-weight: 700;
   border-radius: 50%;
-  width: 45px;
-  height: 45px;
+  width: 50px;
+  height: 50px;
   font-size: 1.2rem;
   display: flex;
   align-items: center;
@@ -70,37 +65,101 @@ body {
   flex-shrink: 0;
 }
 
-/* ===============================
-   📘 SECTION: บทความที่คุณอาจสนใจ
-   (พื้นหลังกลืนกับหน้า Order Guide)
-=============================== */
+.step h5 {
+  font-weight: 800;
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+}
 
+.step p,
+.order-condition-list li {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.order-condition-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 8px 0 10px 0;
+}
+
+.order-condition-list li {
+  margin-bottom: 5px;
+}
+
+/* ===============================
+   🔸 บัญชีชำระเงิน
+=============================== */
+.payment-title {
+  text-align: center;
+  font-weight: 900;
+  font-size: 2.4rem;
+  padding: 42px 0 20px;
+  color: #000;
+}
+
+.payment-box {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.payment-box img {
+  width: 100%;
+  display: block;
+  border-radius: 0;
+}
+
+#copyBtn {
+  position: absolute;
+  right: 11px;
+  top: 75%;
+  transform: translateY(-50%);
+  background-color: #fbab00;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  width: 20%;
+  padding: 13px 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#copyBtn:hover {
+  background-color: #e89a00;
+}
+
+/* ===============================
+   🔸 SECTION: บทความที่คุณอาจสนใจ
+=============================== */
 .faq-header {
   text-align: center;
-  margin-top: 50px;
-  margin-bottom: 25px;
+  padding: 60px 20px 30px;
+  background-color: #fff8ec;
 }
 
 .faq-header h1 {
-  font-size: 2rem;              /* ✅ ขยายขนาด */
-  font-weight: 800;
+  font-weight: 900;
+  font-size: 2.4rem;
   color: #000;
 }
 
 .faq-section {
-  background-color: #faf7f2;     /* ✅ ใช้สีพื้นหลังเดียวกับ order-guide-page */
-  padding: 45px 10%;
-  border-radius: 16px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  background-color: #fff8ec;
+  padding: 40px 10%;
 }
 
 .faq-item {
-  border-bottom: 1px solid #bfbfbf;
-  padding: 30px 0;
+  border-bottom: 1px solid #aaa;
+  padding: 25px 0;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-weight: 700;
-  font-size: 1.25rem;           /* ✅ ตัวใหญ่ขึ้น */
+  font-weight: 800;
+  font-size: 1.35rem;
   color: #000;
   text-align: left;
 }
@@ -113,26 +172,46 @@ body {
 /* ===============================
    📱 Responsive
 =============================== */
-@media (max-width: 576px) {
+@media (max-width: 768px) {
+  .order-guide-page {
+    padding: 40px 20px;
+  }
+
   .order-box {
-    padding: 1.5rem;
+    padding: 25px;
+  }
+
+  .step {
+    flex-direction: column;
+    padding: 18px 0;
   }
 
   .step-number {
     width: 40px;
     height: 40px;
     font-size: 1rem;
+    margin-bottom: 10px;
   }
 
-  .faq-header h1 {
-    font-size: 1.5rem;
+  .step h5 {
+    font-size: 1.15rem;
   }
 
   .faq-section {
-    padding: 25px 6%;
+    padding: 20px;
   }
 
   .faq-item {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
+  }
+
+  #copyBtn {
+    width: 40%;
+    font-size: 1rem;
+  }
+
+  .payment-title {
+    font-size: 1.8rem;
+    padding: 30px 0 10px;
   }
 }

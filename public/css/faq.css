@@ -195,8 +195,8 @@ body {
   }
 
   .faq-contact-btn {
-    font-size: 1.2rem;
-    max-width: 350px;
+    font-size: 0.8rem;
+    max-width: 300px;
     border-radius: 0px;
     padding: 10px 25px;
   }
@@ -204,7 +204,7 @@ body {
   .faq-list {
     border-radius: 1px;
     margin: -1px auto;
-    width: 100%;
+    width: 90%;
     padding: 25px;
   }
 

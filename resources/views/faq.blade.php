@@ -41,7 +41,7 @@
 <!-- ✅ ปุ่มอยู่นอกกรอบ -->
 <div class="faq-contact-area" style="text-align: center; margin-top: 50px;">
   <a href="{{ route('contact.full') }}" class="faq-contact-btn">
-    หาคำตอบไม่เจอใช่มั้ยให้เราช่วยสิ ส่งข้อความหาเรา
+    หาคำตอบไม่เจอใช่มั้ย ให้เราช่วยสิ ส่งข้อความหาเรา
   </a>
 </div>
 
