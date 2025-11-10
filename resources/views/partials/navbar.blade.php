@@ -9,9 +9,28 @@
     <!-- 🔹 เมนูหลัก (Desktop เท่านั้น) -->
     <div id="navbarNav" class="collapse navbar-collapse justify-content-center order-2 order-lg-1 d-none d-lg-flex">
       <ul class="navbar-nav align-items-center gap-4">
-        <!-- 🔸 สินค้าทั้งหมด -->
-        <li class="nav-item">
-          <a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a>
+
+        <!-- 🔸 สินค้าทั้งหมด (Dropdown) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            สินค้าทั้งหมด
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarProducts">
+            <li><a class="dropdown-item" href="#">สินค้าทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="#">พวงกุญแจอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="#">พวงกุญแจยาง</a></li>
+            <li><a class="dropdown-item" href="#">พวงกุญแจสะท้อนแสง</a></li>
+            <li><a class="dropdown-item" href="#">พวงกุญแจสกรีนลายสะท้อนแสง</a></li>
+            <li><a class="dropdown-item" href="#">ที่รองแก้วอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="#">ที่รองแก้วยาง</a></li>
+            <li><a class="dropdown-item" href="#">สแตนดี้อะคริลิค</a></li>
+            <li><a class="dropdown-item" href="#">แท่นวางโทรศัพท์มือถืออะคริลิค</a></li>
+            <li><a class="dropdown-item" href="#">เข็มกลัดอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="#">ยางรัดผมอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="#">กริ๊บต๊อก</a></li>
+            <li><a class="dropdown-item" href="#">ยางหุ้มกุญแจ</a></li>
+            <li><a class="dropdown-item" href="#">สติ๊กเกอร์สะท้อนแสง</a></li>
+          </ul>
         </li>
 
         <!-- 🔸 คำถามที่พบบ่อย (Dropdown) -->
@@ -29,9 +48,15 @@
           </ul>
         </li>
 
-        <!-- 🔸 รายละเอียดเพิ่มเติม -->
-        <li class="nav-item">
-          <a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a>
+        <!-- 🔸 รายละเอียดเพิ่มเติม (Dropdown) -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            รายละเอียดเพิ่มเติม
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDetails">
+            <li><a class="dropdown-item" href="#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="#gallery">แกลลอรี่</a></li>
+          </ul>
         </li>
 
         <!-- 🔸 ติดต่อเรา (Dropdown) -->
@@ -73,7 +98,28 @@
 
   <div class="offcanvas-body">
     <ul class="navbar-nav flex-column gap-2">
-      <li class="nav-item"><a class="nav-link fw-semibold" href="#products">สินค้าทั้งหมด</a></li>
+      <!-- 🔸 Dropdown: สินค้าทั้งหมด -->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          สินค้าทั้งหมด
+        </a>
+        <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="mobileProducts">
+          <li><a class="dropdown-item" href="#">สินค้าทั้งหมด</a></li>
+          <li><a class="dropdown-item" href="#">พวงกุญแจอะคริลิค</a></li>
+          <li><a class="dropdown-item" href="#">พวงกุญแจยาง</a></li>
+          <li><a class="dropdown-item" href="#">พวงกุญแจสะท้อนแสง</a></li>
+          <li><a class="dropdown-item" href="#">พวงกุญแจสกรีนลายสะท้อนแสง</a></li>
+          <li><a class="dropdown-item" href="#">ที่รองแก้วอะคริลิค</a></li>
+          <li><a class="dropdown-item" href="#">ที่รองแก้วยาง</a></li>
+          <li><a class="dropdown-item" href="#">สแตนดี้อะคริลิค</a></li>
+          <li><a class="dropdown-item" href="#">แท่นวางโทรศัพท์มือถืออะคริลิค</a></li>
+          <li><a class="dropdown-item" href="#">เข็มกลัดอะคริลิค</a></li>
+          <li><a class="dropdown-item" href="#">ยางรัดผมอะคริลิค</a></li>
+          <li><a class="dropdown-item" href="#">กริ๊บต๊อก</a></li>
+          <li><a class="dropdown-item" href="#">ยางหุ้มกุญแจ</a></li>
+          <li><a class="dropdown-item" href="#">สติ๊กเกอร์สะท้อนแสง</a></li>
+        </ul>
+      </li>
 
       <!-- 🔸 Dropdown: FAQ -->
       <li class="nav-item dropdown">
@@ -90,7 +136,16 @@
         </ul>
       </li>
 
-      <li class="nav-item"><a class="nav-link fw-semibold" href="#details">รายละเอียดเพิ่มเติม</a></li>
+      <!-- 🔸 Dropdown: รายละเอียดเพิ่มเติม -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            รายละเอียดเพิ่มเติม
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="mobileDetails">
+            <li><a class="dropdown-item" href="#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="#gallery">แกลลอรี่</a></li>
+          </ul>
+        </li>
 
       <!-- 🔸 Dropdown: Contact -->
       <li class="nav-item dropdown">
@@ -105,3 +160,5 @@
     </ul>
   </div>
 </div>
+
+
