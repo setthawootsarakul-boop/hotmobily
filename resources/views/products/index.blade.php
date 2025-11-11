@@ -29,15 +29,19 @@
                 <div class="sidebar-body">
                     <ul class="list-unstyled">
                         <li class="sidebar-link">
-                            <a href="{{ route('products.index') }}" class="{{ request()->is('products') && !request('category') ? 'active' : '' }}">สินค้าทั้งหมด</a>
+                            
+                            <a href="{{ route('products.index') }}">
+                                สินค้าทั้งหมด
+                            </a>
+
                         </li>
 
                         <li class="filter-group">
-                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#catCollapse" aria-expanded="true">
+                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#catCollapse" aria-expanded="false">
                                 หมวดหมู่สินค้า
-                                <i class="bi bi-chevron-down caret-icon rotated"></i>
+                                <i class="bi bi-chevron-down caret-icon"></i>
                             </button>
-                            <div id="catCollapse" class="collapse show">
+                            <div id="catCollapse" class="collapse">
                                 <ul class="list-unstyled ps-2 mt-2">
                                     @foreach($categories as $cat)
                                         <li class="mb-1">
@@ -51,16 +55,16 @@
                             </div>
                         </li>
 
-                        <li class="filter-group mt-3"> 
-                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#materialCollapse" aria-expanded="true">
+                        <li class="filter-group"> 
+                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#materialCollapse" aria-expanded="false">
                                 วัสดุ
-                                <i class="bi bi-chevron-down caret-icon rotated"></i>
+                                <i class="bi bi-chevron-down caret-icon"></i>
                             </button>
-                            <div id="materialCollapse" class="collapse show">
+                            <div id="materialCollapse" class="collapse">
                                 <ul class="list-unstyled ps-2 mt-2">
-                                    @php
-                                    $materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
-                                    @endphp
+@php
+$materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
+@endphp
                                     @foreach($materials as $m)
                                         <li class="mb-1">
                                             <a href="{{ route('products.index', array_merge(request()->all(), ['material' => $m])) }}"
@@ -104,10 +108,10 @@
                         <div class="col-sm-6 col-md-4 col-xl-3">
                             <div class="product-card">
                                 <div class="product-thumb">
-                                    @php
-                                    $img = $product->images->first();
-                                    $src = $img ? $img->image_url : asset('images/no-image.png');
-                                    @endphp
+@php
+$img = $product->images->first();
+$src = $img ? $img->image_url : asset('images/no-image.png');
+@endphp
                                     <img src="{{ asset($src) }}" alt="{{ $img->alt_text ?? $product->name }}" class="product-image">
                                 </div>
 

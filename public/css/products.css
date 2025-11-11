@@ -2,9 +2,10 @@
 :root {
   --bg-page: #f6efe5;
   --panel-bg: #fff;
-  --accent: #fca311; /* ส้ม */
+  --accent: #fca311; /* ส้ม (อันเก่า) */
   --brown-dark: #4a2313; /* header dark brown */
   --tile-bg: #f8eedd; /* pale peach tile */
+  --hover-brown: #9C5504; /* สี Hover ใหม่ */
 }
 
 /* page bg */
@@ -19,41 +20,70 @@
 .sidebar-card {
   background: var(--panel-bg);
   border-radius: 12px;
-  padding: 18px;
+  padding: 0; 
   min-height: 320px;
   position: sticky;
   top: 90px;
+  overflow: hidden; 
 }
 
 .sidebar-logo {
-  height: 56px;
+  height: 64px; 
   width: auto;
   border-radius: 8px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-  background: white;
-  padding: 6px;
+}
+
+.sidebar-header {
+  padding: 18px 18px 0 18px;
 }
 
 .sidebar-header h5 {
   font-weight: 700;
   color: var(--brown-dark);
+  /* ✅ (แก้ไข) 1. เพิ่มขนาด Header */
+  font-size: 1.25rem; 
+  letter-spacing: 0.5px;
+}
+
+.sidebar-divider {
+  border: 0;
+  height: 1px;
+  background-color: #eee;
+  opacity: 0.8;
+  margin-left: 18px;
+  margin-right: 18px;
+}
+
+.sidebar-body {
+  padding-bottom: 18px;
 }
 
 .sidebar-body a {
-  color: #555;
+  /* ✅ (แก้ไข) 2. เปลี่ยนสี Text เริ่มต้น */
+  color: var(--brown-dark); 
   text-decoration: none;
   display: block;
-  padding: 6px 6px;
-  border-radius: 6px;
+  padding: 6px 18px; 
   transition: all .12s ease;
   font-weight: 600;
+  border-radius: 0; 
+  /* ✅ (แก้ไข) 3. เพิ่มขนาด Text ลิงก์ (สินค้าทั้งหมด และ ลิงก์ย่อย) */
+  font-size: 1rem; 
 }
-.sidebar-body a:hover,
+
+.sidebar-body a:hover {
+  color: #fff;
+  background-color: var(--hover-brown);
+  box-shadow: 0 6px 14px rgba(156, 85, 4, 0.12);
+}
+
+/* (เพิ่ม .active กลับเข้ามาสำหรับลิงก์ย่อยที่ถูกเลือก) */
 .sidebar-body a.active {
   color: #fff;
-  background: var(--accent);
-  box-shadow: 0 6px 14px rgba(252,163,17,0.12);
+  background-color: var(--hover-brown);
+  box-shadow: 0 6px 14px rgba(156, 85, 4, 0.12);
 }
+
 
 /* filter toggle */
 .filter-toggle {
@@ -61,17 +91,53 @@
   text-align: left;
   background: transparent;
   border: none;
-  padding: 6px 0;
+  padding: 6px 18px; 
   font-weight: 600;
   color: var(--brown-dark);
-  font-size: 0.95rem;
+  /* ✅ (แก้ไข) 3. เพิ่มขนาด Text ปุ่ม (หมวดหมู่, วัสดุ) */
+  font-size: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  
+  box-shadow: none !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+  
+  border-radius: 0;
+  transition: all .12s ease;
 }
 
-/* ไอคอน Chevron (ถูกต้องแล้ว) */
+.filter-toggle:focus,
+.filter-toggle:active {
+    box-shadow: none !important;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--brown-dark) !important; 
+}
+
+.filter-toggle:hover {
+  background-color: var(--hover-brown) !important;
+  color: #fff !important;
+}
+
+.filter-toggle[aria-expanded="true"] {
+  background-color: var(--hover-brown) !important;
+  color: #fff !important;
+}
+
+.filter-toggle:hover .caret-icon,
+.filter-toggle[aria-expanded="true"] .caret-icon {
+  color: #fff !important;
+}
+
+.sidebar-body .collapse > .list-unstyled {
+  padding-left: 30px !important; 
+  padding-right: 18px;
+  margin-top: 4px;
+}
+
 .filter-toggle .caret-icon {
   transition: transform .25s ease;
   font-size: 0.9rem;
@@ -158,12 +224,6 @@
     gap: unset !important;
 }
 
-.sidebar-divider {
-  border: 0;
-  height: 1px;
-  background-color: #eee; /* สีเทาอ่อน */
-  opacity: 0.8;
-}
 /* responsive tweaks */
 @media (max-width: 991px) {
   .sidebar-card { position: static; top: auto; }

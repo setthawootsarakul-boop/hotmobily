@@ -9,10 +9,16 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'description',
+        'rank', // ✅ เพิ่ม 'rank' ตรงนี้
+    ];
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
-    }
+    // (โค้ดอื่นๆ ใน Model ของคุณ)
 }

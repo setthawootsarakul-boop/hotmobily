@@ -10,18 +10,26 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        // หน้านี้รองรับ filter by category slug (optional)
         $query = Product::with(['category','images','prices']);
 
         if ($request->filled('category')) {
-            // กรองตาม category id (คุณอาจใช้ slug ก็ได้)
             $query->where('category_id', $request->category);
         }
 
-        // (แก้ไข) เปลี่ยนจาก paginate(12) เป็น get()
-        $products = $query->orderBy('name')->get();
+        if ($request->filled('material')) {
+            $query->where('base_material', $request->material);
+        }
+
+        // 
+        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
+        // (เราเพิ่ม 'name' เป็นตัวสำรอง เผื่อว่า rank ซ้ำกัน)
+        // 
+        $products = $query->orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
         
-        $categories = Category::orderBy('name')->get();
+        // 
+        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
+        // 
+        $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
 
         return view('products.index', compact('products','categories'));
     }
@@ -30,14 +38,19 @@ class ProductController extends Controller
     public function showByCategory($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
+        
+        // 
+        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
+        // 
         $products = Product::with(['category','images','prices'])
                             ->where('category_id', $category->id)
-                            ->orderBy('name')
-                            
-                            // (แก้ไข) เปลี่ยนจาก paginate(12) เป็น get()
+                            ->orderBy('rank', 'asc')->orderBy('name', 'asc')
                             ->get();
 
-        $categories = Category::orderBy('name')->get();
+        // 
+        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
+        // 
+        $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
 
         return view('products.index', compact('products','categories','category'));
     }
