@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
-
-
+use App\Http\Controllers\ProductController;
+    
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -17,4 +17,7 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/order-guide', function () {
     return view('order-guide');
 })->name('order-guide');    
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products', [ProductController::class,'index'])->name('products.index');
+Route::get('/products/category/{slug}', [ProductController::class,'showByCategory'])->name('products.category'); // optional, ถ้าใช้ slug
+// route show product detail (ถ้ายังไม่มี)
+Route::get('/products/{product}', [ProductController::class,'show'])->name('products.show');

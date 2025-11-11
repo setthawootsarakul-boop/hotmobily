@@ -16,7 +16,7 @@
             สินค้าทั้งหมด
           </a>
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarProducts">
-            <li><a class="dropdown-item" href="#">สินค้าทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.index') }}">สินค้าทั้งหมด</a></li>
             <li><a class="dropdown-item" href="#">พวงกุญแจอะคริลิค</a></li>
             <li><a class="dropdown-item" href="#">พวงกุญแจยาง</a></li>
             <li><a class="dropdown-item" href="#">พวงกุญแจสะท้อนแสง</a></li>
@@ -104,7 +104,7 @@
           สินค้าทั้งหมด
         </a>
         <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="mobileProducts">
-          <li><a class="dropdown-item" href="#">สินค้าทั้งหมด</a></li>
+          <li><a class="dropdown-item" href="{{ route('products.index') }}">สินค้าทั้งหมด</a></li>
           <li><a class="dropdown-item" href="#">พวงกุญแจอะคริลิค</a></li>
           <li><a class="dropdown-item" href="#">พวงกุญแจยาง</a></li>
           <li><a class="dropdown-item" href="#">พวงกุญแจสะท้อนแสง</a></li>
