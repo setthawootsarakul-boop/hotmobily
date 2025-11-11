@@ -17,3 +17,4 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/order-guide', function () {
     return view('order-guide');
 })->name('order-guide');    
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');

@@ -13,9 +13,14 @@ return new class extends Migration
     {
         Schema::create('product_part_prices', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('part_id')->constrained('product_parts')->onDelete('cascade');
+            $table->integer('quantity_min');
+            $table->integer('quantity_max');
+            $table->decimal('price_per_unit', 10, 2);
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('product_price', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            $table->integer('quantity_min');
+            $table->integer('quantity_max');
+            $table->decimal('price_per_unit', 10, 2);
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.
