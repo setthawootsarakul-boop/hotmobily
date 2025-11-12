@@ -9,7 +9,7 @@
 <div class="container-fluid products-page py-4">
     <div class="row">
         
-        <aside class="col-lg-3 mb-4">
+        <aside class="col-lg-3">
             
             <nav aria-label="breadcrumb" class="mb-3">
                 <ol class="breadcrumb bg-transparent p-0">
@@ -37,11 +37,11 @@
                         </li>
 
                         <li class="filter-group">
-                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#catCollapse" aria-expanded="false">
+                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#catCollapse" aria-expanded="true">
                                 หมวดหมู่สินค้า
-                                <i class="bi bi-chevron-down caret-icon"></i>
+                                <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
-                            <div id="catCollapse" class="collapse">
+                            <div id="catCollapse" class="collapse show">
                                 <ul class="list-unstyled ps-2 mt-2">
                                     @foreach($categories as $cat)
                                         <li class="mb-1">
@@ -56,11 +56,11 @@
                         </li>
 
                         <li class="filter-group"> 
-                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#materialCollapse" aria-expanded="false">
+                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#materialCollapse" aria-expanded="true">
                                 วัสดุ
-                                <i class="bi bi-chevron-down caret-icon"></i>
+                                <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
-                            <div id="materialCollapse" class="collapse">
+                            <div id="materialCollapse" class="collapse show">
                                 <ul class="list-unstyled ps-2 mt-2">
 @php
 $materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
