@@ -46,17 +46,20 @@
                                 หมวดหมู่สินค้า
                                 <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
+                            
                             <div id="catCollapse" class="collapse show">
-                                <ul class="list-unstyled ps-2 mt-2">
-                                    @foreach($categories as $cat)
-                                        <li class="mb-1">
-                                            <a href="{{ route('products.index', ['category' => $cat->id]) }}"
-                                               class="{{ request('category') == $cat->id ? 'active' : '' }}">
-                                                {{ $cat->name }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                <div class="collapse-wrapper ps-2 mt-2">
+                                    <ul class="list-unstyled">
+                                        @foreach($categories as $cat)
+                                            <li class="mb-1">
+                                                <a href="{{ route('products.index', ['category' => $cat->id]) }}"
+                                                   class="{{ request('category') == $cat->id ? 'active' : '' }}">
+                                                    {{ $cat->name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </li>
 
@@ -68,20 +71,23 @@
                                 วัสดุ
                                 <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
+                            
                             <div id="materialCollapse" class="collapse show">
-                                <ul class="list-unstyled ps-2 mt-2">
+                                <div class="collapse-wrapper ps-2 mt-2">
+                                    <ul class="list-unstyled">
 @php
 $materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
 @endphp
-                                    @foreach($materials as $m)
-                                        <li class="mb-1">
-                                            <a href="{{ route('products.index', array_merge(request()->all(), ['material' => $m])) }}"
-                                               class="{{ request('material') == $m ? 'active' : '' }}">
-                                                {{ $m }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                        @foreach($materials as $m)
+                                            <li class="mb-1">
+                                                <a href="{{ route('products.index', array_merge(request()->all(), ['material' => $m])) }}"
+                                                   class="{{ request('material') == $m ? 'active' : '' }}">
+                                                    {{ $m }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             </div>
                         </li>
                     </ul>
