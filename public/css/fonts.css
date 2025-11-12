@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'MyPromptFont';
+  src: url('/fonts/Prompt-Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+body {
+  font-family: 'MyPromptFont', sans-serif !important; /* ใช้ฟอนต์ที่กำหนด */
+}

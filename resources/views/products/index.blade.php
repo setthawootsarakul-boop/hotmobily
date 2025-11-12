@@ -4,12 +4,13 @@
 
 @section('content')
 
-<link rel="stylesheet" href="{{ asset('css/products.css') }}">
+<link rel="stylesheet" href="{{ asset('css/products.css') }}"> 
+
 
 <div class="container-fluid products-page py-4">
     <div class="row">
         
-        <aside class="col-lg-3">
+        <aside class="col-lg-3 mb-4">
             
             <nav aria-label="breadcrumb" class="mb-3">
                 <ol class="breadcrumb bg-transparent p-0">
@@ -30,14 +31,18 @@
                     <ul class="list-unstyled">
                         <li class="sidebar-link">
                             
-                            <a href="{{ route('products.index') }}">
+                            <a href="{{ route('products.index') }}" 
+                               class="fs-6 fw-bold {{ (!request('category') && !request('material')) ? 'active' : '' }}">
                                 สินค้าทั้งหมด
                             </a>
 
                         </li>
 
                         <li class="filter-group">
-                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#catCollapse" aria-expanded="true">
+                            <button class="filter-toggle fs-6 {{ request('category') ? 'active-group' : '' }}" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#catCollapse" 
+                                    aria-expanded="true">
                                 หมวดหมู่สินค้า
                                 <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
@@ -56,7 +61,10 @@
                         </li>
 
                         <li class="filter-group"> 
-                            <button class="filter-toggle" data-bs-toggle="collapse" data-bs-target="#materialCollapse" aria-expanded="true">
+                            <button class="filter-toggle fs-6 {{ request('material') ? 'active-group' : '' }}" 
+                                    data-bs-toggle="collapse" 
+                                    data-bs-target="#materialCollapse" 
+                                    aria-expanded="true">
                                 วัสดุ
                                 <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
@@ -103,18 +111,20 @@ $materials = \App\Models\Product::select('base_material')->distinct()->pluck('ba
             </div>
 
             <div class="cards-wrapper p-3 shadow-sm bg-white rounded">
-                <div class="row g-4">
+                <div class="row g-3">
                     @forelse($products as $product)
-                        <div class="col-sm-6 col-md-4 col-xl-3">
+                        <div class="col-6 col-md-4 col-xl-2-5">
                             <div class="product-card">
-                                <div class="product-thumb">
-@php
-$img = $product->images->first();
-$src = $img ? $img->image_url : asset('images/no-image.png');
-@endphp
-                                    <img src="{{ asset($src) }}" alt="{{ $img->alt_text ?? $product->name }}" class="product-image">
-                                </div>
 
+                                @php
+                                    $img = $product->images->first();
+                                    // (เราจะใช้ asset() ข้างล่าง)
+                                    $src = $img ? $img->image_url : 'images/no-image.png'; 
+                                @endphp
+
+                                <div class="product-thumb" 
+                                     style="background-image: url('{{ asset($src) }}');">
+                                     </div>
                                 <div class="product-title">
                                     <a href="{{ route('products.show', $product->id ?? '#') ?? '#' }}">{{ $product->name }}</a>
                                 </div>

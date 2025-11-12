@@ -1,8 +1,16 @@
+@font-face {
+  font-family: 'MyPromptFont';
+  src: url('/fonts/Prompt-Regular.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+body {
+  font-family: 'MyPromptFont', sans-serif !important; /* ใช้ฟอนต์ที่กำหนด */
+}
 /* ========================
    🔸 NAVBAR SECTION
 ======================== */
 .navbar {
-  font-family: "Noto Sans Thai", sans-serif;
   padding: 0.8rem 1rem;
   transition: all 0.3s ease;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);

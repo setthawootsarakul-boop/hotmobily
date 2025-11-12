@@ -8,7 +8,7 @@
 
 .why-section h2 {
   color: #444;
-  font-family: "Noto Sans Thai", sans-serif;
+  
   font-weight: 700;
 }
 
@@ -42,5 +42,4 @@
   font-weight: 600;
   font-size: 1rem;
   line-height: 1.4;
-  font-family: "Noto Sans Thai", sans-serif;
 }

@@ -4,7 +4,6 @@
 .footer-section {
   background-color: var(--footer-bg);
   color: var(--footer-text);
-  font-family: "Noto Sans Thai", sans-serif;
   padding: 3rem 0 0;
   margin-top: 3rem;
 }
