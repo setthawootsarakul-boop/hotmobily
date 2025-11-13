@@ -12,6 +12,7 @@ class Product extends Model
         'name', 'description', 'category_id', 'base_material', 'rank'
     ];
 
+    public function getRouteKeyName() {return 'slug';}
     public function category() { return $this->belongsTo(Category::class); }
     public function images() { return $this->hasMany(ProductImage::class); }
     public function sizes() { return $this->hasMany(ProductSize::class); }

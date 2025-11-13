@@ -119,7 +119,9 @@
                                 @endphp
                                 <div class="product-thumb" style="background-image: url('{{ asset($src) }}');"></div>
                                 <div class="product-title">
-                                    <a href="{{ route('products.show', $product->id ?? '#') ?? '#' }}">{{ $product->name }}</a>
+                                    <a href="{{ $product->slug ? route('products.show', $product->slug) : '#' }}">
+                                        {{ $product->name }}
+                                    </a>
                                 </div>
                             </div>
                         </div>

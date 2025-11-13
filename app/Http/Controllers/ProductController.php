@@ -8,38 +8,30 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    // 1. หน้าสินค้าทั้งหมด (Index) - เหมือนเดิม
     public function index(Request $request)
     {
         $query = Product::with(['category','images','prices']);
-
-        // ตั้งค่าชื่อหน้าเริ่มต้น
         $pageTitle = 'สินค้าทั้งหมด';
 
-        // 1. กรองตาม Category
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
-            
-            // หาชื่อหมวดหมู่มาใส่ใน Title
             $categoryName = Category::where('id', $request->category)->value('name');
-            if ($categoryName) {
-                $pageTitle = $categoryName;
-            }
+            if ($categoryName) $pageTitle = $categoryName;
         }
 
-        // 2. กรองตาม Material
         if ($request->filled('material')) {
             $query->where('base_material', $request->material);
-            // เอาชื่อวัสดุมาใส่ใน Title
             $pageTitle = $request->material;
         }
 
         $products = $query->orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
         $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
 
-        // ส่งตัวแปร $pageTitle ไปที่ View ด้วย
         return view('products.index', compact('products', 'categories', 'pageTitle'));
     }
 
+    // 2. หน้าหมวดหมู่ (Category) - เหมือนเดิม
     public function showByCategory($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
@@ -50,10 +42,45 @@ class ProductController extends Controller
                             ->get();
 
         $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
-        
-        // กรณีใช้ Route นี้ ชื่อหน้าคือชื่อหมวดหมู่
         $pageTitle = $category->name;
 
         return view('products.index', compact('products', 'categories', 'category', 'pageTitle'));
+    }
+
+    // ✅✅✅ 3. เพิ่มหน้ารายละเอียดสินค้า (Product Detail) ✅✅✅
+// app/Http/Controllers/ProductController.php
+
+public function show($slug)
+    {
+        // 1. ดึงข้อมูลสินค้าพร้อมความสัมพันธ์ทั้งหมด
+        $product = Product::where('slug', $slug)
+                    ->with([
+                        // เรียงลำดับรูปภาพ (ถ้าระบุ sort_order)
+                        'images' => function($q) { $q->orderBy('sort_order', 'asc'); },
+                        'sizes',
+                        'prices',
+                        'parts',
+                        'printings',
+                        'paperbacks',
+                        'materials', // อย่าลืม Model นี้ถ้ามี
+                        'category'
+                    ])
+                    ->firstOrFail();
+
+        // 2. เตรียมข้อมูลสำหรับ "ตารางราคา" (Matrix)
+        // ดึงเลขจำนวนขั้นบันไดทั้งหมดที่มี (เช่น 1, 50, 100) มาเพื่อสร้างแถวตาราง
+        $quantities = $product->prices
+                        ->unique('quantity_min')
+                        ->sortBy('quantity_min')
+                        ->pluck('quantity_min');
+
+        // 3. สินค้าที่เกี่ยวข้อง (สุ่มมา 4 ชิ้น)
+        $relatedProducts = Product::where('category_id', $product->category_id)
+                                  ->where('id', '!=', $product->id)
+                                  ->inRandomOrder()
+                                  ->take(4)
+                                  ->get();
+
+        return view('products.show', compact('product', 'quantities', 'relatedProducts'));
     }
 }

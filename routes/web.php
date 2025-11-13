@@ -5,7 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductController;
-    
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -17,7 +16,12 @@ Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 Route::get('/order-guide', function () {
     return view('order-guide');
 })->name('order-guide');    
-Route::get('/products', [ProductController::class,'index'])->name('products.index');
-Route::get('/products/category/{slug}', [ProductController::class,'showByCategory'])->name('products.category'); // optional, ถ้าใช้ slug
-// route show product detail (ถ้ายังไม่มี)
-Route::get('/products/{product}', [ProductController::class,'show'])->name('products.show');
+
+// หน้ารายการสินค้าทั้งหมด (และกรอง)
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// หน้าแสดงสินค้าตามหมวดหมู่ (Optional)
+Route::get('/products/category/{slug}', [ProductController::class, 'showByCategory'])->name('products.category');
+
+// ✅ (แก้ไข) หน้ารายละเอียดสินค้า (ใช้ {slug} เพื่อความชัดเจน)
+Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
