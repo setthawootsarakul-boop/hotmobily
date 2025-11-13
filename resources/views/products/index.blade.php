@@ -1,21 +1,25 @@
 @extends('layouts.main')
 
-@section('title', 'สินค้าทั้งหมด | Hotmobily')
-
-@section('content')
+@section('title', $pageTitle . ' | Hotmobily') @section('content')
 
 <link rel="stylesheet" href="{{ asset('css/products.css') }}"> 
-
 
 <div class="container-fluid products-page py-4">
     <div class="row">
         
-        <aside class="col-lg-3 mb-4">
+        <aside class="col-lg-3">
             
             <nav aria-label="breadcrumb" class="mb-3">
                 <ol class="breadcrumb bg-transparent p-0">
-                    <li class="breadcrumb-item"><a href="{{ route('home') }}">หน้าหลัก</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">สินค้าทั้งหมด</li>
+                    
+                    <li class="breadcrumb-item">
+                        <a href="{{ route('home') }}" style="color: #333; text-decoration: none;">
+                            หน้าหลัก
+                        </a>
+                    </li>
+                    
+                    <li class="breadcrumb-item active" aria-current="page" style="color: #0d6efd; font-weight: 500;">
+                        {{ $pageTitle }} </li>
                 </ol>
             </nav>
 
@@ -24,29 +28,21 @@
                     <img src="{{ asset('images/logo.png') }}" alt="logo" class="sidebar-logo">
                     <h5 class="mb-0">กรองสินค้า</h5>
                 </div>
-
                 <hr class="sidebar-divider my-3">
-
                 <div class="sidebar-body">
                     <ul class="list-unstyled">
                         <li class="sidebar-link">
-                            
                             <a href="{{ route('products.index') }}" 
                                class="fs-6 fw-bold {{ (!request('category') && !request('material')) ? 'active' : '' }}">
                                 สินค้าทั้งหมด
                             </a>
-
                         </li>
-
                         <li class="filter-group">
                             <button class="filter-toggle fs-6 {{ request('category') ? 'active-group' : '' }}" 
-                                    data-bs-toggle="collapse" 
-                                    data-bs-target="#catCollapse" 
-                                    aria-expanded="true">
+                                    data-bs-toggle="collapse" data-bs-target="#catCollapse" aria-expanded="true">
                                 หมวดหมู่สินค้า
                                 <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
-                            
                             <div id="catCollapse" class="collapse show">
                                 <div class="collapse-wrapper ps-2 mt-2">
                                     <ul class="list-unstyled">
@@ -62,22 +58,18 @@
                                 </div>
                             </div>
                         </li>
-
                         <li class="filter-group"> 
                             <button class="filter-toggle fs-6 {{ request('material') ? 'active-group' : '' }}" 
-                                    data-bs-toggle="collapse" 
-                                    data-bs-target="#materialCollapse" 
-                                    aria-expanded="true">
+                                    data-bs-toggle="collapse" data-bs-target="#materialCollapse" aria-expanded="true">
                                 วัสดุ
                                 <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
-                            
                             <div id="materialCollapse" class="collapse show">
                                 <div class="collapse-wrapper ps-2 mt-2">
                                     <ul class="list-unstyled">
-@php
-$materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
-@endphp
+                                        @php
+                                        $materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
+                                        @endphp
                                         @foreach($materials as $m)
                                             <li class="mb-1">
                                                 <a href="{{ route('products.index', array_merge(request()->all(), ['material' => $m])) }}"
@@ -106,7 +98,7 @@ $materials = \App\Models\Product::select('base_material')->distinct()->pluck('ba
 
             <div class="d-flex align-items-center mb-3 gap-3">
                 <div class="page-banner">
-                    <h2>สินค้าทั้งหมด</h2>
+                    <h2>{{ $pageTitle }}</h2>
                 </div>
 
                 <div class="decor-blocks d-none d-md-flex ms-auto">
@@ -121,16 +113,11 @@ $materials = \App\Models\Product::select('base_material')->distinct()->pluck('ba
                     @forelse($products as $product)
                         <div class="col-6 col-md-4 col-xl-2-5">
                             <div class="product-card">
-
                                 @php
                                     $img = $product->images->first();
-                                    // (เราจะใช้ asset() ข้างล่าง)
                                     $src = $img ? $img->image_url : 'images/no-image.png'; 
                                 @endphp
-
-                                <div class="product-thumb" 
-                                     style="background-image: url('{{ asset($src) }}');">
-                                     </div>
+                                <div class="product-thumb" style="background-image: url('{{ asset($src) }}');"></div>
                                 <div class="product-title">
                                     <a href="{{ route('products.show', $product->id ?? '#') ?? '#' }}">{{ $product->name }}</a>
                                 </div>
@@ -141,7 +128,9 @@ $materials = \App\Models\Product::select('base_material')->distinct()->pluck('ba
                             <p class="text-muted">ไม่พบสินค้า</p>
                         </div>
                     @endforelse
-                </div> </div> </section>
+                </div> 
+            </div> 
+        </section>
     </div>
 </div>
 
@@ -154,8 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
             caret.classList.toggle('rotated');
         });
     });
-
-    // ensure caret state matches collapse shown
     const collapses = document.querySelectorAll('.collapse');
     collapses.forEach(coll => {
         coll.addEventListener('shown.bs.collapse', (e) => {

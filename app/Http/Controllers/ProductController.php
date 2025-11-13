@@ -12,46 +12,48 @@ class ProductController extends Controller
     {
         $query = Product::with(['category','images','prices']);
 
+        // ตั้งค่าชื่อหน้าเริ่มต้น
+        $pageTitle = 'สินค้าทั้งหมด';
+
+        // 1. กรองตาม Category
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
+            
+            // หาชื่อหมวดหมู่มาใส่ใน Title
+            $categoryName = Category::where('id', $request->category)->value('name');
+            if ($categoryName) {
+                $pageTitle = $categoryName;
+            }
         }
 
+        // 2. กรองตาม Material
         if ($request->filled('material')) {
             $query->where('base_material', $request->material);
+            // เอาชื่อวัสดุมาใส่ใน Title
+            $pageTitle = $request->material;
         }
 
-        // 
-        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
-        // (เราเพิ่ม 'name' เป็นตัวสำรอง เผื่อว่า rank ซ้ำกัน)
-        // 
         $products = $query->orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
-        
-        // 
-        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
-        // 
         $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
 
-        return view('products.index', compact('products','categories'));
+        // ส่งตัวแปร $pageTitle ไปที่ View ด้วย
+        return view('products.index', compact('products', 'categories', 'pageTitle'));
     }
 
-    // (ถ้าต้องการ) แสดงเฉพาะหมวดด้วย slug
     public function showByCategory($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
         
-        // 
-        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
-        // 
         $products = Product::with(['category','images','prices'])
                             ->where('category_id', $category->id)
                             ->orderBy('rank', 'asc')->orderBy('name', 'asc')
                             ->get();
 
-        // 
-        // ✅ (แก้ไข) เปลี่ยนจาก orderBy('name') เป็น orderBy('rank')
-        // 
         $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
+        
+        // กรณีใช้ Route นี้ ชื่อหน้าคือชื่อหมวดหมู่
+        $pageTitle = $category->name;
 
-        return view('products.index', compact('products','categories','category'));
+        return view('products.index', compact('products', 'categories', 'category', 'pageTitle'));
     }
 }

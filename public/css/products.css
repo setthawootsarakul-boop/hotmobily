@@ -197,14 +197,14 @@
 
 
 .product-thumb {
-  background-color: var(--tile-bg);
+  background-color: #FFECCF;
   border-radius: 12px;
   padding: 10px;
   
   width: 100%; 
   aspect-ratio: 1 / 1; 
 
-  box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.12), 0 10px 18px rgba(0, 0, 0, 0.06);
+  box-shadow: inset  0px 10px 5px rgba(0, 0, 0, 0.1), 0 10px 18px rgba(0, 0, 0, 0.06);
   
 
   background-size: 100%;
