@@ -1,11 +1,14 @@
 /* ===============================
-   🔸 CONTACT & STEPS SECTION (fixed layout)
+   🔸 CONTACT & STEPS SECTION (Image Buttons)
 ================================= */
+
+/* พื้นหลัง Section */
 #contact, #steps {
   background-color: #F6F1E9;
   padding: 4rem 0;
 }
 
+/* หัวข้อ */
 #contact h3, #steps h3 {
   color: #444;
   font-weight: 700;
@@ -13,155 +16,43 @@
   margin-bottom: 2.5rem;
 }
 
-/* ✅ กล่อง contact-card — ขนาดเท่ากันแนวนอน */
-#steps .contact-card,
-#contact .contact-card {
-  flex: 0 1 360px;
-  max-width: 360px;
-  border-radius: 20px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-  padding: 2rem 1.5rem;
-  text-align: center;
-  transition: 0.3s ease;
+/* ✅ จัดการปุ่มรูปภาพ (Wrapper) */
+.contact-btn-wrapper {
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  border-radius: 20px; /* ปรับให้เข้ากับมุมมนของรูป */
+  text-decoration: none; /* ลบขีดเส้นใต้ลิงก์ */
 }
 
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
-}
-
-/* ✅ รูปและข้อความในกล่อง */
-.contact-card img.contact-icon {
-  width: 65px;
+/* ✅ ตัวรูปภาพ */
+.contact-btn-img {
+  border-radius: 10px;
+  width: 100%;
+  max-width: 360px; /* คุมความกว้างสูงสุดไม่ให้ใหญ่เกินไป */
   height: auto;
-  margin-bottom: 0.8rem;
+  /* เพิ่มเงาให้รูปดูมีมิติ */
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+  transition: all 0.3s ease;
 }
 
-.contact-card h4 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-}
-
-.contact-card p {
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.6;
-}
-
-/* ✅ จัด row ให้เรียงแนวนอน แต่พับได้ */
-#steps .row,
-#contact .row {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;     /* ✅ อนุญาตให้พับบรรทัด */
-  gap: 2.5rem;
-}
-
-/* ✅ Responsive สำหรับมือถือ */
-@media (max-width: 768px) {
-  #steps .contact-card,
-  #contact .contact-card {
-    flex: 0 1 90%;
-    max-width: 90%;
-  }
-
-  #steps .row,
-  #contact .row {
-    gap: 1.5rem;
-  }
-  
+/* ✅ Effect ตอนเอาเมาส์ชี้ (Hover) */
+.contact-btn-wrapper:hover .contact-btn-img {
+  transform: translateY(-5px); /* ลอยขึ้นเล็กน้อย */
+  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.2)); /* เงาชัดขึ้น */
 }
 
 /* ===============================
-   🔸 CONTACT & STEPS SECTION (fixed layout)
+   RESPONSIVE
 ================================= */
-#contact, #steps {
-  background-color: #F6F1E9;
-  padding: 4rem 0;
-}
 
-#contact h3, #steps h3 {
-  color: #444;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-/* ✅ กล่อง contact-card — ขนาดเท่ากันแนวนอน */
-#steps .contact-card,
-#contact .contact-card {
-  flex: 0 1 360px;
-  max-width: 360px;
-  border-radius: 20px;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
-  padding: 2rem 1.5rem;
-  text-align: center;
-  transition: 0.3s ease;
-}
-
-.contact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
-}
-
-/* ✅ รูปและข้อความในกล่อง */
-.contact-card img.contact-icon {
-  width: 65px;
-  height: auto;
-  margin-bottom: 0.8rem;
-}
-
-.contact-card h4 {
-  font-size: 1.3rem;
-  font-weight: 700;
-  margin-bottom: 0.4rem;
-}
-
-.contact-card p {
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.6;
-}
-
-/* ✅ จัด row ให้เรียงแนวนอน แต่พับได้ */
-#steps .row,
-#contact .row {
-  display: flex;
-  justify-content: center;
-  align-items: stretch;
-  flex-wrap: wrap;     /* ✅ อนุญาตให้พับบรรทัด */
-  gap: 2.5rem;
-}
-
-/* ✅ Responsive สำหรับมือถือ */
+/* สำหรับมือถือ */
 @media (max-width: 768px) {
-  #steps .contact-card,
-  #contact .contact-card {
-    flex: 0 1 90%;
-    max-width: 90%;
-  }
-
-  #steps .row,
-  #contact .row {
-    gap: 1.5rem;
+  .contact-btn-img {
+    max-width: 90%; /* ในมือถือให้กว้างเกือบเต็มจอ */
   }
   
-}
-
-/* ✅ Fix Desktop layout: prevent card from dropping down */
-@media (min-width: 992px) {
-  #contact .row,
-  #steps .row {
-    flex-wrap: nowrap;            /* ❌ ห้ามพับบรรทัด */
-    justify-content: center;      /* จัดให้อยู่ตรงกลาง */
-    gap: 3rem;                    /* ลดช่องว่างลงนิด */
-  }
-  
-  #contact .contact-card,
-  #steps .contact-card {
-    flex: 1 1 380px;              /* ✅ ให้ขยายตามพื้นที่ */
-    max-width: 400px;             /* ป้องกันไม่ให้เกิน container */
+  #contact .row, #steps .row {
+    gap: 1.5rem; /* ลดช่องว่างระหว่างปุ่มในมือถือ */
   }
 }
