@@ -9,7 +9,7 @@
 <div class="container-fluid product-detail-page py-4">
     <div class="container">
         
-        <nav aria-label="breadcrumb" class="mb-4">
+        <nav aria-label="breadcrumb" class="mb-4 product-breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-0">
                 <li class="breadcrumb-item">
                     <a href="{{ route('home') }}">หน้าหลัก</a>
@@ -47,87 +47,76 @@
                     </div>
 
                     <div class="mt-4 text-center">
-                        <button class="btn btn-file-guide w-100 fw-bold py-2 rounded-3">
+                        <button class="btn btn-file-guide w-100 fw-bold py-2 rounded-3 shadow-sm">
                             รูปแบบไฟล์งาน
                         </button>
                     </div>
                 </div>
 
                 <div class="col-lg-7">
-                    <h1 class="product-title fw-bold mb-4">{{ $product->name }}</h1>
+                    <h1 class="product-title mb-4">{{ $product->name }}</h1>
 
-                    <div class="product-info d-flex flex-column gap-3">
-                        
-                        <div class="d-flex align-items-baseline">
-                            <span class="label fw-bold me-3">วัสดุ :</span>
-                            <span class="value">
-                                @if($product->materials->isNotEmpty())
-                                    @foreach($product->materials as $mat)
-                                        {{ $mat->material_name }} (หนา {{ $mat->thickness }}){{ !$loop->last ? ',' : '' }}
-                                    @endforeach
-                                @else
-                                    -
-                                @endif
-                            </span>
-                        </div>
+                    <table class="table product-info-table">
+                        <tbody>
+                            <tr>
+                                <td class="label">วัสดุ :</td>
+                                <td class="value">
+                                    @if($product->materials->isNotEmpty())
+                                        {{ $product->materials->first()->material_name }} (หนา {{ $product->materials->first()->thickness }})
+                                    @else - @endif
+                                </td>
+                            </tr>
+                            
+                            @if($product->sizes->isNotEmpty())
+                            <tr>
+                                <td class="label">ขนาด :</td>
+                                <td class="value">
+                                    <div class="d-flex gap-2">
+                                        @foreach($product->sizes as $key => $size)
+                                            <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}" 
+                                                    onclick="selectSize(this, {{ $size->id }})">
+                                                {{ $size->size_name }}
+                                            </button>
+                                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                            @endif
 
-                        @if($product->sizes->isNotEmpty())
-                        <div class="d-flex align-items-center flex-wrap">
-                            <span class="label fw-bold me-3">ขนาด :</span>
-                            <div class="d-flex gap-2">
-                                @foreach($product->sizes as $key => $size)
-                                    <button class="btn-option {{ $key == 0 ? 'active' : '' }}" 
-                                            onclick="selectSize(this, {{ $size->id }})">
-                                        {{ $size->size_name }}
-                                    </button>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
+                            <tr><td class="label">สั่งขั้นต่ำ :</td><td class="value">{{ $product->moq }}</td></tr>
+                            <tr><td class="label">การบรรจุ :</td><td class="value">{{ $product->packing }}</td></tr>
 
-                        <div class="d-flex align-items-baseline">
-                            <span class="label fw-bold me-3">สั่งขั้นต่ำ :</span>
-                            <span class="value">{{ $product->moq }}</span>
-                        </div>
+                            @if($product->special_features)
+                            <tr>
+                                <td class="label">คุณสมบัติพิเศษ :</td>
+                                <td class="value">{!! nl2br(e($product->special_features)) !!}</td>
+                            </tr>
+                            @endif
 
-                        <div class="d-flex align-items-baseline">
-                            <span class="label fw-bold me-3">การบรรจุ :</span>
-                            <span class="value">{{ $product->packing }}</span>
-                        </div>
-
-                        @if($product->special_features)
-                        <div class="">
-                            <span class="label fw-bold me-3">คุณสมบัติพิเศษ :</span>
-                            <span class="value">{!! nl2br(e($product->special_features)) !!}</span>
-                        </div>
-                        @endif
-
-                        <div class="d-flex align-items-baseline">
-                            <span class="label fw-bold me-3">ระยะเวลาผลิต :</span>
-                            <span class="value">{{ $product->production_time }}</span>
-                        </div>
-
-                        @if($product->printings->isNotEmpty())
-                        <div class="mt-2">
-                            <div class="mb-2">
-                                <span class="label fw-bold">การสกรีน :</span> 
-                                <span class="value">{{ $product->printings->first()->note ?? '-' }}</span>
-                            </div>
-                            <div class="d-flex gap-3 mt-2">
-                                @foreach($product->printings as $key => $printing)
-                                    <button class="btn-screen {{ $key == 0 ? 'active' : '' }}">
-                                        {{ $printing->printing_type }}
-                                        @if($printing->price_extra > 0) 
-                                            <small class="ms-1 text-muted">(+{{ $printing->price_extra }})</small>
-                                        @endif
-                                    </button>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-
-                    </div>
-
+                            <tr>
+                                <td class="label">ระยะเวลาผลิต :</td>
+                                <td class="value">{{ $product->production_time }}</td>
+                            </tr>
+                            
+                            @if($product->printings->isNotEmpty())
+                            <tr>
+                                <td class="label">การสกรีน :</td>
+                                <td class="value">
+                                    {{ $product->printings->first()->note ?? '-' }}
+                                    <div class="d-flex gap-3 mt-2">
+                                        @foreach($product->printings as $key => $printing)
+                                            <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}"
+                                                    onclick="selectSpec(this, 'screen-group')">
+                                                {{ $printing->printing_type }}
+                                            </button>
+                                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                    
                     @if($product->prices->isNotEmpty())
                     <div class="price-table-container mt-4 table-responsive">
                         <table class="table table-bordered text-center align-middle mb-0">
@@ -137,7 +126,7 @@
                                     @foreach($product->sizes as $key => $size)
                                         <th class="bg-light size-header size-col-{{ $size->id }}" 
                                             style="{{ $key == 0 ? '' : 'display:none' }}">
-                                            ราคา/ชิ้น ({{ $size->size_name }})
+                                            {{ $size->size_name }}
                                         </th>
                                     @endforeach
                                 </tr>
@@ -150,7 +139,6 @@
                                         <td class="size-col size-col-{{ $size->id }}" 
                                             style="{{ $key == 0 ? '' : 'display:none' }}">
                                             @php
-                                                // ค้นหาราคาที่ตรงกับ Size นี้ และ Qty นี้
                                                 $price = $product->prices
                                                             ->where('product_size_id', $size->id)
                                                             ->where('quantity_min', $qty)
@@ -168,24 +156,52 @@
                     
                     @if($product->parts->isNotEmpty())
                     <div class="mt-5">
-                        <h5 class="fw-bold mb-3">ส่วนประกอบเพิ่มเติม</h5>
-                        <div class="d-flex flex-wrap gap-4">
+                        <h3 class="fw-bold mb-4">ส่วนประกอบเพิ่มเติม</h3>
+                        <div class="row g-3">
                             @foreach($product->parts as $part)
-                                <div class="text-center part-item">
-                                    @if($part->image_url)
-                                        <div class="part-img-box mb-2 rounded-3 border p-2">
-                                            <img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}" class="img-fluid h-100 object-fit-contain">
-                                        </div>
-                                    @endif
-                                    <small class="d-block fw-bold">{{ $part->part_name }}</small>
-                                    <small class="text-danger fw-bold">
-                                        {{ $part->price_extra > 0 ? "+".$part->price_extra."฿" : "ฟรี" }}
-                                    </small>
+                                <div class="col-lg-2 col-md-3 col-4">
+                                    <div class="part-box rounded-3 border p-2 text-center {{ $part->is_default ? 'active' : '' }}">
+                                        @if($part->image_url)
+                                            <div class="part-img-box mb-2">
+                                                <img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}">
+                                            </div>
+                                        @endif
+                                        <small class="part-name d-block fw-bold">{{ $part->part_name }}</small>
+                                        
+                                        @if($part->price_extra > 0)
+                                            <span class="part-price-tag extra">+{{ $part->price_extra }}฿</span>
+                                        @else
+                                            <span class="part-price-tag free">ฟรี!</span>
+                                        @endif
+                                    </div>
                                 </div>
                             @endforeach
                         </div>
                     </div>
                     @endif
+
+                    <div class="action-area bg-white rounded-4 shadow-sm p-4 mt-5">
+                        <div class="row justify-content-center align-items-center g-3">
+                            
+                            <div class="col-lg-3 col-md-4 d-flex align-items-center">
+                                <label for="quantityInput" class="form-label fw-bold me-3 mb-0">จำนวน :</label>
+                                <input type="number" class="form-control" id="quantityInput" value="1" min="1">
+                            </div>
+
+                            <div class="col-lg-3 col-md-4">
+                                <button class="btn btn-estimate w-100 fw-bold">ประเมินราคา</button>
+                            </div>
+
+                            <div class="col-lg-3 col-md-4">
+                                <button class="btn btn-quote w-100 fw-bold">ขอใบเสนอราคา</button>
+                            </div>
+
+                            <div class="col-lg-3 col-md-12">
+                                <button class="btn btn-add-to-cart w-100 fw-bold">เพิ่มใส่ตะกร้า</button>
+                            </div>
+                            
+                        </div>
+                    </div>
 
                 </div> </div>
         </div>
@@ -195,7 +211,7 @@
             <h3 class="fw-bold mb-4">สินค้าอื่นๆ ที่น่าสนใจ</h3>
             <div class="row g-3">
                 @foreach($relatedProducts as $related)
-                    <div class="col-6 col-md-3">
+                    <div class="col-6 col-md-3 col-xl-2-5">
                         <div class="product-card">
                             @php
                                 $rImg = $related->images->where('is_main', 1)->first() ?? $related->images->first();
@@ -232,6 +248,12 @@
         // 2. เปลี่ยนคอลัมน์ตารางราคา
         document.querySelectorAll('.size-header, .size-col').forEach(el => el.style.display = 'none');
         document.querySelectorAll('.size-col-' + sizeId).forEach(el => el.style.display = 'table-cell');
+    }
+
+    function selectSpec(element, groupName) {
+        // (Optional: ถ้าต้องการให้ปุ่มสกรีนกดได้ทีละอัน)
+        // document.querySelectorAll('.' + groupName).forEach(el => el.classList.remove('active'));
+        // element.classList.add('active');
     }
 </script>
 

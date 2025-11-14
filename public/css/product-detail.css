@@ -1,76 +1,308 @@
-/* Variables */
+/* ============================
+   Variables (Theme Colors)
+   ============================ */
 :root {
     --bg-page: #f6efe5;
-    --brown-dark: #4a2313;
     --brown-text: #3b2f2f;
     --active-orange: #FFC107;
     --btn-gray: #F1F3F5;
     --btn-text-gray: #495057;
     --border-color: #DEE2E6;
     --breadcrumb-active: #0d6efd;
+    --btn-red: #D90429;
 }
 
+/* ============================
+   Global Layout
+   ============================ */
 body {
     background-color: var(--bg-page);
+    font-family: 'MyPromptFont', sans-serif;
     color: var(--brown-text);
 }
 
 /* Breadcrumb */
-.breadcrumb-item a { color: #333; text-decoration: none; font-size: 0.95rem; }
-.breadcrumb-item.active { color: var(--breadcrumb-active); font-weight: 500; }
+.product-breadcrumb .breadcrumb-item a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+.product-breadcrumb .breadcrumb-item.active {
+    color: var(--breadcrumb-active);
+    font-weight: 500;
+}
 
-/* Main Content Box */
+/* Content Box */
 .product-detail-page .bg-white {
     border-radius: 20px !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
 }
 
-/* Gallery */
-.gallery-container { display: flex; gap: 15px; height: 450px; }
-.thumbnails { width: 80px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; padding-right: 5px; }
-.thumb-item { width: 100%; aspect-ratio: 1/1; border: 2px solid transparent; border-radius: 8px; cursor: pointer; overflow: hidden; opacity: 0.6; transition: all 0.2s ease; background-color: #fff; padding: 2px; }
-.thumb-item img { width: 100%; height: 100%; object-fit: contain; }
-.thumb-item:hover, .thumb-item.active { opacity: 1; border-color: var(--active-orange); }
+/* ============================
+   LEFT COLUMN: Gallery
+   ============================ */
+.gallery-container {
+    display: flex;
+    gap: 15px;
+    height: 450px; 
+}
+.thumbnails {
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: auto;
+    padding-right: 5px; 
+}
+.thumbnails::-webkit-scrollbar { width: 4px; }
+.thumbnails::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 4px; }
 
-.main-image-wrapper { flex-grow: 1; background-color: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f0f0f0; }
+.thumb-item {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    opacity: 0.6;
+    transition: all 0.2s ease;
+    background-color: #fff;
+    padding: 2px;
+}
+.thumb-item img { width: 100%; height: 100%; object-fit: contain; }
+.thumb-item:hover { opacity: 1; border-color: #ddd; }
+.thumb-item.active { opacity: 1; border-color: var(--active-orange); }
+
+.main-image-wrapper {
+    flex-grow: 1;
+    background-color: #fff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #f0f0f0;
+}
 .main-image-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
 
-/* Buttons */
-.btn-file-guide { background: linear-gradient(to right, #FFA726, #FF9800); color: white; border: none; font-size: 1rem; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3); }
-.btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
+.btn-file-guide {
+    background: linear-gradient(to right, #FFA726, #FF9800);
+    color: white;
+    border: none;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
+}
+.btn-file-guide:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
+    color: white;
+}
 
-/* Details */
-.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; }
-.label { min-width: 110px; color: #000; font-weight: 700; font-size: 1rem; }
-.value { color: #333; font-size: 1rem; }
+/* ============================
+   RIGHT COLUMN: Details
+   ============================ */
+h1.product-title {
+   font-size: 1.8rem;
+   color: #000;
+   line-height: 1.2;
+   font-weight: 300;
+   /* (อันนี้คือ H1 มันจะหนาโดยอัตโนมัติอยู่แล้ว) */
+}
 
-.btn-option { background-color: var(--btn-gray); color: var(--btn-text-gray); border: 1px solid transparent; padding: 6px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; cursor: pointer; }
-.btn-option:hover { background-color: #e2e6ea; }
-.btn-option.active { background-color: #FFD580; color: #000; border-color: var(--active-orange); font-weight: 600; }
+/* (แก้ไข) ใช้ตารางจัดระเบียบ Text */
+.product-info-table {
+    border-collapse: separate;
+    border-spacing: 0 0.5rem; 
+}
+.product-info-table td {
+    border: none;
+    padding: 0.25rem 0;
+    vertical-align: top;
+}
 
-.btn-screen { background-color: var(--btn-gray); color: var(--btn-text-gray); border: 1px solid transparent; padding: 8px 24px; border-radius: 50px; font-size: 0.95rem; font-weight: 500; transition: all 0.2s; cursor: pointer; }
-.btn-screen.active { background: linear-gradient(to bottom, #FFD580, #FFC107); color: #000; border-color: #e0a800; font-weight: 600; }
+/* ✅ (แก้ไข) 
+   ลด min-width ลง (จาก 180px) เพื่อให้ Text ขยับเข้ามาชิด : 
+*/
+.product-info-table .label {
+    min-width: 130px; 
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+.product-info-table .value {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+}
 
-/* Table */
-.price-table-container { border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-.table thead th { background-color: #F8F9FA; color: #555; font-weight: 600; border-bottom-width: 1px; white-space: nowrap; }
+/* ปุ่มเลือกตัวเลือก (ขนาด, สกรีน) */
+.btn-spec {
+    background-color: var(--btn-gray);
+    color: var(--btn-text-gray);
+    border: 2px solid var(--btn-gray);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.btn-spec:hover {
+    background-color: #e2e6ea;
+}
+.btn-spec.active {
+    background-color: #FFF8E1; /* สีเหลืองนวล */
+    color: #000;
+    border-color: var(--active-orange);
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(255,193,7,0.3);
+}
+
+
+/* Price Table */
+.price-table-container {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.table thead th {
+    background-color: #F8F9FA;
+    color: #555;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border-bottom-width: 1px;
+    padding: 12px;
+    white-space: nowrap;
+}
+.table tbody td {
+    font-size: 0.95rem;
+    color: #333;
+    padding: 5px;
+    vertical-align: baseline;
+}
+.table-bordered td, .table-bordered th { border-color: var(--border-color); }
 .table tbody tr:hover { background-color: #fffdf5; }
 
-/* Parts */
-.part-item { display: flex; flex-direction: column; align-items: center; width: 90px; }
-.part-img-box { width: 80px; height: 80px; background-color: #fff; border: 1px solid #eee; border-radius: 12px; padding: 8px; display: flex; align-items: center; justify-content: center; transition: transform 0.2s; }
-.part-img-box:hover { transform: scale(1.05); border-color: var(--active-orange); }
+/* ============================
+   Extra Parts Section (อะไหล่)
+   ============================ */
+.part-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+}
+.part-img-box {
+    width: 80px;
+    height: 80px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+.part-img-box:hover {
+    transform: scale(1.05);
+    border-color: var(--active-orange);
+}
+.part-name {
+    font-size: 0.8rem;
+    color: #333;
+}
+.part-price-tag {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: white;
+}
+.part-price-tag.free { background-color: #28a745; }
+.part-price-tag.extra { background-color: #dc3545; }
 
-/* Product Card (Related) */
-.product-card { background: transparent; border-radius: 12px; overflow: hidden; text-align: center; transition: transform 0.2s ease; height: 100%; display: flex; flex-direction: column; }
-.product-card:hover { transform: translateY(-5px); }
-.product-card:hover .product-thumb { background-size: 110%; box-shadow: inset 0 6px 12px rgba(0, 0, 0, 0.12), 0 10px 20px rgba(0,0,0,0.15); }
-.product-thumb { background-color: var(--btn-gray); border-radius: 20px; width: 100%; aspect-ratio: 1 / 1; background-size: 100%; background-position: center; background-repeat: no-repeat; transition: all 0.3s ease; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
-.product-title { margin-top: 12px; margin-bottom: 0; font-weight: 600; font-size: 0.95rem; color: #333; }
-.product-title a { color: inherit; text-decoration: none; }
-.product-title a:hover { color: var(--active-orange); }
+.part-box.active {
+    border-color: var(--active-orange);
+    box-shadow: 0 0 10px rgba(255,193,7,0.3);
+}
 
-/* Responsive */
+/* ============================
+   Action Area (ปุ่มสั่งซื้อ)
+   ============================ */
+.action-area {
+    border-top: 1px solid #eee;
+    background-color: #fdfdfd;
+}
+.btn-estimate, .btn-quote, .btn-add-to-cart {
+    background-color: var(--btn-red);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+.btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover {
+    background-color: #b00020;
+    color: white;
+}
+
+/* ============================
+   Product Card (สำหรับส่วน Related Products)
+   ============================ */
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.product-card:hover .product-thumb {
+  background-size: 110%;
+}
+
+.product-thumb {
+  background-color: var(--tile-bg);
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 0.3s ease;
+}
+
+.product-card .product-title {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  padding: 0 10px;
+  font-weight: 100; /* ⬅️ ทีนี้มันจะทำงานแล้ว */
+  font-size: 1.5rem;
+}
+
+.product-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ============================
+   Responsive
+   ============================ */
 @media (max-width: 991px) {
     .gallery-container { flex-direction: column-reverse; height: auto; }
     .thumbnails { flex-direction: row; width: 100%; height: auto; overflow-x: auto; padding-bottom: 10px; margin-top: 10px; margin-right: 0 !important; }
