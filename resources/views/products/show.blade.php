@@ -131,10 +131,9 @@
                             <table class="table table-bordered text-center align-middle mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="bg-light">จำนวน</th>
+                                        <th class="">จำนวน</th>
                                         @foreach($product->sizes as $size)
-                                            <th class="bg-light size-header size-col-{{ $size->id }}" 
-                                                style="{{ $loop->first ? '' : 'display:none' }}">
+                                            <th class="size-col-{{ $size->id }}">
                                                 {{ $size->size_name }}
                                             </th>
                                         @endforeach
@@ -145,12 +144,8 @@
                                     <tr class="price-row">
                                         <td>{{ number_format($qty) }}</td>
                                         @foreach($product->sizes as $k_size => $size)
-                                            <td class="size-col size-col-{{ $size->id }}" 
-                                                style="{{ $k_size == 0 ? '' : 'display:none' }}">
+                                            <td class="size-col size-col-{{ $size->id }}">
                                                 @php
-                                                    // ✅ (แก้ไข)
-                                                    // เพิ่ม ->where('product_printing_id', $printing->id)
-                                                    // เพื่อให้ดึงราคาของตารางนี้ถูกต้อง
                                                     $price = $product->prices
                                                                 ->where('product_printing_id', $printing->id)
                                                                 ->where('product_size_id', $size->id)
@@ -273,13 +268,11 @@
         document.getElementById(tableIdToShow).style.display = 'block';
     }
 
-    // ฟังก์ชันสำหรับปุ่มขนาด (เลือก 1 อย่าง + สลับคอลัมน์ตาราง)
+    // ✅ (แก้ไข) ฟังก์ชันสำหรับปุ่มขนาด (เลือก 1 อย่าง)
     function selectSize(element, sizeId) {
         selectSpec(element, 'size-group');
         
-        // สลับคอลัมน์ตารางราคา
-        document.querySelectorAll('.size-header, .size-col').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('.size-col-' + sizeId).forEach(el => el.style.display = 'table-cell');
+        // (ลบโค้ดสลับคอลัมน์ตารางออก)
     }
 </script>
 
