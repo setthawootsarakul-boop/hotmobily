@@ -7,7 +7,7 @@
 
       <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
         <a href="{{ url('/contact-full') }}" class="contact-btn-wrapper">
-          <img src="{{ asset('images/Hotmobily file/Top page/btn-quote.png') }}" 
+          <img src="{{ asset('images/Hotmobilyfile/Top-page/btn-quote.png') }}" 
                alt="ขอใบเสนอราคา" 
                class="img-fluid contact-btn-img">
         </a>
@@ -18,7 +18,7 @@
              style="cursor: pointer;"
              data-bs-toggle="modal" 
              data-bs-target="#callModal">
-          <img src="{{ asset('images/Hotmobily file/Top page/call.png') }}" 
+          <img src="{{ asset('images/Hotmobilyfile/Top-page/call.png') }}" 
                alt="โทรหาเรา" 
                class="img-fluid contact-btn-img">
         </div>
@@ -29,7 +29,7 @@
              style="cursor: pointer;"
              data-bs-toggle="modal" 
              data-bs-target="#lineModal">
-          <img src="{{ asset('images/Hotmobily file/Top page/line.png') }}" 
+          <img src="{{ asset('images/Hotmobilyfile/Top-page/line.png') }}" 
                alt="แอดไลน์" 
                class="img-fluid contact-btn-img">
         </div>
