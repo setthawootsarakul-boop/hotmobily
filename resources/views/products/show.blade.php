@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="col-lg-7">
-                    <h1 class="product-title mb-4">{{ $product->name }}</h1>
+                    <h1 class="product-title fw-bold mb-4">{{ $product->name }}</h1>
 
                     <table class="table product-info-table">
                         <tbody>
@@ -71,9 +71,10 @@
                             <tr>
                                 <td class="label">ขนาด :</td>
                                 <td class="value">
-                                    <div class="d-flex gap-2">
+                                    <div class="d-flex gap-2" id="size-group">
                                         @foreach($product->sizes as $key => $size)
                                             <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}" 
+                                                    data-group="size-group"
                                                     onclick="selectSize(this, {{ $size->id }})">
                                                 {{ $size->size_name }}
                                             </button>
@@ -103,10 +104,12 @@
                                 <td class="label">การสกรีน :</td>
                                 <td class="value">
                                     {{ $product->printings->first()->note ?? '-' }}
-                                    <div class="d-flex gap-3 mt-2">
+                                    <div class="d-flex gap-3 mt-2" id="screen-group">
                                         @foreach($product->printings as $key => $printing)
                                             <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}"
-                                                    onclick="selectSpec(this, 'screen-group')">
+                                                    data-group="screen-group"
+                                                    data-table-id="price-table-{{ $printing->id }}"
+                                                    onclick="selectScreen(this)">
                                                 {{ $printing->printing_type }}
                                             </button>
                                         @endforeach
@@ -118,39 +121,52 @@
                     </table>
                     
                     @if($product->prices->isNotEmpty())
-                    <div class="price-table-container mt-4 table-responsive">
-                        <table class="table table-bordered text-center align-middle mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="bg-light">จำนวน</th>
-                                    @foreach($product->sizes as $key => $size)
-                                        <th class="bg-light size-header size-col-{{ $size->id }}" 
-                                            style="{{ $key == 0 ? '' : 'display:none' }}">
-                                            {{ $size->size_name }}
-                                        </th>
+                    <div class="price-table-wrapper mt-4">
+                        
+                        @foreach($product->printings as $key => $printing)
+                        <div id="price-table-{{ $printing->id }}" 
+                             class="price-table table-responsive" 
+                             style="{{ $key == 0 ? '' : 'display: none;' }}">
+                            
+                            <table class="table table-bordered text-center align-middle mb-0">
+                                <thead>
+                                    <tr>
+                                        <th class="bg-light">จำนวน</th>
+                                        @foreach($product->sizes as $size)
+                                            <th class="bg-light size-header size-col-{{ $size->id }}" 
+                                                style="{{ $loop->first ? '' : 'display:none' }}">
+                                                {{ $size->size_name }}
+                                            </th>
+                                        @endforeach
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($quantities as $qty)
+                                    <tr class="price-row">
+                                        <td>{{ number_format($qty) }}</td>
+                                        @foreach($product->sizes as $k_size => $size)
+                                            <td class="size-col size-col-{{ $size->id }}" 
+                                                style="{{ $k_size == 0 ? '' : 'display:none' }}">
+                                                @php
+                                                    // ✅ (แก้ไข)
+                                                    // เพิ่ม ->where('product_printing_id', $printing->id)
+                                                    // เพื่อให้ดึงราคาของตารางนี้ถูกต้อง
+                                                    $price = $product->prices
+                                                                ->where('product_printing_id', $printing->id)
+                                                                ->where('product_size_id', $size->id)
+                                                                ->where('quantity_min', $qty)
+                                                                ->first();
+                                                @endphp
+                                                {{ $price ? number_format($price->price_per_unit) : '-' }}
+                                            </td>
+                                        @endforeach
+                                    </tr>
                                     @endforeach
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($quantities as $qty)
-                                <tr>
-                                    <td>{{ number_format($qty) }}</td>
-                                    @foreach($product->sizes as $key => $size)
-                                        <td class="size-col size-col-{{ $size->id }}" 
-                                            style="{{ $key == 0 ? '' : 'display:none' }}">
-                                            @php
-                                                $price = $product->prices
-                                                            ->where('product_size_id', $size->id)
-                                                            ->where('quantity_min', $qty)
-                                                            ->first();
-                                            @endphp
-                                            {{ $price ? number_format($price->price_per_unit) : '-' }}
-                                        </td>
-                                    @endforeach
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
+                        @endforeach
+
                     </div>
                     @endif
                     
@@ -160,7 +176,9 @@
                         <div class="row g-3">
                             @foreach($product->parts as $part)
                                 <div class="col-lg-2 col-md-3 col-4">
-                                    <div class="part-box rounded-3 border p-2 text-center {{ $part->is_default ? 'active' : '' }}">
+                                    <div class="part-box rounded-3 border p-2 text-center {{ $part->is_default ? 'active' : '' }}"
+                                         data-group="part-group"
+                                         onclick="selectSpec(this, 'part-group')">
                                         @if($part->image_url)
                                             <div class="part-img-box mb-2">
                                                 <img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}">
@@ -240,20 +258,28 @@
         element.classList.add('active');
     }
 
-    function selectSize(element, sizeId) {
-        // 1. เปลี่ยนปุ่ม active
-        document.querySelectorAll('.btn-option').forEach(el => el.classList.remove('active'));
+    // ฟังก์ชันใหม่สำหรับ "เลือก 1 อย่าง"
+    function selectSpec(element, groupName) {
+        const groupElements = document.querySelectorAll(`[data-group="${groupName}"]`);
+        groupElements.forEach(el => el.classList.remove('active'));
         element.classList.add('active');
-
-        // 2. เปลี่ยนคอลัมน์ตารางราคา
-        document.querySelectorAll('.size-header, .size-col').forEach(el => el.style.display = 'none');
-        document.querySelectorAll('.size-col-' + sizeId).forEach(el => el.style.display = 'table-cell');
     }
 
-    function selectSpec(element, groupName) {
-        // (Optional: ถ้าต้องการให้ปุ่มสกรีนกดได้ทีละอัน)
-        // document.querySelectorAll('.' + groupName).forEach(el => el.classList.remove('active'));
-        // element.classList.add('active');
+    // ฟังก์ชันสำหรับปุ่มสกรีน (เลือก 1 อย่าง + สลับตาราง)
+    function selectScreen(element) {
+        selectSpec(element, 'screen-group');
+        const tableIdToShow = element.dataset.tableId;
+        document.querySelectorAll('.price-table').forEach(el => el.style.display = 'none');
+        document.getElementById(tableIdToShow).style.display = 'block';
+    }
+
+    // ฟังก์ชันสำหรับปุ่มขนาด (เลือก 1 อย่าง + สลับคอลัมน์ตาราง)
+    function selectSize(element, sizeId) {
+        selectSpec(element, 'size-group');
+        
+        // สลับคอลัมน์ตารางราคา
+        document.querySelectorAll('.size-header, .size-col').forEach(el => el.style.display = 'none');
+        document.querySelectorAll('.size-col-' + sizeId).forEach(el => el.style.display = 'table-cell');
     }
 </script>
 
