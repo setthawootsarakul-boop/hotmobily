@@ -1,49 +1,849 @@
+/* ========================
+   🎨 THEME VARIABLES (ตัวแปรธีมหลัก)
+======================== */
 :root {
-  --brand: #f6a800;
-  --brand-2: #ffcd50;
-  --dark: #1f1f1f;
-  --light: #fffaf1;
+  /* 🔸 Navbar Theme */
+  --navbar-bg: #fbab00;
+  --navbar-text: #000;
+  --navbar-hover-bg: rgba(0, 0, 0, 0.2);
+  --navbar-hover-text: #fff;
+
+  /* 🔸 Hero Section Theme */
+  --hero-bg: #ffc81a;
+  --hero-text: #1f1f1f;
+  --hero-highlight: #f7f7f7;
+
+  /* 🔸 Footer Theme */
+  --footer-bg: #2e2e2e;
+  --footer-text: #fff;
+  --divider: #f6a800;
 }
 
-/* RESET */
-body {
-  font-family: "Poppins", sans-serif;
-  background: var(--light);
-  color: var(--dark);
-  margin: 0;
-  padding: 0;
+/* ========================
+   🔸 NAVBAR SECTION
+======================== */
+.navbar {
+  font-family: "Noto Sans Thai", sans-serif;
+  padding: 0.8rem 1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* HERO */
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
-              url('/img/hero.jpg') center/cover no-repeat;
-  height: 85vh;
+/* ✅ สีพื้นหลัง Navbar */
+.bg-orange {
+  background-color: #fbab00 !important;
+  background-color: var(--navbar-bg) !important;
+}
+
+/* ✅ โลโก้ */
+.navbar-brand img {
+  height: 60px;
+  width: auto;
+  transition: transform 0.3s ease;
+}
+.navbar-brand img:hover {
+  transform: scale(1.05);
+}
+
+/* ✅ เมนูหลัก */
+.navbar-nav {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  gap: 1rem;
+}
+
+/* ✅ ลิงก์ใน Navbar */
+.navbar a.nav-link {
+  color: var(--navbar-text) !important;
+  font-weight: 600;
+  transition: 0.3s ease;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+.navbar a.nav-link:hover {
+  color: var(--navbar-hover-text) !important;
+  background-color: var(--navbar-hover-bg);
+}
+
+/* ✅ ตะกร้า */
+.cart-link {
+  color: #fff !important;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+.cart-link:hover {
+  transform: scale(1.1);
+  color: #ffeb99 !important;
+}
+
+/* ✅ ปุ่มมือถือ */
+.navbar-toggler {
+  border: none;
+  background: transparent;
+}
+.navbar-toggler-icon {
+  filter: brightness(0.2);
+}
+
+/* ✅ ปรับสีตะกร้าใน Navbar สีส้ม */
+.navbar.bg-orange .cart-link {
+  color: #fff !important;
+}
+.navbar.bg-orange .cart-link:hover {
+  color: #ffeb99 !important;
+}
+
+/* ========================
+   🔸 Hero Section
+======================== */
+.hero-section {
+  background-color: var(--hero-bg);
+  color: var(--hero-text);
+  padding: 4rem 0;
+}
+
+.hero-img {
+  width: 85%;
+  max-width: 350px;
+}
+
+/* ✅ หัวข้อหลัก */
+.brand-highlight {
+  color: var(--hero-highlight);
+  text-shadow: 4px 4px #000;
+  font-weight: 800;
+}
+
+/* ✅ คำอธิบาย */
+.brand-desc {
+  color: var(--hero-text);
+  font-size: 1.1rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ✅ ส่วนของฟีเจอร์ */
+.brand-features {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap; /* ❗ บังคับให้อยู่บรรทัดเดียว */
+  gap: 4rem; /* ลดจาก 5rem → 4rem ให้ลงตัวพอดีจอ */
+  margin-top: 2.5rem;
+  flex-shrink: 0;
+}
+
+/* ✅ ปรับแต่ละฟีเจอร์ให้ขนาดเท่ากัน */
+.brand-features .feature {
+  text-align: center;
+  width: 200px;  /* กำหนดความกว้างแน่นอนให้เท่ากันทุกช่อง */
+}
+
+/* ✅ ไอคอนวงกลม */
+.icon-circle {
+  background-color: #fff;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 15px;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+  transition: all 0.3s ease;
+}
+
+.icon-circle i {
+  font-size: 42px;
+  color: #fca311;
+}
+
+/* ✅ ข้อความใต้ไอคอน */
+.brand-features .feature p {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #000;
+  margin-top: 0.5rem;
+}
+
+
+/* ✅ Responsive ปรับกลับมาแน่นนิดหน่อยตอนมือถือ */
+@media (max-width: 768px) {
+  .brand-features {
+    gap: 2rem;
+  }
+
+  .icon-circle {
+    width: 90px;
+    height: 90px;
+  }
+
+  .icon-circle i {
+    font-size: 36px;
+  }
+
+  .brand-features .feature p {
+    font-size: 0.95rem;
+  }
+}
+
+/* ========================
+   🔸 WHY CHOOSE US SECTION
+======================== */
+.why-section {
+  background-color: #fff;
+  position: relative;
+}
+
+.why-section h2 {
+  color: #444;
+  font-family: "Noto Sans Thai", sans-serif;
+  font-weight: 700;
+}
+
+/* 🔸 วงกลมไอคอน */
+.why-icon {
+  background-color: #f6a800;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.why-icon img {
+  width: 70px;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.why-item:hover .why-icon {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔸 ข้อความ */
+.why-text {
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.4;
+  font-family: "Noto Sans Thai", sans-serif;
+}
+
+/* ===============================
+   🔸 CONTACT & STEPS SECTION (fixed layout)
+================================= */
+#contact, #steps {
+  background-color: #F6F1E9;
+  padding: 4rem 0;
+}
+
+#contact h3, #steps h3 {
+  color: #444;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+/* ✅ กล่อง contact-card — ขนาดเท่ากันแนวนอน */
+
+#steps .contact-card,
+#contact .contact-card {
+  flex: 0 1 360px;             /* ✅ กำหนดความยาวแนวนอนของแต่ละกล่อง */
+  max-width: 360px;            /* ✅ จำกัดความกว้างไม่ให้ล้นจอ */
+  border-radius: 20px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  padding: 2rem 1.5rem;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.2);
+}
+
+/* ✅ รูปและข้อความในกล่อง */
+.contact-card img.contact-icon {
+  width: 65px;
+  height: auto;
+  margin-bottom: 0.8rem;
+}
+
+.contact-card h4 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.contact-card p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.6;
+}
+
+/* ✅ จัด row ให้เรียงแนวนอนอยู่กึ่งกลาง */
+#steps .row,
+#contact .row {
+  display: flex;
+  justify-content: center;     /* ให้ทุกกล่องอยู่กึ่งกลางแนวนอน */
+  align-items: stretch;
+  flex-wrap: nowrap;           /* ✅ ให้กล่องอยู่ในบรรทัดเดียว */
+  gap: 4rem;                 /* ✅ เพิ่มระยะห่างระหว่างกล่อง */
+}
+
+/* ========================
+   🔸 FOOTER SECTION (Final Clean Version)
+======================== */
+.footer-section {
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
+  font-family: "Noto Sans Thai", sans-serif;
+  padding: 3rem 0 0;
+  margin-top: 3rem;
+}
+
+.footer-section .container {
+  padding: 0 1rem;
+}
+
+/* ✅ Layout คอลัมน์หลัก */
+.footer-section .row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  gap: 2rem;
+}
+
+/* ========================
+   🔹 Company Info
+======================== */
+.footer-company {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  flex: 1 1 0;
+  max-width: 300px;
+}
+.footer-logo {
+  width: 90px;
+  display: block;
+  margin: 0 auto 1rem;
+}
+.footer-company p {
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
+}
+.footer-company a {
+  color: #fff;
+  text-decoration: none;
+}
+.footer-company a:hover {
+  color: var(--hero-bg);
+}
+
+/* ========================
+   🔹 Subscribe
+======================== */
+/* 🔹 Subscribe (ปรับใหม่ให้ข้อความตรงกลางแนวดิ่งกับช่อง) */
+/* 🔹 Subscribe (ข้อความชิดซ้าย + ช่องกรอกตรงแนวกลาง) */
+.footer-subscribe {
+  text-align: left;                  /* ✅ เปลี่ยนจาก center → left */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;           /* แนวกึ่งกลางในแนวดิ่ง */
+  align-items: flex-start;           /* ✅ ขยับชิดซ้าย */
+  min-height: 220px;
+  padding-top: 20px;
+  padding-bottom: 0;
+  padding-left: 40px;                /* ✅ เพิ่มระยะขอบซ้ายให้อ่านง่าย */
+}
+
+.footer-subscribe h5 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 0.4rem;
+}
+
+.footer-subscribe p {
+  color: #ddd;
+  font-size: 0.95rem;
+  margin-bottom: 1.2rem;
+  text-align: left;                  /* ✅ เผื่อ text-align แยก */
+  width: 100%;
+}
+
+.footer-subscribe form {
+  display: flex;
+  justify-content: flex-start;       /* ✅ ช่องกรอก + ปุ่มชิดซ้าย */
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-subscribe input[type="email"] {
+  background-color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 12px;
+  width: 260px;
+  max-width: 280px;
+  font-size: 0.95rem;
+}
+
+.footer-subscribe .btn-warning {
+  background-color: var(--hero-bg);
+  border: none;
+  color: var(--hero-text);
+  font-weight: 600;
+  padding: 10px 16px;
+  transition: 0.3s;
+}
+
+.footer-subscribe .btn-warning:hover {
+  background-color: #ffda4d;
+}
+
+/* ========================
+   🔹 Social + QR
+======================== */
+.footer-social {
+  flex: 1 1 0;
+  text-align: center;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0;
+  max-width: 300px;
+}
+.footer-social .social-icons {
+  margin-bottom: 0.8rem;
+}
+.footer-social .qr-code {
+  width: 130px;
+  border-radius: 8px;
+  margin: 1rem 0 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.footer-social p {
+  margin-top: 0.8rem;
+  color: #fff;
+}
+.social-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 6px;
+  transition: 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+.social-img:hover {
+  transform: translateY(-3px);
+  opacity: 0.85;
+}
+
+/* ========================
+   🔹 เส้นคั่น / ลิงก์ / ลิขสิทธิ์
+======================== */
+.footer-divider {
+  height: 3px;
+  background-color: var(--divider);
+  width: 100%;
+  margin-top: 2rem;
+}
+.footer-links-section {
+  background-color: #1f1f1f;
+  padding: 1rem 0;
+  text-align: center;
+}
+.footer-links a {
+  color: #dcdcdc;
+  font-size: 0.9rem;
+  margin: 0 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.footer-links a:hover {
+  color: var(--hero-bg);
+  text-decoration: underline;
+}
+.footer-bottom-section {
+  background-color: #000;
+  text-align: center;
+  color: #ccc;
+  font-size: 0.9rem;
+  padding: 0.8rem 0;
+}
+
+/* ========================
+   📱 RESPONSIVE DESIGN
+======================== */
+
+/* Tablet - Navbar & Footer */
+@media (max-width: 992px) {
+  .navbar-nav {
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 0.8rem 0;
+  }
+  .footer-section .row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+/* ปรับให้ responsive เวลาอยู่บนมือถือ */
+@media (max-width: 992px) {
+  #steps .row,
+  #contact .row {
+    flex-wrap: wrap;           /* ✅ ให้ย่อเป็นหลายบรรทัดเมื่อจอแคบ */
+  }
+
+  #steps .contact-card,
+  #contact .contact-card {
+    flex: 0 1 80%;             /* ✅ กล่องขยายเต็มจอมือถือ */
+    max-width: 80%;
+  }
+}
+
+/* Mobile - Hero & Features */
+/* ✅ Responsive (มือถือ) */
+@media (max-width: 768px) {
+  .brand-features {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .icon-circle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .icon-circle i {
+    font-size: 32px;
+  }
+
+  .brand-features .feature p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile - Steps & Contact Cards */
+@media (max-width: 576px) {
+  #steps .row,
+  #contact .row {
+    justify-content: center !important;
+    padding: 0 10px;
+  }
+  #steps .contact-card,
+  #contact .contact-card {
+    margin: 0 auto;
+  }
+  .contact-card {
+    max-width: 230px;
+    padding: 1.2rem;
+  }
+  .contact-card {
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .contact-card:hover {
+    transform: translateY(-5px);
+  }
+}
+
+/* 🔧 ปรับแนวศูนย์กลางของ sections ให้ตรงกัน */
+#steps,
+#contact {
+  padding-top: 4rem;  /* ให้มีระยะห่างเท่ากัน */
+  padding-bottom: 4rem;
+}
+
+#steps .container,
+#contact .container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-/* SHADOW UTIL */
-.shadow-soft {
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+/* ปรับ heading ให้แนวกึ่งกลางตรงกับกล่อง */
+#steps h3,
+#contact h3 {
+  text-align: center;
+  margin-bottom: 2.5rem; /* ระยะห่างจากกล่องด้านล่างเท่ากัน */
 }
 
-/* RESPONSIVE */
+/* ปรับให้ row ทั้งสอง section กึ่งกลางเท่ากัน */
+#steps .row,
+#contact .row {
+  justify-content: center;
+  align-items: center;
+}
+/* ========================
+   📱 RESPONSIVE DESIGN
+======================== */
+
+/* ✅ Tablet (≤992px) */
 @media (max-width: 992px) {
-  .hero h1 {
-    font-size: 2rem;
+  .footer-section .row {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
   }
-  .section {
-    padding: 48px 0;
+
+  .navbar {
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-toggler {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+  }
+
+  .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255,255,255,1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .cart-link i {
+    font-size: 1.6rem;
+    color: white;
   }
 }
 
-@media (max-width: 576px) {
-  .hero h1 {
-    font-size: 1.6rem;
+/* ✅ Mobile (≤768px) */
+@media (max-width: 768px) {
+
+  /* --- จัด layout หลักให้เป็นแนวตั้ง --- */
+  .footer-section .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center;
+    flex-wrap: wrap; /* ✅ ให้ wrap ได้ในแนวตั้ง */
+    gap: 2rem;
   }
-  .hero p {
+
+  /* --- คอลัมน์ทั้งหมดจัดตรงกลาง --- */
+  .footer-company,
+  .footer-subscribe,
+  .footer-social {
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- ข้อความสมัครสมาชิก --- */
+  .footer-subscribe {
+    margin-top: 1rem;
+    padding-left: 0 !important;   /* ✅ ยกเลิกระยะขอบซ้ายของ desktop */
+    align-items: center !important;
+  }
+
+  .footer-subscribe h5 {
+    font-size: 1.1rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-subscribe p {
+    white-space: nowrap;
+    overflow: hidden;             /* ✅ ปิด scrollbar แน่นอน */
+    text-overflow: ellipsis;
+    text-align: center;
+    font-size: 0.95rem;
+    display: inline-block;
+    width: auto;
+    margin-bottom: 1rem;
+  }
+
+  /* --- ฟอร์ม input + ปุ่ม --- */
+  .footer-subscribe form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  .footer-subscribe input[type="email"] {
+    width: 90%;
+    max-width: 320px;
+    height: 44px;
+    text-align: center;
+    border-radius: 6px;
+  }
+
+  .footer-subscribe .btn-warning {
+    width: fit-content;
+    height: 44px;
+    padding: 0 1.8rem;
+    border-radius: 6px;
+    font-weight: 600;
+  }
+
+  /* --- โซเชียล --- */
+  .footer-social {
+    margin-top: 1.2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-social .social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .footer-social .qr-code {
+    width: 160px;
+    margin: 1.2rem auto 0;
+    display: block;
+  }
+  /* ✅ Navbar mobile */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 1rem;
+  }
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .menu-toggle {
+    order: 3;
+  }
+
+  .navbar-logo {
+    order: 1;
+  }
+
+  .cart-icon {
+    order: 2;
+  }
+}
+
+
+/* ✅ Desktop (≥992px) */
+@media (min-width: 992px) {
+  /* --- Footer Layout ให้สมดุลทั้งแถว --- */
+  .footer-section .row {
+    display: flex;
+    align-items: center;        /* ✅ จัดให้คอลัมน์อยู่ระดับเดียวกัน */
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* --- คอลัมน์สมัครสมาชิก (ตรงกลาง) --- */
+  .footer-subscribe {
+    margin-top: 0;              /* ✅ ไม่มีเด้งลงหรือขึ้นเกินไป */
+    position: relative;
+    top: -6px;                  /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับโลโก้และ QR */
+    text-align: center;
+  }
+
+  .footer-subscribe h5,
+  .footer-subscribe p {
+    margin: 0.3rem 0;
+    position: relative;
+    top: -2px;                  /* ปรับข้อความให้อยู่กึ่งกลางกับช่องกรอก */
+  }
+
+  .footer-subscribe form {
+    display: flex;
+    align-items: center;        /* ✅ ช่องกรอก + ปุ่มอยู่ระดับเดียวกัน */
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .footer-subscribe input[type="email"] {
+    height: 46px;
+    padding: 0 15px;
     font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    box-sizing: border-box;
+    line-height: normal;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-subscribe .btn-warning {
+    height: 46px;
+    padding: 0 40px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* --- คอลัมน์ขวา (QR + Social) --- */
+  .footer-social {
+    position: relative;
+    top: 20px;     /* 🔽 จาก 30px → 18px ขยับลงเล็กน้อยให้บาลานซ์กับ subscribe */
+    margin-top: 0; /* ไม่ต้องเพิ่มช่องว่างพิเศษแล้ว */
+  }
+
+  /* เพื่อให้แน่ใจว่าทั้งแถวอยู่ระดับเดียวกัน */
+  .footer-section .row {
+    align-items: center;
+  }
+
+  .footer-social .qr-code {
+    width: 200px;
+    margin-top: 1rem;
+  }
+
+  /* --- คอลัมน์ซ้าย (บริษัท) --- */
+  .footer-company {
+    position: relative;
+    top: -4px;              /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับ subscribe */
+    text-align: center;     /* ✅ เปลี่ยนให้ align เหมือนกลางและขวา */
+    align-items: center;    /* ✅ จัดให้อยู่ตรงกลางในแนวตั้ง */
+  }
+
+  .footer-company .footer-logo {
+    margin: 0 auto 1rem;    /* ✅ โลโก้อยู่กลาง */
+  }
+
+  .footer-company p,
+  .footer-company a {
+    text-align: center;     /* ✅ ให้ข้อความอยู่ตรงกลางแนวเดียวกับส่วนอื่น */
   }
 }

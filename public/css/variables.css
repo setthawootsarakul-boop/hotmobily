@@ -1,0 +1,20 @@
+/* ========================
+   🎨 THEME VARIABLES (ตัวแปรธีมหลัก)
+======================== */
+:root {
+  /* 🔸 Navbar Theme */
+  --navbar-bg: #fbab00;
+  --navbar-text: #000;
+  --navbar-hover-bg: rgba(0, 0, 0, 0.2);
+  --navbar-hover-text: #fff;
+
+  /* 🔸 Hero Section Theme */
+  --hero-bg: #ffc81a;
+  --hero-text: #1f1f1f;
+  --hero-highlight: #f7f7f7;
+
+  /* 🔸 Footer Theme */
+  --footer-bg: #2e2e2e;
+  --footer-text: #fff;
+  --divider: #f6a800;
+}

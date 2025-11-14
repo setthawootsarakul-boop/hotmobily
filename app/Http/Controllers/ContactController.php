@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function full()
     {
-        return view('contact');
+        return view('contact-full');
     }
 
     public function send(Request $request)
