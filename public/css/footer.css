@@ -128,7 +128,7 @@
 }
 .footer-social .qr-code {
   width: 130px;
-  border-radius: 8px;
+  border-radius: 0px;
   margin: 1rem 0 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
@@ -529,7 +529,7 @@
   .footer-social .qr-code {
     width: 200px;
     margin-top: 0rem;
-    margin-left: 30px;
+    margin-left: 25px;
   }
 
   /* --- คอลัมน์ซ้าย (บริษัท) --- */
