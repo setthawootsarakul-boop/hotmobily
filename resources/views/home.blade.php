@@ -65,6 +65,8 @@
 {{-- ✅ include ส่วนอื่น --}}
 @include('partials.why')
 @include('partials.steps')
+@include('partials.product-showcase')
+@include('partials.reviews')
 @include('partials.contact')
 
 {{-- 🔸 JavaScript --}}

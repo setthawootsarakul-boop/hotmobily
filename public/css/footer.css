@@ -124,6 +124,7 @@
 }
 .footer-social .social-icons {
   margin-bottom: 0.8rem;
+  margin-left: 3px;
 }
 .footer-social .qr-code {
   width: 130px;
@@ -133,7 +134,7 @@
 }
 .footer-social p {
   margin-top: 15px;
-  margin-left: 15px;
+  margin-left: 45px;
   color: #fff;
 }
 .social-img {
@@ -527,7 +528,8 @@
 
   .footer-social .qr-code {
     width: 200px;
-    margin-top: 1rem;
+    margin-top: 0rem;
+    margin-left: 30px;
   }
 
   /* --- คอลัมน์ซ้าย (บริษัท) --- */
