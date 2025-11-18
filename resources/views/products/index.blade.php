@@ -161,17 +161,19 @@
                     </button>
                 </div>
             </div>
+
             <div class="d-none d-lg-flex align-items-center mb-3 gap-3">
                 <div class="page-banner">
                     <h2>{{ $pageTitle }}</h2>
                 </div>
 
-                <div class="decor-blocks d-none d-md-flex ms-auto"style="margin-top: 28px;">
+                <div class="decor-blocks d-none d-md-flex ms-auto" style="margin-top: 28px;">
                     <span class="square"></span>
                     <span class="square"></span>
                     <span class="square"></span>
                 </div>
             </div>
+
             <div class="cards-wrapper p-3 shadow-sm bg-white rounded mt-0 mt-lg-0">
                 <div class="row g-3">
                     @forelse($products as $product)
@@ -181,7 +183,13 @@
                                     $img = $product->images->first();
                                     $src = $img ? $img->image_url : 'images/no-image.png'; 
                                 @endphp
-                                <div class="product-thumb" style="background-image: url('{{ asset($src) }}');"></div>
+                                
+                                <div class="product-image-container">
+                                    <div class="bg-shape"></div>
+                                    
+                                    <img src="{{ asset($src) }}" alt="{{ $product->name }}" class="product-img-obj">
+                                </div>
+
                                 <div class="product-title">
                                     <a href="{{ $product->slug ? route('products.show', $product->slug) : '#' }}">
                                         {{ $product->name }}
@@ -201,7 +209,6 @@
 </div>
 
 <script>
-// Script สำหรับหมุนลูกศร (Caret) เหมือนเดิม
 document.addEventListener('DOMContentLoaded', function () {
     const toggles = document.querySelectorAll('.filter-toggle');
     toggles.forEach(btn => {

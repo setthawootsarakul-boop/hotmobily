@@ -162,7 +162,7 @@
 }
 .footer-links-section {
     /* ไล่สีจาก #1f1f1f (ด้านบน) ลงไปหา #000000 (ด้านล่าง) */
-    background: linear-gradient(269deg, #a3a3a3 39%, #3a3939 100%);
+    background: linear-gradient(359deg, #a3a3a3 39%, #353434 100%);
     
     padding: 1.5rem 0; /* เพิ่ม Padding นิดหน่อยให้ดูไม่อึดอัด */
     text-align: center;

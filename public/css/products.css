@@ -15,7 +15,7 @@
   color: #2f2f2f;
 }
 
-/* sidebar styling (คงเดิม) */
+/* sidebar styling */
 .sidebar-card {
   background: var(--panel-bg);
   border-radius: 12px;
@@ -27,7 +27,7 @@
 }
 .sidebar-logo { height: 85px; width: auto; border-radius: 8px; }
 .sidebar-header { padding: 18px 18px 0 18px; }
-.sidebar-header h5 { font-weight: 700; color: var(--brown-dark); font-size: 2rem; letter-spacing: 0.5px; }   
+.sidebar-header h5 { font-weight: 700; color: #000000; font-size: 1.6rem; letter-spacing: 0.5px; margin-left: 20px; }   
 .sidebar-divider { border: 0; height: 1px; background-color: #eee; opacity: 0.8; margin-left: 18px; margin-right: 18px; }
 .sidebar-body { padding-bottom: 18px; }
 .sidebar-body a { color: var(--brown-dark); text-decoration: none; display: block; padding: 6px 18px; transition: all .12s ease; font-weight: 300; border-radius: 0; font-size: 1rem; }
@@ -44,7 +44,7 @@
 .filter-toggle .caret-icon { transition: transform .25s ease; font-size: 0.9rem; color: var(--brown-dark); }
 .filter-toggle .caret-icon.rotated { transform: rotate(180deg); }
 
-/* [DESKTOP BANNER - ORIGINAL CODE] */
+/* [DESKTOP BANNER] */
 .page-banner {
     background: var(--brown-dark);
     color: #fff;
@@ -52,7 +52,7 @@
     border-radius: 8px;
     min-width: 1240px;
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-    margin-top: 27px; /* Fix ตามที่คุณตั้งไว้ */
+    margin-top: 27px; 
 }
 .page-banner h2 {
   margin: 0;
@@ -66,7 +66,7 @@
 .decor-blocks .square {
     display: inline-block;
     width: 39px;
-    height: 140px;
+    height: 137px;
     background: #4A2313;
     margin-left: 12px;
     border-radius: 6px;
@@ -74,12 +74,83 @@
 }
 
 .cards-wrapper { border-radius: 12px; }
-.product-card { background: transparent; border-radius: 12px; overflow: visible; text-align: center; }
-.product-thumb:hover { background-size: 120%; }
-.product-thumb { background-color: #FFECCF; border-radius: 12px; padding: 10px; width: 100%; aspect-ratio: 1 / 1; box-shadow: inset 0px 10px 5px rgba(0, 0, 0, 0.1), 0 10px 18px rgba(0, 0, 0, 0.06); background-size: 100%; background-position: center; background-repeat: no-repeat; transition: all 0.3s ease-in-out; }
-.product-title { margin-top: 12px; font-weight: 600; color: #3b2f2f; }
-.product-title a { color: inherit; text-decoration: none; font-size: 0.95rem; }
-.gap-3 { gap: unset !important; }
+
+/* [PRODUCT CARD MAIN LAYOUT] */
+.product-card { 
+    background: transparent; 
+    border-radius: 12px; 
+    overflow: visible; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    height: 100%;
+}
+
+/* =====================================================
+   [DESKTOP SETTINGS] 
+   ค่า Manual สำหรับ Desktop (ที่คุณกำหนดเอง)
+   ===================================================== */
+
+/* 1. Container */
+.product-image-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    margin-bottom: 15px; 
+}
+
+/* 2. Background Box (Desktop) */
+.bg-shape {
+    position: absolute;
+    z-index: 1;
+    /* Desktop Manual Values */
+    top: 50px;
+    left: 20px;
+    width: 89%;
+    height: 83%;
+    
+    background-color: #FFECCF;
+    border-radius: 12px;
+    box-shadow: inset 0px 10px 5px rgba(0, 0, 0, 0.1), 0 10px 18px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease-in-out;
+}
+
+/* 3. Image Object (Desktop) */
+.product-img-obj {
+    position: absolute;
+    z-index: 2;
+    /* Desktop Manual Values */
+    top: 57%;
+    left: 54%;
+    width: 100%;
+    height: 90%;
+    
+    transform: translate(-50%, -50%);
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effects (เฉพาะ Desktop ที่หน้าจอใหญ่กว่า 992px) */
+@media (min-width: 992px) {
+    .product-card:hover .product-img-obj {
+        transform: translate(-50%, -50%) scale(1.1); 
+    }
+}
+
+/* [TEXT STYLING] */
+.product-title { 
+    margin-top: 0; 
+    font-weight: 600; 
+    color: #3b2f2f; 
+    text-align: center;
+    width: 100%;
+    line-height: 1.3;
+    padding: 0 5px;
+}
+.product-title a { color: inherit; text-decoration: none; font-size: 1rem; display: block; }
+.gap-3 { gap: 1 !important; }
 
 @media (min-width: 1200px) {
   .col-xl-2-5 { flex: 0 0 20%; max-width: 20%; }
@@ -90,69 +161,70 @@
    ============================ */
 
 @media (max-width: 991.98px) {
-    
-    /* 1. Breadcrumb Mobile Style */
-    .bg-light-mobile {
-        background-color: #f8f9fa; 
-    }
-
-    /* 2. MOBILE BANNER STYLE */
-    .mobile-page-banner {
-        background: var(--brown-dark);
-        color: #fff;
-        width: 100%;                
-        padding: 20px 0;          
-        text-align: center;
-    }
-    .mobile-page-banner h2 {
-        margin: 0;
-        font-weight: 800;
-        color: var(--accent);
-        font-size: 1.5rem;
-        letter-spacing: 0.6px;
-    }
-
-    /* HACK: Container adjustments */
-    .mobile-header-section {
-        margin-left: calc(-.5 * var(--bs-gutter-x));
-        margin-right: calc(-.5 * var(--bs-gutter-x));
-    }
-
-    /* 3. Mobile Filter Bar */
-    .mobile-filter-bar {
-        background-color: #f4efe8;
-        padding: 10px 15px;
-        border-bottom: 1px solid #e0e0e0;
-    }
-    .mobile-filter-bar button {
-        color: #333;
-        font-weight: 600;
-        font-size: 1rem;
-        background: transparent;
-        border: none;
-    }
+    /* ... Styles เดิม ... */
+    .bg-light-mobile { background-color: #f8f9fa; }
+    .mobile-page-banner { background: var(--brown-dark); color: #fff; width: 100%; padding: 20px 0; text-align: center; }
+    .mobile-page-banner h2 { margin: 0; font-weight: 800; color: var(--accent); font-size: 1.5rem; letter-spacing: 0.6px; }
+    .mobile-header-section { margin-left: calc(-.5 * var(--bs-gutter-x)); margin-right: calc(-.5 * var(--bs-gutter-x)); }
+    .mobile-filter-bar { background-color: #f4efe8; padding: 10px 15px; border-bottom: 1px solid #e0e0e0; }
+    .mobile-filter-bar button { color: #333; font-weight: 600; font-size: 1rem; background: transparent; border: none; }
     .mobile-filter-bar button:focus { box-shadow: none; }
-    
     .offcanvas { max-width: 80%; }
-    
-    /* [EDITED HERE] เพิ่ม Padding ด้านข้างให้มากขึ้น */
-    .cards-wrapper {
-        box-shadow: none !important;
-        padding: 20px 25px !important; /* ปรับข้างเป็น 25px เพื่อดันไม่ให้ติดจอ */
-    }
-    
+    .cards-wrapper { box-shadow: none !important; padding: 20px 25px !important; }
     .decor-blocks { display: none !important; }
 }
 
+/* ============================
+   📱 MOBILE SPECIFIC SETTINGS 
+   (สำหรับหน้าจอเล็กกว่า 576px)
+   ============================ */
+/* ============================
+   📱 MOBILE SPECIFIC SETTINGS 
+   (สำหรับหน้าจอเล็กกว่า 576px)
+   ============================ */
 @media (max-width: 575.98px) {
-  .product-thumb:hover { background-size: 120%; }  
-  .product-card { margin-bottom: 10px; }
-    .product-thumb { padding: 8px; }
-    .product-title { font-size: 0.85rem; margin-top: 8px; margin-bottom: 10px; padding: 0 5px; }
+    .product-card { margin-bottom: 10px; }
+    .products-page .row.g-3 { --bs-gutter-x: 0.75rem; --bs-gutter-y: -1.25rem; }
+
+    /* [NEW] 1. ลบระยะห่างก้นกล่อง Container รูปภาพทิ้ง (เพราะ Box ข้างในมันเล็กอยู่แล้ว) */
+    .product-image-container {
+        margin-bottom: 0 !important;
+    }
+
+    /* 2. ปรับ Box ให้เล็กลง (เหลือ 75%) */
+    .bg-shape {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        height: 85%;
+    }
+
+    /* 3. ปรับรูปให้เด่น (100%) */
+    .product-img-obj {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        height: 100%;
+    }
     
-    /* ปรับระยะห่าง Grid */
-    .products-page .row.g-3 { 
-        --bs-gutter-x: 0.75rem; 
-        --bs-gutter-y: 0.75rem; 
+    /* ยกเลิก Hover */
+    .product-card:hover .product-img-obj,
+    .product-card:active .product-img-obj {
+        transform: translate(-50%, -50%) scale(1) !important; 
+    }
+
+    /* [NEW] 4. ดึง Text ขึ้นไปหา Box (ใช้ค่าติดลบ) */
+    .product-title { 
+        font-size: 0.85rem; 
+        
+        /* ปรับตรงนี้: ดึงขึ้นไปข้างบน -10px ถึง -15px ลองปรับดูให้พอดีตา */
+        margin-top: -12px; 
+        
+        margin-bottom: 10px; 
+        padding: 0 5px; 
+        position: relative;
+        z-index: 3; /* ให้แน่ใจว่า Text ไม่โดนรูปบังถ้าดึงขึ้นไปเยอะ */
     }
 }
