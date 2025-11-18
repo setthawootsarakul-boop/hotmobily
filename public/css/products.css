@@ -44,23 +44,21 @@
 .filter-toggle .caret-icon { transition: transform .25s ease; font-size: 0.9rem; color: var(--brown-dark); }
 .filter-toggle .caret-icon.rotated { transform: rotate(180deg); }
 
-/* [DESKTOP BANNER - ORIGINAL CODE]
-  อันนี้คือโค้ดเดิมของคุณ สำหรับ Desktop เท่านั้น 
-*/
+/* [DESKTOP BANNER - ORIGINAL CODE] */
 .page-banner {
-  background: var(--brown-dark);
-  color: #fff;
-  padding: 35px 28px;
-  border-radius: 8px;
-  min-width: 1250px; /* ค่านี้จะทำงานเฉพาะ Desktop เพราะเราแยก HTML แล้ว */
-  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
-  margin-top: 48px;
+    background: var(--brown-dark);
+    color: #fff;
+    padding: 50px 40px;
+    border-radius: 8px;
+    min-width: 1240px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+    margin-top: 27px; /* Fix ตามที่คุณตั้งไว้ */
 }
 .page-banner h2 {
   margin: 0;
   font-weight: 800;
   color: var(--accent);
-  font-size: 1.5rem;
+  font-size: 2rem;
   letter-spacing: 0.6px;
 }
 
@@ -68,7 +66,7 @@
 .decor-blocks .square {
     display: inline-block;
     width: 39px;
-    height: 98px;
+    height: 140px;
     background: #4A2313;
     margin-left: 12px;
     border-radius: 6px;
@@ -114,7 +112,7 @@
         letter-spacing: 0.6px;
     }
 
-    /* HACK: ดึง Container ของ Mobile Banner และ Filter ให้เต็มจอซ้ายขวา */
+    /* HACK: Container adjustments */
     .mobile-header-section {
         margin-left: calc(-.5 * var(--bs-gutter-x));
         margin-right: calc(-.5 * var(--bs-gutter-x));
@@ -137,18 +135,18 @@
     
     .offcanvas { max-width: 80%; }
     
-    /* [แก้ตรงนี้] เพิ่ม Padding แนวนอน */
+    /* [EDITED HERE] เพิ่ม Padding ด้านข้างให้มากขึ้น */
     .cards-wrapper {
         box-shadow: none !important;
-        padding: 30px 15px !important; /* เปลี่ยนจาก 0 เป็น 15px เพื่อให้มีระยะห่างจากขอบจอ */
-        
+        padding: 20px 25px !important; /* ปรับข้างเป็น 25px เพื่อดันไม่ให้ติดจอ */
     }
     
     .decor-blocks { display: none !important; }
 }
 
 @media (max-width: 575.98px) {
-    .product-card { margin-bottom: 10px; }
+  .product-thumb:hover { background-size: 120%; }  
+  .product-card { margin-bottom: 10px; }
     .product-thumb { padding: 8px; }
     .product-title { font-size: 0.85rem; margin-top: 8px; margin-bottom: 10px; padding: 0 5px; }
     

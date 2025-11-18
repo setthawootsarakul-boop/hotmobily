@@ -166,7 +166,7 @@
                     <h2>{{ $pageTitle }}</h2>
                 </div>
 
-                <div class="decor-blocks d-none d-md-flex ms-auto"style="margin-top: 45px;">
+                <div class="decor-blocks d-none d-md-flex ms-auto"style="margin-top: 28px;">
                     <span class="square"></span>
                     <span class="square"></span>
                     <span class="square"></span>
