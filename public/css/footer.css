@@ -127,14 +127,14 @@
   margin-left: 3px;
 }
 .footer-social .qr-code {
-  width: 130px;
+  width: 150px;
   border-radius: 0px;
   margin: 1rem 0 0.8rem;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .footer-social p {
   margin-top: 15px;
-  margin-left: 45px;
+  margin-left: -8px;
   color: #fff;
 }
 .social-img {
@@ -161,27 +161,36 @@
   margin-top: 2rem;
 }
 .footer-links-section {
-  background-color: #1f1f1f;
-  padding: 1rem 0;
-  text-align: center;
+    /* ไล่สีจาก #1f1f1f (ด้านบน) ลงไปหา #000000 (ด้านล่าง) */
+    background: linear-gradient(269deg, #a3a3a3 39%, #3a3939 100%);
+    
+    padding: 1.5rem 0; /* เพิ่ม Padding นิดหน่อยให้ดูไม่อึดอัด */
+    text-align: center;
+    
+    /* (Optional) เพิ่มเส้นขอบบนบางๆ ให้ดูมีมิติแยกจากส่วนบน */
+    border-top: 1px solid rgba(255, 255, 255, 0.05); 
 }
 .footer-links a {
-  color: #dcdcdc;
+  color: #070505;
   font-size: 0.9rem;
   margin: 0 6px;
   text-decoration: none;
   transition: 0.3s;
+}
+.text-secondary {
+    --bs-text-opacity: 1;
+    color: rgb(0 0 0) !important;
 }
 .footer-links a:hover {
   color: var(--hero-bg);
   text-decoration: underline;
 }
 .footer-bottom-section {
-  background-color: #000;
-  text-align: center;
-  color: #ccc;
-  font-size: 0.9rem;
-  padding: 0.8rem 0;
+    background-color: #D2C1B6;
+    text-align: center;
+    color: #000000;
+    font-size: 0.8rem;
+    padding: 0.8rem 0;
 }
 
 /* ========================
@@ -401,28 +410,34 @@
   }
 
   /* --- โซเชียล --- */
+  /* ✅ 1. ตั้งค่าให้กล่อง Footer Social เป็น Flex แนวตั้ง */
   .footer-social {
-    margin-top: 1.2rem;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
   }
 
+  /* ✅ 2. สั่งย้าย Social Icons ไปลำดับสุดท้าย (Order 3) */
   .footer-social .social-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1.2rem;
-    flex-wrap: wrap;
+      order: 3;
+      margin-top: 35px;      /* เพิ่มระยะห่างด้านบน */
+      margin-bottom: 0;      /* ลบระยะด้านล่างเดิมออก */
   }
 
+  /* ✅ 3. สั่งให้ QR Code อยู่ลำดับที่ 2 */
   .footer-social .qr-code {
-    width: 160px;
-    margin: 1.2rem auto 0;
-    display: block;
+      order: 2;
+      margin-top: -10px;
+      margin-bottom: 0;
   }
+
+  /* ✅ 4. สั่งให้ข้อความ Line อยู่ลำดับที่ 1 (บนสุด) */
+  .footer-social p {
+      order: 1;
+      margin-top: 0;
+  }
+
   /* ✅ Navbar mobile */
   .navbar {
     display: flex;
@@ -458,95 +473,98 @@
 
 
 /* ✅ Desktop (≥992px) */
+/* ========================
+   🖥️ DESKTOP (ปรับให้ชิดซ้ายเมื่อจอใหญ่)
+======================== */
 @media (min-width: 992px) {
-  /* --- Footer Layout ให้สมดุลทั้งแถว --- */
-  .footer-section .row {
-    display: flex;
-    align-items: center;        /* ✅ จัดให้คอลัมน์อยู่ระดับเดียวกัน */
-    justify-content: space-between;
-    gap: 2rem;
-  }
+    /* ปรับความสูงด้านบนของทั้ง Footer */
+    .footer-section {
+        padding-top: 4rem; 
+    }
 
-  /* --- คอลัมน์สมัครสมาชิก (ตรงกลาง) --- */
-  .footer-subscribe {
-    margin-top: 0;              /* ✅ ไม่มีเด้งลงหรือขึ้นเกินไป */
-    position: relative;
-    top: -6px;                  /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับโลโก้และ QR */
-    text-align: center;
-  }
+    /* ทำให้ทุกคอลัมน์มีความสูงเท่ากันเพื่อจัดกลางง่ายขึ้น */
+    .footer-section .row {
+        display: flex;
+        align-items: center; /* ✅ หัวใจสำคัญ: จัดทุกอย่างให้อยู่กึ่งกลางแนวตั้ง */
+        justify-content: space-between;
+    }
+    
+    /* 1. คอลัมน์ซ้าย (บริษัท) */
+    .footer-company {
+        text-align: left;
+        align-items: flex-start; /* ตัวหนังสือชิดซ้าย */
+        margin-bottom: 0;
+    }
+    
+    /* ✅ (แก้ไข) บังคับเฉพาะโลโก้ให้อยู่ "กึ่งกลาง" */
+    .footer-company .footer-logo {
+        align-self: center !important; /* จัดตัวเองให้อยู่กลาง */
+        margin: 0 auto 1.5rem auto !important; /* margin auto ซ้ายขวา */
+    }
+    
+    .footer-logo {
+        margin: 0 0 1.5rem 0; /* เว้นระยะด้านล่างโลโก้ */
+    }
 
-  .footer-subscribe h5,
-  .footer-subscribe p {
-    margin: 0.3rem 0;
-    position: relative;
-    top: -2px;                  /* ปรับข้อความให้อยู่กึ่งกลางกับช่องกรอก */
-  }
+    .text-address {
+        padding: 0;
+        max-width: 350px; /* บีบไม่ให้ข้อความยาวเกินไป */
+    }
 
-  .footer-subscribe form {
-    display: flex;
-    align-items: center;        /* ✅ ช่องกรอก + ปุ่มอยู่ระดับเดียวกัน */
-    justify-content: center;
-    gap: 0.8rem;
-  }
+    /* 2. คอลัมน์กลาง (สมัครสมาชิก) */
+    .footer-subscribe {
+        text-align: center; /* หัวข้ออยู่กลาง หรือซ้ายก็ได้ตามชอบ */
+        margin-bottom: 0;
+        padding: 0 20px; /* เว้นระยะซ้ายขวาไม่ให้ชนเพื่อน */
+        
+        /* ปรับตำแหน่งละเอียด */
+        position: relative;
+        top: 0px; /* ขยับลงนิดนึงให้ดูสายตาตรงกับโลโก้ */
+    }
 
-  .footer-subscribe input[type="email"] {
-    height: 46px;
-    padding: 0 15px;
-    font-size: 1rem;
-    border: none;
-    border-radius: 6px;
-    box-sizing: border-box;
-    line-height: normal;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .subscribe-form {
+        flex-direction: row; /* ใน Desktop ให้ปุ่มอยู่ข้าง input */
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        gap: 10px;
+    }
 
-  .footer-subscribe .btn-warning {
-    height: 46px;
-    padding: 0 40px;
-    font-size: 1rem;
-    font-weight: 600;
-    border-radius: 6px;
-    border: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
+    .subscribe-form input {
+        text-align: left;
+        padding-left: 20px;
+        width: 240px; /* ขนาดกำลังดี */
+        margin: 0;    /* ลบ margin auto ของ mobile ทิ้ง */
+    }
+    
+    .subscribe-form .btn-warning {
+        width: auto;
+        min-width: 120px;
+        margin: 0;    /* ลบ margin auto ของ mobile ทิ้ง */
+    }
 
-  /* --- คอลัมน์ขวา (QR + Social) --- */
-  .footer-social {
-    position: relative;
-    top: 20px;     /* 🔽 จาก 30px → 18px ขยับลงเล็กน้อยให้บาลานซ์กับ subscribe */
-    margin-top: 0; /* ไม่ต้องเพิ่มช่องว่างพิเศษแล้ว */
-  }
-
-  /* เพื่อให้แน่ใจว่าทั้งแถวอยู่ระดับเดียวกัน */
-  .footer-section .row {
-    align-items: center;
-  }
-
-  .footer-social .qr-code {
-    width: 200px;
-    margin-top: 0rem;
-    margin-left: 25px;
-  }
-
-  /* --- คอลัมน์ซ้าย (บริษัท) --- */
-  .footer-company {
-    position: relative;
-    top: -4px;              /* ✅ ขยับขึ้นเล็กน้อยให้ตรงกับ subscribe */
-    text-align: left;     /* ✅ เปลี่ยนให้ align เหมือนกลางและขวา */
-    align-items: left;    /* ✅ จัดให้อยู่ตรงกลางในแนวตั้ง */
-  }
-
-  .footer-company .footer-logo {
-    margin: 0 auto 1rem;    /* ✅ โลโก้อยู่กลาง */
-  }
-
-  .footer-company p,
-  .footer-company a {
-    text-align: left !important;    /* ✅ บังคับชิดซ้ายเฉพาะ Desktop */
-  }
-
+    /* 3. คอลัมน์ขวา (QR + Social) */
+    .footer-social {
+        text-align: center; /* หรือ left */
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* จัดทุกอย่างในคอลัมน์ขวาให้กลาง */
+        /* หรือ align-items: flex-end; ถ้าอยากให้ชิดขวาสุด */
+        
+        position: relative;
+        top: 10px; /* ขยับลงนิดนึง */
+    }
+    
+    .social-icons {
+        justify-content: center; /* หรือ flex-end */
+        margin-top: 1rem;
+    }
+    
+    .qr-wrapper {
+        margin: 0;
+    }
+    
+    .footer-links span {
+        display: inline;
+    }
 }
