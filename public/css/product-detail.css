@@ -121,36 +121,129 @@ body {
 .btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
 
 /* ============================
-   4. Product Info
+   4. Product Info (Right Column)
+   [KEEP ORIGINAL] ใช้แบบ separate เหมือนเดิม
 ============================ */
-h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; }
+h1.product-title {
+    font-size: 1.8rem;
+    color: #000;
+    line-height: 1.2;
+    font-weight: 300;
+}
 
 .product-info-table {
-    border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed;
+    border-collapse: separate; /* แยกช่องเหมือนเดิม */
+    border-spacing: 0 0.5rem; /* ระยะห่างระหว่างบรรทัด */
+    width: 100%; 
+    table-layout: fixed;
 }
-.product-info-table td { border: none; padding: 0.25rem 0; vertical-align: top; }
-.product-info-table .label {
-    width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap;
-}
-.product-info-table .value { color: #333; font-size: 1rem; line-height: 1.5; word-wrap: break-word; }
 
-/* Buttons Spec */
+.product-info-table td {
+    border: none; /* ไม่มีเส้นขอบ */
+    padding: 0.25rem 0;
+    vertical-align: top;
+}
+
+.product-info-table .label {
+    width: 130px; 
+    min-width: 130px;
+    color: #000;
+    font-weight: 700;
+    font-size: 1rem;
+    white-space: nowrap;
+}
+
+.product-info-table .value {
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+/* Spec Buttons (คงเดิม) */
 .btn-spec {
-    background-color: var(--btn-gray); color: var(--btn-text-gray); border: 2px solid var(--btn-gray); padding: 6px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; cursor: pointer;
+    background-color: var(--btn-gray);
+    color: var(--btn-text-gray);
+    border: 2px solid var(--btn-gray);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: pointer;
 }
 .btn-spec:hover { background-color: #e2e6ea; }
-.btn-spec.active { background-color: #FFF8E1; color: #000; border-color: var(--active-orange); font-weight: 600; box-shadow: 0 2px 5px rgba(255,193,7,0.3); }
-
+.btn-spec.active {
+    background-color: #FFF8E1; 
+    color: #000;
+    border-color: var(--active-orange);
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(255,193,7,0.3);
+}
 /* ============================
-   5. Price Table
+   5. Price Table (Matrix)
+   [UPDATED] แบบ Clean Grid (เส้นเดียว) เฉพาะตารางนี้
 ============================ */
-.price-table.table-responsive { max-height: 400px; overflow-y: auto; border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-.price-table .table { border: 1px solid var(--border-color); border-collapse: separate; }
-.table { margin-bottom: 0; }
-.table thead th { background-color: var(--header-table-bg); color: #555; font-weight: 600; font-size: 0.85rem; padding: 10px; white-space: nowrap; position: sticky; top: 0; z-index: 20; }
-.table tbody td { font-size: 0.95rem; color: #333; padding: 5px; vertical-align: baseline; border-color: var(--border-color) !important; border-width: 1px !important; }
-.table tbody tr.price-row td:first-child { background-color: var(--header-table-bg); color: #555; font-weight: 600; }
-.table tbody tr.price-row td.size-col:hover { background-color: var(--hover-price); color: #fff; }
+.price-table.table-responsive {
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 0px; 
+    border: 2px solid #eee; /* กรอบนอกสีจาง */
+    box-shadow: none; 
+}
+
+/* เจาะจงเฉพาะ table ที่อยู่ใน .price-table เท่านั้น */
+.price-table .table {
+    width: 100%;
+    margin-bottom: 0;
+    border-collapse: collapse; /* รวมเส้นขอบเป็นเส้นเดียว */
+    border-style: hidden; /* ซ่อนขอบซ้อน */
+}
+
+/* หัวตารางราคา */
+.price-table .table thead th {
+    background-color: #f9fafb; /* สีพื้นหลังอ่อนสบายตา */
+    color: #444;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 12px 10px;
+    white-space: nowrap;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 2px solid #eee; /* เส้นใต้หัวตาราง */
+    border-right: 1px solid #f0f0f0; /* เส้นคั่นแนวตั้ง */
+}
+
+/* เนื้อหาตารางราคา */
+.price-table .table tbody td {
+    font-size: 0.95rem;
+    color: #555;
+    padding: 10px;
+    vertical-align: middle;
+    border: 1px solid #f0f0f0; /* เส้นตารางสีเทาจางๆ บางๆ */
+}
+
+/* คอลัมน์แรก (จำนวน) */
+.price-table .table tbody tr.price-row td:first-child {
+    background-color: #fff;
+    color: var(--brown-text);
+    font-weight: 600;
+    border-right: 2px solid #eee; /* เส้นแบ่งแนวตั้งให้ชัดขึ้น */
+}
+
+/* Hover Effect แถว */
+.price-table .table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Hover Effect ช่องราคา */
+.price-table .table tbody tr.price-row td.size-col:hover {
+    background-color: var(--active-orange);
+    color: #fff;
+    border-color: var(--active-orange);
+    cursor: default;
+}
 
 /* ============================
    6. Extra Parts Section
