@@ -168,7 +168,7 @@
     text-align: center;
     
     /* (Optional) เพิ่มเส้นขอบบนบางๆ ให้ดูมีมิติแยกจากส่วนบน */
-    border-top: 1px solid rgba(255, 255, 255, 0.05); 
+    /* border-top: 1px solid rgba(255, 255, 255, 0.05);  */
 }
 .footer-links a {
   color: #070505;
