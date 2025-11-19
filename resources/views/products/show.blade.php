@@ -131,30 +131,42 @@
                             <table class="table table-bordered text-center align-middle mb-0">
                                 <thead>
                                     <tr>
-                                        <th class="">จำนวน</th>
-                                        @foreach($product->sizes as $size)
-                                            <th class="size-col-{{ $size->id }}">
+                                        <th style="background-color: #f8f9fa;">จำนวน</th>
+                                        @forelse($product->sizes as $size)
+                                            <th class="size-header size-col-{{ $size->id }}">
                                                 {{ $size->size_name }}
                                             </th>
-                                        @endforeach
+                                        @empty
+                                            <th>ราคา / ชิ้น</th>
+                                        @endforelse
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($quantities as $qty)
                                     <tr class="price-row">
-                                        <td>{{ number_format($qty) }}</td>
-                                        @foreach($product->sizes as $k_size => $size)
+                                        <td class="fw-bold bg-light">{{ number_format($qty) }}</td>
+                                        @forelse($product->sizes as $size)
+                                            @php
+                                                $price = $product->prices
+                                                    ->where('product_printing_id', $printing->id)
+                                                    ->where('product_size_id', $size->id)
+                                                    ->where('quantity_min', $qty)
+                                                    ->first();
+                                            @endphp
                                             <td class="size-col size-col-{{ $size->id }}">
-                                                @php
-                                                    $price = $product->prices
-                                                                ->where('product_printing_id', $printing->id)
-                                                                ->where('product_size_id', $size->id)
-                                                                ->where('quantity_min', $qty)
-                                                                ->first();
-                                                @endphp
                                                 {{ $price ? number_format($price->price_per_unit) : '-' }}
                                             </td>
-                                        @endforeach
+                                        @empty
+                                            @php
+                                                $price = $product->prices
+                                                    ->where('product_printing_id', $printing->id)
+                                                    ->where('quantity_min', $qty)
+                                                    ->first();
+                                            @endphp
+                                            <td class="size-col">
+                                                {{ $price ? number_format($price->price_per_unit) : '-' }}
+                                            </td>
+                                        @endforelse
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -163,6 +175,16 @@
                         @endforeach
 
                     </div>
+                    
+                    <div class="price-notes mt-4" style="font-size: 0.9rem; line-height: 1.6; color:#878787;">
+                        <p class="mb-1">1) ราคานี้เป็นราคาผลิตต่อหน่วย ไม่ใช่ราคารวมสินค้า</p>
+                        <p class="mb-1">2) ราคานี้รวมค่าบรรจุใส่ถุง และฟรีค่าจัดส่งเมื่อสั่งซื้อตั้งแต่ 1,000 บาทขึ้นไป กรณียอดการสั่งซื้อน้อยกว่า 500 บาทจะมีค่าจัดส่ง 50 บาท</p>
+                        <p class="mb-1">3) หากสินค้าที่ท่านสั่งผลิตมีจำนวนมากก็จะได้ราคาถูกมากขึ้นและทางเราจะส่งสินค้าตัวอย่างให้ตรวจสอบก่อนผลิตจริงฟรี</p>
+                        <p class="mb-1">4) อาจมีค่าใช้จ่ายเพิ่มเติม สำหรับส่วนประกอบเพิ่มเติมบางรูปแบบ</p>
+                        <p class="mb-1">5) ราคาสินค้าที่แสดงยังไม่รวมภาษีมูลค่าเพิ่ม</p>
+                        <p class="mb-0">6) หากสั่งซื้อเป็นจำนวนมากกว่าในตารางราคาจะได้ราคาพิเศษ</p>
+                    </div>
+                    
                     @endif
                     
                     @if($product->parts->isNotEmpty())
@@ -170,22 +192,30 @@
                         <h3 class="fw-bold mb-4">ส่วนประกอบเพิ่มเติม</h3>
                         <div class="row g-3">
                             @foreach($product->parts as $part)
-                                <div class="col-lg-2 col-md-3 col-4">
-                                    <div class="part-box rounded-3 border p-2 text-center {{ $part->is_default ? 'active' : '' }}"
+                                {{-- 
+                                   [UPDATED SIZE] 
+                                   Desktop (lg/md): col-3 (แสดง 4 กล่อง/แถว) -> ใหญ่ขึ้น
+                                   Mobile: col-4 (แสดง 3 กล่อง/แถว) -> ตามเดิมแต่จะดูใหญ่ขึ้นด้วย CSS
+                                --}}
+                                <div class="col-lg-3 col-md-3 col-4">
+                                    <div class="part-box rounded-3 border p-1 text-center {{ $part->is_default ? 'active' : '' }}"
                                          data-group="part-group"
-                                         onclick="selectSpec(this, 'part-group')">
-                                        @if($part->image_url)
-                                            <div class="part-img-box mb-2">
-                                                <img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}">
-                                            </div>
-                                        @endif
-                                        <small class="part-name d-block fw-bold">{{ $part->part_name }}</small>
-                                        
-                                        @if($part->price_extra > 0)
-                                            <span class="part-price-tag extra">+{{ $part->price_extra }}฿</span>
-                                        @else
-                                            <span class="part-price-tag free">ฟรี!</span>
-                                        @endif
+                                         onclick="selectSpec(this, 'part-group')"
+                                         title="{{ $part->part_name }}">
+                                    
+                                    @if($part->image_url)
+                                        {{-- mb-0 คือไม่ต้องเว้นล่างแล้ว เพราะรูปเต็ม --}}
+                                        <div class="part-img-box mb-0">
+                                            <img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}">
+                                        </div>
+                                    @endif
+                                    
+                                    {{-- (ส่วนชื่อถูกลบออกแล้ว) --}}
+                                    
+                                    @if($part->price_extra > 0)
+                                        <span class="part-price-tag extra">+{{ number_format($part->price_extra) }}฿</span>
+                                    @endif
+                                    
                                     </div>
                                 </div>
                             @endforeach
@@ -219,30 +249,6 @@
                 </div> </div>
         </div>
         
-        @if($relatedProducts->isNotEmpty())
-        <div class="mt-5">
-            <h3 class="fw-bold mb-4">สินค้าอื่นๆ ที่น่าสนใจ</h3>
-            <div class="row g-3">
-                @foreach($relatedProducts as $related)
-                    <div class="col-6 col-md-3 col-xl-2-5">
-                        <div class="product-card">
-                            @php
-                                $rImg = $related->images->where('is_main', 1)->first() ?? $related->images->first();
-                                $rSrc = $rImg ? asset($rImg->image_url) : asset('images/no-image.png');
-                            @endphp
-                            <div class="product-thumb" style="background-image: url('{{ $rSrc }}');"></div>
-                            <div class="product-title">
-                                <a href="{{ $related->slug ? route('products.show', $related->slug) : '#' }}">
-                                    {{ $related->name }}
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-        @endif
-
     </div>
 </div>
 
@@ -268,11 +274,9 @@
         document.getElementById(tableIdToShow).style.display = 'block';
     }
 
-    // ✅ (แก้ไข) ฟังก์ชันสำหรับปุ่มขนาด (เลือก 1 อย่าง)
+    // ฟังก์ชันสำหรับปุ่มขนาด (เลือก 1 อย่าง)
     function selectSize(element, sizeId) {
         selectSpec(element, 'size-group');
-        
-        // (ลบโค้ดสลับคอลัมน์ตารางออก)
     }
 </script>
 

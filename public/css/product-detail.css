@@ -1,5 +1,5 @@
 /* ============================
-   Variables (Theme Colors)
+   1. Variables (Theme Colors)
 ============================ */
 :root {
     --bg-page: #f6efe5;
@@ -7,7 +7,7 @@
     --active-orange: #FFC107;
     --btn-gray: #F1F3F5;
     --btn-text-gray: #495057;
-    --border-color: #D1D1D1; /* 🔥 เส้นเทาใหม่ */
+    --border-color: #D1D1D1;
     --breadcrumb-active: #0d6efd;
     --btn-red: #D90429;
     --hover-price: #FF8000; 
@@ -15,7 +15,7 @@
 }
 
 /* ============================
-   Global Layout
+   2. Global Layout
 ============================ */
 body {
     background-color: var(--bg-page);
@@ -34,20 +34,22 @@ body {
     font-weight: 500;
 }
 
-/* Content Box */
+/* Content Box Container */
 .product-detail-page .bg-white {
     border-radius: 20px !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
 }
 
 /* ============================
-   LEFT COLUMN: Gallery
+   3. Gallery Section (Left Column)
 ============================ */
 .gallery-container {
     display: flex;
     gap: 15px;
     height: 450px;
 }
+
+/* Thumbnails */
 .thumbnails {
     width: 80px;
     display: flex;
@@ -75,6 +77,7 @@ body {
 .thumb-item:hover { opacity: 1; border-color: #ddd; }
 .thumb-item.active { opacity: 1; border-color: var(--active-orange); }
 
+/* Main Image */
 .main-image-wrapper {
     flex-grow: 1;
     background-color: #fff;
@@ -84,8 +87,13 @@ body {
     justify-content: center;
     overflow: hidden;
     border: 1px solid #e6e6e6;
+    position: relative;
 }
-.main-image-wrapper img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.main-image-wrapper img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+}
 
 /* File Guide Button */
 .btn-file-guide {
@@ -103,7 +111,7 @@ body {
 }
 
 /* ============================
-   RIGHT COLUMN: Details
+   4. Product Info (Right Column)
 ============================ */
 h1.product-title {
     font-size: 1.8rem;
@@ -156,9 +164,8 @@ h1.product-title {
 }
 
 /* ============================
-   Price Table (Matrix)
+   5. Price Table (Matrix)
 ============================ */
-
 .price-table.table-responsive {
     max-height: 400px;
     overflow-y: auto;
@@ -172,11 +179,9 @@ h1.product-title {
     border-collapse: separate;
 }
 
-.table {
-    margin-bottom: 0;
-}
+.table { margin-bottom: 0; }
 
-/* Sticky header */
+/* Sticky Header */
 .table thead th {
     background-color: var(--header-table-bg); 
     color: #555;
@@ -189,19 +194,14 @@ h1.product-title {
     z-index: 20;
 }
 
-/* Body */
+/* Table Body */
 .table tbody td {
     font-size: 0.95rem;
     color: #333;
     padding: 5px;
     vertical-align: baseline;
-    border-color: var(--border-color) !important; /* ✔ เส้นบางลง */
+    border-color: var(--border-color) !important; 
     border-width: 1px !important;
-}
-
-.table-bordered td, .table-bordered th {
-    border-color: var(--border-color);
-    border-width: 1px;
 }
 
 .table tbody tr.price-row td:first-child {
@@ -215,52 +215,69 @@ h1.product-title {
 }
 
 /* ============================
-   Extra Parts
+   6. Extra Parts Section (อะไหล่)
+   [UPDATED] กรอบใหญ่ รูปใหญ่ เต็มตา
 ============================ */
 .part-box {
     cursor: pointer;
     transition: all 0.2s ease;
     border: 2px solid #eee;
     position: relative;
-    overflow: hidden;
     background-color: #fff;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    
+    /* [UPDATED] ลด Padding เหลือ 3px เพื่อให้พื้นที่รูปเยอะที่สุด */
+    padding: 3px; 
 }
+
 .part-img-box {
-    height: 100px;
+    width: 100%;
+    aspect-ratio: 1 / 1; /* บังคับสี่เหลี่ยมจัตุรัส */
+    height: auto !important; 
+    
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    border-radius: 6px; /* ลดความมนลงนิดนึงเพื่อให้ดูเต็ม */
+    margin-bottom: 0;
 }
+
 .part-img-box img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%;
+    /* [UPDATED] ซูมรูปให้ใหญ่ขึ้นอีก (จาก 130% เป็น 145%) */
+    height: 145%; 
+    object-fit: contain; 
+    padding: 0; /* ชิดขอบ */
 }
-.part-name {
-    font-size: 0.8rem;
-    color: #333;
-}
+
 .part-price-tag {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    font-size: 0.75rem;
+    top: 4px;
+    right: 4px;
+    font-size: 0.7rem; /* ฟอนต์เล็กหน่อยไม่ให้บังรูป */
     font-weight: bold;
-    padding: 2px 6px;
-    border-radius: 5px;
+    padding: 1px 5px;
+    border-radius: 4px;
     color: white;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
 }
-.part-price-tag.free { background-color: #28a745; }
+
 .part-price-tag.extra { background-color: #dc3545; }
 
 .part-box.active {
     border-color: var(--active-orange);
-    box-shadow: 0 0 10px rgba(255,193,7,0.3);
+    background-color: #fffdf5;
+    box-shadow: 0 0 0 2px var(--active-orange); /* เพิ่มความหนาเงาตอนเลือก */
 }
 
 /* ============================
-   Action Area
+   7. Action Area (Buttons)
 ============================ */
 .action-area {
     border-top: 1px solid #eee;
@@ -281,49 +298,20 @@ h1.product-title {
 }
 
 /* ============================
-   Related Products
+   8. Related Products
 ============================ */
-.product-card {
-    background: #fff;
-    border-radius: 12px;
-    overflow: hidden;
-    text-align: center;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.product-card:hover .product-thumb { background-size: 110%; }
-
-.product-thumb {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition: all 0.3s ease;
-}
-
-.product-card .product-title {
-    margin-top: 10px;
-    margin-bottom: 15px;
-    padding: 0 10px;
-    font-weight: 200;
-    font-size: 1.5rem;
-}
-.product-title a {
-    color: inherit;
-    text-decoration: none;
-}
-.product-title a:hover {
-    color: var(--active-orange);
+.product-card:hover .product-img-obj {
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
 /* ============================
-   Responsive
+   9. Responsive Styles
 ============================ */
 @media (max-width: 991px) {
-    .gallery-container { flex-direction: column-reverse; height: auto; }
+    .gallery-container { 
+        flex-direction: column-reverse; 
+        height: auto; 
+    }
     .thumbnails {
         flex-direction: row;
         width: 100%;
@@ -333,6 +321,32 @@ h1.product-title {
         margin-top: 10px;
         margin-right: 0 !important;
     }
-    .thumb-item { width: 60px; height: 60px; flex-shrink: 0; }
-    .main-image-wrapper { height: 300px; }
+    .thumb-item { 
+        width: 60px; 
+        height: 60px; 
+        flex-shrink: 0; 
+    }
+    .main-image-wrapper { 
+        height: 350px; 
+    }
+}
+
+/* Mobile Specific (จอเล็กกว่า 576px) */
+@media (max-width: 576px) {
+    
+    /* ปรับขนาดตัวอักษร Parts ให้เล็กลงเมื่อแสดง 3 กล่อง */
+    .part-box {
+        padding: 2px; /* ในมือถือลดขอบสุดๆ */
+    }
+    .part-img-box {
+        border-radius: 4px;
+    }
+    .part-img-box img {
+        height: 145%; /* มือถือก็ซูมใหญ่เท่ากัน */
+    }
+    
+    /* Stack Buttons */
+    .action-area .row {
+        row-gap: 10px;
+    }
 }
