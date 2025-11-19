@@ -88,10 +88,16 @@ body {
     overflow: hidden;
     border: 1px solid #e6e6e6;
     position: relative;
+
+    /* [FIX] 1. ล็อคสัดส่วนเป็นสี่เหลี่ยมจัตุรัสเสมอ (กันเฟรมขยับ) */
+    width: 100%;
+    aspect-ratio: 1 / 1; 
 }
+
 .main-image-wrapper img { 
-    max-width: 100%; 
-    max-height: 100%; 
+    /* [FIX] 2. บังคับรูปให้เต็มพื้นที่ แต่ไม่เบี้ยว (ถ้ารูปไม่จัตุรัสจะมีขอบขาว) */
+    width: 100%; 
+    height: 100%; 
     object-fit: contain; 
 }
 
@@ -320,14 +326,20 @@ h1.product-title {
         padding-bottom: 10px;
         margin-top: 10px;
         margin-right: 0 !important;
+        
+        /* (แถม) จัดกึ่งกลาง thumbnail ในมือถือ */
+        justify-content: center; 
     }
     .thumb-item { 
         width: 60px; 
         height: 60px; 
         flex-shrink: 0; 
     }
+    
+    /* [FIX] ลบ height fix เดิมออก หรือกำหนดให้เป็น auto เพื่อให้ aspect-ratio ทำงาน */
     .main-image-wrapper { 
-        height: 350px; 
+        height: auto; 
+        /* aspect-ratio: 1/1; // มันจะสืบทอดมาจากด้านบนอยู่แล้ว */
     }
 }
 

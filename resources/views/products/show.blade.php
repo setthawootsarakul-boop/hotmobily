@@ -9,6 +9,7 @@
 <div class="container-fluid product-detail-page py-4">
     <div class="container">
         
+        {{-- Breadcrumb --}}
         <nav aria-label="breadcrumb" class="mb-4 product-breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-0">
                 <li class="breadcrumb-item">
@@ -26,11 +27,22 @@
         <div class="bg-white rounded-4 shadow-sm p-4 p-lg-5">
             <div class="row g-5">
                 
+                {{-- LEFT COLUMN: Gallery --}}
                 <div class="col-lg-5">
+                    {{-- 
+                       [LOGIC] ดึงเฉพาะรูปย่อย (is_main = 0) มาแสดง 
+                       และตั้งค่ารูปแรกให้เป็น Default
+                    --}}
+                    @php
+                        $galleryImages = $product->images->where('is_main', 0); 
+                        $firstImage = $galleryImages->first(); 
+                        $initialSrc = $firstImage ? asset($firstImage->image_url) : asset('images/no-image.png');
+                    @endphp
+
                     <div class="gallery-container d-flex">
                         <div class="thumbnails d-flex flex-column gap-2 me-3">
-                            @foreach($product->images as $index => $image)
-                                <div class="thumb-item {{ $image->is_main ? 'active' : ($loop->first && !$product->images->where('is_main', 1)->count() ? 'active' : '') }}" 
+                            @foreach($galleryImages as $image)
+                                <div class="thumb-item {{ $loop->first ? 'active' : '' }}" 
                                      onclick="changeMainImage(this, '{{ asset($image->image_url) }}')">
                                     <img src="{{ asset($image->image_url) }}" alt="{{ $image->alt_text }}">
                                 </div>
@@ -38,24 +50,22 @@
                         </div>
 
                         <div class="main-image-wrapper rounded-3">
-                            @php
-                                $mainImage = $product->images->where('is_main', 1)->first() ?? $product->images->first();
-                                $mainSrc = $mainImage ? asset($mainImage->image_url) : asset('images/no-image.png');
-                            @endphp
-                            <img id="mainProductImage" src="{{ $mainSrc }}" alt="{{ $product->name }}" class="img-fluid">
+                            <img id="mainProductImage" src="{{ $initialSrc }}" alt="{{ $product->name }}" class="img-fluid">
                         </div>
                     </div>
 
                     <div class="mt-4 text-center">
-                        <button class="btn btn-file-guide w-100 fw-bold py-2 rounded-3 shadow-sm">
-                            รูปแบบไฟล์งาน
+                        <button class="btn btn-file-guide fw-bold py-2 px-5 rounded-3 shadow-sm">
+                            <i class="bi bi-file-earmark-text me-2"></i> รูปแบบไฟล์งาน
                         </button>
                     </div>
                 </div>
 
+                {{-- RIGHT COLUMN: Info --}}
                 <div class="col-lg-7">
                     <h1 class="product-title fw-bold mb-4">{{ $product->name }}</h1>
 
+                    {{-- Product Specs Table --}}
                     <table class="table product-info-table">
                         <tbody>
                             <tr>
@@ -103,12 +113,14 @@
                             <tr>
                                 <td class="label">การสกรีน :</td>
                                 <td class="value">
-                                    {{ $product->printings->first()->note ?? '-' }}
+                                    <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
+                                    
                                     <div class="d-flex gap-3 mt-2" id="screen-group">
                                         @foreach($product->printings as $key => $printing)
                                             <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}"
                                                     data-group="screen-group"
                                                     data-table-id="price-table-{{ $printing->id }}"
+                                                    data-note="{{ $printing->note ?? '-' }}"
                                                     onclick="selectScreen(this)">
                                                 {{ $printing->printing_type }}
                                             </button>
@@ -120,6 +132,7 @@
                         </tbody>
                     </table>
                     
+                    {{-- Price Tables --}}
                     @if($product->prices->isNotEmpty())
                     <div class="price-table-wrapper mt-4">
                         
@@ -184,19 +197,15 @@
                         <p class="mb-1">5) ราคาสินค้าที่แสดงยังไม่รวมภาษีมูลค่าเพิ่ม</p>
                         <p class="mb-0">6) หากสั่งซื้อเป็นจำนวนมากกว่าในตารางราคาจะได้ราคาพิเศษ</p>
                     </div>
-                    
                     @endif
                     
+                    {{-- Extra Parts --}}
                     @if($product->parts->isNotEmpty())
                     <div class="mt-5">
                         <h3 class="fw-bold mb-4">ส่วนประกอบเพิ่มเติม</h3>
                         <div class="row g-3">
                             @foreach($product->parts as $part)
-                                {{-- 
-                                   [UPDATED SIZE] 
-                                   Desktop (lg/md): col-3 (แสดง 4 กล่อง/แถว) -> ใหญ่ขึ้น
-                                   Mobile: col-4 (แสดง 3 กล่อง/แถว) -> ตามเดิมแต่จะดูใหญ่ขึ้นด้วย CSS
-                                --}}
+                                {{-- Grid: Desktop 4 (col-md-3) / Mobile 3 (col-4) --}}
                                 <div class="col-lg-3 col-md-3 col-4">
                                     <div class="part-box rounded-3 border p-1 text-center {{ $part->is_default ? 'active' : '' }}"
                                          data-group="part-group"
@@ -204,17 +213,13 @@
                                          title="{{ $part->part_name }}">
                                     
                                     @if($part->image_url)
-                                        {{-- mb-0 คือไม่ต้องเว้นล่างแล้ว เพราะรูปเต็ม --}}
+                                        {{-- mb-0 เพราะไม่มี text ข้างล่างแล้ว --}}
                                         <div class="part-img-box mb-0">
                                             <img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}">
                                         </div>
                                     @endif
                                     
-                                    {{-- (ส่วนชื่อถูกลบออกแล้ว) --}}
-                                    
-                                    @if($part->price_extra > 0)
-                                        <span class="part-price-tag extra">+{{ number_format($part->price_extra) }}฿</span>
-                                    @endif
+                                    {{-- (Hidden Name & Price) --}}
                                     
                                     </div>
                                 </div>
@@ -223,6 +228,7 @@
                     </div>
                     @endif
 
+                    {{-- Action Buttons --}}
                     <div class="action-area bg-white rounded-4 shadow-sm p-4 mt-5">
                         <div class="row justify-content-center align-items-center g-3">
                             
@@ -246,12 +252,14 @@
                         </div>
                     </div>
 
-                </div> </div>
+                </div> 
+            </div>
         </div>
         
     </div>
 </div>
 
+{{-- Scripts --}}
 <script>
     function changeMainImage(element, src) {
         document.getElementById('mainProductImage').src = src;
@@ -259,22 +267,27 @@
         element.classList.add('active');
     }
 
-    // ฟังก์ชันใหม่สำหรับ "เลือก 1 อย่าง"
     function selectSpec(element, groupName) {
         const groupElements = document.querySelectorAll(`[data-group="${groupName}"]`);
         groupElements.forEach(el => el.classList.remove('active'));
         element.classList.add('active');
     }
 
-    // ฟังก์ชันสำหรับปุ่มสกรีน (เลือก 1 อย่าง + สลับตาราง)
     function selectScreen(element) {
         selectSpec(element, 'screen-group');
+        
         const tableIdToShow = element.dataset.tableId;
         document.querySelectorAll('.price-table').forEach(el => el.style.display = 'none');
-        document.getElementById(tableIdToShow).style.display = 'block';
-    }
+        const tableToShow = document.getElementById(tableIdToShow);
+        if(tableToShow) tableToShow.style.display = 'block';
 
-    // ฟังก์ชันสำหรับปุ่มขนาด (เลือก 1 อย่าง)
+        const noteText = element.getAttribute('data-note');
+        const noteElement = document.getElementById('printing-note');
+        if(noteElement) {
+            noteElement.innerText = noteText;
+        }
+    }
+    
     function selectSize(element, sizeId) {
         selectSpec(element, 'size-group');
     }
