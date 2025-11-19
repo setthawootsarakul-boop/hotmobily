@@ -21,65 +21,79 @@ body {
     background-color: var(--bg-page);
     font-family: 'MyPromptFont', sans-serif;
     color: var(--brown-text);
+    overflow-x: hidden; 
 }
 
-/* Breadcrumb */
-.product-breadcrumb .breadcrumb-item a {
-    color: #333;
-    text-decoration: none;
-    font-size: 0.95rem;
-}
-.product-breadcrumb .breadcrumb-item.active {
-    color: var(--breadcrumb-active);
-    font-weight: 500;
-}
-
-/* Content Box Container */
-.product-detail-page .bg-white {
-    border-radius: 20px !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important;
-}
+.product-breadcrumb .breadcrumb-item a { color: #333; text-decoration: none; font-size: 0.95rem; }
+.product-breadcrumb .breadcrumb-item.active { color: var(--breadcrumb-active); font-weight: 500; }
+.product-detail-page .bg-white { border-radius: 20px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important; overflow: hidden; }
 
 /* ============================
-   3. Gallery Section (Left Column)
+   3. Gallery Section (Desktop)
+   [FIXED] จัดให้ก้นกล่องเสมอกันเป๊ะๆ
 ============================ */
 .gallery-container {
     display: flex;
     gap: 15px;
-    height: 450px;
+    /* [แก้จุดที่ 1] ใช้ stretch เพื่อดึงให้ซ้าย-ขวาสูงเท่ากันเสมอ */
+    align-items: stretch; 
 }
 
-/* Thumbnails */
+/* Thumbnails (ฝั่งซ้าย) */
 .thumbnails {
-    width: 80px;
+    width: 130px;
+    /* [แก้จุดที่ 2] ให้กล่องนี้ยืดตามความสูงของแม่ */
+    height: auto; 
     display: flex;
     flex-direction: column;
+    /* [แก้จุดที่ 3] กระจายรูปให้ห่างเท่าๆ กันจนเต็มพื้นที่ */
+    justify-content: space-between; 
     gap: 10px;
-    overflow-y: auto;
     padding-right: 5px;
+    overflow: hidden; 
 }
-.thumbnails::-webkit-scrollbar { width: 4px; }
-.thumbnails::-webkit-scrollbar-thumb { background-color: #ccc; border-radius: 4px; }
+
+.thumbnails::-webkit-scrollbar { display: none; }
 
 .thumb-item {
     width: 100%;
-    aspect-ratio: 1/1;
+    /* [แก้จุดที่ 4] ใช้ flex: 1 เพื่อสั่งให้แต่ละรูปยืดความสูงเฉลี่ยกันเองให้เต็ม */
+    flex: 1; 
+    
+    /* [สำคัญ] ยกเลิก aspect-ratio ใน Desktop เพื่อให้กล่องยืดหยุ่นตามความสูงรวมได้ */
+    aspect-ratio: unset; 
+    
     border: 2px solid transparent;
     border-radius: 8px;
     cursor: pointer;
     overflow: hidden;
-    opacity: 0.6;
+    opacity: 0.7;
     transition: all 0.2s ease;
     background-color: #fff;
-    padding: 2px;
+    padding: 5px;
+    
+    /* จัดรูปให้อยู่กึ่งกลาง */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.thumb-item img { width: 100%; height: 100%; object-fit: contain; }
-.thumb-item:hover { opacity: 1; border-color: #ddd; }
-.thumb-item.active { opacity: 1; border-color: var(--active-orange); }
 
-/* Main Image */
+.thumb-item img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+}
+
+.thumb-item:hover { opacity: 1; border-color: #ddd; }
+.thumb-item.active { opacity: 1; border-color: var(--active-orange); box-shadow: 0 0 0 1px var(--active-orange); }
+
+/* Main Image (ฝั่งขวา) */
 .main-image-wrapper {
+    /* [แก้จุดที่ 5] ใช้ aspect-ratio: 1/1 เป็นตัวกำหนดความสูงหลักของทั้งระบบ */
     flex-grow: 1;
+    width: 100%;
+    aspect-ratio: 1 / 1; 
+    
     background-color: #fff;
     border-radius: 12px;
     display: flex;
@@ -88,14 +102,8 @@ body {
     overflow: hidden;
     border: 1px solid #e6e6e6;
     position: relative;
-
-    /* [FIX] 1. ล็อคสัดส่วนเป็นสี่เหลี่ยมจัตุรัสเสมอ (กันเฟรมขยับ) */
-    width: 100%;
-    aspect-ratio: 1 / 1; 
 }
-
 .main-image-wrapper img { 
-    /* [FIX] 2. บังคับรูปให้เต็มพื้นที่ แต่ไม่เบี้ยว (ถ้ารูปไม่จัตุรัสจะมีขอบขาว) */
     width: 100%; 
     height: 100%; 
     object-fit: contain; 
@@ -110,255 +118,135 @@ body {
     transition: all 0.2s ease;
     box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
 }
-.btn-file-guide:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4);
-    color: white;
-}
+.btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
 
 /* ============================
-   4. Product Info (Right Column)
+   4. Product Info
 ============================ */
-h1.product-title {
-    font-size: 1.8rem;
-    color: #000;
-    line-height: 1.2;
-    font-weight: 300;
-}
+h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; }
 
 .product-info-table {
-    border-collapse: separate;
-    border-spacing: 0 0.5rem;
+    border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed;
 }
-.product-info-table td {
-    border: none;
-    padding: 0.25rem 0;
-    vertical-align: top;
-}
+.product-info-table td { border: none; padding: 0.25rem 0; vertical-align: top; }
 .product-info-table .label {
-    min-width: 130px;
-    color: #000;
-    font-weight: 700;
-    font-size: 1rem;
-    white-space: nowrap;
+    width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap;
 }
-.product-info-table .value {
-    color: #333;
-    font-size: 1rem;
-    line-height: 1.5;
-}
+.product-info-table .value { color: #333; font-size: 1rem; line-height: 1.5; word-wrap: break-word; }
 
-/* Spec Buttons */
+/* Buttons Spec */
 .btn-spec {
-    background-color: var(--btn-gray);
-    color: var(--btn-text-gray);
-    border: 2px solid var(--btn-gray);
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s;
-    cursor: pointer;
+    background-color: var(--btn-gray); color: var(--btn-text-gray); border: 2px solid var(--btn-gray); padding: 6px 16px; border-radius: 50px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s; cursor: pointer;
 }
 .btn-spec:hover { background-color: #e2e6ea; }
-.btn-spec.active {
-    background-color: #FFF8E1; 
-    color: #000;
-    border-color: var(--active-orange);
-    font-weight: 600;
-    box-shadow: 0 2px 5px rgba(255,193,7,0.3);
-}
+.btn-spec.active { background-color: #FFF8E1; color: #000; border-color: var(--active-orange); font-weight: 600; box-shadow: 0 2px 5px rgba(255,193,7,0.3); }
 
 /* ============================
-   5. Price Table (Matrix)
+   5. Price Table
 ============================ */
-.price-table.table-responsive {
-    max-height: 400px;
-    overflow-y: auto;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-
-.price-table .table {
-    border: 1px solid var(--border-color);
-    border-collapse: separate;
-}
-
+.price-table.table-responsive { max-height: 400px; overflow-y: auto; border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+.price-table .table { border: 1px solid var(--border-color); border-collapse: separate; }
 .table { margin-bottom: 0; }
-
-/* Sticky Header */
-.table thead th {
-    background-color: var(--header-table-bg); 
-    color: #555;
-    font-weight: 600;
-    font-size: 0.85rem;
-    padding: 10px;
-    white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-}
-
-/* Table Body */
-.table tbody td {
-    font-size: 0.95rem;
-    color: #333;
-    padding: 5px;
-    vertical-align: baseline;
-    border-color: var(--border-color) !important; 
-    border-width: 1px !important;
-}
-
-.table tbody tr.price-row td:first-child {
-    background-color: var(--header-table-bg);
-    color: #555;
-    font-weight: 600;
-}
-.table tbody tr.price-row td.size-col:hover {
-    background-color: var(--hover-price);
-    color: #fff;
-}
+.table thead th { background-color: var(--header-table-bg); color: #555; font-weight: 600; font-size: 0.85rem; padding: 10px; white-space: nowrap; position: sticky; top: 0; z-index: 20; }
+.table tbody td { font-size: 0.95rem; color: #333; padding: 5px; vertical-align: baseline; border-color: var(--border-color) !important; border-width: 1px !important; }
+.table tbody tr.price-row td:first-child { background-color: var(--header-table-bg); color: #555; font-weight: 600; }
+.table tbody tr.price-row td.size-col:hover { background-color: var(--hover-price); color: #fff; }
 
 /* ============================
-   6. Extra Parts Section (อะไหล่)
-   [UPDATED] กรอบใหญ่ รูปใหญ่ เต็มตา
+   6. Extra Parts Section
 ============================ */
 .part-box {
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: 2px solid #eee;
-    position: relative;
-    background-color: #fff;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    
-    /* [UPDATED] ลด Padding เหลือ 3px เพื่อให้พื้นที่รูปเยอะที่สุด */
-    padding: 3px; 
+    cursor: pointer; transition: all 0.2s ease; border: 2px solid #eee; position: relative; background-color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: 3px; 
 }
-
 .part-img-box {
-    width: 100%;
-    aspect-ratio: 1 / 1; /* บังคับสี่เหลี่ยมจัตุรัส */
-    height: auto !important; 
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: #f9f9f9;
-    border-radius: 6px; /* ลดความมนลงนิดนึงเพื่อให้ดูเต็ม */
-    margin-bottom: 0;
+    width: 100%; aspect-ratio: 1 / 1; height: auto !important; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9f9f9; border-radius: 6px; margin-bottom: 0;
 }
-
-.part-img-box img {
-    width: 100%;
-    /* [UPDATED] ซูมรูปให้ใหญ่ขึ้นอีก (จาก 130% เป็น 145%) */
-    height: 145%; 
-    object-fit: contain; 
-    padding: 0; /* ชิดขอบ */
-}
-
-.part-price-tag {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    font-size: 0.7rem; /* ฟอนต์เล็กหน่อยไม่ให้บังรูป */
-    font-weight: bold;
-    padding: 1px 5px;
-    border-radius: 4px;
-    color: white;
-    z-index: 10;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-}
-
+.part-img-box img { width: 100%; height: 130%; object-fit: contain; padding: unset; }
+.part-price-tag { position: absolute; top: 4px; right: 4px; font-size: 0.7rem; font-weight: bold; padding: 1px 5px; border-radius: 4px; color: white; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 .part-price-tag.extra { background-color: #dc3545; }
-
-.part-box.active {
-    border-color: var(--active-orange);
-    background-color: #fffdf5;
-    box-shadow: 0 0 0 2px var(--active-orange); /* เพิ่มความหนาเงาตอนเลือก */
-}
+.part-box.active { border-color: var(--active-orange); background-color: #fffdf5; box-shadow: 0 0 0 2px var(--active-orange); }
 
 /* ============================
-   7. Action Area (Buttons)
+   7. Action Buttons
 ============================ */
-.action-area {
-    border-top: 1px solid #eee;
-    background-color: #fdfdfd;
-}
-.btn-estimate, .btn-quote, .btn-add-to-cart {
-    background-color: var(--btn-red);
-    color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    font-weight: 600;
-}
-.btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover {
-    background-color: #b00020;
-    color: white;
-}
+.action-area { border-top: 1px solid #eee; background-color: #fdfdfd; }
+.btn-estimate, .btn-quote, .btn-add-to-cart { background-color: var(--btn-red); color: white; border: none; padding: 10px; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
+.btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover { background-color: #b00020; color: white; }
 
 /* ============================
-   8. Related Products
+   9. Responsive Styles (Tablet & Mobile)
+   [FIXED] บังคับให้ Gallery เรียง ซ้าย-ขวา เสมอ (เหมือน Desktop)
 ============================ */
-.product-card:hover .product-img-obj {
-    transform: translate(-50%, -50%) scale(1.1);
-}
 
-/* ============================
-   9. Responsive Styles
-============================ */
 @media (max-width: 991px) {
+    
+    /* 1. บังคับ Container ให้เรียงแนวนอน (Row) เหมือนเดิม */
     .gallery-container { 
-        flex-direction: column-reverse; 
-        height: auto; 
-    }
-    .thumbnails {
-        flex-direction: row;
-        width: 100%;
+        display: flex;
+        flex-direction: row; /* ซ้าย-ขวา */
+        align-items: stretch; /* สูงเท่ากัน */
+        gap: 10px; /* ลดช่องว่างนิดนึงในมือถือ */
         height: auto;
-        overflow-x: auto;
-        padding-bottom: 10px;
-        margin-top: 10px;
-        margin-right: 0 !important;
-        
-        /* (แถม) จัดกึ่งกลาง thumbnail ในมือถือ */
-        justify-content: center; 
-    }
-    .thumb-item { 
-        width: 60px; 
-        height: 60px; 
-        flex-shrink: 0; 
     }
     
-    /* [FIX] ลบ height fix เดิมออก หรือกำหนดให้เป็น auto เพื่อให้ aspect-ratio ทำงาน */
+    /* 2. ปรับขนาดแถบรูปเล็ก (Thumbnails) ให้เล็กลงพอดีมือถือ */
+    .thumbnails {
+        width: 60px; /* ลดจาก 130px เหลือ 60px */
+        flex-shrink: 0; /* ห้ามหด */
+        display: flex;
+        flex-direction: column; /* เรียงลงล่าง */
+        justify-content: space-between; /* กระจายให้เต็มความสูง */
+        gap: 8px;
+        padding-right: 0;
+        overflow: hidden;
+        margin: 0;
+    }
+    
+    /* 3. ปรับขนาดกล่องรูปเล็กแต่ละอัน */
+    .thumb-item {
+        width: 100%;
+        flex: 1; /* ยืดความสูงให้เต็ม */
+        aspect-ratio: unset; /* ยกเลิกสัดส่วนเพื่อให้ยืดตาม Flex ได้ */
+        padding: 3px; /* ลด padding ลง */
+    }
+    
+    /* 4. ปรับรูปใหญ่ (Main Image) */
     .main-image-wrapper { 
+        flex-grow: 1; /* กินพื้นที่ที่เหลือทั้งหมด */
+        width: calc(100% - 70px); /* คำนวณเผื่อ (100% - แถบซ้าย 60px - gap 10px) */
         height: auto; 
-        /* aspect-ratio: 1/1; // มันจะสืบทอดมาจากด้านบนอยู่แล้ว */
+        aspect-ratio: 1/1;
+        margin-bottom: 0;
+        order: unset; /* ยกเลิกการจัดลำดับ (ให้เป็นไปตาม HTML: รูปเล็กมาก่อน) */
     }
 }
-
-/* Mobile Specific (จอเล็กกว่า 576px) */
+/* ============================
+   9. Mobile Only (< 576px)
+   [UPDATED] รวมโค้ดของคุณ + การซูมรูป Parts
+============================ */
 @media (max-width: 576px) {
     
-    /* ปรับขนาดตัวอักษร Parts ให้เล็กลงเมื่อแสดง 3 กล่อง */
-    .part-box {
-        padding: 2px; /* ในมือถือลดขอบสุดๆ */
+    /* 1. Parts (3 กล่องต่อแถว) */
+    .part-box { 
+        padding: 2px; 
     }
-    .part-img-box {
-        border-radius: 4px;
-    }
-    .part-img-box img {
-        height: 145%; /* มือถือก็ซูมใหญ่เท่ากัน */
+    .part-img-box { 
+        border-radius: 4px; 
     }
     
-    /* Stack Buttons */
-    .action-area .row {
-        row-gap: 10px;
+    /* [สำคัญ] ต้องใส่บรรทัดนี้เพื่อให้รูป Parts ในมือถือซูมใหญ่เท่า Desktop */
+    .part-img-box img { 
+        height: 130%; 
+    }
+    
+    /* 2. Action Buttons Stack */
+    .action-area .row { 
+        row-gap: 10px; 
+    }
+
+    /* 3. Product Title Adjustments */
+    .product-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
 }
