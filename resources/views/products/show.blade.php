@@ -96,7 +96,7 @@
                                 <td class="label">การสกรีน :</td>
                                 <td class="value">
                                     <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
-                                    <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
+                                    <div class="d-flex mt-2 gap-4 flex-wrap" id="screen-group">
                                         @foreach($product->printings as $key => $printing)
                                             <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1"
                                                     data-group="screen-group"
@@ -120,12 +120,18 @@
                         <div id="price-table-{{ $printing->id }}" 
                              class="price-table table-responsive" 
                              style="{{ $key == 0 ? '' : 'display: none;' }}">
-                            <table class="table table-bordered text-center align-middle mb-0">
+                                <table class="table table-bordered text-center align-middle mb-0">
                                 <thead>
                                     <tr>
                                         <th style="background-color: #f8f9fa;">จำนวน</th>
                                         @forelse($product->sizes as $size)
-                                            <th class="size-header">{{ $size->size_name }}</th>
+                                            <th class="size-header" style="white-space: nowrap;"> {{-- เพิ่ม nowrap เพื่อห้ามตัดบรรทัด --}}
+                                                
+                                                {{-- [EDITED] อยู่บรรทัดเดียวกัน (ลบ <br> ออก) --}}
+                                                <span style="color: #666; font-weight: normal;">ขนาดไม่เกิน</span> 
+                                                {{ $size->size_name }}
+                                                
+                                            </th>
                                         @empty
                                             <th>ราคา / ชิ้น</th>
                                         @endforelse

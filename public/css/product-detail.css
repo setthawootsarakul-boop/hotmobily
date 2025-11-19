@@ -29,40 +29,30 @@ body {
 .product-detail-page .bg-white { border-radius: 20px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important; overflow: hidden; }
 
 /* ============================
-   3. Gallery Section (Desktop)
-   [FIXED] จัดให้ก้นกล่องเสมอกันเป๊ะๆ
+   3. Gallery Section (Desktop & Mobile Shared)
 ============================ */
 .gallery-container {
     display: flex;
     gap: 15px;
-    /* [แก้จุดที่ 1] ใช้ stretch เพื่อดึงให้ซ้าย-ขวาสูงเท่ากันเสมอ */
-    align-items: stretch; 
+    align-items: stretch; /* จัดชิดบนและยืดความสูงเท่ากัน */
 }
 
-/* Thumbnails (ฝั่งซ้าย) */
+/* Thumbnails */
 .thumbnails {
-    width: 130px;
-    /* [แก้จุดที่ 2] ให้กล่องนี้ยืดตามความสูงของแม่ */
-    height: auto; 
+    width: 130px; /* Desktop Width */
     display: flex;
-    flex-direction: column;
-    /* [แก้จุดที่ 3] กระจายรูปให้ห่างเท่าๆ กันจนเต็มพื้นที่ */
+    flex-direction: column; 
     justify-content: space-between; 
     gap: 10px;
     padding-right: 5px;
     overflow: hidden; 
 }
-
 .thumbnails::-webkit-scrollbar { display: none; }
 
 .thumb-item {
     width: 100%;
-    /* [แก้จุดที่ 4] ใช้ flex: 1 เพื่อสั่งให้แต่ละรูปยืดความสูงเฉลี่ยกันเองให้เต็ม */
-    flex: 1; 
-    
-    /* [สำคัญ] ยกเลิก aspect-ratio ใน Desktop เพื่อให้กล่องยืดหยุ่นตามความสูงรวมได้ */
+    flex: 1; /* ยืดให้เต็มความสูง */
     aspect-ratio: unset; 
-    
     border: 2px solid transparent;
     border-radius: 8px;
     cursor: pointer;
@@ -71,29 +61,19 @@ body {
     transition: all 0.2s ease;
     background-color: #fff;
     padding: 5px;
-    
-    /* จัดรูปให้อยู่กึ่งกลาง */
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-.thumb-item img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-}
-
+.thumb-item img { width: 100%; height: 100%; object-fit: contain; }
 .thumb-item:hover { opacity: 1; border-color: #ddd; }
 .thumb-item.active { opacity: 1; border-color: var(--active-orange); box-shadow: 0 0 0 1px var(--active-orange); }
 
-/* Main Image (ฝั่งขวา) */
+/* Main Image */
 .main-image-wrapper {
-    /* [แก้จุดที่ 5] ใช้ aspect-ratio: 1/1 เป็นตัวกำหนดความสูงหลักของทั้งระบบ */
-    flex-grow: 1;
+    flex-grow: 1; 
     width: 100%;
     aspect-ratio: 1 / 1; 
-    
     background-color: #fff;
     border-radius: 12px;
     display: flex;
@@ -103,11 +83,7 @@ body {
     border: 1px solid #e6e6e6;
     position: relative;
 }
-.main-image-wrapper img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; 
-}
+.main-image-wrapper img { width: 100%; height: 100%; object-fit: contain; }
 
 /* File Guide Button */
 .btn-file-guide {
@@ -121,128 +97,76 @@ body {
 .btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
 
 /* ============================
-   4. Product Info (Right Column)
-   [KEEP ORIGINAL] ใช้แบบ separate เหมือนเดิม
+   4. Product Info
 ============================ */
-h1.product-title {
-    font-size: 1.8rem;
-    color: #000;
-    line-height: 1.2;
-    font-weight: 300;
-}
+h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; }
 
 .product-info-table {
-    border-collapse: separate; /* แยกช่องเหมือนเดิม */
-    border-spacing: 0 0.5rem; /* ระยะห่างระหว่างบรรทัด */
-    width: 100%; 
-    table-layout: fixed;
+    border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed;
 }
-
-.product-info-table td {
-    border: none; /* ไม่มีเส้นขอบ */
-    padding: 0.25rem 0;
-    vertical-align: top;
-}
-
+.product-info-table td { border: none; padding: 0.25rem 0; vertical-align: top; }
 .product-info-table .label {
-    width: 130px; 
-    min-width: 130px;
-    color: #000;
-    font-weight: 700;
-    font-size: 1rem;
-    white-space: nowrap;
+    width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap;
 }
+.product-info-table .value { color: #333; font-size: 1rem; line-height: 1.5; word-wrap: break-word; }
 
-.product-info-table .value {
-    color: #333;
-    font-size: 1rem;
-    line-height: 1.5;
-    word-wrap: break-word;
-}
-
-/* Spec Buttons (คงเดิม) */
+/* Spec Buttons */
 .btn-spec {
-    background-color: var(--btn-gray);
-    color: var(--btn-text-gray);
-    border: 2px solid var(--btn-gray);
+    background-color: #EAEAEA; 
+    color: #333;
+    border: 1px solid transparent; 
     padding: 6px 16px;
-    border-radius: 50px;
+    border-radius: 12px; 
     font-size: 0.9rem;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
-.btn-spec:hover { background-color: #e2e6ea; }
+.btn-spec:hover { background-color: #dcdcdc; }
 .btn-spec.active {
-    background-color: #FFF8E1; 
+    background-color: #FFC069; 
     color: #000;
-    border-color: var(--active-orange);
-    font-weight: 600;
-    box-shadow: 0 2px 5px rgba(255,193,7,0.3);
+    border-color: transparent;
+    font-weight: 500;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
+
+#size-group, #screen-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px !important;
+}
+.btn-spec { margin-bottom: 0 !important; }
+
 /* ============================
-   5. Price Table (Matrix)
-   [UPDATED] แบบ Clean Grid (เส้นเดียว) เฉพาะตารางนี้
+   5. Price Table (Clean Grid)
 ============================ */
 .price-table.table-responsive {
     max-height: 400px;
     overflow-y: auto;
-    border-radius: 0px; 
-    border: 2px solid #eee; /* กรอบนอกสีจาง */
+    border-radius: 12px; 
+    border: 1px solid #eee; 
     box-shadow: none; 
 }
-
-/* เจาะจงเฉพาะ table ที่อยู่ใน .price-table เท่านั้น */
 .price-table .table {
     width: 100%;
     margin-bottom: 0;
-    border-collapse: collapse; /* รวมเส้นขอบเป็นเส้นเดียว */
-    border-style: hidden; /* ซ่อนขอบซ้อน */
+    border-collapse: collapse; 
+    border-style: hidden;
 }
-
-/* หัวตารางราคา */
 .price-table .table thead th {
-    background-color: #f9fafb; /* สีพื้นหลังอ่อนสบายตา */
-    color: #444;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 12px 10px;
-    white-space: nowrap;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-    border-bottom: 2px solid #eee; /* เส้นใต้หัวตาราง */
-    border-right: 1px solid #f0f0f0; /* เส้นคั่นแนวตั้ง */
+    background-color: #f9fafb; color: #444; font-weight: 600; font-size: 0.9rem; padding: 12px 10px; white-space: nowrap; position: sticky; top: 0; z-index: 20; border-bottom: 2px solid #eee; border-right: 1px solid #f0f0f0;
 }
-
-/* เนื้อหาตารางราคา */
 .price-table .table tbody td {
-    font-size: 0.95rem;
-    color: #555;
-    padding: 10px;
-    vertical-align: middle;
-    border: 1px solid #f0f0f0; /* เส้นตารางสีเทาจางๆ บางๆ */
+    font-size: 0.95rem; color: #555; padding: 10px; vertical-align: middle; border: 1px solid #f0f0f0;
 }
-
-/* คอลัมน์แรก (จำนวน) */
 .price-table .table tbody tr.price-row td:first-child {
-    background-color: #fff;
-    color: var(--brown-text);
-    font-weight: 600;
-    border-right: 2px solid #eee; /* เส้นแบ่งแนวตั้งให้ชัดขึ้น */
+    background-color: #fff; color: var(--brown-text); font-weight: 600; border-right: 2px solid #eee;
 }
-
-/* Hover Effect แถว */
-.price-table .table tbody tr:hover {
-    background-color: #f8f9fa;
-}
-
-/* Hover Effect ช่องราคา */
+.price-table .table tbody tr:hover { background-color: #f8f9fa; }
 .price-table .table tbody tr.price-row td.size-col:hover {
-    background-color: var(--active-orange);
-    color: #fff;
-    border-color: var(--active-orange);
-    cursor: default;
+    background-color: var(--active-orange); color: #fff; border-color: var(--active-orange); cursor: default;
 }
 
 /* ============================
@@ -254,7 +178,7 @@ h1.product-title {
 .part-img-box {
     width: 100%; aspect-ratio: 1 / 1; height: auto !important; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9f9f9; border-radius: 6px; margin-bottom: 0;
 }
-.part-img-box img { width: 100%; height: 130%; object-fit: contain; padding: unset; }
+.part-img-box img { width: 100%; height: 145%; object-fit: contain; padding: 0; }
 .part-price-tag { position: absolute; top: 4px; right: 4px; font-size: 0.7rem; font-weight: bold; padding: 1px 5px; border-radius: 4px; color: white; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 .part-price-tag.extra { background-color: #dc3545; }
 .part-box.active { border-color: var(--active-orange); background-color: #fffdf5; box-shadow: 0 0 0 2px var(--active-orange); }
@@ -267,79 +191,146 @@ h1.product-title {
 .btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover { background-color: #b00020; color: white; }
 
 /* ============================
-   9. Responsive Styles (Tablet & Mobile)
-   [FIXED] บังคับให้ Gallery เรียง ซ้าย-ขวา เสมอ (เหมือน Desktop)
+   8. Responsive Styles (Tablet < 992px)
 ============================ */
-
 @media (max-width: 991px) {
     
-    /* 1. บังคับ Container ให้เรียงแนวนอน (Row) เหมือนเดิม */
+    /* [FIX] Gallery Layout for Mobile/Tablet: บังคับซ้าย-ขวา */
     .gallery-container { 
         display: flex;
-        flex-direction: row; /* ซ้าย-ขวา */
-        align-items: stretch; /* สูงเท่ากัน */
-        gap: 10px; /* ลดช่องว่างนิดนึงในมือถือ */
+        flex-direction: row; 
+        align-items: stretch;
+        gap: 10px;
         height: auto;
     }
     
-    /* 2. ปรับขนาดแถบรูปเล็ก (Thumbnails) ให้เล็กลงพอดีมือถือ */
+    /* Thumbnails (ซ้าย) */
     .thumbnails {
-        width: 60px; /* ลดจาก 130px เหลือ 60px */
-        flex-shrink: 0; /* ห้ามหด */
+        width: 60px; 
+        flex-shrink: 0; 
         display: flex;
-        flex-direction: column; /* เรียงลงล่าง */
-        justify-content: space-between; /* กระจายให้เต็มความสูง */
+        flex-direction: column; 
+        justify-content: space-between; 
         gap: 8px;
         padding-right: 0;
         overflow: hidden;
         margin: 0;
     }
     
-    /* 3. ปรับขนาดกล่องรูปเล็กแต่ละอัน */
+    /* รูปเล็กในมือถือ */
     .thumb-item {
         width: 100%;
-        flex: 1; /* ยืดความสูงให้เต็ม */
-        aspect-ratio: unset; /* ยกเลิกสัดส่วนเพื่อให้ยืดตาม Flex ได้ */
-        padding: 3px; /* ลด padding ลง */
+        flex: 1; /* ยืดความสูงให้เต็มพื้นที่ */
+        aspect-ratio: unset; 
+        padding: 3px; 
     }
     
-    /* 4. ปรับรูปใหญ่ (Main Image) */
+    /* Main Image (ขวา) */
     .main-image-wrapper { 
-        flex-grow: 1; /* กินพื้นที่ที่เหลือทั้งหมด */
-        width: calc(100% - 70px); /* คำนวณเผื่อ (100% - แถบซ้าย 60px - gap 10px) */
+        flex-grow: 1;
+        width: calc(100% - 70px); 
         height: auto; 
         aspect-ratio: 1/1;
         margin-bottom: 0;
-        order: unset; /* ยกเลิกการจัดลำดับ (ให้เป็นไปตาม HTML: รูปเล็กมาก่อน) */
+        order: unset;
+    }
+
+    /* Table Fixes */
+    .product-info-table .label {
+        width: 110px; 
+        white-space: normal;
+        font-size: 0.9rem;
     }
 }
+
 /* ============================
-   9. Mobile Only (< 576px)
-   [UPDATED] รวมโค้ดของคุณ + การซูมรูป Parts
+   9. Mobile Specific Settings (< 576px)
 ============================ */
 @media (max-width: 576px) {
     
-    /* 1. Parts (3 กล่องต่อแถว) */
-    .part-box { 
-        padding: 2px; 
-    }
-    .part-img-box { 
-        border-radius: 4px; 
-    }
+    /* 1. [FIX] พื้นหลังขาวเต็มจอ (Full White Section) */
+    body { background-color: #fff !important; }
     
-    /* [สำคัญ] ต้องใส่บรรทัดนี้เพื่อให้รูป Parts ในมือถือซูมใหญ่เท่า Desktop */
-    .part-img-box img { 
-        height: 130%; 
-    }
-    
-    /* 2. Action Buttons Stack */
-    .action-area .row { 
-        row-gap: 10px; 
+    .product-detail-page {
+        background-color: #fff;
+        padding-top: 0 !important; 
+        padding-bottom: 0 !important;
     }
 
-    /* 3. Product Title Adjustments */
+    .product-detail-page .container {
+        padding-left: 0;
+        padding-right: 0;
+        max-width: 100%;
+    }
+
+    .bg-white {
+        box-shadow: none !important; 
+        border-radius: 0 !important; 
+        margin-bottom: 0 !important;
+        padding: 20px 15px !important; 
+    }
+
+    /* 2. [FIX] จัดปุ่มให้อยู่แนวเดียวกัน */
+    .btn-spec {
+        padding: 5px 12px; 
+        font-size: 0.85rem; 
+        white-space: nowrap; 
+        margin-bottom: 5px; 
+        flex: 0 0 auto; 
+    }
+    
+    #size-group, #screen-group {
+        display: flex;
+        flex-wrap: wrap; 
+        gap: 8px !important; 
+        justify-content: flex-start;
+    }
+
+    /* 3. [FIX] ปรับตารางข้อมูลให้มีพื้นที่ให้ปุ่มมากขึ้น */
+    .product-info-table .label {
+        width: 90px !important; 
+        min-width: 90px !important;
+        font-size: 0.9rem;
+    }
+    .product-info-table .value { padding-left: 5px; }
+
+    /* 4. [FIX] ตารางราคา: บังคับ Scroll แนวนอน */
+    .price-table.table-responsive {
+        display: block;
+        width: 100%;
+        overflow-x: auto !important; /* บังคับให้มี Scrollbar */
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 15px;
+        border-right: 1px solid #eee;
+        border-radius: 0; /* ในมือถือไม่ต้องมน */
+    }
+
+    .price-table .table {
+        width: auto !important; /* ยกเลิก width 100% */
+        min-width: 100%;
+        max-width: none;
+    }
+
+    /* เซลล์ภายใน (สำคัญมากสำหรับการดันตารางให้ยาว) */
+    .price-table .table th,
+    .price-table .table td {
+        white-space: nowrap !important; /* ห้ามตัดบรรทัด */
+        padding: 10px 15px; 
+    }
+
+    /* ส่วน Parts (อะไหล่) */
+    .part-box { padding: 2px; }
+    .part-img-box { border-radius: 4px; }
+    .part-img-box img { height: 145%; } /* Zoom ใหญ่ */
+    
+    /* Action Buttons */
+    .action-area .row { row-gap: 10px; }
+    
+    /* Product Title */
     .product-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         margin-bottom: 1rem;
+        text-align: left; 
+        padding-left: 15px; 
     }
 }
