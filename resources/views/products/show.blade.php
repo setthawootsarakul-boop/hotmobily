@@ -7,6 +7,7 @@
 {{-- CSS & Style --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 <link rel="stylesheet" href="{{ asset('css/product-detail.css') }}">
+
 <style>
     .estimation-table th, .estimation-table td {
         vertical-align: middle;
@@ -17,6 +18,7 @@
         color: white;
         border-radius: 8px;
         transition: 0.3s;
+        border: none;
     }
     .btn-estimate-action:hover {
         background-color: #8a0019;
@@ -27,6 +29,7 @@
 <div class="container-fluid product-detail-page py-4">
     <div class="container">
         
+        {{-- Breadcrumb --}}
         <nav aria-label="breadcrumb" class="mb-4 product-breadcrumb">
             <ol class="breadcrumb bg-transparent p-0 mb-0">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">หน้าหลัก</a></li>
@@ -37,8 +40,9 @@
 
         <div class="bg-white rounded-4 shadow-sm p-4 p-lg-5">
             
-            {{-- ================= SECTION 1: Top Info (2 Columns) ================= --}}
+            {{-- ================= SECTION 1: ข้อมูลสินค้า (แบ่งซ้าย-ขวา) ================= --}}
             <div class="row g-5">
+                
                 {{-- LEFT COLUMN: Gallery --}}
                 <div class="col-lg-5">
                     @php
@@ -56,6 +60,7 @@
                                 </div>
                             @endforeach
                         </div>
+
                         <div class="main-image-wrapper rounded-3" onclick="openLightbox()">
                             <img id="mainProductImage" src="{{ $initialSrc }}" alt="{{ $product->name }}" class="img-fluid" style="cursor: zoom-in;">
                             <div class="zoom-icon"></div>
@@ -69,45 +74,112 @@
                     </div>
                 </div>
 
-                {{-- RIGHT COLUMN: Info --}}
+                {{-- RIGHT COLUMN: Info & Options --}}
                 <div class="col-lg-7">
                     <h1 class="product-title fw-bold mb-4">{{ $product->name }}</h1>
 
-                    {{-- Product Info Table --}}
+                    {{-- Info Table --}}
                     <table class="table product-info-table">
                         <tbody>
-                            <tr><td class="label">วัสดุ :</td><td class="value">@if($product->materials->isNotEmpty()) {{ $product->materials->first()->material_name }} (หนา {{ $product->materials->first()->thickness }}) @else - @endif</td></tr>
+                            {{-- 1. วัสดุ --}}
+                            <tr>
+                                <td class="label">วัสดุ :</td>
+                                <td class="value">
+                                    @if($product->materials->isNotEmpty()) 
+                                        {{ $product->materials->first()->material_name }} (หนา {{ $product->materials->first()->thickness }}) 
+                                    @else - @endif
+                                </td>
+                            </tr>
+                            
+                            {{-- 2. ขนาด (Logic พิเศษ: ถ้ามี Note ให้โชว์ Text, ถ้าไม่มีให้โชว์ปุ่ม) --}}
                             @if($product->sizes->isNotEmpty())
                             <tr>
                                 <td class="label">ขนาด :</td>
                                 <td class="value">
-                                    <div class="d-flex gap-2 flex-wrap" id="size-group">
-                                        @foreach($product->sizes as $key => $size)
-                                            <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" data-group="size-group" onclick="selectSize(this, {{ $size->id }})">{{ $size->size_name }}</button>
-                                        @endforeach
-                                    </div>
+                                    @if($product->sizes->first()->note)
+                                        {{-- กรณี ID 12: แสดง Note เป็นข้อความ --}}
+                                        <div class="text-dark" style="line-height: 1.6;">
+                                            {{ $product->sizes->first()->note }}
+                                        </div>
+                                        
+                                        {{-- ซ่อนปุ่มไว้ (เพื่อให้ JS คำนวณราคาได้โดยใช้ค่าแรกสุดอัตโนมัติ) --}}
+                                        <div class="d-none">
+                                             @foreach($product->sizes as $key => $size)
+                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}" 
+                                                        data-group="size-group" 
+                                                        onclick="selectSize(this, {{ $size->id }})">
+                                                    {{ $size->size_name }}
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                    @else
+                                        {{-- กรณีปกติ: แสดงปุ่มเลือกขนาด --}}
+                                        <div class="d-flex gap-2 flex-wrap" id="size-group">
+                                            @foreach($product->sizes as $key => $size)
+                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
+                                                        data-group="size-group" 
+                                                        onclick="selectSize(this, {{ $size->id }})">
+                                                    {{ $size->size_name }}
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                             @endif
+
+
+                            {{-- 5. ตัวอย่างฟรี (Logic พิเศษ: โชว์ถ้ามีข้อมูล) --}}
+                            @if($product->free_sample_text)
+                            <tr>
+                                <td class="label">ตัวอย่างฟรี :</td>
+                                <td class="value">
+                                    <i class=""></i> {{ $product->free_sample_text }}
+                                </td>
+                            </tr>
+                            @endif
+                            
                             <tr><td class="label">สั่งขั้นต่ำ :</td><td class="value">{{ $product->moq }}</td></tr>
                             <tr><td class="label">การบรรจุ :</td><td class="value">{{ $product->packing }}</td></tr>
+                            
                             @if($product->special_features)
                             <tr><td class="label">คุณสมบัติพิเศษ :</td><td class="value">{!! nl2br(e($product->special_features)) !!}</td></tr>
                             @endif
+                            
                             <tr><td class="label">ระยะเวลาผลิต :</td><td class="value">{{ $product->production_time }}</td></tr>
+                            
                             @if($product->printings->isNotEmpty())
-                            <tr>
-                                <td class="label">การสกรีน :</td>
-                                <td class="value">
-                                    <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
-                                    <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
-                                        @foreach($product->printings as $key => $printing)
-                                            <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" data-group="screen-group" data-table-id="price-table-{{ $printing->id }}" data-note="{{ $printing->note ?? '-' }}" data-printing-id="{{ $printing->id }}" onclick="selectScreen(this)">{{ $printing->printing_type }}</button>
-                                        @endforeach
-                                    </div>
-                                </td>
-                            </tr>
+                                {{-- 3. จำนวนสี (Logic พิเศษ: โชว์เฉพาะถ้ามีข้อมูล) --}}
+                                @if($product->printings->first()->color_type)
+                                <tr>
+                                    <td class="label">จำนวนสี :</td>
+                                    <td class="value">{{ $product->printings->first()->color_type }}</td>
+                                </tr>
+                                @endif
+
+                                {{-- 4. การสกรีน --}}
+                                <tr>
+                                    <td class="label">การสกรีน :</td>
+                                    <td class="value">
+                                        <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
+                                        
+                                        <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
+                                            @foreach($product->printings as $key => $printing)
+                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
+                                                        data-group="screen-group" 
+                                                        data-table-id="price-table-{{ $printing->id }}" 
+                                                        data-note="{{ $printing->note ?? '-' }}" 
+                                                        data-printing-id="{{ $printing->id }}" 
+                                                        onclick="selectScreen(this)">
+                                                    {{ $printing->printing_type }}
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                </tr>
                             @endif
+
+
                         </tbody>
                     </table>
                     
@@ -121,7 +193,10 @@
                                     <tr>
                                         <th style="background-color: #f8f9fa;">จำนวน</th>
                                         @forelse($product->sizes as $size)
-                                            <th class="size-header" style="white-space: nowrap;"><span style="color: #666; font-weight: normal;">ขนาดไม่เกิน</span> {{ $size->size_name }}</th>
+                                            <th class="size-header" style="white-space: nowrap;">
+                                                <span style="color: #666; font-weight: normal;">ขนาดไม่เกิน</span> 
+                                                {{ $size->size_name }}
+                                            </th>
                                         @empty
                                             <th>ราคา / ชิ้น</th>
                                         @endforelse
@@ -145,7 +220,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="price-notes mt-4" style="font-size: 0.85rem; line-height: 1.6; color: #666;">
+                    <div class="price-notes mt-4 text-secondary" style="font-size: 0.85rem; line-height: 1.6;">
                         <p class="mb-1">1) ราคานี้เป็นราคาผลิตต่อหน่วย ไม่ใช่ราคารวมสินค้า</p>
                         <p class="mb-1">2) ราคานี้รวมค่าบรรจุใส่ถุง และฟรีค่าจัดส่งเมื่อสั่งซื้อตั้งแต่ 1,000 บาทขึ้นไป กรณียอดการสั่งซื้อน้อยกว่า 500 บาทจะมีค่าจัดส่ง 50 บาท</p>
                         <p class="mb-1">3) หากสินค้าที่ท่านสั่งผลิตมีจำนวนมากก็จะได้ราคาถูกมากขึ้นและทางเราจะส่งสินค้าตัวอย่างให้ตรวจสอบก่อนผลิตจริงฟรี</p>
@@ -163,7 +238,10 @@
                             @foreach($product->parts as $part)
                                 <div class="col-lg-3 col-md-3 col-4">
                                     <div class="part-box rounded-3 border p-1 text-center {{ $part->is_default ? 'active' : '' }}"
-                                         data-group="part-group" onclick="selectSpec(this, 'part-group')" data-part-id="{{ $part->id }}" title="{{ $part->part_name }}">
+                                         data-group="part-group" 
+                                         onclick="selectSpec(this, 'part-group')" 
+                                         data-part-id="{{ $part->id }}" 
+                                         title="{{ $part->part_name }}">
                                     @if($part->image_url)
                                         <div class="part-img-box mb-0"><img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}"></div>
                                     @endif
@@ -174,97 +252,76 @@
                     </div>
                     @endif
 
-                </div> {{-- End col-lg-7 --}}
-            </div> {{-- End row g-5 (จบส่วนบน แบ่ง 2 คอลัมน์) --}}
+                    {{-- [INPUT SECTION] ส่วนกรอกจำนวนและปุ่มประเมินราคา --}}
+                    {{-- Hidden Inputs --}}
+                    <input type="hidden" id="selected_product_id" value="{{ $product->id }}">
+                    <input type="hidden" id="selected_size_id" value="{{ $product->sizes->first()->id ?? '' }}">
+                    <input type="hidden" id="selected_printing_id" value="{{ $product->printings->first()->id ?? '' }}">
+                    <input type="hidden" id="selected_part_id" value="{{ $product->parts->where('is_default', 1)->first()->id ?? '' }}">
 
-
-            {{-- ================= SECTION 2: Calculation & Result (Full Width) ================= --}}
-            {{-- ย้ายออกมานอก row g-5 เพื่อให้เป็น Full Width --}}
-            
-            <div class="mt-5">
-                {{-- Hidden Inputs --}}
-                <input type="hidden" id="selected_product_id" value="{{ $product->id }}">
-                <input type="hidden" id="selected_size_id" value="{{ $product->sizes->first()->id ?? '' }}">
-                <input type="hidden" id="selected_printing_id" value="{{ $product->printings->first()->id ?? '' }}">
-                <input type="hidden" id="selected_part_id" value="{{ $product->parts->where('is_default', 1)->first()->id ?? '' }}">
-
-                {{-- Input & Button --}}
-                <div class="">
-                    <div class="mt-4 d-flex justify-content-center align-items-center gap-4">
-                        <div class="d-flex align-items-center">
-                            <label for="quantityInput" class="form-label fw-bold me-3 mb-0" style="font-size: 1.1rem;">
-                                จำนวน :
-                            </label>
-                            <input type="number" 
-                               class="form-control text-center fw-bold me-3" 
-                               id="quantityInput" 
-                               value="1" 
-                               min="1" 
-                               style="width: 100px; height: 45px; border-radius: 8px;">
-                        <button class="btn btn-estimate-action fw-bold px-4" 
-                                onclick="calculatePrice()" 
-                                style="height: 45px; font-size: 1rem; min-width: 140px;">
+                    <div class="mt-4 d-flex justify-content-end align-items-center">
+                        <label for="quantityInput" class="form-label fw-bold me-3 mb-0" style="font-size: 1.1rem;">จำนวน :</label>
+                        <input type="number" class="form-control text-center fw-bold me-3" id="quantityInput" value="1" min="1" style="width: 120px; height: 45px; border-radius: 8px;">
+                        <button class="btn btn-estimate-action fw-bold px-4" onclick="calculatePrice()" style="height: 45px; font-size: 1rem; min-width: 140px;">
                             ประเมินราคา
                         </button>
                     </div>
-                </div>
 
-                {{-- Result Tables (Full Width Container) --}}
-                <div id="estimationResult" class="mt-5" style="display: none;">
-                    <div class="row g-4">
-                        {{-- ตารางซ้าย --}}
-                        <div class="col-md-6">
-                            <h5 class="fw-bold text-center mb-3">ข้อมูล</h5>
-                            <table class="table table-bordered estimation-table">
-                                <tr><td class="bg-light fw-bold" width="40%">สินค้า</td><td>{{ $product->name }}</td></tr>
-                                <tr><td class="bg-light fw-bold">ขนาด</td><td id="res_size">-</td></tr>
-                                <tr><td class="bg-light fw-bold">การสกรีน</td><td id="res_print">-</td></tr>
-                                <tr>
-                                    <td class="bg-light fw-bold align-middle">ส่วนประกอบเพิ่มเติม</td>
-                                    <td class="text-center">
-                                        <div id="res_part_img_div" style="display:none; width: 50px; height: 50px; margin: 0 auto 5px auto;">
-                                            <img id="res_part_img" src="" style="width:100%; height:100%; object-fit:contain;">
-                                        </div>
-                                        <span id="res_part_name">-</span>
-                                    </td>
-                                </tr>
-                                <tr><td class="bg-light fw-bold">จำนวน</td><td id="res_qty">-</td></tr>
-                            </table>
-                        </div>
-                        {{-- ตารางขวา --}}
-                        <div class="col-md-6">
-                            <h5 class="fw-bold text-center mb-3">ราคาประเมิน</h5>
-                            <table class="table table-bordered estimation-table text-end">
-                                <tr><td class="bg-light fw-bold text-start">ราคาสินค้า</td><td><span id="res_product_price">0</span> บาท</td></tr>
-                                <tr><td class="bg-light fw-bold text-start">ส่วนประกอบ</td><td><span id="res_part_price">0</span> บาท</td></tr>
-                                <tr><td class="bg-light fw-bold text-start">ราคาก่อนรวมภาษี</td><td><span id="res_subtotal">0</span> บาท</td></tr>
-                                <tr><td class="bg-light fw-bold text-start">ภาษี (7%)</td><td><span id="res_vat">0</span> บาท</td></tr>
-                                <tr>
-                                    <td class="bg-light fw-bold text-start fs-5">ราคาประเมินรวม</td>
-                                    <td class="fw-bold fs-5 text-danger"><span id="res_grand_total">0</span> บาท</td>
-                                </tr>
-                            </table>
-                            <div class="text-danger small mt-2 text-center">
-                                *** ราคานี้เป็นการคำนวณคร่าวๆ เพื่ออ้างอิง หากต้องการราคาที่แน่นอน <br>
-                                กรุณากรอกฟอร์ม/คลิกปุ่มขอใบเสนอราคา เพื่อรับใบเสนอราคาอย่างเป็นทางการ ***
-                            </div>
+                </div> {{-- End col-lg-7 --}}
+            </div> {{-- End row g-5 --}}
+
+
+            {{-- ================= SECTION 2: Result & Actions (Full Width) ================= --}}
+            <div id="estimationResult" class="mt-5 pt-4 border-top" style="display: none;">
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-center mb-3">ข้อมูล</h5>
+                        <table class="table table-bordered estimation-table">
+                            <tr><td class="bg-light fw-bold" width="40%">สินค้า</td><td>{{ $product->name }}</td></tr>
+                            <tr><td class="bg-light fw-bold">ขนาด</td><td id="res_size">-</td></tr>
+                            <tr><td class="bg-light fw-bold">การสกรีน</td><td id="res_print">-</td></tr>
+                            <tr>
+                                <td class="bg-light fw-bold align-middle">ส่วนประกอบเพิ่มเติม</td>
+                                <td class="text-center">
+                                    <div id="res_part_img_div" style="display:none; width: 50px; height: 50px; margin: 0 auto 5px auto;">
+                                        <img id="res_part_img" src="" style="width:100%; height:100%; object-fit:contain;">
+                                    </div>
+                                    <span id="res_part_name">-</span>
+                                </td>
+                            </tr>
+                            <tr><td class="bg-light fw-bold">จำนวน</td><td id="res_qty">-</td></tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="fw-bold text-center mb-3">ราคาประเมิน</h5>
+                        <table class="table table-bordered estimation-table text-end">
+                            <tr><td class="bg-light fw-bold text-start">ราคาสินค้า</td><td><span id="res_product_price">0</span> บาท</td></tr>
+                            <tr><td class="bg-light fw-bold text-start">ส่วนประกอบ</td><td><span id="res_part_price">0</span> บาท</td></tr>
+                            <tr><td class="bg-light fw-bold text-start">ราคาก่อนรวมภาษี</td><td><span id="res_subtotal">0</span> บาท</td></tr>
+                            <tr><td class="bg-light fw-bold text-start">ภาษี (7%)</td><td><span id="res_vat">0</span> บาท</td></tr>
+                            <tr>
+                                <td class="bg-light fw-bold text-start fs-5">ราคาประเมินรวม</td>
+                                <td class="fw-bold fs-5 text-danger"><span id="res_grand_total">0</span> บาท</td>
+                            </tr>
+                        </table>
+                        <div class="text-danger small mt-2 text-center">
+                            *** ราคานี้เป็นการคำนวณคร่าวๆ เพื่ออ้างอิง หากต้องการราคาที่แน่นอน <br>
+                            กรุณากรอกฟอร์ม/คลิกปุ่มขอใบเสนอราคา เพื่อรับใบเสนอราคาอย่างเป็นทางการ ***
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {{-- Action Buttons --}}
-                <div class="action-area-bottom mt-5">
-                    <div class="row justify-content-center g-3">
-                        <div class="col-md-6 col-lg-4">
-                            <button class="btn btn-quote w-100 py-2 fw-bold">ขอใบเสนอราคา</button>
-                        </div>
-                        <div class="col-md-6 col-lg-4">
-                            <button class="btn btn-add-to-cart w-100 py-2 fw-bold">เพิ่มใส่ตะกร้า</button>
-                        </div>
+            <div class="action-area-bottom mt-5">
+                <div class="row justify-content-center g-3">
+                    <div class="col-md-6 col-lg-4">
+                        <button class="btn btn-quote w-100 py-2 fw-bold">ขอใบเสนอราคา</button>
+                    </div>
+                    <div class="col-md-6 col-lg-4">
+                        <button class="btn btn-add-to-cart w-100 py-2 fw-bold">เพิ่มใส่ตะกร้า</button>
                     </div>
                 </div>
-            
-            </div> {{-- End Calculation Section --}}
+            </div>
 
         </div> {{-- End bg-white --}}
     </div>
@@ -298,7 +355,7 @@
         }
     }
 
-    // Selection Logic
+    // Helper Functions
     function selectSize(element, sizeId) {
         document.querySelectorAll('[data-group="size-group"]').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
@@ -326,7 +383,7 @@
         document.getElementById('selected_part_id').value = partId;
     }
 
-    // Calculation Logic (AJAX)
+    // Calculate Logic
     function calculatePrice() {
         const productId = document.getElementById('selected_product_id').value;
         const sizeId = document.getElementById('selected_size_id').value;
@@ -375,8 +432,9 @@
         })
         .catch(function (error) {
             console.error(error);
-            alert('เกิดข้อผิดพลาดในการคำนวณราคา หรือ ไม่มีราคาในช่วงจำนวนนี้');
+            alert('เกิดข้อผิดพลาดในการคำนวณราคา หรือ ข้อมูลไม่ครบถ้วน');
         });
     }
 </script>
+
 @endsection
