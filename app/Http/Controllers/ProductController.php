@@ -4,11 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\ProductPart; // เพิ่ม Model
+use App\Models\ProductSize; // เพิ่ม Model
+use App\Models\ProductPrinting; // เพิ่ม Model
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB; // เพิ่ม DB Facade
 
 class ProductController extends Controller
 {
-    // 1. หน้าสินค้าทั้งหมด (Index) - เหมือนเดิม
+    // 1. หน้าสินค้าทั้งหมด (Index)
     public function index(Request $request)
     {
         $query = Product::with(['category','images','prices']);
@@ -31,7 +35,7 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories', 'pageTitle'));
     }
 
-    // 2. หน้าหมวดหมู่ (Category) - เหมือนเดิม
+    // 2. หน้าหมวดหมู่ (Category)
     public function showByCategory($slug)
     {
         $category = Category::where('slug', $slug)->firstOrFail();
@@ -47,10 +51,8 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories', 'category', 'pageTitle'));
     }
 
-    // ✅✅✅ 3. เพิ่มหน้ารายละเอียดสินค้า (Product Detail) ✅✅✅
-// app/Http/Controllers/ProductController.php
-
-public function show($slug)
+    // 3. หน้ารายละเอียดสินค้า (Product Detail)
+    public function show($slug)
     {
         // 1. ดึงข้อมูลสินค้าพร้อมความสัมพันธ์ทั้งหมด
         $product = Product::where('slug', $slug)
@@ -62,43 +64,35 @@ public function show($slug)
                         'parts',
                         'printings',
                         'paperbacks',
-                        'materials', // อย่าลืม Model นี้ถ้ามี
+                        'materials',
                         'category'
                     ])
                     ->firstOrFail();
 
         // 2. เตรียมข้อมูลสำหรับ "ตารางราคา" (Matrix)
-        // ดึงเลขจำนวนขั้นบันไดทั้งหมดที่มี (เช่น 1, 50, 100) มาเพื่อสร้างแถวตาราง
         $quantities = $product->prices
                         ->unique('quantity_min')
                         ->sortBy('quantity_min')
                         ->pluck('quantity_min');
 
-        // 3. สินค้าที่เกี่ยวข้อง (สุ่มมา 4 ชิ้น)
-        $relatedProducts = Product::where('category_id', $product->category_id)
-                                  ->where('id', '!=', $product->id)
-                                  ->inRandomOrder()
-                                  ->take(4)
-                                  ->get();
-
-        return view('products.show', compact('product', 'quantities', 'relatedProducts'));
+        return view('products.show', compact('product', 'quantities'));
     }
 
-public function calculatePrice(Request $request)
+    // 4. [NEW] ฟังก์ชันคำนวณราคา (AJAX)
+    public function calculatePrice(Request $request)
     {
         $request->validate([
             'product_id' => 'required',
             'quantity' => 'required|integer|min:1',
             'size_id' => 'required',
             'printing_id' => 'required',
-            'part_id' => 'nullable' // อาจจะไม่เลือกอะไหล่ก็ได้
+            'part_id' => 'nullable'
         ]);
 
         $qty = $request->quantity;
 
         // 1. หา "ราคาต่อชิ้น" จากตาราง product_price (Tier Price)
-        // โดยดูว่า Quantity ที่ลูกค้ากรอก ตรงกับช่วงไหน (Min - Max)
-        $priceTier = \DB::table('product_price')
+        $priceTier = DB::table('product_price')
             ->where('product_id', $request->product_id)
             ->where('product_size_id', $request->size_id)
             ->where('product_printing_id', $request->printing_id)
@@ -108,7 +102,7 @@ public function calculatePrice(Request $request)
 
         // ถ้าไม่เจอช่วงราคา (เช่น สั่งเยอะเกิน Max) ให้ใช้ราคาของขั้นบันไดสูงสุดที่มี
         if (!$priceTier) {
-            $priceTier = \DB::table('product_price')
+            $priceTier = DB::table('product_price')
                 ->where('product_id', $request->product_id)
                 ->where('product_size_id', $request->size_id)
                 ->where('product_printing_id', $request->printing_id)
@@ -122,7 +116,7 @@ public function calculatePrice(Request $request)
         $partPrice = 0;
         $partInfo = null;
         if ($request->part_id) {
-            $part = \App\Models\ProductPart::find($request->part_id);
+            $part = ProductPart::find($request->part_id);
             if ($part) {
                 $partPrice = $part->price_extra;
                 $partInfo = [
@@ -134,7 +128,7 @@ public function calculatePrice(Request $request)
 
         // 3. คำนวณยอดรวม
         // ราคาสินค้าทั้งล็อต = ราคาต่อชิ้น * จำนวน
-        $totalProductPrice = $basePricePerUnit * $qty; 
+        $totalProductPrice = $basePricePerUnit * $qty;
         
         // ราคาอะไหล่ทั้งล็อต = ราคาอะไหล่ต่อชิ้น * จำนวน
         $totalPartPrice = $partPrice * $qty;
@@ -149,8 +143,8 @@ public function calculatePrice(Request $request)
         $grandTotal = $subtotal + $vat;
 
         // ดึงข้อมูลชื่อเพื่อส่งกลับไปแสดงผล
-        $sizeName = \App\Models\ProductSize::find($request->size_id)->size_name ?? '-';
-        $printName = \App\Models\ProductPrinting::find($request->printing_id)->printing_type ?? '-';
+        $sizeName = ProductSize::find($request->size_id)->size_name ?? '-';
+        $printName = ProductPrinting::find($request->printing_id)->printing_type ?? '-';
 
         return response()->json([
             'status' => 'success',
@@ -159,11 +153,11 @@ public function calculatePrice(Request $request)
                 'print_name' => $printName,
                 'part_info' => $partInfo,
                 'quantity' => number_format($qty),
-                'total_product_price' => number_format($totalProductPrice, 2), // ราคาสินค้า (รวมตามจำนวน)
-                'total_part_price' => number_format($totalPartPrice, 2),       // ส่วนประกอบ (รวมตามจำนวน)
-                'subtotal' => number_format($subtotal, 2), // ราคาก่อนรวมภาษี
-                'vat' => number_format($vat, 2),           // ภาษี
-                'grand_total' => number_format($grandTotal, 2) // ราคาประเมินรวม
+                'total_product_price' => number_format($totalProductPrice, 2),
+                'total_part_price' => number_format($totalPartPrice, 2),
+                'subtotal' => number_format($subtotal, 2),
+                'vat' => number_format($vat, 2),
+                'grand_total' => number_format($grandTotal, 2)
             ]
         ]);
     }

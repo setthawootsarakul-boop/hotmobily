@@ -36,7 +36,7 @@ body { background-color: var(--bg-page); font-family: 'MyPromptFont', sans-serif
 /* ============================
    4. Product Info & Specs
 ============================ */
-h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; }
+h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; text-align: left; }
 .product-info-table { border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed; }
 .product-info-table td { border: none; padding: 0.25rem 0; vertical-align: top; }
 .product-info-table .label { width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap; }
@@ -73,7 +73,7 @@ h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight
    7. Action Buttons
 ============================ */
 .action-area { border-top: 1px solid #eee; background-color: #fdfdfd; }
-.btn-estimate, .btn-quote, .btn-add-to-cart { background-color: var(--btn-red); color: white; border: none; padding: 10px; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
+.btn-estimate, .btn-quote, .btn-add-to-cart { background-color: #BC1717; color: white; border: none; padding: 10px; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
 .btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover { background-color: #b00020; color: white; }
 
 /* ============================
