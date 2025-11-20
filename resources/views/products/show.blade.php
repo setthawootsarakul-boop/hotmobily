@@ -4,6 +4,8 @@
 
 @section('content')
 
+{{-- [NEW] 1. เพิ่ม CSS ของ GLightbox --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
 <link rel="stylesheet" href="{{ asset('css/product-detail.css') }}">
 
 <div class="container-fluid product-detail-page py-4">
@@ -31,17 +33,21 @@
                     <div class="gallery-container">
                         {{-- Thumbnails (ซ้าย) --}}
                         <div class="thumbnails">
-                            @foreach($galleryImages as $image)
-                                <div class="thumb-item {{ $loop->first ? 'active' : '' }}" 
-                                     onclick="changeMainImage(this, '{{ asset($image->image_url) }}')">
+                            {{-- [UPDATED] เพิ่ม $index เพื่อใช้ระบุตำแหน่งรูป --}}
+                            @foreach($galleryImages->values() as $index => $image)
+                                <div class="thumb-item {{ $index == 0 ? 'active' : '' }}" 
+                                     onclick="changeMainImage(this, '{{ asset($image->image_url) }}', {{ $index }})">
                                     <img src="{{ asset($image->image_url) }}" alt="{{ $image->alt_text }}">
                                 </div>
                             @endforeach
                         </div>
 
                         {{-- Main Image (ขวา) --}}
-                        <div class="main-image-wrapper rounded-3">
-                            <img id="mainProductImage" src="{{ $initialSrc }}" alt="{{ $product->name }}" class="img-fluid">
+                        <div class="main-image-wrapper rounded-3" onclick="openLightbox()">
+                            {{-- เพิ่ม cursor-zoom-in ให้รู้ว่ากดได้ --}}
+                            <img id="mainProductImage" src="{{ $initialSrc }}" alt="{{ $product->name }}" class="img-fluid" style="cursor: zoom-in;">
+                            <div class="zoom-icon">
+                            </div>
                         </div>
                     </div>
 
@@ -52,7 +58,7 @@
                     </div>
                 </div>
 
-                {{-- RIGHT COLUMN: Info --}}
+                {{-- RIGHT COLUMN: Info (เหมือนเดิม) --}}
                 <div class="col-lg-7">
                     <h1 class="product-title fw-bold mb-4">{{ $product->name }}</h1>
 
@@ -96,7 +102,7 @@
                                 <td class="label">การสกรีน :</td>
                                 <td class="value">
                                     <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
-                                    <div class="d-flex mt-2 gap-4 flex-wrap" id="screen-group">
+                                    <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
                                         @foreach($product->printings as $key => $printing)
                                             <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1"
                                                     data-group="screen-group"
@@ -120,17 +126,14 @@
                         <div id="price-table-{{ $printing->id }}" 
                              class="price-table table-responsive" 
                              style="{{ $key == 0 ? '' : 'display: none;' }}">
-                                <table class="table table-bordered text-center align-middle mb-0">
+                            <table class="table table-bordered text-center align-middle mb-0">
                                 <thead>
                                     <tr>
                                         <th style="background-color: #f8f9fa;">จำนวน</th>
                                         @forelse($product->sizes as $size)
-                                            <th class="size-header" style="white-space: nowrap;"> {{-- เพิ่ม nowrap เพื่อห้ามตัดบรรทัด --}}
-                                                
-                                                {{-- [EDITED] อยู่บรรทัดเดียวกัน (ลบ <br> ออก) --}}
+                                            <th class="size-header" style="white-space: nowrap;">
                                                 <span style="color: #666; font-weight: normal;">ขนาดไม่เกิน</span> 
                                                 {{ $size->size_name }}
-                                                
                                             </th>
                                         @empty
                                             <th>ราคา / ชิ้น</th>
@@ -163,9 +166,7 @@
                         </div>
                         @endforeach
                     </div>
-                    
-                    {{-- [RESTORED] หมายเหตุราคาที่หายไป --}}
-                    <div class="price-notes mt-4" style="font-size: 0.85rem; line-height: 1.6; color:#585858;">
+                    <div class="price-notes mt-4 text-secondary" style="font-size: 0.85rem; line-height: 1.6;">
                         <p class="mb-1">1) ราคานี้เป็นราคาผลิตต่อหน่วย ไม่ใช่ราคารวมสินค้า</p>
                         <p class="mb-1">2) ราคานี้รวมค่าบรรจุใส่ถุง และฟรีค่าจัดส่งเมื่อสั่งซื้อตั้งแต่ 1,000 บาทขึ้นไป กรณียอดการสั่งซื้อน้อยกว่า 500 บาทจะมีค่าจัดส่ง 50 บาท</p>
                         <p class="mb-1">3) หากสินค้าที่ท่านสั่งผลิตมีจำนวนมากก็จะได้ราคาถูกมากขึ้นและทางเราจะส่งสินค้าตัวอย่างให้ตรวจสอบก่อนผลิตจริงฟรี</p>
@@ -223,16 +224,60 @@
     </div>
 </div>
 
+{{-- [NEW] 2. เพิ่ม Script GLightbox --}}
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
 <script>
-    function changeMainImage(element, src) {
+    // เตรียมข้อมูลรูปภาพสำหรับ Lightbox (แปลงจาก PHP array เป็น JS array)
+    const productImages = [
+        @foreach($galleryImages as $img)
+            {
+                'href': '{{ asset($img->image_url) }}',
+                'type': 'image',
+                'title': '{{ $img->alt_text }}'
+            },
+        @endforeach
+    ];
+
+    // ตัวแปรเก็บ index รูปปัจจุบัน (เริ่มที่ 0)
+    let currentImageIndex = 0;
+
+    // Init GLightbox (แบบพื้นฐานไว้ก่อน)
+    const lightbox = GLightbox({
+        touchNavigation: true,
+        loop: true,
+        autoplayVideos: true
+    });
+
+    function changeMainImage(element, src, index) {
+        // เปลี่ยนรูปหลัก
         document.getElementById('mainProductImage').src = src;
+        
+        // จัดการ Active Class ของ Thumbnails
         document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
+
+        // [NEW] อัปเดต index ปัจจุบัน เพื่อให้เวลาเปิด Lightbox มันเริ่มที่รูปนี้
+        currentImageIndex = index;
     }
+
+    // [NEW] ฟังก์ชันเปิด Lightbox เมื่อกดรูปใหญ่
+    function openLightbox() {
+        if(productImages.length > 0) {
+            // ตั้งค่ารูปภาพใหม่ให้ Lightbox (เผื่อมีอะไรเปลี่ยน)
+            lightbox.setElements(productImages);
+            // เปิด Lightbox ที่รูปปัจจุบัน (currentImageIndex)
+            lightbox.openAt(currentImageIndex);
+        }
+    }
+
+    // ---------------------------------------------------
+    // ฟังก์ชันอื่นๆ เหมือนเดิม
     function selectSpec(element, groupName) {
         document.querySelectorAll(`[data-group="${groupName}"]`).forEach(el => el.classList.remove('active'));
         element.classList.add('active');
     }
+
     function selectScreen(element) {
         selectSpec(element, 'screen-group');
         const tableIdToShow = element.dataset.tableId;
@@ -243,6 +288,7 @@
         const noteElement = document.getElementById('printing-note');
         if(noteElement) noteElement.innerText = noteText;
     }
+    
     function selectSize(element, sizeId) {
         selectSpec(element, 'size-group');
     }

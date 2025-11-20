@@ -25,3 +25,4 @@ Route::get('/products/category/{slug}', [ProductController::class, 'showByCatego
 
 // ✅ (แก้ไข) หน้ารายละเอียดสินค้า (ใช้ {slug} เพื่อความชัดเจน)
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/product/calculate', [ProductController::class, 'calculatePrice'])->name('product.calculate');

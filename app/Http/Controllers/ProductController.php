@@ -83,4 +83,88 @@ public function show($slug)
 
         return view('products.show', compact('product', 'quantities', 'relatedProducts'));
     }
+
+public function calculatePrice(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required',
+            'quantity' => 'required|integer|min:1',
+            'size_id' => 'required',
+            'printing_id' => 'required',
+            'part_id' => 'nullable' // อาจจะไม่เลือกอะไหล่ก็ได้
+        ]);
+
+        $qty = $request->quantity;
+
+        // 1. หา "ราคาต่อชิ้น" จากตาราง product_price (Tier Price)
+        // โดยดูว่า Quantity ที่ลูกค้ากรอก ตรงกับช่วงไหน (Min - Max)
+        $priceTier = \DB::table('product_price')
+            ->where('product_id', $request->product_id)
+            ->where('product_size_id', $request->size_id)
+            ->where('product_printing_id', $request->printing_id)
+            ->where('quantity_min', '<=', $qty)
+            ->where('quantity_max', '>=', $qty)
+            ->first();
+
+        // ถ้าไม่เจอช่วงราคา (เช่น สั่งเยอะเกิน Max) ให้ใช้ราคาของขั้นบันไดสูงสุดที่มี
+        if (!$priceTier) {
+            $priceTier = \DB::table('product_price')
+                ->where('product_id', $request->product_id)
+                ->where('product_size_id', $request->size_id)
+                ->where('product_printing_id', $request->printing_id)
+                ->orderBy('quantity_min', 'desc')
+                ->first();
+        }
+
+        $basePricePerUnit = $priceTier ? $priceTier->price_per_unit : 0;
+
+        // 2. ราคาอะไหล่เพิ่ม (Extra Part Price)
+        $partPrice = 0;
+        $partInfo = null;
+        if ($request->part_id) {
+            $part = \App\Models\ProductPart::find($request->part_id);
+            if ($part) {
+                $partPrice = $part->price_extra;
+                $partInfo = [
+                    'name' => $part->part_name,
+                    'image' => $part->image_url ? asset($part->image_url) : null
+                ];
+            }
+        }
+
+        // 3. คำนวณยอดรวม
+        // ราคาสินค้าทั้งล็อต = ราคาต่อชิ้น * จำนวน
+        $totalProductPrice = $basePricePerUnit * $qty; 
+        
+        // ราคาอะไหล่ทั้งล็อต = ราคาอะไหล่ต่อชิ้น * จำนวน
+        $totalPartPrice = $partPrice * $qty;
+
+        // ราคาก่อน VAT
+        $subtotal = $totalProductPrice + $totalPartPrice;
+
+        // VAT 7%
+        $vat = $subtotal * 0.07;
+
+        // ราคาสุทธิ
+        $grandTotal = $subtotal + $vat;
+
+        // ดึงข้อมูลชื่อเพื่อส่งกลับไปแสดงผล
+        $sizeName = \App\Models\ProductSize::find($request->size_id)->size_name ?? '-';
+        $printName = \App\Models\ProductPrinting::find($request->printing_id)->printing_type ?? '-';
+
+        return response()->json([
+            'status' => 'success',
+            'data' => [
+                'size_name' => $sizeName,
+                'print_name' => $printName,
+                'part_info' => $partInfo,
+                'quantity' => number_format($qty),
+                'total_product_price' => number_format($totalProductPrice, 2), // ราคาสินค้า (รวมตามจำนวน)
+                'total_part_price' => number_format($totalPartPrice, 2),       // ส่วนประกอบ (รวมตามจำนวน)
+                'subtotal' => number_format($subtotal, 2), // ราคาก่อนรวมภาษี
+                'vat' => number_format($vat, 2),           // ภาษี
+                'grand_total' => number_format($grandTotal, 2) // ราคาประเมินรวม
+            ]
+        ]);
+    }
 }

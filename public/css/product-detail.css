@@ -2,182 +2,68 @@
    1. Variables (Theme Colors)
 ============================ */
 :root {
-    --bg-page: #f6efe5;
-    --brown-text: #3b2f2f;
-    --active-orange: #FFC107;
-    --btn-gray: #F1F3F5;
-    --btn-text-gray: #495057;
-    --border-color: #D1D1D1;
-    --breadcrumb-active: #0d6efd;
-    --btn-red: #D90429;
-    --hover-price: #FF8000; 
-    --header-table-bg: #F0F0F0;
+    --bg-page: #f6efe5; --brown-text: #3b2f2f; --active-orange: #FFC107;
+    --btn-gray: #F1F3F5; --btn-text-gray: #495057; --border-color: #D1D1D1;
+    --breadcrumb-active: #0d6efd; --btn-red: #D90429; --hover-price: #FF8000; --header-table-bg: #F0F0F0;
 }
 
 /* ============================
    2. Global Layout
 ============================ */
-body {
-    background-color: var(--bg-page);
-    font-family: 'MyPromptFont', sans-serif;
-    color: var(--brown-text);
-    overflow-x: hidden; 
-}
-
+body { background-color: var(--bg-page); font-family: 'MyPromptFont', sans-serif; color: var(--brown-text); overflow-x: hidden; }
 .product-breadcrumb .breadcrumb-item a { color: #333; text-decoration: none; font-size: 0.95rem; }
 .product-breadcrumb .breadcrumb-item.active { color: var(--breadcrumb-active); font-weight: 500; }
 .product-detail-page .bg-white { border-radius: 20px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important; overflow: hidden; }
 
 /* ============================
-   3. Gallery Section (Desktop & Mobile Shared)
+   3. Gallery Section (Desktop)
 ============================ */
-.gallery-container {
-    display: flex;
-    gap: 15px;
-    align-items: stretch; /* จัดชิดบนและยืดความสูงเท่ากัน */
-}
-
-/* Thumbnails */
-.thumbnails {
-    width: 130px; /* Desktop Width */
-    display: flex;
-    flex-direction: column; 
-    justify-content: space-between; 
-    gap: 10px;
-    padding-right: 5px;
-    overflow: hidden; 
-}
+.gallery-container { display: flex; gap: 15px; align-items: stretch; }
+.thumbnails { width: 130px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; padding-right: 5px; overflow: hidden; }
 .thumbnails::-webkit-scrollbar { display: none; }
 
-.thumb-item {
-    width: 100%;
-    flex: 1; /* ยืดให้เต็มความสูง */
-    aspect-ratio: unset; 
-    border: 2px solid transparent;
-    border-radius: 8px;
-    cursor: pointer;
-    overflow: hidden;
-    opacity: 0.7;
-    transition: all 0.2s ease;
-    background-color: #fff;
-    padding: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+.thumb-item { width: 100%; flex: 1; aspect-ratio: unset; border: 2px solid transparent; border-radius: 8px; cursor: pointer; overflow: hidden; opacity: 0.7; transition: all 0.2s ease; background-color: #fff; padding: 5px; display: flex; align-items: center; justify-content: center; }
 .thumb-item img { width: 100%; height: 100%; object-fit: contain; }
 .thumb-item:hover { opacity: 1; border-color: #ddd; }
 .thumb-item.active { opacity: 1; border-color: var(--active-orange); box-shadow: 0 0 0 1px var(--active-orange); }
 
-/* Main Image */
-.main-image-wrapper {
-    flex-grow: 1; 
-    width: 100%;
-    aspect-ratio: 1 / 1; 
-    background-color: #fff;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: 1px solid #e6e6e6;
-    position: relative;
-}
+.main-image-wrapper { flex-grow: 1; width: 100%; aspect-ratio: 1 / 1; background-color: #fff; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e6e6e6; position: relative; }
 .main-image-wrapper img { width: 100%; height: 100%; object-fit: contain; }
 
-/* File Guide Button */
-.btn-file-guide {
-    background: linear-gradient(to right, #FFA726, #FF9800);
-    color: white;
-    border: none;
-    font-size: 1rem;
-    transition: all 0.2s ease;
-    box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3);
-}
+.btn-file-guide { background: linear-gradient(to right, #FFA726, #FF9800); color: white; border: none; font-size: 1rem; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3); }
 .btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
 
 /* ============================
-   4. Product Info
+   4. Product Info & Specs
 ============================ */
 h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; }
-
-.product-info-table {
-    border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed;
-}
+.product-info-table { border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed; }
 .product-info-table td { border: none; padding: 0.25rem 0; vertical-align: top; }
-.product-info-table .label {
-    width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap;
-}
+.product-info-table .label { width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap; }
 .product-info-table .value { color: #333; font-size: 1rem; line-height: 1.5; word-wrap: break-word; }
 
 /* Spec Buttons */
-.btn-spec {
-    background-color: #EAEAEA; 
-    color: #333;
-    border: 1px solid transparent; 
-    padding: 6px 16px;
-    border-radius: 12px; 
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    cursor: pointer;
-}
+.btn-spec { background-color: #EAEAEA; color: #333; border: 1px solid transparent; padding: 6px 16px; border-radius: 12px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; cursor: pointer; margin-bottom: 0 !important; }
 .btn-spec:hover { background-color: #dcdcdc; }
-.btn-spec.active {
-    background-color: #FFC069; 
-    color: #000;
-    border-color: transparent;
-    font-weight: 500;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px);
-}
-
-#size-group, #screen-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px !important;
-}
-.btn-spec { margin-bottom: 0 !important; }
+.btn-spec.active { background-color: #FFC069; color: #000; border-color: transparent; font-weight: 500; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); transform: translateY(-1px); }
+#size-group, #screen-group { display: flex; flex-wrap: wrap; gap: 10px !important; }
 
 /* ============================
    5. Price Table (Clean Grid)
 ============================ */
-.price-table.table-responsive {
-    max-height: 400px;
-    overflow-y: auto;
-    border-radius: 12px; 
-    border: 1px solid #eee; 
-    box-shadow: none; 
-}
-.price-table .table {
-    width: 100%;
-    margin-bottom: 0;
-    border-collapse: collapse; 
-    border-style: hidden;
-}
-.price-table .table thead th {
-    background-color: #f9fafb; color: #444; font-weight: 600; font-size: 0.9rem; padding: 12px 10px; white-space: nowrap; position: sticky; top: 0; z-index: 20; border-bottom: 2px solid #eee; border-right: 1px solid #f0f0f0;
-}
-.price-table .table tbody td {
-    font-size: 0.95rem; color: #555; padding: 10px; vertical-align: middle; border: 1px solid #f0f0f0;
-}
-.price-table .table tbody tr.price-row td:first-child {
-    background-color: #fff; color: var(--brown-text); font-weight: 600; border-right: 2px solid #eee;
-}
+.price-table.table-responsive { max-height: 400px; overflow-y: auto; border-radius: 12px; border: 1px solid #eee; box-shadow: none; }
+.price-table .table { width: 100%; margin-bottom: 0; border-collapse: collapse; border-style: hidden; }
+.price-table .table thead th { background-color: #f9fafb; color: #444; font-weight: 600; font-size: 0.9rem; padding: 12px 10px; white-space: nowrap; position: sticky; top: 0; z-index: 20; border-bottom: 2px solid #eee; border-right: 1px solid #f0f0f0; }
+.price-table .table tbody td { font-size: 0.95rem; color: #555; padding: 10px; vertical-align: middle; border: 1px solid #f0f0f0; }
+.price-table .table tbody tr.price-row td:first-child { background-color: #fff; color: var(--brown-text); font-weight: 600; border-right: 2px solid #eee; }
 .price-table .table tbody tr:hover { background-color: #f8f9fa; }
-.price-table .table tbody tr.price-row td.size-col:hover {
-    background-color: var(--active-orange); color: #fff; border-color: var(--active-orange); cursor: default;
-}
+.price-table .table tbody tr.price-row td.size-col:hover { background-color: var(--active-orange); color: #fff; border-color: var(--active-orange); cursor: default; }
 
 /* ============================
    6. Extra Parts Section
 ============================ */
-.part-box {
-    cursor: pointer; transition: all 0.2s ease; border: 2px solid #eee; position: relative; background-color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: 3px; 
-}
-.part-img-box {
-    width: 100%; aspect-ratio: 1 / 1; height: auto !important; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9f9f9; border-radius: 6px; margin-bottom: 0;
-}
+.part-box { cursor: pointer; transition: all 0.2s ease; border: 2px solid #eee; position: relative; background-color: #fff; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: 3px; }
+.part-img-box { width: 100%; aspect-ratio: 1 / 1; height: auto !important; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9f9f9; border-radius: 6px; margin-bottom: 0; }
 .part-img-box img { width: 100%; height: 145%; object-fit: contain; padding: 0; }
 .part-price-tag { position: absolute; top: 4px; right: 4px; font-size: 0.7rem; font-weight: bold; padding: 1px 5px; border-radius: 4px; color: white; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 .part-price-tag.extra { background-color: #dc3545; }
@@ -191,146 +77,79 @@ h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight
 .btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover { background-color: #b00020; color: white; }
 
 /* ============================
-   8. Responsive Styles (Tablet < 992px)
+   8. GLightbox Theme
+============================ */
+.glightbox-clean .goverlay { background: rgba(255, 255, 255, 0.92) !important; backdrop-filter: blur(5px); }
+.glightbox-clean .gslide-media { border-radius: 16px !important; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important; background-color: #fff; padding: 10px; }
+.glightbox-clean .gslide-title { font-size: 1em; font-weight: 400; text-align: center; color: #000; margin-bottom: 19px; line-height: 1.4em; }
+.glightbox-clean .gbtn { border-radius: 50% !important; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; margin: 10px; transition: all 0.3s ease; }
+.glightbox-clean .gbtn svg { color: #333 !important; width: 22px; height: 22px; }
+.glightbox-clean .gbtn:hover { transform: scale(1.1); }
+.glightbox-clean .gbtn:hover svg { color: #fff !important; }
+
+/* [UPDATED] ปุ่มปิดสีแดงตลอดเวลา (Red Close Button Always) */
+.glightbox-clean .gclose { 
+    top: 15px; 
+    right: 15px; 
+    background-color: #f50c0c !important; /* แดงตลอด */
+    transition: all 0.2s ease; 
+}
+/* ไอคอนกากบาทสีขาวตลอด */
+.glightbox-clean .gclose svg { 
+    color: #fff !important; 
+}
+/* Hover แล้วแดงเข้มขึ้นนิดนึง */
+.glightbox-clean .gclose:hover { 
+    background-color: #dc3545 !important; 
+}
+
+.glightbox-clean .gslide-description { background: transparent !important; color: #333 !important; }
+.glightbox-clean .gslide-title, .glightbox-clean .gslide-desc { color: #000000 !important; font-weight: 600; margin: 0 !important; }
+
+/* ============================
+   9. Responsive (< 991px)
 ============================ */
 @media (max-width: 991px) {
-    
-    /* [FIX] Gallery Layout for Mobile/Tablet: บังคับซ้าย-ขวา */
-    .gallery-container { 
-        display: flex;
-        flex-direction: row; 
-        align-items: stretch;
-        gap: 10px;
-        height: auto;
-    }
-    
-    /* Thumbnails (ซ้าย) */
-    .thumbnails {
-        width: 60px; 
-        flex-shrink: 0; 
-        display: flex;
-        flex-direction: column; 
-        justify-content: space-between; 
-        gap: 8px;
-        padding-right: 0;
-        overflow: hidden;
-        margin: 0;
-    }
-    
-    /* รูปเล็กในมือถือ */
-    .thumb-item {
-        width: 100%;
-        flex: 1; /* ยืดความสูงให้เต็มพื้นที่ */
-        aspect-ratio: unset; 
-        padding: 3px; 
-    }
-    
-    /* Main Image (ขวา) */
-    .main-image-wrapper { 
-        flex-grow: 1;
-        width: calc(100% - 70px); 
-        height: auto; 
-        aspect-ratio: 1/1;
-        margin-bottom: 0;
-        order: unset;
-    }
-
-    /* Table Fixes */
-    .product-info-table .label {
-        width: 110px; 
-        white-space: normal;
-        font-size: 0.9rem;
-    }
+    .gallery-container { display: flex; flex-direction: row; align-items: stretch; gap: 10px; height: auto; }
+    .thumbnails { width: 60px; flex-shrink: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 8px; padding-right: 0; overflow: hidden; margin: 0; }
+    .thumb-item { width: 100%; flex: 1; aspect-ratio: unset; padding: 3px; }
+    .main-image-wrapper { flex-grow: 1; width: calc(100% - 70px); height: auto; aspect-ratio: 1/1; margin-bottom: 0; order: unset; }
+    .product-info-table .label { width: 110px; white-space: normal; font-size: 0.9rem; }
+    .glightbox-clean .gprev { left: 10px !important; }
+    .glightbox-clean .gnext { right: 10px !important; }
+    .glightbox-clean .gslide-media { padding: 5px !important; border-radius: 8px !important; box-shadow: 0 5px 15px rgba(0,0,0,0.2) !important; }
+    .glightbox-clean .gbtn { width: 35px !important; height: 35px !important; margin: 5px !important; }
+    .glightbox-clean .gbtn svg { width: 18px !important; height: 18px !important; }
+    .glightbox-clean .gclose { top: 10px !important; right: 10px !important; }
+    /* ซ่อน text ใน mobile */
+    .glightbox-clean .gslide-description, .glightbox-clean .gslide-title, .glightbox-clean .gslide-desc { display: none !important; }
 }
 
 /* ============================
-   9. Mobile Specific Settings (< 576px)
+   10. Mobile Specific (< 576px)
 ============================ */
 @media (max-width: 576px) {
-    
-    /* 1. [FIX] พื้นหลังขาวเต็มจอ (Full White Section) */
     body { background-color: #fff !important; }
+    .product-detail-page { background-color: #fff; padding-top: 0 !important; padding-bottom: 0 !important; }
+    .product-detail-page .container { padding-left: 0; padding-right: 0; max-width: 100%; }
+    .bg-white { box-shadow: none !important; border-radius: 0 !important; margin-bottom: 0 !important; padding: 20px 15px !important; }
     
-    .product-detail-page {
-        background-color: #fff;
-        padding-top: 0 !important; 
-        padding-bottom: 0 !important;
-    }
-
-    .product-detail-page .container {
-        padding-left: 0;
-        padding-right: 0;
-        max-width: 100%;
-    }
-
-    .bg-white {
-        box-shadow: none !important; 
-        border-radius: 0 !important; 
-        margin-bottom: 0 !important;
-        padding: 20px 15px !important; 
-    }
-
-    /* 2. [FIX] จัดปุ่มให้อยู่แนวเดียวกัน */
-    .btn-spec {
-        padding: 5px 12px; 
-        font-size: 0.85rem; 
-        white-space: nowrap; 
-        margin-bottom: 5px; 
-        flex: 0 0 auto; 
-    }
+    .btn-spec { padding: 5px 12px; font-size: 0.85rem; white-space: nowrap; margin-bottom: 5px; flex: 0 0 auto; }
+    #size-group, #screen-group { display: flex; flex-wrap: wrap; gap: 8px !important; justify-content: flex-start; }
     
-    #size-group, #screen-group {
-        display: flex;
-        flex-wrap: wrap; 
-        gap: 8px !important; 
-        justify-content: flex-start;
-    }
-
-    /* 3. [FIX] ปรับตารางข้อมูลให้มีพื้นที่ให้ปุ่มมากขึ้น */
-    .product-info-table .label {
-        width: 90px !important; 
-        min-width: 90px !important;
-        font-size: 0.9rem;
-    }
+    .product-info-table .label { width: 90px !important; min-width: 90px !important; font-size: 0.9rem; }
     .product-info-table .value { padding-left: 5px; }
-
-    /* 4. [FIX] ตารางราคา: บังคับ Scroll แนวนอน */
-    .price-table.table-responsive {
-        display: block;
-        width: 100%;
-        overflow-x: auto !important; /* บังคับให้มี Scrollbar */
-        -webkit-overflow-scrolling: touch;
-        margin-bottom: 15px;
-        border-right: 1px solid #eee;
-        border-radius: 0; /* ในมือถือไม่ต้องมน */
-    }
-
-    .price-table .table {
-        width: auto !important; /* ยกเลิก width 100% */
-        min-width: 100%;
-        max-width: none;
-    }
-
-    /* เซลล์ภายใน (สำคัญมากสำหรับการดันตารางให้ยาว) */
-    .price-table .table th,
-    .price-table .table td {
-        white-space: nowrap !important; /* ห้ามตัดบรรทัด */
-        padding: 10px 15px; 
-    }
-
-    /* ส่วน Parts (อะไหล่) */
+    
+    .price-table.table-responsive { display: block; width: 100%; overflow-x: auto !important; -webkit-overflow-scrolling: touch; margin-bottom: 15px; border-right: 1px solid #eee; border-radius: 0; }
+    .price-table .table { width: auto !important; min-width: 100%; max-width: none; }
+    .price-table .table th, .price-table .table td { white-space: nowrap !important; padding: 10px 15px; }
+    
     .part-box { padding: 2px; }
     .part-img-box { border-radius: 4px; }
-    .part-img-box img { height: 145%; } /* Zoom ใหญ่ */
+    .part-img-box img { height: 145%; }
+    .part-price-tag { font-size: 0.6rem; padding: 1px 4px; top: 2px; right: 2px; }
     
-    /* Action Buttons */
     .action-area .row { row-gap: 10px; }
-    
-    /* Product Title */
-    .product-title {
-        font-size: 1.4rem;
-        margin-bottom: 1rem;
-        text-align: left; 
-        padding-left: 15px; 
-    }
+    .product-title { font-size: 1.4rem; margin-bottom: 1rem; text-align: left; padding-left: 15px; }
+    .glightbox-clean .gprev, .glightbox-clean .gnext { opacity: 0.5; }
 }
