@@ -1,0 +1,216 @@
+/* ================================================
+   📄 CONTACT-FULL PAGE STYLES
+   Location: public/css/style.css
+================================================ */
+
+/* 🔹 Contact Section */
+.company-logo { width: 70px; height: auto; }
+
+.contact-layout-desktop {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    gap: 2.5rem;
+}
+
+/* ✅ QR เงา */
+.shadow-frame {
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+.shadow-frame img { width: 130px; height: 130px; border-radius: 8px; }
+
+/* ✅ Social แนวนอน Desktop */
+.social-links-horizontal {
+    margin-top: 2rem;
+    justify-content: flex-start;
+    margin-left: 40px;
+}
+.social-links-horizontal .social-circle {
+    width: 55px;
+    height: 55px;
+    font-size: 20px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    transition: 0.3s ease;
+}
+.social-links-horizontal .social-circle:hover {
+    transform: scale(1.12);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+/* ✅ Phone */
+.phone-list { display: flex; flex-direction: column; gap: 10px; }
+.phone-item {
+    background: #fef6f2;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    padding: 8px 18px;
+    text-decoration: none;
+    color: #222;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    transition: 0.3s;
+}
+.phone-item:hover { background-color: #ffe8d4; transform: translateY(-2px); }
+.phone-icon-circle {
+    background-color: #28a745;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.qr-text { font-size: 1rem; margin-top: 0.5rem; }
+
+.social-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    transition: 0.3s;
+}
+.social-circle:hover { transform: scale(1.1); }
+
+/* ✅ โลโก้เครือบริษัท */
+.network-section .network-logo {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.network-section .network-logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* 📱 Mobile Responsive */
+@media (max-width: 768px) {
+    .company-address {
+        text-align: center !important;
+        line-height: 1.9;
+        word-break: keep-all;
+        max-width: 95%;
+        margin: 0 auto 1.5rem auto;
+        white-space: normal;
+    }
+    .company-header-mobile {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-bottom: 1.8rem;
+        text-align: left !important;
+    }
+    .company-logo-mobile { width: 55px; height: auto; margin-right: 12px; }
+    .company-name-mobile { font-size: 1rem; margin-bottom: 2px; font-weight: 600; }
+    .company-en-mobile { font-size: 0.85rem; color: #555; }
+    .phone-list { flex-direction: column; gap: 10px; align-items: center; }
+    .phone-item {
+        background-color: #fdf4ef;
+        border-radius: 50px;
+        padding: 8px 18px;
+        min-width: 240px;
+    }
+    .qr-frame {
+        background: #fff;
+        padding: 8px;
+        border-radius: 10px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+        display: inline-block;
+    }
+    .qr-frame img {
+        width: 110px;
+        height: 110px;
+        border-radius: 6px;
+        display: block;
+    }
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 20px;
+    }
+}
+
+/* ================================
+   🔸 PARTNER SECTION
+================================ */
+.partner-logo {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+    transition: transform 0.3s ease;
+}
+.partner-logo:hover {
+    transform: scale(1.05);
+}
+.partner-section {
+    background-color: #F6F1E9;
+}
+@media (max-width: 768px) {
+    .partner-logo {
+        max-width: 180px;
+    }
+    .partner-section h3 {
+        font-size: 2rem;
+    }
+    .network-section .row {
+        row-gap: 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+  .network-section {
+    text-align: center;
+    padding: 60px 0;
+    background-color: #f6f1e8; /* พื้นหลังนวลๆ */
+  }
+
+  .network-section h2 {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-bottom: 4rem !important;
+    letter-spacing: 3.55px; /* ✅ เพิ่มช่องไฟระหว่างตัวอักษร */
+    color: #222;
+  }
+
+  .network-section .row {
+    display: grid !important;
+    grid-template-columns: repeat(2, 320px); /* ✅ 2 คอลัมน์ ขนาดคงที่ */
+    grid-template-rows: repeat(2, auto);
+    justify-content: center; /* ✅ จัดให้อยู่กึ่งกลางแนวนอน */
+    align-items: center;     /* ✅ จัดให้อยู่กึ่งกลางแนวตั้ง */
+    gap: 1.5rem 3rem; /* ✅ ระยะห่างแถว/คอลัมน์เหมือนในภาพ */
+  }
+
+  .network-section .col-10 {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+  }
+
+  .network-section .network-logo {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .network-section .network-logo:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  }
+}

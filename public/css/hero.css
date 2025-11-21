@@ -1,0 +1,398 @@
+/* ========================
+   🔸 Hero Section
+======================== */
+.hero-section {
+    background-color: var(--hero-bg);
+    color: var(--hero-text);
+    padding: 4rem 0;
+    position: relative;
+}
+
+.hero-img {
+    width: 85%;
+    max-width: 350px;
+    transition: opacity 0.4s ease;
+}
+
+.brand-highlight {
+    color: var(--hero-highlight);
+    text-shadow: 4px 4px #000;
+    font-weight: 800;
+}
+
+.brand-desc {
+    color: var(--hero-text);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.brand-features {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 4rem;
+    margin-top: 2.5rem;
+    flex-shrink: 0;
+}
+
+.brand-features .feature {
+    text-align: center;
+    width: 200px;
+}
+
+.icon-circle {
+    background-color: #fff;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+    transition: all 0.3s ease;
+}
+
+.icon-circle i {
+    font-size: 42px;
+    color: #fca311;
+}
+
+.brand-features .feature p {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #000;
+    margin-top: 0.5rem;
+}
+
+/* ========================
+   🔸 Image Dots
+======================== */
+.image-dots-wrapper {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+}
+
+.image-dots {
+    display: inline-block;
+    background: unset;
+    padding: 0px 18px;
+    border-radius: 20px;
+}
+
+.dot {
+    display: inline-block;
+    width: 35px;
+    height: 6px;
+    margin: 0 5px;
+    background-color: #fff;
+    opacity: 0.5;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    opacity: 1;
+    background-color: #fff;
+    width: 50px;
+}
+
+.hero-img {
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+.hero-img.show {
+    opacity: 1;
+}
+
+/* ========================
+   🔸 Product Showcase Section
+======================== */
+.section-title {
+    color: #000000;
+    font-size: 2rem;
+}
+
+.title-underline {
+    width: 60px;
+    height: 4px;
+    background-color: #fca311;
+    margin-top: 10px;
+    border-radius: 2px;
+}
+
+.showcase-box {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px; 
+    transition: transform 0.3s ease;
+}
+
+.col-md-4:hover .showcase-box {
+    box-shadow: none !important; 
+}
+
+.img-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.showcase-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.col-md-4:hover .showcase-img {
+    transform: scale(1.05);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.showcase-title {
+    color: #000000;
+    font-weight: 700;
+    font-size: 1.3rem;
+    margin-bottom: 0.2rem;
+    transition: color 0.2s;
+}
+
+.col-md-4:hover .showcase-title {
+    color: #fca311;
+}
+
+.showcase-desc {
+    font-size: 1rem;
+    color: #6c757d;
+    line-height: 1.4;
+}
+
+/* ========================
+   🔸 Review Section (FIXED)
+======================== */
+.reviews-section {
+    background-color: #FFD93D !important;
+    padding: 4rem 0;
+    /* ✅ สำคัญมาก! ต้องเป็น visible ไม่งั้นลูกศร Desktop ที่ยื่นออกไปจะโดนตัด */
+    overflow: visible !important; 
+}
+
+.review-card {
+    background-color: #4F200D !important;
+    color: #ffffff !important;
+    border-radius: 0px;
+    padding: 2rem;
+    height: 100%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.stars i { color: #FFC107 !important; }
+.stars i.text-muted { color: #7a5c50 !important; }
+.review-label { color: #ffffff !important; }
+.review-comment { color: #e0e0e0 !important; }
+
+
+/* ========================
+   ✨ Owl Carousel Navigation (ปุ่มเลื่อน)
+======================== */
+
+/* สไตล์ปุ่มพื้นฐาน */
+/* ========================
+   ✨ Owl Carousel Navigation (Adjusted Position)
+======================== */
+.reviews-carousel .owl-nav button {
+    position: absolute;
+    background-color: #fff !important;
+    color: #4F200D !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    transition: all 0.3s ease;
+    z-index: 100;
+    cursor: pointer;
+    border: none !important;
+    outline: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    /* ✅ (แก้ไข) ปรับความสูงพื้นฐาน */
+    /* ลองเปลี่ยนจาก 50% เป็น 40% หรือ 45% ดูครับ ว่าอันไหนพอดีกับกล่อง */
+    top: 40% !important; 
+    transform: translateY(-50%);
+}
+
+.reviews-carousel .owl-nav button:hover {
+    background-color: #4F200D !important;
+    color: #fff !important;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Dots Styling */
+.reviews-carousel .owl-dots {
+    margin-top: 30px;
+    text-align: center;
+}
+.reviews-carousel .owl-dots .owl-dot span {
+    width: 12px; height: 12px; margin: 5px;
+    background: rgba(79,32,13,0.3) !important;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+.reviews-carousel .owl-dots .owl-dot.active span {
+    background: #4F200D !important;
+    transform: scale(1.2);
+}
+
+/* ==================================================
+   🔥 FIX: บังคับให้ลูกศรแสดงเสมอ (แม้รีวิวจะมีน้อย)
+   ================================================== */
+
+/* 1. บังคับแสดง container ของปุ่ม */
+.reviews-carousel .owl-nav {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* 2. บังคับแสดงปุ่ม แม้ Owl จะสั่ง disable */
+.reviews-carousel .owl-nav.disabled,
+.reviews-carousel .owl-nav button.disabled {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    cursor: pointer !important; /* ให้ยังกดได้ หรือดูเหมือนกดได้ */
+}
+
+/* 3. ปรับสีปุ่มตอนที่เลื่อนสุดแล้ว (Optional: ให้ดูจางลงนิดนึงก็ได้ แต่กดได้) */
+.reviews-carousel .owl-nav button.disabled {
+    opacity: 0.5 !important;
+    cursor: default !important;
+}
+
+/* ==================================================
+   ✨ ย้ำตำแหน่งลูกศร Desktop อีกครั้ง (กันเหนียว)
+   ================================================== */
+@media (min-width: 992px) {
+    
+    .reviews-carousel .owl-nav button {
+        /* จัดตำแหน่ง */
+        top: 50% !important;
+        transform: translateY(-50%);
+        z-index: 9999 !important;
+
+        /* ปรับขนาดปุ่ม */
+        width: 50px !important; 
+        height: 50px !important;
+        
+        /* ✅ (แก้ไข) ปรับขนาดไอคอนลูกศรให้ใหญ่ขึ้นและสมส่วน */
+        font-size: 1rem !important; /* ลองปรับเลขนี้ดูถ้ายังเล็ก/ใหญ่ไป (เช่น 2rem) */
+        
+        /* ✅ (แก้ไข) จัดกึ่งกลางให้เป๊ะที่สุด */
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        padding: 0 !important;      /* ลบช่องว่างส่วนเกิน */
+        line-height: 1 !important;  /* ลดความสูงบรรทัดกันเบี้ยว */
+    }
+
+    /* (ส่วนตำแหน่งซ้าย-ขวา คงเดิมไว้) */
+    .reviews-carousel .owl-nav button.owl-prev {
+        left: -110px !important; 
+    }
+    
+    .reviews-carousel .owl-nav button.owl-next {
+        right: -110px !important;
+    }
+}
+/* ========================
+   🔸 View All Reviews Button
+======================== */
+.btn-view-all-reviews {
+    display: inline-block;
+    color: #4a2313; /* สีน้ำตาลเข้ม */
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-decoration: none;
+    padding: 10px 25px;
+    border: 2px solid #4a2313;
+    border-radius: 50px; /* ปุ่มมน */
+    transition: all 0.3s ease;
+    background-color: transparent;
+}
+
+.btn-view-all-reviews:hover {
+    background-color: #face08;
+    color: #fff; /* ตัวหนังสือขาวเมื่อชี้ */
+    transform: translateY(-2px); /* ลอยขึ้นนิดนึง */
+    box-shadow: 0 4px 10px rgba(241, 238, 236, 0.2);
+}
+/* ==================================================
+   ✨ ย้ำตำแหน่งลูกศร Mobile อีกครั้ง
+   ================================================== */
+@media (max-width: 991.98px) {
+    
+    .reviews-carousel .owl-nav button {
+        /* ปรับขนาดให้เล็กลง ดูมินิมอลขึ้น */
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 1rem !important; /* ไอคอนขนาดพอดี */
+        
+        /* ปรับตำแหน่งให้อยู่กึ่งกลางมากขึ้น */
+        top: 40% !important; 
+        transform: translateY(-50%);
+        
+        /* เงาเบาลงนิดนึงสำหรับมือถือ */
+        box-shadow: 0 2px 6px rgba(0,0,0,0.2) !important;
+    }
+
+    /* ฝั่งซ้าย: ให้ปุ่มยื่นออกไปนอกการ์ดนิดหน่อย (-12px) */
+    .reviews-carousel .owl-nav button.owl-prev {
+        left: 0px !important; 
+        margin-left: 0 !important; 
+    }
+
+    /* ฝั่งขวา: ให้ปุ่มยื่นออกไปนอกการ์ดนิดหน่อย (-12px) */
+    .reviews-carousel .owl-nav button.owl-next {
+        right: 0px !important; 
+        margin-right: 0 !important; 
+    }
+    
+    /* ขยับจุดด้านล่างไม่ให้ชิดการ์ดเกินไป */
+    .reviews-carousel .owl-dots {
+        margin-top: 25px;
+    }
+}
+
+/* ========================
+   Responsive อื่นๆ
+======================== */
+@media (max-width: 768px) {
+    .brand-features { gap: 2rem; }
+    .icon-circle { width: 90px; height: 90px; }
+    .icon-circle i { font-size: 36px; }
+    .brand-features .feature p { font-size: 0.95rem; }
+    .image-dots-wrapper { bottom: 20px; }
+    .dot { width: 25px; height: 5px; }
+    .showcase-box { padding: 1.5rem; text-align: center !important; }
+    .showcase-title { margin-top: 1rem; }
+    .flex-md-row-reverse { flex-direction: column-reverse; }
+}
