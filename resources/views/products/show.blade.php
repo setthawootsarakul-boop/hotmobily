@@ -81,46 +81,28 @@
                     {{-- Info Table --}}
                     <table class="table product-info-table">
                         <tbody>
-                            {{-- 1. วัสดุ --}}
                             <tr>
                                 <td class="label">วัสดุ :</td>
-                                <td class="value">
-                                    @if($product->materials->isNotEmpty()) 
-                                        {{ $product->materials->first()->material_name }} (หนา {{ $product->materials->first()->thickness }}) 
-                                    @else - @endif
-                                </td>
+                                <td class="value">@if($product->materials->isNotEmpty()) {{ $product->materials->first()->material_name }} (หนา {{ $product->materials->first()->thickness }}) @else - @endif</td>
                             </tr>
                             
-                            {{-- 2. ขนาด (Logic พิเศษ: ถ้ามี Note ให้โชว์ Text, ถ้าไม่มีให้โชว์ปุ่ม) --}}
                             @if($product->sizes->isNotEmpty())
                             <tr>
                                 <td class="label">ขนาด :</td>
                                 <td class="value">
                                     @if($product->sizes->first()->note)
-                                        {{-- กรณี ID 12: แสดง Note เป็นข้อความ --}}
                                         <div class="text-dark" style="line-height: 1.6;">
                                             {{ $product->sizes->first()->note }}
                                         </div>
-                                        
-                                        {{-- ซ่อนปุ่มไว้ (เพื่อให้ JS คำนวณราคาได้โดยใช้ค่าแรกสุดอัตโนมัติ) --}}
                                         <div class="d-none">
                                              @foreach($product->sizes as $key => $size)
-                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}" 
-                                                        data-group="size-group" 
-                                                        onclick="selectSize(this, {{ $size->id }})">
-                                                    {{ $size->size_name }}
-                                                </button>
+                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}" data-group="size-group" onclick="selectSize(this, {{ $size->id }})">{{ $size->size_name }}</button>
                                             @endforeach
                                         </div>
                                     @else
-                                        {{-- กรณีปกติ: แสดงปุ่มเลือกขนาด --}}
                                         <div class="d-flex gap-2 flex-wrap" id="size-group">
                                             @foreach($product->sizes as $key => $size)
-                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
-                                                        data-group="size-group" 
-                                                        onclick="selectSize(this, {{ $size->id }})">
-                                                    {{ $size->size_name }}
-                                                </button>
+                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" data-group="size-group" onclick="selectSize(this, {{ $size->id }})">{{ $size->size_name }}</button>
                                             @endforeach
                                         </div>
                                     @endif
@@ -128,17 +110,6 @@
                             </tr>
                             @endif
 
-
-                            {{-- 5. ตัวอย่างฟรี (Logic พิเศษ: โชว์ถ้ามีข้อมูล) --}}
-                            @if($product->free_sample_text)
-                            <tr>
-                                <td class="label">ตัวอย่างฟรี :</td>
-                                <td class="value">
-                                    <i class=""></i> {{ $product->free_sample_text }}
-                                </td>
-                            </tr>
-                            @endif
-                            
                             <tr><td class="label">สั่งขั้นต่ำ :</td><td class="value">{{ $product->moq }}</td></tr>
                             <tr><td class="label">การบรรจุ :</td><td class="value">{{ $product->packing }}</td></tr>
                             
@@ -149,20 +120,20 @@
                             <tr><td class="label">ระยะเวลาผลิต :</td><td class="value">{{ $product->production_time }}</td></tr>
                             
                             @if($product->printings->isNotEmpty())
-                                {{-- 3. จำนวนสี (Logic พิเศษ: โชว์เฉพาะถ้ามีข้อมูล) --}}
                                 @if($product->printings->first()->color_type)
-                                <tr>
-                                    <td class="label">จำนวนสี :</td>
-                                    <td class="value">{{ $product->printings->first()->color_type }}</td>
-                                </tr>
+                                <tr><td class="label">จำนวนสี :</td><td class="value">{{ $product->printings->first()->color_type }}</td></tr>
                                 @endif
-
-                                {{-- 4. การสกรีน --}}
+                                
                                 <tr>
-                                    <td class="label">การสกรีน :</td>
+                                    <td class="label">
+                                        การสกรีน 
+                                        @if($product->id == 12)
+                                            <i class="bi bi-info-circle-fill info-icon-btn" data-bs-toggle="modal" data-bs-target="#screenInfoModal"></i>
+                                        @endif
+                                        :
+                                    </td>
                                     <td class="value">
                                         <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
-                                        
                                         <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
                                             @foreach($product->printings as $key => $printing)
                                                 <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
@@ -179,7 +150,14 @@
                                 </tr>
                             @endif
 
-
+                            @if($product->free_sample_text)
+                            <tr>
+                                <td class="label" style="color: #000;">ตัวอย่างสินค้า :</td>
+                                <td class="value" style="color: #333;">
+                                    <i class=""></i> {{ $product->free_sample_text }}
+                                </td>
+                            </tr>
+                            @endif
                         </tbody>
                     </table>
                     
@@ -252,8 +230,7 @@
                     </div>
                     @endif
 
-                    {{-- [INPUT SECTION] ส่วนกรอกจำนวนและปุ่มประเมินราคา --}}
-                    {{-- Hidden Inputs --}}
+                    {{-- [INPUT SECTION] --}}
                     <input type="hidden" id="selected_product_id" value="{{ $product->id }}">
                     <input type="hidden" id="selected_size_id" value="{{ $product->sizes->first()->id ?? '' }}">
                     <input type="hidden" id="selected_printing_id" value="{{ $product->printings->first()->id ?? '' }}">
@@ -271,7 +248,7 @@
             </div> {{-- End row g-5 --}}
 
 
-            {{-- ================= SECTION 2: Result & Actions (Full Width) ================= --}}
+            {{-- ================= SECTION 2: Result & Actions ================= --}}
             <div id="estimationResult" class="mt-5 pt-4 border-top" style="display: none;">
                 <div class="row g-4">
                     <div class="col-md-6">
@@ -327,12 +304,33 @@
     </div>
 </div>
 
+{{-- Modal --}}
+<div class="modal fade" id="screenInfoModal" tabindex="-1" aria-labelledby="screenInfoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 16px;">
+      <div class="modal-header border-0 pb-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body pt-0 pb-4 px-4">
+        <h4 class="fw-bold mb-4 text-center" id="screenInfoModalLabel">การสกรีน</h4>
+        <div class="mb-3">
+            <h6 class="fw-bold" style="color: #FFC107; font-size: 1.1rem;">สกรีน UV ฟูลคัลเลอร์ + เคลือบหมึกขาว คือ</h6>
+            <p class="text-muted mb-0" style="font-size: 0.95rem;">การสกรีนแบบอิงค์เจ็ทยูวีฟูลคัลเลอร์ + ทาทับด้วยหมึกสีขาว</p>
+        </div>
+        <div>
+            <h6 class="fw-bold" style="color: #0d6efd; font-size: 1.1rem;">สกรีน UV ด้านเดียว + เคลือบหมึกขาว คือ</h6>
+            <p class="text-muted mb-0" style="font-size: 0.95rem;">การสกรีนยูวี + ทาทับด้วยหมึกสีขาว</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 {{-- Scripts --}}
 <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
-    // Lightbox Logic
     const productImages = [
         @foreach($galleryImages as $img)
             { 'href': '{{ asset($img->image_url) }}', 'type': 'image', 'title': '{{ $img->alt_text }}' },
@@ -355,7 +353,6 @@
         }
     }
 
-    // Helper Functions
     function selectSize(element, sizeId) {
         document.querySelectorAll('[data-group="size-group"]').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
@@ -383,7 +380,6 @@
         document.getElementById('selected_part_id').value = partId;
     }
 
-    // Calculate Logic
     function calculatePrice() {
         const productId = document.getElementById('selected_product_id').value;
         const sizeId = document.getElementById('selected_size_id').value;
@@ -403,7 +399,6 @@
         })
         .then(function (response) {
             const data = response.data.data;
-            
             document.getElementById('res_size').innerText = data.size_name;
             document.getElementById('res_print').innerText = data.print_name;
             document.getElementById('res_qty').innerText = data.quantity;
