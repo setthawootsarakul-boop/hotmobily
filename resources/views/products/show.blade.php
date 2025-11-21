@@ -128,7 +128,7 @@
                                     <td class="label">
                                         การสกรีน 
                                         @if($product->id == 12)
-                                            <i class="bi bi-info-circle-fill info-icon-btn" data-bs-toggle="modal" data-bs-target="#screenInfoModal"></i>
+                                            <i class="bi bi-info-circle-fill text-danger" data-bs-toggle="modal" data-bs-target="#screenInfoModal"></i>
                                         @endif
                                         :
                                     </td>
