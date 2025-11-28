@@ -4,42 +4,76 @@
 .why-section {
   background-color: #fff;
   position: relative;
+  min-height: 452px;
 }
 
-.why-section h2 {
-  color: #444;
-  
-  font-weight: 700;
+.why-section h2.section-title {
+  color: #656565;
+  font-size: 36px;
+  margin-bottom: 57px;
+}
+
+/* ✅ NEW: คุมระยะห่างระหว่างวงกลม */
+.why-gap-control {
+    gap: 30px; /* ระยะห่างในมือถือ (เล็กหน่อยกันล้น) */
+}
+
+/* ✅ NEW: กำหนดความกว้างของแต่ละก้อนไอคอน */
+.why-item-wrapper {
+    width: 220px; /* กว้างพอให้ใส่ Icon 171px ได้สบายๆ */
+    display: flex;
+    justify-content: center;
+}
+
+@media (min-width: 992px) {
+    .why-gap-control {
+        gap: 120px; /* ✅ ระยะห่าง 120px ตามที่ต้องการบนจอ Desktop */
+    }
 }
 
 /* 🔸 วงกลมไอคอน */
 .why-icon {
   background-color: #f6a800;
-  width: 160px;
-  height: 160px;
+  width: 171px; 
+  height: 171px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: none; 
 }
 
 .why-icon img {
-  width: 70px;
-  height: auto;
+  width: 72px; 
+  height: 72px;
   filter: brightness(0) invert(1);
-}
-
-.why-item:hover .why-icon {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 /* 🔸 ข้อความ */
 .why-text {
   color: #000;
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: 1.4;
+  font-weight: normal;
+  font-size: 17px; 
+  line-height: 1.5;
+  margin-top: 1.5rem;
+}
+
+/* 📱 Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .why-icon {
+        width: 130px;
+        height: 130px;
+    }
+    .why-icon img {
+        width: 60px;
+    }
+    .why-text {
+        font-size: 1rem;
+    }
+    
+    /* ให้มือถือแสดงทีละ 2 อัน (col-6 เดิม) */
+    .why-item-wrapper {
+        width: 45%; 
+    }
 }
