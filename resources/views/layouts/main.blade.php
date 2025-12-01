@@ -27,6 +27,9 @@
     <link href="{{ asset('css/why.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
     
     {{-- ✅ Global Styles Fix for 1440px Layout --}}
     <style>

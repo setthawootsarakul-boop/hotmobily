@@ -62,18 +62,24 @@
 /* 📱 Responsive Adjustments */
 @media (max-width: 991.98px) {
     .why-icon {
-        width: 130px;
-        height: 130px;
+        width: 136.61px;
+        height: 136.61px;
     }
     .why-icon img {
-        width: 60px;
+        width: 67.91px;
+        height: 67.91px;
     }
     .why-text {
-        font-size: 1rem;
+        font-size: 16px;
     }
     
     /* ให้มือถือแสดงทีละ 2 อัน (col-6 เดิม) */
     .why-item-wrapper {
         width: 45%; 
+    }
+    .why-section h2.section-title {
+        color: #656565;
+        font-size: 22px;
+        margin-bottom: 57px;
     }
 }

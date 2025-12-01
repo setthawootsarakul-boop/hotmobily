@@ -26,7 +26,7 @@
             {{-- 🟡 เนื้อหาข้อความ --}}
             <div class="col-lg-6 order-2 order-lg-1">
                 <div class="hero-content-wrapper ps-lg-4">
-                    <h1 class="fw-bold display-4 mb-3 brand-highlight">Hotmobily</h1>
+                    <h1 class="display-4 mb-3 brand-highlight">Hotmobily</h1>
                     <p class="lead mb-4 brand-desc">
                         รับทำพวงกุญแจ เข็มกลัด สแตนดี้ สติ๊กเกอร์ ยางรัดผม แท่นวางโทรศัพท์ <span style="white-space: nowrap">ที่รองแก้ว</span> 
                         ยางหุ้มกุญแจ ที่ติดโทรศัพท์ งานอะคริลิค ยาง และงานสะท้อนแสง

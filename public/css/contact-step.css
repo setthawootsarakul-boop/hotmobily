@@ -1,15 +1,17 @@
 /* ===============================
-   🔸 CONTACT & STEPS SECTION (Image Buttons)
-================================= */
+   🔸 CTA SECTION (Contact & Steps)
+   Class: .cta-area
+ ================================= */
 
 /* พื้นหลัง Section */
-#contact, #steps {
+.cta-area {
   background-color: #F6F1E9;
   padding: 4rem 0;
+  position: relative;
 }
 
 /* หัวข้อ */
-#contact h3, #steps h3 {
+.cta-area h3 {
   color: #444;
   font-weight: 700;
   text-align: center;
@@ -21,38 +23,69 @@
   display: block;
   cursor: pointer;
   transition: transform 0.3s ease, filter 0.3s ease;
-  border-radius: 20px; /* ปรับให้เข้ากับมุมมนของรูป */
-  text-decoration: none; /* ลบขีดเส้นใต้ลิงก์ */
+  border-radius: 20px;
+  text-decoration: none;
 }
 
-/* ✅ ตัวรูปภาพ */
+/* ✅ ตัวรูปภาพ (รวมโค้ดที่ซ้ำกันให้แล้ว) */
 .contact-btn-img {
-  border-radius: 10px;
+  border-radius: 35px;
   width: 100%;
-  max-width: 360px; /* คุมความกว้างสูงสุดไม่ให้ใหญ่เกินไป */
-  height: auto;
-  /* เพิ่มเงาให้รูปดูมีมิติ */
+  max-width: 389px; /* ขนาดสูงสุดตาม Figma */
+  height: 169px;     /* ให้ความสูงปรับตามสัดส่วนรูป */
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
-  transition: all 0.3s ease;
 }
 
 /* ✅ Effect ตอนเอาเมาส์ชี้ (Hover) */
 .contact-btn-wrapper:hover .contact-btn-img {
-  transform: translateY(-5px); /* ลอยขึ้นเล็กน้อย */
-  filter: drop-shadow(0 8px 12px rgba(0,0,0,0.2)); /* เงาชัดขึ้น */
+  filter: drop-shadow(0 8px 2px rgba(0, 0, 0, 0.3));
 }
 
 /* ===============================
-   RESPONSIVE
+   🖥️ DESKTOP SPECIFIC SPACING
+   (ทำงานเฉพาะหน้าจอคอมพิวเตอร์)
 ================================= */
+@media (min-width: 992px) {
+  
+  /* 1. ปรับ Container ให้กว้างเต็มจอแต่มีขอบ 73px */
+  .cta-area .container-fluid {
+    max-width: 100% !important;
+    padding-left: 73px !important;  /* ✅ ห่างจากขอบจอซ้าย 73px */
+    padding-right: 73px !important; /* ✅ ห่างจากขอบจอขวา 73px */
+  }
 
-/* สำหรับมือถือ */
-@media (max-width: 768px) {
+  /* 2. จัดการระยะห่างระหว่างปุ่ม */
+  .cta-area .row {
+    display: flex;
+    justify-content: center; /* แนะนำใช้ center เพื่อให้ gap 64px ทำงานเป๊ะๆ จากกึ่งกลาง */
+    gap: 64px !important;    /* ✅ ปุ่มห่างกัน 64px */
+    
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* 3. ปรับ Column ให้ขนาดเท่ากับเนื้อหา */
+  .cta-area .col-lg-4 {
+    width: auto !important; 
+    flex: 0 0 auto !important;
+    padding: 0 !important; 
+  }
+} 
+/* ⬆️ ปิดปีกกาของ Desktop ตรงนี้ก่อน */
+
+
+/* ===============================
+   📱 RESPONSIVE (มือถือ)
+   
+================================= */
+@media (max-width: 991.98px) {
   .contact-btn-img {
-    max-width: 90%; /* ในมือถือให้กว้างเกือบเต็มจอ */
+    width: 100%;
+    max-width: 300px; /* ขนาดสูงสุดตาม Figma */
+    height: 130px;     /* ให้ความสูงปรับตามสัดส่วนรูป */
   }
   
-  #contact .row, #steps .row {
-    gap: 1.5rem; /* ลดช่องว่างระหว่างปุ่มในมือถือ */
+  .cta-area .row {
+    gap: 50px; /* ระยะห่างแนวตั้งในมือถือ */
   }
 }

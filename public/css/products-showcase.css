@@ -1,0 +1,123 @@
+/* ========================
+   🔸 Product Showcase Section (Shadow on Hover Only)
+======================== */
+
+.product-showcase-section {
+    background-color: #F6F1E9;
+    position: relative;
+}
+
+/* หัวข้อ Section */
+.section-title {
+    color: #656565;
+    font-size: 36px; /* แก้หน่วยเป็น px */
+    font-weight: 700;
+}
+
+
+
+/* Wrapper ของ Link */
+.product-showcase-item {
+    text-decoration: none;
+    display: block;
+}
+
+/* ========================
+   📦 Showcase Box (357x357)
+======================== */
+.showcase-box {
+    width: 357px;
+    height: 357px;
+       
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto;
+    padding: 10px;
+}
+
+/* ✅ จัดการรูปภาพ (ปกติไม่มีเงา) */
+.showcase-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* ✅ เมื่อเอาเมาส์ชี้ที่ Item -> ให้รูปภาพเกิดเงา */
+.showcase-box:hover .showcase-img {
+    filter: drop-shadow(0 8px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* ========================
+   📝 Text Styles
+======================== */
+.showcase-title {
+    color: #000;
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    transition: color 0.3s ease;
+}
+
+.showcase-desc {
+    font-size: 14px;
+    color: #FFA726;
+    line-height: 1.4;
+    padding: 10px 0;
+    position: relative; 
+    z-index: 2;     
+    transition: color 0.3s ease;
+}    
+
+.showcase-desc:hover {
+    color: #883DE5;
+}
+
+/* ========================
+   📱 Responsive (Mobile)
+======================== */
+@media (max-width: 991.98px) {
+    .showcase-box {
+        width: 320px !important;
+        height: 320px !important;
+        margin: 0 auto 15px auto;
+        aspect-ratio: 1 / 1;
+    }
+    .product-showcase-section .row {
+        gap: 2rem;
+    }
+}
+
+/* ========================
+   🖥️ Desktop Only (เพิ่มส่วนนี้เพื่อให้ได้ระยะห่าง 109px)
+======================== */
+@media (min-width: 1200px) {
+    .product-showcase-section .row {
+        display: flex;
+        flex-wrap: wrap !important; /* ให้ตกบรรทัด */
+        gap: 38px !important;       /* ระยะห่าง */
+        
+        /* ✅ หัวใจสำคัญของการจัดระเบียบ */
+        justify-content: flex-start !important; /* 1. ให้สินค้าเรียงชิดซ้ายเสมอ */
+        
+        /* 2. ทำให้กล่อง Row กว้างพอดีกับสินค้า 3 ชิ้น (ไม่กว้างเกิน) */
+        width: fit-content !important;  
+        max-width: 100% !important;     /* กันล้นจอ */
+        
+        /* 3. จับกล่อง Row ทั้งก้อนไปวางตรงกลางหน้าจอ */
+        margin-left: auto !important;   
+        margin-right: auto !important;  
+        
+        /* Reset ค่า Grid เดิม */
+        --bs-gutter-x: 0 !important;
+    }
+
+    /* บังคับให้กล่องไม่ยืดตาม Grid เดิม */
+    .product-showcase-section .col-md-4 {
+        flex: 0 0 auto !important;
+        width: auto !important;
+        padding: 0 !important;
+    }
+}

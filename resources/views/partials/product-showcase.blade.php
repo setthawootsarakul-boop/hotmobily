@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">พวงกุญแจ</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         พวงกุญแจอะคริลิค พวงกุญแจยาง พวงกุญแจสะท้อนแสง
                     </p>
                 </a>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">ที่รองแก้ว</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         ที่รองแก้วอะคริลิค ที่รองแก้วยาง
                     </p>
                 </a>
@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">สแตนดี้</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         สแตนดี้อะคริลิค
                     </p>
                 </a>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">แท่นวางโทรศัพท์</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         แท่นวางโทรศัพท์อะคริลิค
                     </p>
                 </a>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">เข็มกลัด</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         เข็มกลัดอะคริลิค
                     </p>
                 </a>
@@ -86,7 +86,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">ยางรัดผม</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         ยางรัดผมอะคริลิค
                     </p>
                 </a>
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">กริ๊บต๊อก</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         กริ๊บต๊อกติดโทรศัพท์อะคริลิค
                     </p>
                 </a>
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">ยางหุ้มกุญแจ</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         ยางหุ้มหัวกุญแจ
                     </p>
                 </a>
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">สติ๊กเกอร์</h5>
-                    <p class="showcase-desc text-muted small">
+                    <p class="showcase-desc small">
                         สติ๊กเกอร์สะท้อนแสง
                     </p>
                 </a>

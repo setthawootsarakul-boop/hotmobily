@@ -1,0 +1,272 @@
+/* ========================
+   🔸 REVIEWS SECTION (Figma Style)
+======================== */
+
+.reviews-section {
+    background-color: #FFD93D; 
+    padding: 60px 0;
+    position: relative;
+}
+
+.section-title-review {
+    color: #4F200D; 
+    font-size: 36px;
+    font-weight: 800;
+    margin-bottom: 3rem;
+}
+
+/* 📦 Review Card */
+.review-card {
+    width: 100%; 
+    max-width: 400px;
+    height: 240px;
+    background-color: #4F200D; 
+    color: #fff; 
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    border-radius: 4px; 
+    margin: 0 auto; 
+}
+
+/* ⭐ ดาว */
+.stars .bi-star-fill { font-size: 1.1rem; margin-right: 2px; }
+.stars .text-warning { color: #FFC107 !important; }
+.stars .text-muted { color: #6c757d !important; }
+
+/* 📝 ข้อความ */
+.review-label { font-size: 1rem; font-weight: 400; min-width: 100px; }
+.review-comment {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-top: 15px;
+    font-weight: 300;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+/* ========================
+   🔘 BUTTON STYLES (แก้ไขสีเป็นขาว)
+======================== */
+.reviews-carousel .owl-nav button.owl-prev,
+.reviews-carousel .owl-nav button.owl-next {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    
+    /* ✅ แก้เป็นสีขาว */
+    background-color: #ffffff !important; 
+    color: #4F200D !important; /* ไอคอนสีน้ำตาล */
+    border: none !important;    /* เอาขอบออกเพื่อให้ดูคลีน */
+    
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    
+    transition: all 0.3s ease;
+    opacity: 1;
+    
+    /* เงาเพื่อให้ปุ่มขาวเด่นขึ้นบนพื้นเหลือง */
+    box-shadow: 0 4px 10px rgba(79, 32, 13, 0.2);
+}
+
+.reviews-carousel .owl-nav button i {
+    font-size: 20px; 
+    line-height: 1;
+}
+
+/* Hover Effect */
+.reviews-carousel .owl-nav button.owl-prev:hover,
+.reviews-carousel .owl-nav button.owl-next:hover {
+    background-color: #f8f8f8 !important; 
+    color: #fca311 !important; /* เปลี่ยนไอคอนเป็นสีส้มตอนชี้ */
+    transform: scale(1.1); 
+}
+
+.owl-theme .owl-nav { margin-top: 30px; }
+
+/* Dots */
+.owl-theme .owl-dots .owl-dot span { width: 10px; height: 10px; background: #4F200D; opacity: 0.3; }
+.owl-theme .owl-dots .owl-dot.active span { background: #4F200D; opacity: 1; }
+/* ========================
+   🔘 VIEW ALL BUTTON
+======================== */
+.btn-view-all {
+    display: inline-block;
+    color: #4F200D;       /* สีน้ำตาลเข้ม */
+    font-size: 1.1rem;    /* ขนาดตัวหนังสือ */
+    font-weight: 700;     /* ตัวหนา */
+    text-decoration: underline; /* ขีดเส้นใต้ */
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-view-all:hover {
+    color: #4F200D;
+    opacity: 0.7;         /* จางลงนิดนึงตอนชี้ */
+    text-decoration: none; /* เอาเส้นใต้ออกตอนชี้ (Optional) */
+    transform: translateX(5px); /* ขยับไปทางขวานิดๆ ให้ดูมีลูกเล่น */
+}
+/* ========================
+   🖥️ DESKTOP SPACING (แก้ไขตำแหน่งปุ่ม)
+======================== */
+@media (min-width: 1200px) {
+    .reviews-section .container-fluid {
+        /* ✅ เพิ่มพื้นที่ขอบจอ เพื่อให้มีที่วางปุ่ม */
+        padding-left: 100px !important;
+        padding-right: 100px !important;
+        
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+
+    /* บังคับโชว์ปุ่ม */
+    .reviews-carousel .owl-nav,
+    .reviews-carousel .owl-nav.disabled {
+        display: block !important;
+    }
+
+    /* ตำแหน่งปุ่ม */
+    .reviews-carousel .owl-nav button.owl-prev,
+    .reviews-carousel .owl-nav button.owl-next {
+        position: absolute;
+        top: 40%;
+        z-index: 100;
+        margin: 0 !important;
+        
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* ✅ ขยับปุ่มให้อยู่ในระยะที่เหมาะสม (-70px จะอยู่ใน padding 100px พอดี) */
+    .reviews-carousel .owl-nav button.owl-prev {
+        left: -70px; 
+    }
+
+    .reviews-carousel .owl-nav button.owl-next {
+        right: -70px; 
+    }
+}
+
+/* ========================
+   📱 MOBILE RESPONSIVE (1199.98px ลงมา)
+   - Review Card: 327x174
+   - Button: 37x37
+   - Icon: Small
+======================== */
+@media (max-width: 1199.98px) {
+    .btn-view-all {
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    .owl-theme .owl-dots, .owl-theme .owl-nav {
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+    padding: 17px;
+    }
+    /* 1. ปรับกล่องรีวิว: จัดเรียงจากด้านบน (flex-start) */
+    .review-card {
+        width: 100% !important;
+        max-width: 327px !important;
+        height: 174px !important;
+        
+        /* ✅ ใช้ flex-start เพื่อดันเนื้อหาขึ้นบน ไม่ให้จม */
+        justify-content: flex-start !important; 
+        
+        /* ปรับ Padding ให้พอดี: บน-ล่าง 20px, ซ้าย-ขวา 20px */
+        padding: 20px 20px !important; 
+        margin: 0 auto !important;
+    }
+
+    /* 2. ปรับขนาดฟอนต์หัวข้อ (คะแนนสินค้า/บริการ) เป็น 16px */
+    .review-label {
+        font-size: 16px !important;
+        min-width: 110px; /* ขยายความกว้าง Label นิดนึงกันตกบรรทัด */
+        margin-right: 5px;
+    }
+    
+    /* ปรับขนาดดาวให้สมดุลกับฟอนต์ 16px */
+    .stars .bi-star-fill {
+        font-size: 16px !important;
+    }
+
+    /* ✅ ลดระยะห่างระหว่างบรรทัดของคะแนน (สำคัญ! เพื่อให้มีที่เหลือให้คอมเมนต์) */
+    .review-card .d-flex {
+        margin-bottom: 4px !important; /* ลดจาก mb-2, mb-3 เดิม ให้ชิดกันขึ้น */
+        align-items: center !important;
+    }
+
+    /* 3. ปรับขนาดฟอนต์คอมเมนต์เป็น 13px และจัดระเบียบ */
+    .review-comment {
+        font-size: 13px !important;
+        line-height: 1.4 !important; /* ระยะห่างบรรทัดพอดีอ่านง่าย */
+        font-weight: 300;
+        
+        margin-top: 8px !important; /* เว้นห่างจากดาวนิดเดียวพอ */
+        
+        /* ✅ ตั้งค่าตัดคำให้พอดีกล่อง (โชว์ได้ประมาณ 4 บรรทัด) */
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4; /* เพิ่มเป็น 4 บรรทัดเพื่อให้แสดงข้อความได้เยอะขึ้น */
+        line-clamp: 4;
+        -webkit-box-orient: vertical;
+    }
+
+    /* --- ส่วนปุ่มและอื่นๆ คงเดิม --- */
+    
+    .section-title-review {
+        font-size: 1.8rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Container ของปุ่ม */
+    .reviews-carousel .owl-nav {
+        margin-top: 0;
+        position: absolute;
+        top: 30%; /* กึ่งกลางกล่อง */
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        z-index: 10;
+        pointer-events: none;
+        height: 0;
+    }
+
+    /* สไตล์ปุ่ม */
+    .reviews-carousel .owl-nav button.owl-prev,
+    .reviews-carousel .owl-nav button.owl-next {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        pointer-events: auto;
+        
+        opacity: 0.8 !important; /* ปรับความชัดตามรูป (ไม่จางมาก) */
+        
+        width: 37px !important;
+        height: 37px !important;
+        border-radius: 50%;
+        margin: 0 !important;
+        
+        background-color: #ffffff !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    
+    .reviews-carousel .owl-nav button i {
+        font-size: 12px !important; 
+        font-weight: bold;
+        color: #4F200D;
+    }
+
+    .reviews-carousel .owl-nav button.owl-prev { left: 0px; }
+    .reviews-carousel .owl-nav button.owl-next { right: 0px; }
+    
+    /* Dots สี */
+    .owl-theme .owl-dots .owl-dot span { background: #C4C4C4 !important; opacity: 1 !important; width: 10px; height: 10px; }
+    .owl-theme .owl-dots .owl-dot.active span { background: #6D6E71 !important; opacity: 1; }
+}

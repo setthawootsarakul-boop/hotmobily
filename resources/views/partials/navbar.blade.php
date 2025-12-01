@@ -70,9 +70,16 @@
       </ul>
     </div>
 
+{{-- โซนขวา (ตะกร้า + ปุ่มเมนูมือถือ) --}}
     <div class="d-flex align-items-center order-1 order-lg-2">
-      <a href="#" class="nav-link fs-4 text-white cart-link me-2">
-        <i class="bi bi-cart"></i>
+      
+      {{-- ✅ ตะกร้าสินค้า (แก้ไขใหม่ให้มีป้ายแดง) --}}
+      <a href="#" class="nav-link cart-link position-relative">
+        <i class="bi bi-cart-fill"></i>
+        <span class="badge rounded-pill">
+            3
+            <span class="visually-hidden">items in cart</span>
+        </span>
       </a>
 
       <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">

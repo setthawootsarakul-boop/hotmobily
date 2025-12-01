@@ -9,19 +9,12 @@ class Review extends Model
 {
     use HasFactory;
 
-    // กำหนดชื่อตาราง (Optional: Laravel จะรู้เองว่าเป็น reviews แต่ใส่ไว้ก็ชัดเจนดี)
     protected $table = 'reviews';
-
-    // กำหนดฟิลด์ที่อนุญาตให้เพิ่มข้อมูลได้ (Mass Assignment)
+    
+    // กำหนดฟิลด์ที่อนุญาตให้เพิ่มข้อมูลได้ (เผื่ออนาคตทำระบบเพิ่มรีวิว)
     protected $fillable = [
-        'product_rating', // คะแนนสินค้า
-        'service_rating', // คะแนนบริการ
-        'comment',        // ความคิดเห็น
+        'product_rating',
+        'service_rating',
+        'comment'
     ];
-
-    // (Optional) ถ้าคุณต้องการจัดการรูปแบบวันที่ให้เป็นภาษาไทย หรือ Format อื่นๆ
-    // protected $casts = [
-    //     'created_at' => 'datetime',
-    //     'updated_at' => 'datetime',
-    // ];
 }

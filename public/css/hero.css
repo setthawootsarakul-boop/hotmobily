@@ -61,7 +61,7 @@
 .brand-desc {
     color: var(--hero-text-color);
     font-size: 20px;
-    font-weight: 300;
+    font-weight: 200;
     line-height: 1.8;
 }
 
@@ -104,7 +104,7 @@
 }
 
 /* ========================
-   ⚪ Dots Navigation (Long Line Style)
+   ⚪ Dots Navigation (Bar Style - Match Image)
 ======================== */
 .image-dots-wrapper {
     position: absolute;
@@ -124,69 +124,106 @@
 .dot {
     display: inline-block;
     
-    /* ✅ ปรับความกว้างให้ยาวขึ้น (เช่น 80px ถึง 120px ตามชอบ) */
-    width: 80px;  
-    height: 9px;
+    /* ขนาดแท่ง */
+    width: 61px;  
+    height: 6px;
+    margin: 0 10px;
     
-    margin: 0 10px; /* ระยะห่างระหว่างเส้น */
+    /* ✅ สีขาว (สำหรับตัวที่ไม่ได้เลือก) ตามภาพ */
+    background-color: #fff; 
     
-    background-color: #f8f7f7; /* สีเทาอ่อน (Inactive) */
-
-    
+    border: none;
+    border-radius: 0; /* เหลี่ยม (หรือใส่ 2px ถ้าอยากมนนิดเดียว) */
     cursor: pointer;
     transition: all 0.3s ease;
-    
-    /* เพิ่มเงาเล็กน้อยเพื่อให้เห็นเส้นชัดขึ้นบนพื้นหลังสีเหลือง */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
 }
 
 .dot.active {
-    /* ✅ ตอน Active: ความยาวเท่าเดิม (หรือปรับให้ยาวกว่านี้นิดเดียวก็ได้) แต่เปลี่ยนสีชัดเจน */
+    /* ✅ สีเทา (สำหรับตัวที่เลือกอยู่ Active) ตามภาพ */
+    background-color: #9ea0a5; 
     opacity: 1;
-    background-color: #757575; /* สีเทาเข้ม (Active) */
-    /* width: 100px; // ใส่เท่ากับด้านบนเพื่อให้เส้นนิ่งไม่ขยับ */
 }
 
 /* ========================
-   📱 Responsive Adjustments
+   📱 Responsive Adjustments (มือถือ & แท็บเล็ต)
 ======================== */
 @media (max-width: 991.98px) {
     .hero-section {
         min-height: auto;
-        padding-top: 60px;
-        padding-bottom: 80px;
+        padding-top: 40px; /* ลดพื้นที่ด้านบนลงนิดนึง */
+        padding-bottom: 35px;
         text-align: center;
     }
 
     .hero-img-container {
-        height: 350px;
-        margin-bottom: 2rem;
+        height: 300px; /* ลดความสูงรูปลงหน่อยเพื่อให้เนื้อหาด้านล่างเด่นขึ้น */
+        margin-bottom: 1.5rem;
     }
 
     .brand-highlight {
-        font-size: 3.5rem;
+        font-size: 36px;
     }
 
     .brand-desc {
         margin: 0 auto;
-        font-size: 1rem;
+        font-size: 16px;
+        padding: 0 15px;
+        line-height: auto;
+        font-weight: lighter !important;   
     }
 
+    /* --- ✅ ปรับให้เรียง 3 วง แถวเดียวเหมือนในภาพ --- */
     .brand-features {
+        display: flex;
+        flex-wrap: nowrap; /* 🔒 บังคับห้ามตกบรรทัด */
         justify-content: center;
-        gap: 2rem !important;
+        align-items: flex-start;
+        gap: 12px !important; /* ระยะห่างระหว่างวงกลม (ปรับให้ชิดหน่อยเพื่อให้ลงจอมือถือเล็กได้) */
+        margin-top: 2.5rem;
+        padding: 0 10px;
+        width: 100%;
+        overflow-x: auto; /* เผื่อหน้าจอเล็กมากจริงๆ จะเลื่อนได้ */
+        overflow-y: hidden;
     }
 
+    .brand-features .feature {
+        flex: 1; /* แบ่งพื้นที่เท่าๆ กัน */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 0;
+    }
+
+    /* วงกลมพื้นขาว */
     .icon-circle {
-        width: 90px;
-        height: 90px;
+        background-color: #fff; /* พื้นหลังสีขาวตามภาพ */
+        width: 73.61px;  /* ขนาดวงกลมที่พอดีกับมือถือ */
+        height: 73.61px;
+        margin-bottom: 12px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* เงาจางๆ */
     }
 
+    /* ไอคอนสีส้ม */
     .icon-circle i {
-        font-size: 36px;
+        font-size: 37px;
+        color: #FCA311; /* หรือ var(--hero-highlight-color) */
     }
+
+    /* ตัวหนังสือด้านล่าง */
+    .brand-features p {
+        font-size: 0.85rem; /* ขนาดตัวหนังสือ */
+        font-weight: 700;   /* ตัวหนา */
+        color: #000;
+        line-height: 1.2;
+        margin: 0;
+        white-space: nowrap; /* พยายามไม่ตัดคำ */
+    }
+
 
     @media (max-width: 768px) {
-        .dot {width: 60px; }
+        .dot {
+            width: 54.05px; 
+            margin: 0 9px; 
     }
+  }
 }

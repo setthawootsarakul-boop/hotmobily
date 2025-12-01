@@ -5,6 +5,7 @@
   font-style: normal;
 }
 body {
+  padding-top: 78px; /* ปรับค่านี้ให้เท่ากับความสูงของ Navbar คุณ */
   font-family: 'MyPromptFont', sans-serif !important;
 }
 
@@ -12,7 +13,24 @@ body {
    🔸 NAVBAR SECTION
 ======================== */
 .navbar {
-  padding: 0.8rem 1rem;
+  /* 1. สั่งให้ติดหนึบ */
+  position: fixed !important; 
+  top: 0;
+  z-index: 9999; 
+
+  /* 2. ✅ เทคนิคจัดกึ่งกลางสำหรับ Fixed Element */
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;           /* ยืดเต็มที่ */
+  height: 78px;          /* สูง 78px */
+
+  /* 4. จัดเนื้อหาภายใน */
+  padding: 0 1rem;       
+  display: flex;
+  align-items: center;
+
+  /* Visuals */
   transition: all 0.3s ease;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
@@ -23,10 +41,11 @@ body {
   background-color: var(--navbar-bg) !important;
 }
 
-/* โลโก้ */
+/* ✅✅✅ โลโก้ (ค่า Default สำหรับ Mobile) ✅✅✅ */
 .navbar-brand img {
-  height: 70px;
-  width: auto;
+  height: 40px;        /* ความสูง 40px */
+  width: 40px;         /* ความกว้าง 40px */
+  object-fit: contain; /* ป้องกันภาพเบี้ยว */
   transition: transform 0.3s ease;
 }
 .navbar-brand img:hover {
@@ -55,17 +74,58 @@ body {
   background-color: var(--navbar-hover-bg);
 }
 
-/* ตะกร้า */
+/* ========================
+   🛒 CART STYLES (Fixed & Updated)
+======================== */
+
+/* สไตล์พื้นฐานของตะกร้า */
 .cart-link {
   color: #fff !important;
   position: relative;
-  left: -230px; 
-  transition: transform 0.3s ease, color 0.3s ease;
+  
+  /* ✅ สั่งให้ชิดขวาตามธรรมชาติ */
+  left: 0 !important; 
+  right: 0 !important;
+  
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  text-decoration: none; /* ลบเส้นใต้ */
 }
+
+/* ปรับขนาดไอคอนตะกร้า */
+.cart-link i {
+    font-size: 1.7rem !important;
+}
+
+/* Hover Effect */
 .cart-link:hover {
-  transform: scale(1.15);
-  color: #fff3b0 !important;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+  transform: scale(1.1);
+  color: #fff !important; /* บังคับสีขาวเสมอ */
+}
+
+/* 🔴 ปรับแต่งป้ายตัวเลข (Badge) */
+.cart-link .badge {
+    background-color: #dc3545 !important; /* สีแดงสด */
+    color: #fff !important;
+    border: 2px solid #fbab00 !important; /* ขอบสีเดียวกับ Navbar (สีส้ม) */
+    
+    /* จัดตำแหน่งให้อยู่มุมขวาบนของไอคอน */
+    position: absolute !important;
+    top: 5px !important;
+    right: -5px !important;
+    transform: translate(50%, -50%) !important;
+    
+    /* ขนาดป้าย */
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px; /* เผื่อตัวเลขหลักสิบ */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 50rem; /* วงกลม/รี */
 }
 
 /* ปุ่มมือถือ */
@@ -77,18 +137,15 @@ body {
   filter: brightness(0.2);
 }
 
-/* ปรับสีตะกร้าใน Navbar สีส้ม */
-.navbar.bg-orange .cart-link {
-  color: #fff !important;
-}
-.navbar.bg-orange .cart-link:hover {
-  color: #ffeb99 !important;
-}
-
 /* 🔹 Mobile Offcanvas */
 .offcanvas {
+  z-index: 10000 !important;
   width: 280px;
   background-color: #fff;
+}
+
+.offcanvas-backdrop {
+    z-index: 9999 !important; /* เท่ากับ Navbar พอดี หรือมากกว่า */
 }
 
 .offcanvas-header {
@@ -112,12 +169,19 @@ body {
 }
 
 /* ========================
-   🌟 NAVBAR STYLE (Desktop)
+   🌟 NAVBAR STYLE (Desktop - 992px ขึ้นไป)
 ======================== */
 @media (min-width: 992px) {
   .navbar.bg-orange {
     background-color: #FFA726 !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* ✅✅✅ โลโก้ Desktop (74x74) ✅✅✅ */
+  /* ต้องใส่ !important เพื่อทับค่า Mobile */
+  .navbar-brand img {
+    height: 74px !important;
+    width: 74px !important;
   }
 
   /* เมนูปกติ */
@@ -172,14 +236,11 @@ body {
     background-color: transparent;
   }
 
-  /* ✅✅✅ จัดการลูกศร (Caret Icon) Desktop ✅✅✅ */
-
-  /* 1. ซ่อนลูกศรเดิม */
+  /* จัดการลูกศร (Caret Icon) Desktop */
   .navbar .nav-link.dropdown-toggle::after {
     display: none !important; 
   }
 
-  /* 2. ตั้งค่าไอคอนใหม่ */
   .navbar .caret-icon {
     transition: transform 0.3s ease;
     font-size: 0.75rem;
@@ -188,20 +249,15 @@ body {
     display: inline-block;
   }
 
-  /* 3. สั่งหมุนเมื่อเมนูเปิด (Active/Show/Expanded) เท่านั้น */
   .navbar .nav-item.show .caret-icon,
   .navbar .nav-link[aria-expanded="true"] .caret-icon {
     transform: rotate(180deg);
   }
   
-  /* ❌ (ลบกฎ hover เดิมทิ้งไปแล้ว เพื่อไม่ให้หมุนตอนเอาเมาส์โดน) */
-
-  /* (เปลี่ยนสีไอคอนเป็นขาวเมื่อ hover เมนูหลัก) */
   .navbar a.nav-link:hover .caret-icon,
   .navbar a.nav-link.active .caret-icon {
     color: #fff !important;
   }
-
 
   /* Container ปรับบาลานซ์ */
   .navbar > .container {
@@ -228,7 +284,7 @@ body {
 }
 
 /* ========================
-   📱 NAVBAR STYLE (Mobile)
+   📱 NAVBAR STYLE (Mobile - น้อยกว่า 991px)
 ======================== */
 @media (max-width: 991px) {
 
@@ -290,10 +346,14 @@ body {
     background-color: transparent;
   }
 
-  /* รีเซ็ตตะกร้า */
+  /* ปรับระยะตะกร้าในมือถือ */
   .cart-link {
-    left: 0;
-    transform: none;
+    margin-right: 15px !important; /* เว้นระยะห่างจากปุ่ม Hamburger */
+  }
+  
+  /* ในมือถือ ให้ขอบป้ายเป็นสีขาว (ถ้าพื้นหลังเปลี่ยน) หรือสีส้มก็ได้ */
+  .cart-link .badge.border-warning {
+      border-color: #fbab00 !important;
   }
 
   /* ตัวเมนูหลักใน Offcanvas */

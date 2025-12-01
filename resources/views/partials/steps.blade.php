@@ -1,10 +1,8 @@
-<section id="steps" class="py-5" style="background-color: #F6F1E9;">
-  <div class="container text-center">
-    
-    
-
+<section id="steps" class="cta-area">
+  <div class="container-fluid text-center">
     <div class="row justify-content-center g-4">
-
+      
+      {{-- ปุ่ม 1: ใบเสนอราคา --}}
       <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
         <a href="{{ url('/contact-full') }}" class="contact-btn-wrapper">
           <img src="{{ asset('images/Hotmobilyfile/Top-page/btn-quote.png') }}" 
@@ -13,9 +11,9 @@
         </a>
       </div>
 
+      {{-- ปุ่ม 2: โทรหาเรา --}}
       <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
         <div class="contact-btn-wrapper" 
-             style="cursor: pointer;"
              data-bs-toggle="modal" 
              data-bs-target="#callModal">
           <img src="{{ asset('images/Hotmobilyfile/Top-page/call.png') }}" 
@@ -24,9 +22,9 @@
         </div>
       </div>
 
+      {{-- ปุ่ม 3: แอดไลน์ --}}
       <div class="col-lg-4 col-md-4 col-sm-12 d-flex justify-content-center">
         <div class="contact-btn-wrapper" 
-             style="cursor: pointer;"
              data-bs-toggle="modal" 
              data-bs-target="#lineModal">
           <img src="{{ asset('images/Hotmobilyfile/Top-page/line.png') }}" 
