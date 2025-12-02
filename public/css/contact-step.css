@@ -8,14 +8,29 @@
   background-color: #F6F1E9;
   padding: 4rem 0;
   position: relative;
+  padding-bottom: 158px;
 }
-
+.steps-area {
+  background-color: #F6F1E9; /* พื้นหลังสีเดียวกัน หรือเปลี่ยนได้ */
+  padding: 4rem 0;
+  position: relative;
+  padding-top: 98px;
+  padding-bottom: 90px;  
+    /* ✅ ปรับแก้ค่าตรงนี้ได้อิสระ ไม่กระทบอันเก่า */
+  
+    
+    /* ตัวอย่าง: อยากเพิ่มเส้นขอบ หรือเปลี่ยนสีพื้นหลังเฉพาะส่วนนี้ */
+    /* border-top: 1px solid #ddd; */
+}
 /* หัวข้อ */
 .cta-area h3 {
   color: #444;
+  font-size: 36px;
   font-weight: 700;
   text-align: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 62px;
+  padding-top: 94px;
+
 }
 
 /* ✅ จัดการปุ่มรูปภาพ (Wrapper) */
@@ -48,14 +63,16 @@
 @media (min-width: 992px) {
   
   /* 1. ปรับ Container ให้กว้างเต็มจอแต่มีขอบ 73px */
-  .cta-area .container-fluid {
+  .cta-area .container-fluid,
+  .steps-area .container-fluid {
     max-width: 100% !important;
     padding-left: 73px !important;  /* ✅ ห่างจากขอบจอซ้าย 73px */
     padding-right: 73px !important; /* ✅ ห่างจากขอบจอขวา 73px */
   }
 
   /* 2. จัดการระยะห่างระหว่างปุ่ม */
-  .cta-area .row {
+  .cta-area .row,
+  .steps-area .row { /* ✅ เพิ่มตรงนี้ */
     display: flex;
     justify-content: center; /* แนะนำใช้ center เพื่อให้ gap 64px ทำงานเป๊ะๆ จากกึ่งกลาง */
     gap: 64px !important;    /* ✅ ปุ่มห่างกัน 64px */
@@ -65,7 +82,8 @@
   }
 
   /* 3. ปรับ Column ให้ขนาดเท่ากับเนื้อหา */
-  .cta-area .col-lg-4 {
+  .cta-area .col-lg-4,
+  .steps-area .col-lg-4 {
     width: auto !important; 
     flex: 0 0 auto !important;
     padding: 0 !important; 
@@ -81,11 +99,13 @@
 @media (max-width: 991.98px) {
   .contact-btn-img {
     width: 100%;
-    max-width: 300px; /* ขนาดสูงสุดตาม Figma */
-    height: 130px;     /* ให้ความสูงปรับตามสัดส่วนรูป */
+    max-width: 300px;
+    height: 130px;    
   }
   
-  .cta-area .row {
-    gap: 50px; /* ระยะห่างแนวตั้งในมือถือ */
+  /* ใช้ร่วมกัน */
+  .cta-area .row,
+  .steps-area .row { /* ✅ เพิ่มตรงนี้ */
+    gap: 50px; 
   }
 }

@@ -9,7 +9,7 @@
       <ul class="navbar-nav align-items-center gap-4">
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             สินค้าทั้งหมด
             <i class="bi bi-chevron-down caret-icon ms-1"></i>
           </a>
@@ -32,7 +32,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             คำถามที่พบบ่อย
             <i class="bi bi-chevron-down caret-icon ms-1"></i>
           </a>
@@ -47,7 +47,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             รายละเอียดเพิ่มเติม
             <i class="bi bi-chevron-down caret-icon ms-1"></i>
           </a>
@@ -58,7 +58,7 @@
         </li>
 
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle fw-semibold" href="#" id="navbarContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             ติดต่อเรา
             <i class="bi bi-chevron-down caret-icon ms-1"></i>
           </a>
@@ -73,13 +73,16 @@
 {{-- โซนขวา (ตะกร้า + ปุ่มเมนูมือถือ) --}}
     <div class="d-flex align-items-center order-1 order-lg-2">
       
-      {{-- ✅ ตะกร้าสินค้า (แก้ไขใหม่ให้มีป้ายแดง) --}}
       <a href="#" class="nav-link cart-link position-relative">
-        <i class="bi bi-cart-fill"></i>
-        <span class="badge rounded-pill">
-            3
-            <span class="visually-hidden">items in cart</span>
-        </span>
+          
+          {{-- ✅ ใส่อันใหม่: รูปภาพจากไฟล์ --}}
+          <img src="{{ asset('images/vector.png') }}" alt="Cart" class="cart-icon-img">
+          
+          {{-- ป้ายตัวเลข (เหมือนเดิม) --}}
+          <span class="badge rounded-pill">
+              3
+              <span class="visually-hidden">items in cart</span>
+          </span>
       </a>
 
       <button class="navbar-toggler border-0 d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
@@ -90,7 +93,7 @@
 </nav>
 
 <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
-  <div class="offcanvas-header align-items-center border-bottom">
+  <div class="offcanvas-header align-items-center">
     <div class="d-flex align-items-center">
       <img src="{{ asset('images/logo.png') }}" alt="Hotmobily Logo" height="40" class="me-2">
       <h5 class="mb-0 fw-bold">Hotmobily Thai</h5>
@@ -101,7 +104,7 @@
   <div class="offcanvas-body">
     <ul class="navbar-nav flex-column gap-2">
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" href="#" id="mobileProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           สินค้าทั้งหมด
           <i class="bi bi-chevron-down caret-icon ms-auto"></i>
         </a>
@@ -124,7 +127,7 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle fw-normal" href="#" id="mobileFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           คำถามที่พบบ่อย
           <i class="bi bi-chevron-down caret-icon ms-auto"></i>
         </a>
@@ -139,7 +142,7 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle fw-normal" href="#" id="mobileDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           รายละเอียดเพิ่มเติม
           <i class="bi bi-chevron-down caret-icon ms-auto"></i>
         </a>
@@ -150,7 +153,7 @@
       </li>
 
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle fw-semibold" href="#" id="mobileContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle fw-normal" href="#" id="mobileContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           ติดต่อเรา
           <i class="bi bi-chevron-down caret-icon ms-auto"></i>
         </a>

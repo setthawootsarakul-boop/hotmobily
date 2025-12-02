@@ -79,6 +79,10 @@
    📱 Responsive (Mobile)
 ======================== */
 @media (max-width: 991.98px) {
+    .section-title {
+        color: #656565;
+        font-size: 24px; 
+    }
     .showcase-box {
         width: 320px !important;
         height: 320px !important;
@@ -95,29 +99,29 @@
 ======================== */
 @media (min-width: 1200px) {
     .product-showcase-section .row {
-        display: flex;
-        flex-wrap: wrap !important; /* ให้ตกบรรทัด */
-        gap: 38px !important;       /* ระยะห่าง */
+        /* ✅ เปลี่ยนจาก Flex เป็น Grid */
+        display: grid !important;
         
-        /* ✅ หัวใจสำคัญของการจัดระเบียบ */
-        justify-content: flex-start !important; /* 1. ให้สินค้าเรียงชิดซ้ายเสมอ */
+        /* ✅ สั่งให้มี 3 คอลัมน์ กว้างคอลัมน์ละ 357px เป๊ะๆ */
+        grid-template-columns: repeat(3, 357px) !important;
         
-        /* 2. ทำให้กล่อง Row กว้างพอดีกับสินค้า 3 ชิ้น (ไม่กว้างเกิน) */
-        width: fit-content !important;  
-        max-width: 100% !important;     /* กันล้นจอ */
+        /* ✅ จัดกึ่งกลางตัว Grid ให้อยู่กลาง container */
+        justify-content: center !important; 
         
-        /* 3. จับกล่อง Row ทั้งก้อนไปวางตรงกลางหน้าจอ */
-        margin-left: auto !important;   
-        margin-right: auto !important;  
+        /* ระยะห่าง */
+        gap: 38px !important; 
         
-        /* Reset ค่า Grid เดิม */
+        /* Reset ค่าเดิม */
+        margin: 0 auto !important;
+        width: 100% !important;
         --bs-gutter-x: 0 !important;
     }
 
-    /* บังคับให้กล่องไม่ยืดตาม Grid เดิม */
+    /* Reset ค่าของ Column เดิมให้ไม่ตีกับ Grid */
     .product-showcase-section .col-md-4 {
-        flex: 0 0 auto !important;
         width: auto !important;
+        flex: none !important;
         padding: 0 !important;
+        max-width: none !important;
     }
 }

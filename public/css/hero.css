@@ -1,52 +1,61 @@
 /* ==================================================
-   🔸 Hero Section Styles (Revised for 1440px, No Animations)
+   🔸 Hero Section Styles (Revised for 1440px, Centered)
    ================================================== */
 
 :root {
-    --hero-bg-color: #FFC81A; /* ✅ สีพื้นหลังใหม่ */
-    --hero-text-color: #000000; /* ปรับสีข้อความให้เข้มขึ้น */
-    --hero-highlight-color: #FCA311; /* สีส้มเดิมสำหรับไอคอน */
+    --hero-bg-color: #FFC81A;
+    --hero-text-color: #000000;
+    --hero-highlight-color: #FCA311;
 }
 
 .hero-section {
-    background-color: var(--hero-bg-color); /* ✅ ใช้สีพื้นหลังใหม่ */
+    background-color: var(--hero-bg-color);
     color: var(--hero-text-color);
     position: relative;
     width: 100%;
     overflow: hidden;
-    min-height: 750px; /* ลดความสูงเล็กน้อยให้กระชับขึ้น */
+    /* ✅ ใช้ min-height และ flex เพื่อจัดกลางแนวตั้งทั้ง Section */
+    min-height: 800px; 
     display: flex;
-    align-items: center;
-    padding: 0;
+    align-items: center; /* จัดกลางแนวตั้ง */
+    justify-content: center; /* จัดกลางแนวนอน */
+    padding: 60px 0; /* เพิ่ม Padding บนล่างหน่อย */
 }
 
 /* ========================
-   📸 Hero Image (No Animation, Bigger)
+   📸 Hero Image (Centered)
 ======================== */
 .hero-img-container {
     width: 100%;
-    height: 550px; /* ✅ เพิ่มความสูง container */
+    height: 550px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* กลางแนวตั้ง */
+    justify-content: center; /* กลางแนวนอน */
     position: relative;
+    margin-bottom: 0; /* ลบ margin ที่อาจดันเนื้อหา */
 }
 
 .hero-img {
-    max-width: 100%; /* ✅ ปรับให้เต็ม container */
-    max-height: 100%; /* ✅ ปรับให้เต็ม container */
+    max-width: 100%;
+    max-height: 100%;
     width: auto;
     height: auto;
     object-fit: contain;
 }
 
 /* ========================
-   ✨ Typography & Content
+   ✨ Typography & Content (Centered)
 ======================== */
 .hero-content-wrapper {
     z-index: 2;
     position: relative;
-    padding-top: 2rem; /* เพิ่มระยะห่างจากด้านบนเล็กน้อย */
+    padding-top: 0; /* เอา padding-top ออก ให้ flex จัดการเอง */
+    
+    /* ✅ จัดเนื้อหาฝั่งขวาให้อยู่กึ่งกลางในพื้นที่ของมัน */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    height: 100%; 
 }
 
 .brand-highlight {
@@ -63,14 +72,20 @@
     font-size: 20px;
     font-weight: 200;
     line-height: 1.8;
+    max-width: 600px; /* จำกัดความกว้างข้อความไม่ให้ยาวเกินไป */
 }
 
 /* ========================
-   🏆 Features (No Animation)
+   🏆 Features (Aligned)
 ======================== */
 .brand-features {
     margin-top: 4rem;
-    gap: 5rem !important; /* เพิ่มระยะห่าง */
+    gap: 3rem !important; /* ปรับระยะห่างให้พอดี */
+    
+    /* ✅ จัดเรียง Features */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* หรือ center ถ้าอยากให้ Features อยู่กลาง */
 }
 
 .brand-features .feature {
@@ -78,12 +93,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: center;
 }
 
 .icon-circle {
     background-color: #fff;
-    width: 120px; /* เพิ่มขนาดเล็กน้อย */
-    height: 120px;
+    width: 105px;
+    height: 105px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -91,28 +107,30 @@
     margin-bottom: 15px;
 }
 
-
-.icon-circle i {
-    font-size: 50px; /* เพิ่มขนาดไอคอน */
-    color: var(--hero-highlight-color);
+.icon-circle .feature-icon {
+    width: 53px;
+    height: 53px;
+    object-fit: contain;
 }
 
 .brand-features p {
     font-size: 1.15rem;
     font-weight: 700;
     color: #000;
+    margin: 0;
 }
 
 /* ========================
-   ⚪ Dots Navigation (Bar Style - Match Image)
+   ⚪ Dots Navigation
 ======================== */
 .image-dots-wrapper {
     position: absolute;
-    bottom: 15px;
+    bottom: 30px; /* ขยับขึ้นมาหน่อย */
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
     z-index: 10;
+    text-align: center; /* ช่วยจัดกลาง */
 }
 
 .image-dots {
@@ -123,107 +141,104 @@
 
 .dot {
     display: inline-block;
-    
-    /* ขนาดแท่ง */
     width: 61px;  
     height: 6px;
     margin: 0 10px;
-    
-    /* ✅ สีขาว (สำหรับตัวที่ไม่ได้เลือก) ตามภาพ */
     background-color: #fff; 
-    
     border: none;
-    border-radius: 0; /* เหลี่ยม (หรือใส่ 2px ถ้าอยากมนนิดเดียว) */
+    border-radius: 0;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .dot.active {
-    /* ✅ สีเทา (สำหรับตัวที่เลือกอยู่ Active) ตามภาพ */
     background-color: #9ea0a5; 
     opacity: 1;
 }
 
 /* ========================
-   📱 Responsive Adjustments (มือถือ & แท็บเล็ต)
+   🖥️ Desktop Specific (1200px+)
+   - บังคับ Grid System ให้แสดงผลสวยงาม
+======================== */
+@media (min-width: 1200px) {
+    /* ปรับ Container ให้กว้างขึ้นถ้าต้องการ */
+    .container {
+        max-width: 1320px; 
+    }
+    
+    /* จัดให้รูปกับเนื้อหาอยู่กึ่งกลางกันและกัน */
+    .hero-section .row {
+        align-items: center; 
+    }
+    
+    /* ดันเนื้อหาไปทางขวานิดนึง ถ้ามันชิดรูปเกินไป */
+    .hero-content-wrapper {
+        padding-left: 2rem; 
+    }
+}
+
+/* ========================
+   📱 Responsive Adjustments (Mobile)
 ======================== */
 @media (max-width: 991.98px) {
     .hero-section {
         min-height: auto;
-        padding-top: 40px; /* ลดพื้นที่ด้านบนลงนิดนึง */
-        padding-bottom: 35px;
+        padding-top: 40px;
+        padding-bottom: 50px;
         text-align: center;
+        display: block; /* กลับมาเป็น Block ในมือถือ */
     }
 
     .hero-img-container {
-        height: 300px; /* ลดความสูงรูปลงหน่อยเพื่อให้เนื้อหาด้านล่างเด่นขึ้น */
-        margin-bottom: 1.5rem;
+        height: 300px;
+        margin-bottom: 2rem;
+    }
+    
+    .hero-content-wrapper {
+        padding-left: 0; /* Reset */
     }
 
     .brand-highlight {
         font-size: 36px;
+        text-shadow: -2px 1px 0px #000;
     }
 
     .brand-desc {
         margin: 0 auto;
         font-size: 16px;
         padding: 0 15px;
-        line-height: auto;
-        font-weight: lighter !important;   
     }
 
-    /* --- ✅ ปรับให้เรียง 3 วง แถวเดียวเหมือนในภาพ --- */
     .brand-features {
         display: flex;
-        flex-wrap: nowrap; /* 🔒 บังคับห้ามตกบรรทัด */
+        flex-wrap: nowrap;
         justify-content: center;
         align-items: flex-start;
-        gap: 12px !important; /* ระยะห่างระหว่างวงกลม (ปรับให้ชิดหน่อยเพื่อให้ลงจอมือถือเล็กได้) */
+        gap: 15px !important;
         margin-top: 2.5rem;
         padding: 0 10px;
         width: 100%;
-        overflow-x: auto; /* เผื่อหน้าจอเล็กมากจริงๆ จะเลื่อนได้ */
-        overflow-y: hidden;
+        overflow-x: auto;
     }
 
-    .brand-features .feature {
-        flex: 1; /* แบ่งพื้นที่เท่าๆ กัน */
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-width: 0;
-    }
-
-    /* วงกลมพื้นขาว */
     .icon-circle {
-        background-color: #fff; /* พื้นหลังสีขาวตามภาพ */
-        width: 73.61px;  /* ขนาดวงกลมที่พอดีกับมือถือ */
-        height: 73.61px;
-        margin-bottom: 12px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* เงาจางๆ */
+        width: 74px;
+        height: 74px;
+        margin-bottom: 10px;
+    }
+    
+    .icon-circle .feature-icon {
+        width: 35px;
+        height: 35px;
     }
 
-    /* ไอคอนสีส้ม */
-    .icon-circle i {
-        font-size: 37px;
-        color: #FCA311; /* หรือ var(--hero-highlight-color) */
-    }
-
-    /* ตัวหนังสือด้านล่าง */
     .brand-features p {
-        font-size: 0.85rem; /* ขนาดตัวหนังสือ */
-        font-weight: 700;   /* ตัวหนา */
-        color: #000;
-        line-height: 1.2;
-        margin: 0;
-        white-space: nowrap; /* พยายามไม่ตัดคำ */
+        font-size: 0.85rem;
+        white-space: nowrap;
     }
-
-
-    @media (max-width: 768px) {
-        .dot {
-            width: 54.05px; 
-            margin: 0 9px; 
+    
+    .dot {
+        width: 40px;
+        margin: 0 5px;
     }
-  }
 }

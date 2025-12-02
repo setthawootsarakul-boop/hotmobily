@@ -159,7 +159,7 @@
     
     transition: color 0.2s ease; /* (แถม) เพิ่ม Transition ให้เปลี่ยนสีนุ่มๆ ตอน Hover */
 }
-.gap-3 { gap: 0 !important; }
+/* .gap-3 { gap: 0 !important; } */
 
 @media (min-width: 1200px) {
   .col-xl-2-5 { flex: 0 0 20%; max-width: 20%; }
@@ -178,7 +178,7 @@
     .mobile-filter-bar { background-color: #f4efe8; padding: 10px 15px; border-bottom: 1px solid #e0e0e0; }
     .mobile-filter-bar button { color: #333; font-weight: 600; font-size: 1rem; background: transparent; border: none; }
     .mobile-filter-bar button:focus { box-shadow: none; }
-    .offcanvas { max-width: 80%; }
+    /* .offcanvas { max-width: 80%; } */
     .cards-wrapper { box-shadow: none !important; padding: 20px 25px !important; }
     .decor-blocks { display: none !important; }
 }

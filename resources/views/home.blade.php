@@ -33,26 +33,34 @@
                     </p>
 
                     <div class="d-flex justify-content-lg-start justify-content-center gap-4 brand-features flex-wrap">
+                        
+                        {{-- 1. Box --}}
                         <div class="feature text-center">
                             <div class="icon-circle">
-                                <i class="bi bi-box"></i>
+                                {{-- ✅ เปลี่ยนเป็นรูปภาพ box.png --}}
+                                <img src="{{ asset('images/box.png') }}" alt="คุณภาพดี" class="feature-icon">
                             </div>
                             <p>คุณภาพดี</p>
                         </div>
 
+                        {{-- 2. Clock --}}
                         <div class="feature text-center">
                             <div class="icon-circle">
-                                <i class="bi bi-alarm"></i>
+                                {{-- ✅ เปลี่ยนเป็นรูปภาพ clock.png --}}
+                                <img src="{{ asset('images/clock.png') }}" alt="ส่งตรงเวลา" class="feature-icon">
                             </div>
                             <p>ส่งตรงเวลา</p>
                         </div>
 
+                        {{-- 3. Check --}}
                         <div class="feature text-center">
                             <div class="icon-circle">
-                                <i class="bi bi-check2-circle"></i>
+                                {{-- ✅ เปลี่ยนเป็นรูปภาพ check.png --}}
+                                <img src="{{ asset('images/check.png') }}" alt="สินค้าตามมาตรฐาน" class="feature-icon">
                             </div>
                             <p>สินค้าตามมาตรฐาน</p>
                         </div>
+
                     </div>
                 </div>
             </div>

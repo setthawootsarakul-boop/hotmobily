@@ -17,7 +17,7 @@
                     </div>
                     <h5 class="showcase-title mt-2">พวงกุญแจ</h5>
                     <p class="showcase-desc small">
-                        พวงกุญแจอะคริลิค พวงกุญแจยาง พวงกุญแจสะท้อนแสง
+                        พวงกุญแจอะคริลิค พวงกุญแจยาง พวงกุญแจสะท้อนแสง <span style="white-space: nowrap">พวงกุญแจสกรีนลายสะท้อนแสง</span>
                     </p>
                 </a>
             </div>

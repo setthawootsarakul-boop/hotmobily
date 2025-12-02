@@ -2,7 +2,7 @@
   <div class="container-fluid text-center">
     
     {{-- ✅ ส่วนนี้มีหัวข้อ --}}
-    <h3 class="fw-bold mb-4">ติดต่อเรา</h3>
+    <h3>ติดต่อเรา</h3>
 
     <div class="row justify-content-center g-4">
       

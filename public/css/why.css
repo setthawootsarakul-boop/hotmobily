@@ -8,9 +8,10 @@
 }
 
 .why-section h2.section-title {
-  color: #656565;
-  font-size: 36px;
-  margin-bottom: 57px;
+    color: #656565;
+    font-size: 36px;
+    margin-bottom: 57px;
+    padding-top: 46px;
 }
 
 /* ✅ NEW: คุมระยะห่างระหว่างวงกลม */
@@ -44,10 +45,15 @@
   box-shadow: none; 
 }
 
+/* ✅ NEW: ให้รูปแสดงตามขนาดจริงของไฟล์ */
 .why-icon img {
-  width: 72px; 
-  height: 72px;
-  filter: brightness(0) invert(1);
+  width: auto;       /* ให้กว้างตามขนาดรูปจริง */
+  height: auto;      /* ให้สูงตามขนาดรูปจริง */
+  max-width: 80%;    /* (Optional) กันรูปใหญ่เกินวงกลม */
+  max-height: 80%;   /* (Optional) กันรูปสูงเกินวงกลม */
+  object-fit: contain; /* รักษาอัตราส่วนรูป */
+  
+  filter: brightness(0) invert(1); /* สีขาว */
 }
 
 /* 🔸 ข้อความ */
@@ -61,13 +67,15 @@
 
 /* 📱 Responsive Adjustments */
 @media (max-width: 991.98px) {
-    .why-icon {
+  .why-icon {
         width: 136.61px;
         height: 136.61px;
     }
-    .why-icon img {
-        width: 67.91px;
-        height: 67.91px;
+  .why-icon img {
+        width: auto !important;  
+        height: auto !important;
+        max-width: 70%;  /* ลดขนาดลงหน่อยเพราะวงกลมเล็กลง */
+        max-height: 70%;
     }
     .why-text {
         font-size: 16px;

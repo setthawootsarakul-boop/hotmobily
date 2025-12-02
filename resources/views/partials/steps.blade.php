@@ -1,4 +1,4 @@
-<section id="steps" class="cta-area">
+<section id="steps" class="steps-area">
   <div class="container-fluid text-center">
     <div class="row justify-content-center g-4">
       
