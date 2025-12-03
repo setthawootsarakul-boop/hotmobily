@@ -212,16 +212,16 @@
                     @if($product->parts->isNotEmpty())
                     <div class="mt-5">
                         <h3 class="fw-bold mb-4">ส่วนประกอบเพิ่มเติม</h3>
-                        <div class="row g-3">
+                        <div class="row g-3 parts-grid">
                             @foreach($product->parts as $part)
                                 <div class="col-lg-3 col-md-3 col-4">
-                                    <div class="part-box rounded-3 border p-1 text-center {{ $part->is_default ? 'active' : '' }}"
+                                    <div class="part-box p-1 text-center {{ $part->is_default ? 'active' : '' }}"
                                          data-group="part-group" 
                                          onclick="selectSpec(this, 'part-group')" 
                                          data-part-id="{{ $part->id }}" 
                                          title="{{ $part->part_name }}">
                                     @if($part->image_url)
-                                        <div class="part-img-box mb-0"><img src="{{ asset($part->image_url) }}" alt="{{ $part->part_name }}"></div>
+                                        <div class="part-img-box mb-0"><img src="{{ asset('/images/jp-attachments/attachments/' . $part->image_url) }}" alt="{{ $part->part_name }}"></div>
                                     @endif
                                     </div>
                                 </div>
@@ -405,15 +405,22 @@
 
             if(data.part_info) {
                 document.getElementById('res_part_name').innerText = data.part_info.name;
+
                 if(data.part_info.image) {
-                    document.getElementById('res_part_img').src = data.part_info.image;
+                    // ✅ 1. กำหนด Path ใหม่ตามที่คุณต้องการ
+                    var customPath = "{{ asset('/images/jp-attachments/attachments/') }}";
+                    
+                    // ✅ 2. ตัดเอา "เฉพาะชื่อไฟล์" จาก Database (แก้ปัญหา Path ซ้อนกัน)
+                    // สมมติ DB ส่งมา: "images/Hotmobilyfile/icon.png" -> เราจะตัดเอาแค่ "icon.png"
+                    var filename = data.part_info.image.split('/').pop();
+
+                    // ✅ 3. รวมร่าง: Path ใหม่ + ชื่อไฟล์
+                    document.getElementById('res_part_img').src = customPath + '/' + filename;
+                    
                     document.getElementById('res_part_img_div').style.display = 'block';
                 } else {
                     document.getElementById('res_part_img_div').style.display = 'none';
                 }
-            } else {
-                document.getElementById('res_part_name').innerText = '-';
-                document.getElementById('res_part_img_div').style.display = 'none';
             }
 
             document.getElementById('res_product_price').innerText = data.total_product_price;

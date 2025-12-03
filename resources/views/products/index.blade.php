@@ -7,15 +7,25 @@
 <link rel="stylesheet" href="{{ asset('css/products.css') }}"> 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="filterOffcanvas" aria-labelledby="filterOffcanvasLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="filterOffcanvasLabel">กรองสินค้า</h5>
+    
+    <div class="offcanvas-header d-flex align-items-center justify-content-between p-3">
+        
+        <div class="d-flex align-items-center gap-2">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="sidebar-logo mobile-sidebar-logo">
+            
+            <h5 class="offcanvas-title fw-bold mb-0" id="filterOffcanvasLabel" style="font-size: 1.5rem;color: #000;margin-left: 10px;">
+                กรองสินค้า
+            </h5>
+        </div>
+
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+
     <div class="offcanvas-body">
         <div class="sidebar-body">
             <ul class="list-unstyled">
                 <li class="sidebar-link">
-                    <a href="{{ route('products.index') }}" class="fs-6 fw-bold {{ (!request('category') && !request('material')) ? 'active' : '' }}">
+                    <a href="{{ route('products.index') }}" class="{{ (!request('category') && !request('material')) ? 'active' : '' }}">
                         สินค้าทั้งหมด
                     </a>
                 </li>
@@ -25,7 +35,7 @@
                         หมวดหมู่สินค้า <i class="bi bi-chevron-down caret-icon rotated"></i>
                     </button>
                     <div id="catCollapseMob" class="collapse show">
-                        <div class="collapse-wrapper ps-2 mt-2">
+                        <div class="collapse-wrapper mt-2">
                             <ul class="list-unstyled">
                                 @foreach($categories as $cat)
                                     <li class="mb-1">
@@ -45,7 +55,7 @@
                         วัสดุ <i class="bi bi-chevron-down caret-icon rotated"></i>
                     </button>
                     <div id="materialCollapseMob" class="collapse show">
-                        <div class="collapse-wrapper ps-2 mt-2">
+                        <div class="collapse-wrapper mt-2">
                             <ul class="list-unstyled">
                                 @php
                                     $materials = \App\Models\Product::select('base_material')->distinct()->pluck('base_material')->filter();
@@ -89,17 +99,17 @@
                     <ul class="list-unstyled">
                         <li class="sidebar-link">
                             <a href="{{ route('products.index') }}" 
-                               class="fs-6 fw-bold {{ (!request('category') && !request('material')) ? 'active' : '' }}">
+                               class=" {{(!request('category') && !request('material')) ? 'active' : '' }}">
                                 สินค้าทั้งหมด
                             </a>
                         </li>
                         <li class="filter-group">
-                            <button class="filter-toggle fs-6 {{ request('category') ? 'active-group' : '' }}" 
+                            <button class="filter-toggle {{ request('category') ? 'active-group' : '' }}" 
                                     data-bs-toggle="collapse" data-bs-target="#catCollapse">
                                 หมวดหมู่สินค้า <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
                             <div id="catCollapse" class="collapse show">
-                                <div class="collapse-wrapper ps-2 mt-2">
+                                <div class="collapse-wrapper mt-2">
                                     <ul class="list-unstyled">
                                         @foreach($categories as $cat)
                                             <li class="mb-1">
@@ -114,12 +124,12 @@
                             </div>
                         </li>
                         <li class="filter-group"> 
-                            <button class="filter-toggle fs-6 {{ request('material') ? 'active-group' : '' }}" 
+                            <button class="filter-toggle {{ request('material') ? 'active-group' : '' }}" 
                                     data-bs-toggle="collapse" data-bs-target="#materialCollapse">
                                 วัสดุ <i class="bi bi-chevron-down caret-icon rotated"></i>
                             </button>
                             <div id="materialCollapse" class="collapse show">
-                                <div class="collapse-wrapper ps-2 mt-2">
+                                <div class="collapse-wrapper mt-2">
                                     <ul class="list-unstyled">
                                         @foreach($materials as $m)
                                             <li class="mb-1">
@@ -162,12 +172,12 @@
                 </div>
             </div>
 
-            <div class="d-none d-lg-flex align-items-center mb-3 gap-3">
+            <div class="d-none d-lg-flex align-items-center mb-3">
                 <div class="page-banner">
                     <h2>{{ $pageTitle }}</h2>
                 </div>
 
-                <div class="decor-blocks d-none d-md-flex ms-auto" style="margin-top: 28px;">
+                <div class="decor-blocks d-none d-md-flex ms-auto" style="margin-top: 25px;">
                     <span class="square"></span>
                     <span class="square"></span>
                     <span class="square"></span>

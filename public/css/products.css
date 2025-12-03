@@ -1,245 +1,225 @@
-/* variables */
+/* =========================================
+   1. GLOBAL VARIABLES & BASE STYLES
+   ========================================= */
 :root {
-  --bg-page: #f6efe5;
-  --panel-bg: #fff;
-  --accent: #fca311; 
-  --brown-dark: #4a2313; 
-  --tile-bg: #f8eedd; 
-  --hover-brown: #9C5504; 
+    --bg-page: #f6efe5;
+    --panel-bg: #fff;
+    --accent: #fca311; 
+    --brown-dark: #4a2313; 
+    --tile-bg: #f8eedd; 
+    --hover-brown: #9C5504; 
 }
 
-/* page bg */
 .products-page {
-  background: var(--bg-page);
-  min-height: 80vh;
-  color: #2f2f2f;
+    background: var(--bg-page);
+    min-height: 80vh;
+    color: #2f2f2f;
 }
 
-/* sidebar styling */
+/* =========================================
+   2. SIDEBAR STYLES (Global)
+   ========================================= */
 .sidebar-card {
-  background: var(--panel-bg);
-  border-radius: 12px;
-  padding: 0; 
-  min-height: 320px;
-  position: sticky;
-  top: 90px;
-  overflow: hidden; 
+    background: var(--panel-bg);
+    border-radius: 12px;
+    padding: 0; 
+    min-height: 320px;
+    position: sticky;
+    top: 90px;
+    overflow: hidden; 
 }
-.sidebar-logo { height: 85px; width: auto; border-radius: 8px; }
-.sidebar-header { padding: 18px 18px 0 18px; }
-.sidebar-header h5 { font-weight: 700; color: #000000; font-size: 1.6rem; letter-spacing: 0.5px; margin-left: 20px; }   
-.sidebar-divider { border: 0; height: 1px; background-color: #eee; opacity: 0.8; margin-left: 18px; margin-right: 18px; }
-.sidebar-body { padding-bottom: 18px; }
-.sidebar-body a { color: var(--brown-dark); text-decoration: none; display: block; padding: 6px 18px; transition: all .12s ease; font-weight: 300; border-radius: 0; font-size: 1rem; }
-.sidebar-body a:hover, .sidebar-body a.active { color: #fff; background-color: var(--hover-brown); box-shadow: 0 6px 14px rgba(156, 85, 4, 0.12); }
 
-/* filter toggle */
-.filter-toggle {
-  width: 100%; text-align: left; background: transparent; border: none; padding: 6px 18px; font-weight: 600; color: var(--brown-dark); font-size: 1rem; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: none !important; background-color: transparent !important; border-color: transparent !important; border-radius: 0; transition: all .12s ease;
+.sidebar-header { padding: 40px 18px 0 18px; }
+
+/* ✅ Sidebar Title & Logo */
+.sidebar-logo {
+    width: 64.42px !important;
+    height: 64.42px !important;
+    object-fit: contain;
 }
-.filter-toggle:focus, .filter-toggle:active { box-shadow: none !important; background-color: transparent !important; border-color: transparent !important; color: var(--brown-dark) !important; }
-.filter-toggle:hover, .filter-toggle.active-group { background-color: var(--hover-brown) !important; color: #fff !important; }
+.sidebar-header h5 {
+    font-weight: 700; color: #000000;
+    font-size: 25px !important; letter-spacing: 0.5px;
+    margin-left: 5px !important;
+}
+
+.sidebar-divider { border: 0; height: 1px; background-color: #eee; opacity: 0.8; margin: 0 18px; }
+
+/* ✅ Sidebar Body & Lists (No Padding) */
+.sidebar-body { padding: 0 0 18px 0 !important; }
+.sidebar-body ul { padding-left: 0 !important; margin-left: 0 !important; }
+
+/* ✅ Menu Links (Main) */
+.sidebar-link a, .filter-toggle {       
+    color: var(--brown-dark);
+    text-decoration: none;
+    display: block; 
+    padding: 6px 18px; 
+    transition: all .12s ease;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    width: 100%;
+}
+
+/* ✅ Sub Menu Links (Clear Gaps & Indent) */
+.collapse-wrapper {
+    margin-top: 0 !important; /* ลบช่องว่างบน */
+    padding-top: 0 !important;
+}
+.collapse-wrapper li {
+    margin-bottom: 0 !important; /* ลบช่องว่างระหว่างเมนู */
+}
+.collapse-wrapper a {
+    color: var(--brown-dark);
+    text-decoration: none;
+    display: block;
+    padding: 8px 18px 8px 30px !important; /* Indent */
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Sidebar States */
+.sidebar-body a:hover, 
+.sidebar-body a.active,
+.filter-toggle:hover, 
+.filter-toggle.active-group { 
+    color: #fff !important; 
+    background-color: var(--hover-brown) !important; 
+}
 .filter-toggle:hover .caret-icon, .filter-toggle.active-group .caret-icon { color: #fff !important; }
-.sidebar-body .collapse > .list-unstyled { padding-left: 30px !important; padding-right: 18px; margin-top: 4px; }
-.filter-toggle .caret-icon { transition: transform .25s ease; font-size: 0.9rem; color: var(--brown-dark); }
+
+.filter-toggle { 
+    width: 100%; text-align: left; background: transparent; border: none; 
+    display: flex; justify-content: space-between; align-items: center; 
+}
+.filter-toggle .caret-icon { font-size: 1rem; transition: transform .25s ease; color: #000000 !important; }
 .filter-toggle .caret-icon.rotated { transform: rotate(180deg); }
 
-/* [DESKTOP BANNER] */
-.page-banner {
-    background: var(--brown-dark);
-    color: #fff;
-    padding: 50px 40px;
-    border-radius: 8px;
-    min-width: 1400px;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
-    margin-top: 27px; 
-}
-.page-banner h2 {
-  margin: 0;
-  font-weight: 800;
-  color: var(--accent);
-  font-size: 2rem;
-  letter-spacing: 0.6px;
-}
 
-/* decorative blocks */
-.decor-blocks .square {
-    display: inline-block;
-    width: 39px;
-    height: 137px;
-    background: #4A2313;
-    margin-left: 8px;
-    border-radius: 6px;
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
-}
-
+/* =========================================
+   3. PRODUCT CARD STYLES (Global)
+   ========================================= */
 .cards-wrapper { border-radius: 12px; }
 
-/* [PRODUCT CARD MAIN LAYOUT] */
 .product-card { 
     background: transparent; 
     border-radius: 12px; 
     overflow: visible; 
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-    justify-content: flex-start;
-    margin-bottom: 10px;
-    height: 100%;
+    display: flex; flex-direction: column; align-items: center; 
+    margin-bottom: 10px; height: 100%; 
 }
 
-/* =====================================================
-   [DESKTOP SETTINGS] 
-   ค่า Manual สำหรับ Desktop (ที่คุณกำหนดเอง)
-   ===================================================== */
-
-/* 1. Container */
+/* ✅ Image Container & Size */
 .product-image-container {
-    position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1; 
-    margin-bottom: 15px; 
+    height: 240px; 
+    aspect-ratio: auto !important; 
+    display: flex; justify-content: center; align-items: center;
+    position: relative; margin-bottom: 15px;
 }
 
-/* 2. Background Box (Desktop) */
+/* ✅ Box & Image Fixed Size (205x214) */
 .bg-shape {
-    position: absolute;
-    z-index: 1;
-    /* Desktop Manual Values */
-    top: 50px;
-    left: 20px;
-    width: 89%;
-    height: 83%;
-    
-    background-color: #FFECCF;
-    border-radius: 12px;
+    width: 240px !important; height: 250px !important;
+    position: absolute; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    background-color: #FFECCF; border-radius: 12px;
     box-shadow: inset 0px 10px 5px rgba(0, 0, 0, 0.1), 0 10px 18px rgba(0, 0, 0, 0.06);
-    transition: all 0.3s ease-in-out;
+    z-index: 1;
 }
-
-/* 3. Image Object (Desktop) */
 .product-img-obj {
-    position: absolute;
-    z-index: 2;
-    /* Desktop Manual Values */
-    top: 57%;
-    left: 54%;
-    width: 100%;
-    height: 90%;
-    
-    transform: translate(-50%, -50%);
-    object-fit: contain;
-    transition: transform 0.3s ease;
+    width: 240px !important; height: 250px !important;
+    position: absolute; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: contain; z-index: 2; transition: transform 0.3s ease;
 }
 
-/* Hover Effects (เฉพาะ Desktop ที่หน้าจอใหญ่กว่า 992px) */
-@media (min-width: 992px) {
-    .product-card:hover .product-img-obj {
-        transform: translate(-50%, -50%) scale(1.1); 
-    }
-}
-
-/* [TEXT STYLING] */
+/* ✅ Product Title */
 .product-title { 
-    margin-top: 0; 
-    font-weight: 600; 
-    color: #3b2f2f; 
-    text-align: center;
-    width: 100%;
-    line-height: 1.3;
-    padding: 0 5px;
+    margin-top: 0; font-weight: 600; text-align: center; width: 100%; line-height: 1.3; padding: 0 5px; 
 }
 .product-title a { 
-    color: #706e6e; /* สีเทาตามที่คุณต้องการ */
-    text-decoration: none; 
-    padding: 10px; 
-    font-size: 1rem; /* Desktop: ขนาดปกติ (ประมาณ 16px) */
-    display: block;
-    font-weight: lighter;
-    
-    transition: color 0.2s ease; /* (แถม) เพิ่ม Transition ให้เปลี่ยนสีนุ่มๆ ตอน Hover */
+    color: #3b2f2f; text-decoration: none; padding: 5px 0; 
+    font-size: 17px !important; font-weight: 400 !important;
+    display: block; transition: color 0.2s ease; 
 }
-/* .gap-3 { gap: 0 !important; } */
+
+
+/* =========================================
+   4. DESKTOP SPECIFIC (992px+)
+   ========================================= */
+@media (min-width: 992px) {
+    /* Hover Effect */
+    .product-card:hover .product-img-obj {
+        transform: translate(-50%, -50%) scale(1.1) !important; 
+    }
+
+    /* Sidebar Layout (Fixed 335px) */
+    aside.col-lg-3 {
+        flex: 0 0 335px !important;
+        max-width: 335px !important;
+        width: 335px !important;
+    }
+    .sidebar-card { width: 100% !important; }
+    
+    section.col-lg-9 {
+        flex: 1 !important; width: auto !important; padding-left: 30px !important;
+    }
+    
+    /* Banner */
+    .page-banner {
+        background: #4F200D; color: #fff; padding: 40px 40px; height: 127px; border-radius: 8px; min-width: 1320px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06); margin-top: 27px; 
+    }
+    .page-banner h2 { margin: 0; font-weight: 800; color: var(--accent); font-size: 36px; font-weight: 400; letter-spacing: 0.6px; }
+    .decor-blocks .square { display: inline-block; width: 58px; height: 127px; background: #4F200D; margin-left: 8px; border-radius: 8px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08); }
+    
+}
 
 @media (min-width: 1200px) {
   .col-xl-2-5 { flex: 0 0 20%; max-width: 20%; }
 }
 
-/* ============================
-   📱 RESPONSIVE (Mobile & Tablet)
-   ============================ */
 
+/* =========================================
+   5. MOBILE & TABLET (Responsive)
+   ========================================= */
 @media (max-width: 991.98px) {
-    /* ... Styles เดิม ... */
     .bg-light-mobile { background-color: #f8f9fa; }
     .mobile-page-banner { background: var(--brown-dark); color: #fff; width: 100%; padding: 20px 0; text-align: center; }
     .mobile-page-banner h2 { margin: 0; font-weight: 800; color: var(--accent); font-size: 1.5rem; letter-spacing: 0.6px; }
     .mobile-header-section { margin-left: calc(-.5 * var(--bs-gutter-x)); margin-right: calc(-.5 * var(--bs-gutter-x)); }
     .mobile-filter-bar { background-color: #f4efe8; padding: 10px 15px; border-bottom: 1px solid #e0e0e0; }
     .mobile-filter-bar button { color: #333; font-weight: 600; font-size: 1rem; background: transparent; border: none; }
-    .mobile-filter-bar button:focus { box-shadow: none; }
-    /* .offcanvas { max-width: 80%; } */
-    .cards-wrapper { box-shadow: none !important; padding: 20px 25px !important; }
+    .cards-wrapper { box-shadow: none !important; padding: 20px 10px !important; }
     .decor-blocks { display: none !important; }
+
+    /* ✅ Offcanvas (Mobile Sidebar) Styles */
+    .offcanvas-header { background-color: #fff; padding: 1rem 1.5rem; border-bottom: 1px solid #eee; }
+    .mobile-sidebar-logo { width: 50px !important; height: 50px !important; object-fit: contain; margin-right: 0; }
+    .offcanvas-title { font-size: 1.5rem !important; }
+    
+    /* Product Title Font Size (Tablet/Mobile) */
+    .product-title a { font-size: 15px !important; padding: 15px 0; }
 }
 
-/* ============================
-   📱 MOBILE SPECIFIC SETTINGS 
-   (สำหรับหน้าจอเล็กกว่า 576px)
-   ============================ */
-/* ============================
-   📱 MOBILE SPECIFIC SETTINGS 
-   (สำหรับหน้าจอเล็กกว่า 576px)
-   ============================ */
+
+/* =========================================
+   6. SMALL MOBILE Specific (< 576px)
+   ========================================= */
 @media (max-width: 575.98px) {
     .product-card { margin-bottom: 10px; }
-    .products-page .row.g-3 { --bs-gutter-x: -0.25rem; --bs-gutter-y: -0.25rem; }
+    
+    /* Reset Container */
+    .product-image-container { margin-bottom: 0 !important; height: auto !important; aspect-ratio: 1/1 !important; }
 
-    /* [NEW] 1. ลบระยะห่างก้นกล่อง Container รูปภาพทิ้ง (เพราะ Box ข้างในมันเล็กอยู่แล้ว) */
-    .product-image-container {
-        margin-bottom: 0 !important;
-    }
-
-    /* 2. ปรับ Box ให้เล็กลง (เหลือ 75%) */
-    .bg-shape {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        height: 85%;
-    }
-
-    /* 3. ปรับรูปให้เด่น (100%) */
-    .product-img-obj {
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 90%;
-        height: 100%;
+    /* ✅ ปรับรูปและกล่องให้เล็กลงตามสัดส่วน (90%) */
+    .bg-shape, .product-img-obj {
+        width: 90% !important;
+        height: 90% !important;
     }
     
-    /* ยกเลิก Hover */
-    .product-card:hover .product-img-obj,
-    .product-card:active .product-img-obj {
-        transform: translate(-50%, -50%) scale(1) !important; 
-    }
-
-    /* [NEW] 4. ดึง Text ขึ้นไปหา Box (ใช้ค่าติดลบ) */
     .product-title { 
-        font-size: 0.8rem; 
-        
-        /* ปรับตรงนี้: ดึงขึ้นไปข้างบน -10px ถึง -15px ลองปรับดูให้พอดีตา */
-        margin-top: -12px; 
-        
-        margin-bottom: 10px; 
-        padding: 0 5px; 
-        position: relative;
-        z-index: 3; /* ให้แน่ใจว่า Text ไม่โดนรูปบังถ้าดึงขึ้นไปเยอะ */
-    }
-    .product-title a { 
-        font-size: 0.9rem; /* Mobile: ลดขนาดตัวหนังสือลง (ประมาณ 13-14px) */
-        padding: 10px 0;     /* Mobile: ลดระยะห่างบนล่าง เพื่อไม่ให้กินที่ */
-        
-        font-weight: lighter; 
+        font-size: 0.8rem; margin-top: -10px; position: relative; z-index: 3;
     }
 }
