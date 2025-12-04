@@ -78,34 +78,104 @@
                 <div class="col-lg-7">
                     <h1 class="product-title mb-4">{{ $product->name }}</h1>
 
-                    {{-- Info Table --}}
                     <table class="table product-info-table">
                         <tbody>
                             <tr>
                                 <td class="label">วัสดุ :</td>
-                                <td class="value">@if($product->materials->isNotEmpty()) {{ $product->materials->first()->material_name }} (หนา {{ $product->materials->first()->thickness }}) @else - @endif</td>
+                                <td class="value">
+                                    @if($product->materials->isNotEmpty()) 
+                                        {{ $product->materials->first()->material_name }} 
+                                        @if(!empty($product->materials->first()->thickness) && $product->materials->first()->thickness != '-')
+                                            (หนา {{ $product->materials->first()->thickness }}) 
+                                        @endif
+                                    @else 
+                                        - 
+                                    @endif
+                                </td>
                             </tr>
                             
                             @if($product->sizes->isNotEmpty())
                             <tr>
                                 <td class="label">ขนาด :</td>
                                 <td class="value">
-                                    @if($product->sizes->first()->note)
-                                        <div class="text-dark" style="line-height: 1.6;">
-                                            {{ $product->sizes->first()->note }}
-                                        </div>
-                                        <div class="d-none">
-                                             @foreach($product->sizes as $key => $size)
-                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }}" data-group="size-group" onclick="selectSize(this, {{ $size->id }})">{{ $size->size_name }}</button>
-                                            @endforeach
-                                        </div>
+                                    @php
+                                        $firstSize = $product->sizes->first();
+                                        $hasNote = !empty($firstSize->note);
+                                        $countSizes = $product->sizes->count();
+                                        $shouldHideButtons = ($countSizes === 1 && $hasNote);
+                                        $isStandee = ($product->id == 13);
+                                    @endphp
+
+                                    @if($isStandee)
+                                        {{-- สแตนดี้: ปุ่มขึ้นก่อน --}}
+                                        @if(!$shouldHideButtons)
+                                            <div class="d-inline-flex gap-2 flex-wrap" id="size-group" style="vertical-align: top;">
+                                                @foreach($product->sizes as $key => $size)
+                                                    <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
+                                                            data-group="size-group" 
+                                                            onclick="selectSize(this, {{ $size->id }})">
+                                                        {{ $size->size_name }}
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        @endif
+
+                                        @if($hasNote)
+                                            <div class="text-dark mt-1" style="line-height: 1.6; font-size: 0.95rem;">
+                                                {{ $firstSize->note }}
+                                            </div>
+                                        @endif
                                     @else
-                                        <div class="d-flex gap-2 flex-wrap" id="size-group">
-                                            @foreach($product->sizes as $key => $size)
-                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" data-group="size-group" onclick="selectSize(this, {{ $size->id }})">{{ $size->size_name }}</button>
-                                            @endforeach
-                                        </div>
+                                        {{-- ทั่วไป: Note ขึ้นก่อน --}}
+                                        @if($hasNote)
+                                            <span class="text-dark" style="line-height: 1.6; display: inline-block; margin-bottom: 5px;"> 
+                                                {{ $firstSize->note }}
+                                            </span>
+                                            @if(!$shouldHideButtons) <br> @endif
+                                        @endif
+
+                                        @if(!$shouldHideButtons)
+                                            <div class="d-inline-flex gap-2 flex-wrap" id="size-group">
+                                                @foreach($product->sizes as $key => $size)
+                                                    <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
+                                                            data-group="size-group" 
+                                                            onclick="selectSize(this, {{ $size->id }})">
+                                                        {{ $size->size_name }}
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                        @endif
                                     @endif
+                                </td>
+                            </tr>
+                            @endif
+                            
+                            @if($product->thickness_option)
+                            <tr>
+                                <td class="label">ความหนา :</td>
+                                <td class="value">{{ $product->thickness_option }}</td>
+                            </tr>
+                            @endif
+
+                            @if($product->backside_printing_text)
+                            <tr>
+                                <td class="label">การพิมพ์ด้านหลัง :</td>
+                                <td class="value">{{ $product->backside_printing_text }}</td>
+                            </tr>
+                            @endif
+
+                            @if($product->paper_option_text)
+                            <tr>
+                                <td class="label">กระดาษรอง :</td>
+                                <td class="value">{!! nl2br(e($product->paper_option_text)) !!}</td>
+                            </tr>
+                            @endif
+
+                            @if($product->free_sample_text)
+                            <tr>
+                                <td class="label" style="color: #000;">ตัวอย่างสินค้า :</td>
+                                <td class="value" style="color: #333;">
+                                    <i class=""></i> {{ $product->free_sample_text }}
                                 </td>
                             </tr>
                             @endif
@@ -120,10 +190,23 @@
                             <tr><td class="label">ระยะเวลาผลิต :</td><td class="value">{{ $product->production_time }}</td></tr>
                             
                             @if($product->printings->isNotEmpty())
-                                @if($product->printings->first()->color_type)
-                                <tr><td class="label">จำนวนสี :</td><td class="value">{{ $product->printings->first()->color_type }}</td></tr>
-                                @endif
                                 
+                                {{-- 1. จำนวนสี (แยกออกมาเช็คต่างหาก) --}}
+                                @if(!empty($product->printings->first()->color_type))
+                                <tr>
+                                    <td class="label">จำนวนสี :</td>
+                                    <td class="value">{{ $product->printings->first()->color_type }}</td>
+                                </tr>
+                                @endif
+
+                                {{-- 2. ปุ่มเลือกการสกรีน (กรองเฉพาะที่มีชื่อ) --}}
+                                @php
+                                    $validPrintings = $product->printings->filter(function($p) {
+                                        return !empty(trim($p->printing_type)); 
+                                    });
+                                @endphp
+
+                                @if($validPrintings->isNotEmpty())
                                 <tr>
                                     <td class="label">
                                         การสกรีน 
@@ -133,10 +216,10 @@
                                         :
                                     </td>
                                     <td class="value">
-                                        <span id="printing-note">{{ $product->printings->first()->note ?? '-' }}</span>
+                                        <span id="printing-note">{{ $validPrintings->first()->note ?? '-' }}</span>
                                         <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
-                                            @foreach($product->printings as $key => $printing)
-                                                <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
+                                            @foreach($validPrintings as $key => $printing)
+                                                <button class="btn btn-spec {{ $loop->first ? 'active' : '' }} mb-1" 
                                                         data-group="screen-group" 
                                                         data-table-id="price-table-{{ $printing->id }}" 
                                                         data-note="{{ $printing->note ?? '-' }}" 
@@ -148,16 +231,10 @@
                                         </div>
                                     </td>
                                 </tr>
+                                @endif
+
                             @endif
 
-                            @if($product->free_sample_text)
-                            <tr>
-                                <td class="label" style="color: #000;">ตัวอย่างสินค้า :</td>
-                                <td class="value" style="color: #333;">
-                                    <i class=""></i> {{ $product->free_sample_text }}
-                                </td>
-                            </tr>
-                            @endif
                         </tbody>
                     </table>
                     
@@ -186,10 +263,10 @@
                                         <td class="fw-bold bg-light">{{ number_format($qty) }}</td>
                                         @forelse($product->sizes as $size)
                                             @php $price = $product->prices->where('product_printing_id', $printing->id)->where('product_size_id', $size->id)->where('quantity_min', $qty)->first(); @endphp
-                                            <td class="size-col">{{ $price ? number_format($price->price_per_unit) : '-' }}</td>
+                                            <td class="size-col">{{ ($price && $price->price_per_unit > 0) ? number_format($price->price_per_unit) : '-' }}</td>
                                         @empty
                                             @php $price = $product->prices->where('quantity_min', $qty)->first(); @endphp
-                                            <td class="size-col">{{ $price ? number_format($price->price_per_unit) : '-' }}</td>
+                                            <td class="size-col">{{ ($price && $price->price_per_unit > 0) ? number_format($price->price_per_unit) : '-' }}</td>
                                         @endforelse
                                     </tr>
                                     @endforeach
@@ -198,7 +275,7 @@
                         </div>
                         @endforeach
                     </div>
-                    <div class="price-notes mt-4 text-secondary" style="font-size: 0.85rem; line-height: 1.6;">
+                    <div class="price-notes mt-4 text-secondary" style="font-size: 11px; line-height: 1.6;">
                         <p class="mb-1">1) ราคานี้เป็นราคาผลิตต่อหน่วย ไม่ใช่ราคารวมสินค้า</p>
                         <p class="mb-1">2) ราคานี้รวมค่าบรรจุใส่ถุง และฟรีค่าจัดส่งเมื่อสั่งซื้อตั้งแต่ 1,000 บาทขึ้นไป กรณียอดการสั่งซื้อน้อยกว่า 500 บาทจะมีค่าจัดส่ง 50 บาท</p>
                         <p class="mb-1">3) หากสินค้าที่ท่านสั่งผลิตมีจำนวนมากก็จะได้ราคาถูกมากขึ้นและทางเราจะส่งสินค้าตัวอย่างให้ตรวจสอบก่อนผลิตจริงฟรี</p>
@@ -258,8 +335,11 @@
                             <tr><td class="bg-light fw-bold">ขนาด</td><td id="res_size">-</td></tr>
                             <tr><td class="bg-light fw-bold">การสกรีน</td><td id="res_print">-</td></tr>
                             <tr>
+                            <tr id="row_part_result">
                                 <td class="bg-light fw-bold align-middle">ส่วนประกอบเพิ่มเติม</td>
-                                <td class="text-center">
+                                
+                                {{-- ✅ เติม id="part_result_cell" ตรงนี้ --}}
+                                <td id="part_result_cell"> 
                                     <div id="res_part_img_div" style="display:none; width: 50px; height: 50px; margin: 0 auto 5px auto;">
                                         <img id="res_part_img" src="" style="width:100%; height:100%; object-fit:contain;">
                                     </div>
@@ -404,23 +484,28 @@
             document.getElementById('res_qty').innerText = data.quantity;
 
             if(data.part_info) {
+                // ✅ เพิ่ม 2 บรรทัดนี้: เพื่อ Reset ค่ากลับมาแสดงผลปกติ (ตรงกลาง)
+                document.getElementById('part_result_cell').style.textAlign = 'center';
+                document.getElementById('row_part_result').style.display = 'table-row';
+
                 document.getElementById('res_part_name').innerText = data.part_info.name;
 
                 if(data.part_info.image) {
-                    // ✅ 1. กำหนด Path ใหม่ตามที่คุณต้องการ
                     var customPath = "{{ asset('/images/jp-attachments/attachments/') }}";
-                    
-                    // ✅ 2. ตัดเอา "เฉพาะชื่อไฟล์" จาก Database (แก้ปัญหา Path ซ้อนกัน)
-                    // สมมติ DB ส่งมา: "images/Hotmobilyfile/icon.png" -> เราจะตัดเอาแค่ "icon.png"
                     var filename = data.part_info.image.split('/').pop();
-
-                    // ✅ 3. รวมร่าง: Path ใหม่ + ชื่อไฟล์
-                    document.getElementById('res_part_img').src = customPath + '/' + filename;
                     
+                    document.getElementById('res_part_img').src = customPath + '/' + filename;
                     document.getElementById('res_part_img_div').style.display = 'block';
                 } else {
                     document.getElementById('res_part_img_div').style.display = 'none';
                 }
+            } else {
+                // ✅ กรณีไม่มีของ: สั่งชิดซ้าย
+                document.getElementById('row_part_result').style.display = 'table-row'; 
+                document.getElementById('res_part_name').innerText = '-';
+                document.getElementById('res_part_img_div').style.display = 'none';
+                
+                document.getElementById('part_result_cell').style.textAlign = 'left';
             }
 
             document.getElementById('res_product_price').innerText = data.total_product_price;
