@@ -169,7 +169,18 @@
     
     /* Banner */
     .page-banner {
-        background: #4F200D; color: #fff; padding: 40px 40px; height: 127px; border-radius: 8px; min-width: 1320px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06); margin-top: 27px; 
+        background: #4F200D; 
+        color: #fff; 
+        padding: 40px 40px; 
+        height: 127px; 
+        border-radius: 8px; 
+        
+        /* ✅ แก้ตรงนี้ครับ */
+        width: 100% !important; 
+        min-width: auto !important; /* ยกเลิกค่าขั้นต่ำ */
+        
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06); 
+        margin-top: 27px; 
     }
     .page-banner h2 { margin: 0; font-weight: 800; color: var(--accent); font-size: 36px; font-weight: 400; letter-spacing: 0.6px; }
     .decor-blocks .square { display: inline-block; width: 58px; height: 127px; background: #4F200D; margin-left: 8px; border-radius: 8px; box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08); }

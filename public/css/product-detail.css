@@ -40,16 +40,116 @@ body { background-color: var(--bg-page); font-family: 'MyPromptFont', sans-serif
 /* ============================
    4. Product Info & Specs
 ============================ */
-h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight: 300; text-align: left; }
-.product-info-table { border-collapse: separate; border-spacing: 0 0.5rem; width: 100%; table-layout: fixed; }
-.product-info-table td { border: none; padding: 0.25rem 0; vertical-align: top; }
-.product-info-table .label { width: 130px; min-width: 130px; color: #000; font-weight: 700; font-size: 1rem; white-space: nowrap; }
-.product-info-table .value { color: #333; font-size: 1rem; line-height: 1.5; word-wrap: break-word; }
+h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 400; text-align: left; margin-left: -5px; }
 
-.btn-spec { background-color: #EAEAEA; color: #333; border: 1px solid transparent; padding: 6px 16px; border-radius: 12px; font-size: 0.9rem; font-weight: 500; transition: all 0.2s ease; cursor: pointer; margin-bottom: 0 !important; }
+/* 1. แปลงตารางให้เป็น Block ธรรมดา */
+.product-info-table { 
+    display: block; 
+    width: 100%; 
+}
+
+.product-info-table tbody { 
+    display: block; 
+}
+
+/* 2. ให้แต่ละแถว (tr) เป็นเหมือนย่อหน้า (Paragraph) */
+.product-info-table tr { 
+    display: block;         /* เป็นกล่องแยกบรรทัด */
+    margin-bottom: 8px;     /* ระยะห่างระหว่างหัวข้อ */
+}
+
+/* 3. สำคัญที่สุด: ให้ td ทั้งสองตัวเรียงต่อกันเป็นเนื้อเดียว */
+.product-info-table td { 
+    display: inline;        /* ✅ ทำให้ Label และ Value ไหลต่อกันเหมือน Text ปกติ */
+    border: none; 
+    padding: 0;
+    vertical-align: baseline;
+}
+
+/* 4. ปรับหัวข้อ */
+.product-info-table .label { 
+    font-weight: 700; 
+    color: #000; 
+    font-size: 16px; 
+    padding-right: 5px;     /* เว้นระยะจาก : นิดนึง */
+    
+    width: auto !important; /* ยกเลิกความกว้างตายตัว */
+    min-width: 0 !important;
+}
+
+/* 5. ปรับข้อมูล */
+.product-info-table .value { 
+    color: #333; 
+    font-size: 1rem; 
+    line-height: 1.6;       /* ระยะห่างบรรทัดให้อ่านง่าย */
+    word-wrap: break-word; 
+}
+
+.product-info-table .value .d-flex {
+    display: inline-flex !important; /* ✨ หัวใจสำคัญคือตรงนี้ */
+    flex-wrap: wrap; 
+    align-items: center; 
+    gap: 10px;
+    vertical-align: middle; /* จัดให้ตรงกับแนวตัวหนังสือ */
+    margin-top: -2px;       /* ปรับละเอียดให้ตรงบรรทัด */
+}
+
+.btn-spec { 
+    font-size: 16px !important;       /* ✅ บังคับฟอนต์ 16px */
+    white-space: nowrap !important;   /* ✅ ห้ามตัดบรรทัด (ยาวต่อกันเลย) */
+    
+    display: inline-flex !important;  /* ใช้ Flex จัดข้อความให้อยู่กลางปุ่ม */
+    justify-content: center;
+    align-items: center;
+    padding: 0 !important;            /* ลบ Padding เดิมทิ้ง เพราะเราจะ Fix ขนาด */
+    
+    background-color: #EAEAEA; 
+    color: #333; 
+    border: 1px solid transparent; 
+    border-radius: 12px; 
+    font-weight: 400 !important; 
+    transition: all 0.2s ease; 
+    cursor: pointer; 
+    margin-bottom: 0 !important; 
+}
+
 .btn-spec:hover { background-color: #dcdcdc; }
-.btn-spec.active { background-color: #FFC069; color: #000; border-color: transparent; font-weight: 500; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); transform: translateY(-1px); }
-#size-group, #screen-group { display: flex; flex-wrap: wrap; gap: 10px !important; }
+.btn-spec.active { background-color: #FFC069; color: #000; border-color: transparent; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); transform: translateY(-1px); }
+
+
+/* 2. กำหนดขนาดเฉพาะ "ปุ่มขนาด" (#size-group) */
+#size-group .btn-spec {
+    width: 109px !important;  /* ✅ กว้าง 109px */
+    height: 27px !important;  /* ✅ สูง 27px */
+}
+
+
+/* 3. กำหนดขนาดเฉพาะ "ปุ่มสกรีน" (#screen-group) */
+#screen-group .btn-spec {
+    width: 137px !important;  /* ✅ กว้าง 137px */
+    height: 27px !important;  /* ✅ สูง 27px */
+}
+
+
+/* ... (โค้ด Container Groups คงเดิม) ... */
+#size-group {
+    display: inline-flex !important;
+    flex-wrap: wrap;
+    gap: 10px !important;
+    width: auto;
+    vertical-align: middle;
+}
+
+#screen-group {
+    display: flex !important;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 10px !important;
+    margin-top: 12px;
+    align-items: flex-start !important;
+    vertical-align: baseline !important;
+    margin-left: 50px !important; /* ระยะห่างซ้ายที่คุณตั้งไว้ */
+}
 
 /* ============================
    5. Price Table (Clean Grid)
@@ -123,61 +223,88 @@ h1.product-title { font-size: 1.8rem; color: #000; line-height: 1.2; font-weight
 .glightbox-clean .gslide-description { background: transparent !important; color: #333 !important; }
 
 /* ============================
-   9. Responsive (< 991px)
+   9. Responsive (< 991px) (Tablet & Small Laptop)
 ============================ */
 @media (max-width: 991px) {
+    /* Gallery แนวนอน */
     .gallery-container { flex-direction: row; gap: 10px; }
     .thumbnails { width: 60px; padding-right: 0; }
     .thumb-item { padding: 3px; }
     .main-image-wrapper { width: calc(100% - 70px); margin-bottom: 0; }
-    .product-info-table .label { width: 110px; white-space: normal; font-size: 0.9rem; }
     
+    /* GLightbox */
     .glightbox-clean .gprev { left: 10px !important; }
     .glightbox-clean .gnext { right: 10px !important; }
     .glightbox-clean .gbtn { width: 35px !important; height: 35px !important; margin: 5px !important; }
     .glightbox-clean .gslide-description { display: none !important; }
 
-    /* ✅ แก้ไข Layout Parts Grid สำหรับ Mobile */
+    /* ✅ Parts Grid: แสดง 3 คอลัมน์ */
     .parts-grid {
-        grid-template-columns: repeat(3, 1fr) !important; /* แสดง 3 ช่อง */
-        gap: 10px !important; /* ลดช่องไฟ */
+        grid-template-columns: repeat(3, 1fr) !important; 
+        gap: 10px !important; 
     }
     
-    /* ✅ ปรับกล่องให้ยืดหยุ่น (ไม่ล็อค 149px) */
+    /* ✅ Part Box: ปลดล็อกขนาด 149px ให้ยืดหดตาม Grid */
     .part-box {
-        width: 100% !important; /* กว้างเต็มช่อง Grid */
+        width: 100% !important; 
         height: auto !important; 
-        aspect-ratio: 1 / 1;    /* บังคับสี่เหลี่ยมจัตุรัส */
-
+        aspect-ratio: 1 / 1;    
     }
 }
 
 /* ============================
-   10. Mobile Specific (< 576px)
+   10. Mobile Specific (< 576px) (Smartphones)
 ============================ */
 @media (max-width: 576px) {
+    /* Layout พื้นฐาน */
     body { background-color: #fff !important; }
     .product-detail-page { background-color: #fff; padding: 0 !important; }
     .product-detail-page .container { padding: 0; max-width: 100%; }
     .bg-white { box-shadow: none !important; border-radius: 0 !important; padding: 20px 15px !important; }
-    
-    .btn-spec { padding: 5px 12px; font-size: 0.85rem; margin-bottom: 5px; flex: 0 0 auto; }
+    .product-title { font-size: 1.4rem; margin-bottom: 1rem; padding-left: 15px; }
+
+    /* ✅ 1. แก้ไขปุ่ม (Unlock Fixed Size) */
+    /* ยกเลิกขนาดตายตัว 109px/137px เพื่อให้ปุ่มยืดหดตามหน้าจอมือถือได้ */
+    #size-group .btn-spec,
+    #screen-group .btn-spec {
+        width: auto !important;       /* ให้กว้างตามตัวหนังสือ */
+        min-width: 70px;              /* กว้างขั้นต่ำกันปุ่มลีบ */
+        height: 32px !important;      /* สูงพอดีนิ้ว */
+        padding: 0 12px !important;   /* ใส่ padding ด้านข้าง */
+        font-size: 0.85rem !important; /* ลดขนาดฟอนต์นิดหน่อย */
+    }
+
+    /* ✅ 2. จัดตำแหน่งกลุ่มปุ่มสกรีน */
+    #screen-group {
+        margin-left: 0 !important;    /* ❌ ลบ margin-left 50px ของ Desktop ทิ้ง */
+        justify-content: flex-start;  /* ชิดซ้ายปกติ */
+        margin-top: 8px;
+    }
     #size-group, #screen-group { gap: 8px !important; }
+
+    /* ✅ 3. Product Info Table (ปรับให้เข้ากับ Inline Flow) */
+    .product-info-table .label { 
+       width: auto !important;        /* ปล่อยอิสระ ไม่ฟิกซ์ขนาด */
+       padding-right: 5px !important; 
+       font-size: 16px; 
+    }
+    .product-info-table .value { 
+       font-size: 16px;
+       padding-left: 0; 
+    }
     
-    .product-info-table .label { width: 90px !important; min-width: 90px !important; font-size: 0.9rem; }
-    .product-info-table .value { padding-left: 5px; }
-    
+    /* Price Table Scrollable */
     .price-table.table-responsive { display: block; width: 100%; overflow-x: auto !important; margin-bottom: 15px; border-right: 1px solid #eee; border-radius: 0; }
     .price-table .table { width: auto !important; min-width: 100%; }
     .price-table .table th, .price-table .table td { white-space: nowrap !important; padding: 10px 15px; }
     
+    /* Action Buttons */
     .action-area .row { row-gap: 10px; }
-    .product-title { font-size: 1.4rem; margin-bottom: 1rem; padding-left: 15px; }
 }
 
+/* หน้าจอเล็กมากๆ */
 @media (max-width: 450px) {
-    /* หน้าจอเล็กมากก็ยัง 3 ช่อง แต่ลดช่องไฟลง */
     .parts-grid {
-        gap: 8px !important; 
+        gap: 8px !important; /* ลดช่องไฟอีกนิด */
     }
 }

@@ -76,7 +76,7 @@
 
                 {{-- RIGHT COLUMN: Info & Options --}}
                 <div class="col-lg-7">
-                    <h1 class="product-title fw-bold mb-4">{{ $product->name }}</h1>
+                    <h1 class="product-title mb-4">{{ $product->name }}</h1>
 
                     {{-- Info Table --}}
                     <table class="table product-info-table">
@@ -211,7 +211,7 @@
                     {{-- Parts --}}
                     @if($product->parts->isNotEmpty())
                     <div class="mt-5">
-                        <h3 class="fw-bold mb-4">ส่วนประกอบเพิ่มเติม</h3>
+                        <h3 class="mb-4">ส่วนประกอบเพิ่มเติม</h3>
                         <div class="row g-3 parts-grid">
                             @foreach($product->parts as $part)
                                 <div class="col-lg-3 col-md-3 col-4">
