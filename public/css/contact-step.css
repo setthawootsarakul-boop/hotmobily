@@ -14,7 +14,7 @@
   background-color: #F6F1E9; /* พื้นหลังสีเดียวกัน หรือเปลี่ยนได้ */
   padding: 4rem 0;
   position: relative;
-  padding-top: 98px;
+  padding-top: 80px;
   padding-bottom: 90px;  
     /* ✅ ปรับแก้ค่าตรงนี้ได้อิสระ ไม่กระทบอันเก่า */
   
@@ -29,7 +29,7 @@
   font-weight: 700;
   text-align: center;
   margin-bottom: 62px;
-  padding-top: 94px;
+  padding-top: 46px;
 
 }
 
@@ -102,7 +102,6 @@
     max-width: 300px;
     height: 130px;    
   }
-  
   /* ใช้ร่วมกัน */
   .cta-area .row,
   .steps-area .row { /* ✅ เพิ่มตรงนี้ */

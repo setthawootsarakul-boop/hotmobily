@@ -187,7 +187,7 @@
             <div class="cards-wrapper p-3 shadow-sm bg-white rounded mt-0 mt-lg-0">
                 <div class="row g-3">
                     @forelse($products as $product)
-                        <div class="col-6 col-md-4 col-xl-2-5">
+                        <div class="col-6 col-md-4 col-lg-3 col-xl-2-5">
                             <div class="product-card">
                                 @php
                                     $img = $product->images->first();

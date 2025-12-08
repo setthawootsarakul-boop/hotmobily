@@ -119,7 +119,7 @@
     position: relative; margin-bottom: 15px;
 }
 
-/* ✅ Box & Image Fixed Size (205x214) */
+/* ✅ Box & Image Fixed Size (Default Desktop) */
 .bg-shape {
     width: 205px !important; height: 214px !important;
     position: absolute; top: 50% !important; left: 50% !important;
@@ -174,11 +174,8 @@
         padding: 40px 40px; 
         height: 127px; 
         border-radius: 8px; 
-        
-        /* ✅ แก้ตรงนี้ครับ */
         width: 100% !important; 
-        min-width: auto !important; /* ยกเลิกค่าขั้นต่ำ */
-        
+        min-width: auto !important; 
         box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06); 
         margin-top: 27px; 
     }
@@ -187,7 +184,38 @@
     
 }
 
-@media (min-width: 1200px) {
+/* =========================================
+   NEW! LAPTOP & SMALL DESKTOP (992px - 1400px)
+   ✅ เพิ่มส่วนนี้เพื่อรองรับจอ 15.6" (Scaling 125%)
+   ========================================= */
+@media (min-width: 992px) and (max-width: 1400px) {
+    /* ปรับ Sidebar ให้เล็กลงเพื่อให้เหลือพื้นที่ Content มากขึ้น */
+    aside.col-lg-3 {
+        flex: 0 0 280px !important; /* ลดจาก 335px */
+        max-width: 280px !important;
+        width: 280px !important;
+    }
+
+    section.col-lg-9 {
+        padding-left: 20px !important; /* ลดช่องว่างซ้าย */
+    }
+
+    /* ปรับขนาดรูปภาพสินค้าให้เล็กลงเล็กน้อย เพื่อไม่ให้เบียดกัน */
+    .product-image-container {
+        height: 220px; /* ลดความสูง container */
+    }
+    .bg-shape, .product-img-obj {
+        width: 200px !important; /* ลดจาก 240px */
+        height: 210px !important; /* ลดจาก 250px */
+    }
+
+    /* ปรับขนาดตัวหนังสือใน Sidebar ให้อ่านง่ายแต่ไม่กินที่ */
+    .sidebar-header h5 { font-size: 22px !important; }
+    .sidebar-link a, .filter-toggle { font-size: 16px !important; }
+    .collapse-wrapper a { font-size: 14px !important; }
+}
+
+@media (min-width: 1400px) {
   .col-xl-2-5 { flex: 0 0 20%; max-width: 20%; }
 }
 
