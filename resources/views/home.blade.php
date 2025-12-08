@@ -4,26 +4,48 @@
 
 @section('content')
 
-{{-- 
-    ✅ Hero Section 
-    - ปรับเป็น w-100 เพื่อให้พื้นหลังเต็มจอ
-    - ใช้ container-xxl เพื่อให้เนื้อหาข้างในกว้างพอดีกับจอ 1440px 
---}}
+{{-- 1️⃣ Import Swiper CSS & Custom CSS --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+{{-- เรียกใช้ hero.css (ถ้าใน layout เรียกอยู่แล้ว บรรทัดนี้ไม่ต้องใส่ก็ได้) --}}
+<link rel="stylesheet" href="{{ asset('css/hero.css') }}"> 
+
 <section class="hero-section position-relative w-100">
     <div class="container-xxl text-center text-lg-start h-100">
         <div class="row align-items-center h-100 pt-5 pb-5">
             
-            {{-- 🟡 รูปภาพหลัก (สไลด์อัตโนมัติ) --}}
+            {{-- 🟡 ฝั่งรูปภาพ (Image Column) --}}
             <div class="col-lg-6 text-center mt-4 mt-lg-0 order-1 order-lg-2 position-relative">
+                
+                {{-- 2️⃣ โครงสร้าง Swiper --}}
                 <div class="hero-img-container">
-                    <img id="heroImage" 
-                         src="{{ asset('images/Top page/T-keychain.png') }}" 
-                         alt="Hotmobily Product" 
-                         class="hero-img fade-effect">
+                    <div class="swiper myHeroSwiper">
+                        <div class="swiper-wrapper">
+                            {{-- Slide 1 --}}
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-keychain.png') }}" class="hero-img" alt="Keychain">
+                            </div>
+                            {{-- Slide 2 --}}
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-phonestand.png') }}" class="hero-img" alt="Phone Stand">
+                            </div>
+                            {{-- Slide 3 --}}
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-standee.png') }}" class="hero-img" alt="Standee">
+                            </div>
+                            {{-- Slide 4 --}}
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-griptok.png') }}" class="hero-img" alt="Griptok">
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+                {{-- ปุ่ม Dots (Pagination) --}}
+                <div class="custom-pagination"></div>
+
             </div>
 
-            {{-- 🟡 เนื้อหาข้อความ --}}
+            {{-- 🟡 ฝั่งเนื้อหาข้อความ --}}
             <div class="col-lg-6 order-2 order-lg-1">
                 <div class="hero-content-wrapper ps-lg-4">
                     <h1 class="display-4 mb-3 brand-highlight">Hotmobily</h1>
@@ -33,124 +55,57 @@
                     </p>
 
                     <div class="d-flex justify-content-lg-start justify-content-center gap-4 brand-features flex-wrap">
-                        
-                        {{-- 1. Box --}}
                         <div class="feature text-center">
                             <div class="icon-circle">
-                                {{-- ✅ เปลี่ยนเป็นรูปภาพ box.png --}}
                                 <img src="{{ asset('images/box.png') }}" alt="คุณภาพดี" class="feature-icon">
                             </div>
                             <p>คุณภาพดี</p>
                         </div>
-
-                        {{-- 2. Clock --}}
                         <div class="feature text-center">
                             <div class="icon-circle">
-                                {{-- ✅ เปลี่ยนเป็นรูปภาพ clock.png --}}
                                 <img src="{{ asset('images/clock.png') }}" alt="ส่งตรงเวลา" class="feature-icon">
                             </div>
                             <p>ส่งตรงเวลา</p>
                         </div>
-
-                        {{-- 3. Check --}}
                         <div class="feature text-center">
                             <div class="icon-circle">
-                                {{-- ✅ เปลี่ยนเป็นรูปภาพ check.png --}}
                                 <img src="{{ asset('images/check.png') }}" alt="สินค้าตามมาตรฐาน" class="feature-icon">
                             </div>
                             <p>สินค้าตามมาตรฐาน</p>
                         </div>
-
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-
-    {{-- 🔸 ปุ่มขีดเปลี่ยนรูป (Absolute Positioning) --}}
-    <div class="image-dots-wrapper text-center">
-        <div class="image-dots">
-            <span class="dot active" onclick="manualChange(0)"></span>
-            <span class="dot" onclick="manualChange(1)"></span>
-            <span class="dot" onclick="manualChange(2)"></span>
-            <span class="dot" onclick="manualChange(3)"></span>
-        </div>
-    </div>
 </section>
 
 {{-- ✅ include ส่วนอื่น --}}
-{{-- 
-    Note: ส่วน Partials เหล่านี้จะไหลต่อกันลงมา 
-    ความสูงรวมจะถึง 4554px ได้ขึ้นอยู่กับ Padding ภายใน Partials เหล่านี้ด้วย 
---}}
 @include('partials.why')
 @include('partials.steps')
 @include('partials.product-showcase')
 @include('partials.reviews')
 @include('partials.contact')
 
-{{-- 🔸 JavaScript --}}
+{{-- 3️⃣ Script ของ Swiper.js --}}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const images = [
-        "{{ asset('images/Top page/T-keychain.png') }}",
-        "{{ asset('images/Top page/T-phonestand.png') }}",
-        "{{ asset('images/Top page/T-standee.png') }}",
-        "{{ asset('images/Top page/T-griptok.png') }}"
-    ];
-
-    let currentIndex = 0;
-    const heroImage = document.getElementById('heroImage');
-    const dots = document.querySelectorAll('.dot');
-    let autoSlide;
-
-    // Preload images
-    images.forEach(src => {
-        const img = new Image();
-        img.src = src;
+    var swiper = new Swiper(".myHeroSwiper", {
+        spaceBetween: 0,        
+        centeredSlides: true,   
+        loop: true,             
+        speed: 1200,             
+        autoplay: {
+            delay: 3000,        
+            disableOnInteraction: false, 
+        },
+        pagination: {
+            el: ".custom-pagination", 
+            clickable: true,          
+        },
     });
-
-    function changeImage(index) {
-        heroImage.classList.remove('show');
-        
-        // รอจังหวะ fade out นิดนึงแล้วเปลี่ยนรูป
-        setTimeout(() => {
-            heroImage.src = images[index];
-            heroImage.classList.add('show');
-        }, 250);
-
-        dots.forEach(dot => dot.classList.remove('active'));
-        if(dots[index]) dots[index].classList.add('active');
-        currentIndex = index;
-    }
-
-    function nextImage() {
-        let nextIndex = (currentIndex + 1) % images.length;
-        changeImage(nextIndex);
-    }
-
-    function startAutoSlide() {
-        stopAutoSlide(); // Clear existing interval first
-        autoSlide = setInterval(nextImage, 3000); 
-    }
-
-    function stopAutoSlide() {
-        if(autoSlide) clearInterval(autoSlide);
-    }
-
-    window.manualChange = function(index) {
-        stopAutoSlide();
-        changeImage(index);
-        startAutoSlide();
-    }
-
-    // Init
-    if(heroImage) {
-        heroImage.classList.add('show');
-        startAutoSlide();
-    }
-});
 </script>
 
 @endsection

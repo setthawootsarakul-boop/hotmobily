@@ -73,32 +73,53 @@
     </div>
   </div>
 
-  <button type="button" class="btn btn-warning btn-back-to-top" id="btn-back-to-top">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">
-      <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>
-    </svg>
-  </button>
-
-</footer>
+<button type="button" class="btn-back-to-top" id="btn-back-to-top" aria-label="Back to Top">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/>
+  </svg>
+</button>
 
 <style>
   .btn-back-to-top {
     position: fixed;
     bottom: 30px;
     right: 30px;
-    display: none; /* ซ่อนไว้ก่อน */
-    z-index: 9999; /* อยู่บนสุด */
-    border-radius: 50%; /* ปุ่มกลม */
+    z-index: 9999;
+    
     width: 50px;
     height: 50px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    color: #333; /* สีไอคอน */
-    transition: transform 0.3s ease;
+    border-radius: 50%;
+    border: none;
+    
+    /* สีพื้นหลังแบบไล่เฉด (Modern Gradient) เข้ากับธีมสีส้ม/เหลือง */
+    background: linear-gradient(135deg, #ffc107, #fbab00);
+    color: #fff;
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px); /* ดันลงไปข้างล่างนิดหน่อยตอนซ่อน */
+    
+    /* Animation Settings */
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* เด้งดึ๋งนิดๆ */
+    cursor: pointer;
   }
 
-  .btn-back-to-top:hover {
-    transform: translateY(-5px); /* ขยับขึ้นเล็กน้อยเมื่อชี้ */
-    color: #000;
+  /* สถานะตอนโชว์ (Class นี้จะถูกใส่ด้วย JS) */
+  .btn-back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  
+  /* Active Effect (ตอนกด) */
+  .btn-back-to-top:active {
+    transform: scale(0.95);
   }
 </style>
 
@@ -112,11 +133,11 @@
   };
 
   function scrollFunction() {
-    // ถ้าเลื่อนลงมามากกว่า 300px ให้แสดงปุ่ม
+    // ถ้าเลื่อนลงมามากกว่า 300px ให้ใส่ class "show" เพื่อ Fade In
     if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-      mybutton.style.display = "block";
+      mybutton.classList.add("show");
     } else {
-      mybutton.style.display = "none";
+      mybutton.classList.remove("show");
     }
   }
 

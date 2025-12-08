@@ -243,11 +243,7 @@ body {
 
   .navbar .nav-link.dropdown-toggle::after { display: none !important; }
   .navbar .caret-icon {
-    transition: transform 0.3s ease;
-    font-size: 0.75rem;
-    font-weight: bold;
-    margin-left: 0.4rem;
-    display: inline-block;
+    display: none !important; /* <--- ปิดการแสดงผล */
   }
   .navbar .nav-item.show .caret-icon,
   .navbar .nav-link[aria-expanded="true"] .caret-icon { transform: rotate(180deg); }
