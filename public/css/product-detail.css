@@ -222,9 +222,139 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
 .glightbox-clean .gclose svg { color: #fff !important; }
 .glightbox-clean .gslide-description { background: transparent !important; color: #333 !important; }
 
-/* ============================
-   9. Responsive (< 991px) (Tablet & Small Laptop)
-============================ */
+
+/* =========================================
+   🧩 Rubber Keychain Feature Section (ID 19) - Z-Index Fixed
+   ========================================= */
+.rubber-feature-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; 
+    position: relative;
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 40px 0;
+    min-height: 500px; 
+}
+
+/* 📝 Text Columns */
+.feature-column.text-column {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    /* ⚠️ สำคัญ: ไม่ใส่ z-index ที่นี่ เพื่อให้ลูกๆ (เส้น) ไปจัดลำดับเทียบกับรูปได้อิสระ */
+}
+
+.feature-item {
+    position: absolute; 
+    width: 100%;       
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.feature-item h5 {
+    font-size: 1.1rem;
+    color: #222;
+    margin-bottom: 5px;
+}
+
+.feature-item p {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* 🖼️ Image Column */
+.image-column {
+    flex: 0 0 380px; 
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin: 0 10px;
+    /* ✅ กำหนด z-index ต่ำๆ ไว้ เพื่อให้เป็นฐาน */
+    z-index: 1; 
+}
+
+.rubber-img-wrapper {
+    width: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.rubber-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    /* ✅ ให้รูปอยู่ชั้นล่างสุด */
+    position: relative;
+    z-index: 1; 
+}
+
+/* 🟠 Orange Dots */
+.dot-point {
+    width: 12px;
+    height: 12px;
+    background-color: #ff8c00;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0 0 0 2px #ff8c00;
+    transform: translate(-50%, -50%);
+    
+    /* ✅ ให้จุดอยู่ชั้นบนสุด (ทับเส้นและรูป) */
+    z-index: 10; 
+}
+
+/* ➖ Connector Lines (เส้นโยง) */
+.connector-line {
+    position: absolute;
+    height: 1px;
+    background-color: #ccc;
+    top: 20px; /* ตำแหน่งแนวตั้งเทียบกับข้อความ */
+    z-index: 5; /* ลอยเหนือรูป */
+}
+
+
+
+/* ... (ส่วน Mobile Responsive คงเดิม) ... */
+@media (max-width: 768px) {
+    .rubber-feature-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 0;
+    }
+    .image-column {
+        order: 1; margin: 0 0 30px 0; flex: 0 0 auto; width: 80%; max-width: 400px;
+    }
+    .text-column {
+        order: 2; text-align: center !important; padding: 0; width: 100%;
+    }
+    .feature-item {
+        margin-bottom: 20px; padding: 0 15px; align-items: center !important;
+        position: relative; top: auto !important; /* Reset position ในมือถือ */
+    }
+    .connector-line, .dot-point {
+        display: none; 
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .image-column { flex: 0 0 300px; margin: 0 10px; }
+    .left-text { padding-right: 10px; }
+    .right-text { padding-left: 10px; }
+}
+
+
+/* =========================================================
+   GENERAL RESPONSIVE STYLES (Existing Code)
+   ========================================================= */
+
+/* Tablet & Small Laptop (< 991px) */
 @media (max-width: 991px) {
     /* Gallery แนวนอน */
     .gallery-container { flex-direction: row; gap: 10px; }
@@ -238,13 +368,13 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
     .glightbox-clean .gbtn { width: 35px !important; height: 35px !important; margin: 5px !important; }
     .glightbox-clean .gslide-description { display: none !important; }
 
-    /* ✅ Parts Grid: แสดง 3 คอลัมน์ */
+    /* Parts Grid: 3 คอลัมน์ */
     .parts-grid {
         grid-template-columns: repeat(3, 1fr) !important; 
         gap: 10px !important; 
     }
     
-    /* ✅ Part Box: ปลดล็อกขนาด 149px ให้ยืดหดตาม Grid */
+    /* Part Box: Fluid */
     .part-box {
         width: 100% !important; 
         height: auto !important; 
@@ -252,9 +382,7 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
     }
 }
 
-/* ============================
-   10. Mobile Specific (< 576px) (Smartphones)
-============================ */
+/* Mobile Specific (< 576px) */
 @media (max-width: 576px) {
     /* Layout พื้นฐาน */
     body { background-color: #fff !important; }
@@ -263,28 +391,27 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
     .bg-white { box-shadow: none !important; border-radius: 0 !important; padding: 20px 15px !important; }
     .product-title { font-size: 1.4rem; margin-bottom: 1rem; padding-left: 15px; }
 
-    /* ✅ 1. แก้ไขปุ่ม (Unlock Fixed Size) */
-    /* ยกเลิกขนาดตายตัว 109px/137px เพื่อให้ปุ่มยืดหดตามหน้าจอมือถือได้ */
+    /* ปุ่ม Spec (Unlock Fixed Size) */
     #size-group .btn-spec,
     #screen-group .btn-spec {
-        width: auto !important;       /* ให้กว้างตามตัวหนังสือ */
-        min-width: 70px;              /* กว้างขั้นต่ำกันปุ่มลีบ */
-        height: 32px !important;      /* สูงพอดีนิ้ว */
-        padding: 0 12px !important;   /* ใส่ padding ด้านข้าง */
-        font-size: 0.85rem !important; /* ลดขนาดฟอนต์นิดหน่อย */
+        width: auto !important;
+        min-width: 70px;
+        height: 32px !important;
+        padding: 0 12px !important;
+        font-size: 0.85rem !important;
     }
 
-    /* ✅ 2. จัดตำแหน่งกลุ่มปุ่มสกรีน */
+    /* จัดตำแหน่งกลุ่มปุ่มสกรีน */
     #screen-group {
-        margin-left: 0 !important;    /* ❌ ลบ margin-left 50px ของ Desktop ทิ้ง */
-        justify-content: flex-start;  /* ชิดซ้ายปกติ */
+        margin-left: 0 !important;
+        justify-content: flex-start;
         margin-top: 8px;
     }
     #size-group, #screen-group { gap: 8px !important; }
 
-    /* ✅ 3. Product Info Table (ปรับให้เข้ากับ Inline Flow) */
+    /* Product Info Table (Inline Flow) */
     .product-info-table .label { 
-       width: auto !important;        /* ปล่อยอิสระ ไม่ฟิกซ์ขนาด */
+       width: auto !important;
        padding-right: 5px !important; 
        font-size: 16px; 
     }
@@ -302,9 +429,9 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
     .action-area .row { row-gap: 10px; }
 }
 
-/* หน้าจอเล็กมากๆ */
+/* Smallest Screens (< 450px) */
 @media (max-width: 450px) {
     .parts-grid {
-        gap: 8px !important; /* ลดช่องไฟอีกนิด */
+        gap: 8px !important; /* ลดช่องไฟ */
     }
 }

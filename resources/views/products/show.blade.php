@@ -380,10 +380,98 @@
                 </div>
             </div>
 
-        </div> {{-- End bg-white --}}
+            @if($product->id == 19)
+                <div class="rubber-features-section mt-5 pt-4">
+                    
+
+                {{-- ✅ ส่วนที่ 1: หัวข้อและคำบรรยาย (วางไว้ก่อน rubber-feature-container) --}}
+            <div class="text-center mb-5">
+                    
+                    {{-- 🖼️ รูปภาพ Banner: ปรับให้เต็มความกว้างและสูง 372px --}}
+                    <img src="{{ asset('images/Hotmobilyfile/poster/keychain.jpg') }}" 
+                        alt="พวงกุญแจยาง" 
+                        class="mb-4" {{-- เปลี่ยน mb-3 เป็น mb-4 เพื่อเพิ่มระยะห่างจากหัวข้ออีกนิด --}}
+                        style="width: 100%; height: 372px; object-fit: cover; display: block;">
+
+                    <h3 class="fw-bold mb-3" style="color: #333;">พวงกุญแจยาง</h3>
+                    <p class="text-muted mx-auto" style="max-width: 700px; line-height: 1.6; font-size: 16px;">
+                        พวงกุญแจยางทำจาก ATBC-PVC คุณภาพดี น้ำหนักเบา ทนทาน ป้องกันรอยขีดข่วน 
+                        พร้อมสีสันและดีไซน์หลากหลาย เหมาะทั้งพกพาและตกแต่งให้โดดเด่น
+                    </p>
+                </div>
+
+                <div class="rubber-feature-container">
+                    
+                    {{-- 🔸 ฝั่งซ้าย --}}
+                    <div class="feature-column text-column left-text">
+                        <div class="feature-item" style="top: 10%;">
+                            <h5 class="fw-bold">ส่วนประกอบชิ้นงานที่หลากหลาย</h5>
+                            <p>เรามีส่วนประกอบชิ้นงานให้คุณเลือกมากถึง 20 แบบ</p>
+                            
+                            {{-- ✏️ เส้นที่ 1: ปรับความยาวและตำแหน่งตรงนี้ --}}
+                            <div class="connector-line" style="width: 232px;right: -105px;"></div>
+                        </div>
+
+                        <div class="feature-item" style="top: 45%;">
+                            <h5 class="fw-bold">กลิ่นยางและกลิ่นสีน้อยกว่า</h5>
+                            <p>เราพยายามอย่างต่อเนื่องในการหาวัสดุที่ลดกลิ่นยางและสี</p>
+                            
+                            {{-- ✏️ เส้นที่ 2 --}}
+                            <div class="connector-line" style="width: 300px;right: -140px;"></div>
+                        </div>
+
+                        <div class="feature-item" style="top: 80%;">
+                            <h5 class="fw-bold">ลงสีได้มากกว่า 18 สี</h5>
+                            <p>เลือกสีได้มากถึง 12 สี (มาตรฐาน) และ 18 สี (พรีเมียม)</p>
+                            
+                            {{-- ✏️ เส้นที่ 3 --}}
+                            <div class="connector-line" style="width: 370px;right: -152px;"></div>
+                        </div>
+                    </div>
+
+                    {{-- 🔸 ตรงกลาง: รูปภาพ (เหมือนเดิม) --}}
+                    <div class="feature-column image-column">
+                        <div class="rubber-img-wrapper">
+                            <img src="{{ asset('/images/Hotmobilyfile/poster/210-L.webp') }}" alt="Rubber Left" class="rubber-img">
+                            <span class="dot-point" style="top: 15%; left: 56%;"></span>
+                            <span class="dot-point" style="top: 50%; left: 74%;"></span>
+                            <span class="dot-point" style="top: 85%;left: 80%;"></span>
+                        </div>
+                        <div class="rubber-img-wrapper">
+                            <img src="{{ asset('/images/Hotmobilyfile/poster/210-R.webp') }}" alt="Rubber Right" class="rubber-img">
+                            <span class="dot-point" style="top: 40%;right: 70%;"></span>
+                            <span class="dot-point" style="top: 70%; right: 73%;"></span>
+                        </div>
+                    </div>
+
+                    {{-- 🔸 ฝั่งขวา --}}
+                    <div class="feature-column text-column right-text">
+                        <div class="feature-item" style="top: 35%;">
+                            
+                            {{-- ✏️ เส้นที่ 4 (ฝั่งขวาใช้ left ติดลบ) --}}
+                            <div class="connector-line" style="width: 143px;left: -140px;"></div>
+                            
+                            <h5 class="fw-bold">การสกรีนที่มีคุณภาพ</h5>
+                            <p>สกรีนด้านหลังแบบ UV สวยงามและโอกาสลอกน้อยกว่าปกติ</p>
+                        </div>
+
+                        <div class="feature-item" style="top: 65%;">
+                            
+                            {{-- ✏️ เส้นที่ 5 --}}
+                            <div class="connector-line" style="width: 150px;left: -147px;"></div>
+                            
+                            <h5 class="fw-bold">เลือกสีสกรีนได้ตามต้องการ</h5>
+                            <p>การสกรีนด้านหลัง สามารถเลือกสีสกรีนได้ จะสีเดียวหรือหลายสี</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @endif
+
+        </div> {{-- End bg-white (ปิดตรงนี้) --}}
     </div>
 </div>
-
 {{-- Modal --}}
 <div class="modal fade" id="screenInfoModal" tabindex="-1" aria-labelledby="screenInfoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">

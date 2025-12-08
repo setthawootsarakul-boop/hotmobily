@@ -192,16 +192,21 @@
                                 @php
                                     $img = $product->images->first();
                                     $src = $img ? $img->image_url : 'images/no-image.png'; 
+                                    
+                                    // ✅ เตรียม URL ไว้ก่อน เพื่อใช้ซ้ำได้ง่าย
+                                    $productLink = $product->slug ? route('products.show', $product->slug) : '#';
                                 @endphp
                                 
-                                <div class="product-image-container">
+                                {{-- ✅ 1. เพิ่มแท็ก <a> ครอบส่วนรูปภาพ --}}
+                                <a href="{{ $productLink }}" class="product-image-container d-block text-decoration-none">
                                     <div class="bg-shape"></div>
                                     
                                     <img src="{{ asset($src) }}" alt="{{ $product->name }}" class="product-img-obj">
-                                </div>
+                                </a>
 
                                 <div class="product-title">
-                                    <a href="{{ $product->slug ? route('products.show', $product->slug) : '#' }}">
+                                    {{-- ✅ 2. ลิงก์ตรงชื่อสินค้า (ใช้ตัวแปรเดิม) --}}
+                                    <a href="{{ $productLink }}">
                                         {{ $product->name }}
                                     </a>
                                 </div>
