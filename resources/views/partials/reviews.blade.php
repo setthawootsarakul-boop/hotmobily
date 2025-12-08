@@ -12,7 +12,7 @@
                     
                     {{-- 1. คะแนนสินค้า --}}
                     <div class="d-flex align-items-center mb-2">
-                        <span class="review-label">คะแนนสินค้า</span>
+                        <span class="review-label">คะแนสินค้า</span>
                         <div class="stars">
                             {{-- Logic การแสดงดาวตามคะแนนใน DB --}}
                             @for($i=1; $i<=5; $i++)
