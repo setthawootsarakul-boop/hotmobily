@@ -121,7 +121,7 @@
 
 /* ✅ Box & Image Fixed Size (Default Desktop) */
 .bg-shape {
-    width: 240px !important; height: 250px !important;
+    width: 205px !important; height: 214px !important;
     position: absolute; top: 50% !important; left: 50% !important;
     transform: translate(-50%, -50%) !important;
     background-color: #FFECCF; border-radius: 12px;
@@ -129,7 +129,7 @@
     z-index: 1;
 }
 .product-img-obj {
-    width: 240px !important; height: 250px !important;
+    width: 240px !important; height: 210px !important;
     position: absolute; top: 50% !important; left: 50% !important;
     transform: translate(-50%, -50%) !important;
     object-fit: contain; z-index: 2; transition: transform 0.3s ease;
