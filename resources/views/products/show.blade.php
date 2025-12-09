@@ -45,6 +45,12 @@
                 
                 {{-- LEFT COLUMN: Gallery --}}
                 <div class="col-lg-5">
+                    
+                    {{-- ✅ [เพิ่มใหม่] ชื่อสินค้าสำหรับ Mobile (แสดงเฉพาะจอเล็ก) --}}
+                    <h1 class="product-title d-lg-none mb-3 text-start">
+                        {{ $product->name }}
+                    </h1>
+
                     @php
                         $galleryImages = $product->images->where('is_main', 0); 
                         $firstImage = $galleryImages->first(); 
@@ -76,7 +82,9 @@
 
                 {{-- RIGHT COLUMN: Info & Options --}}
                 <div class="col-lg-7">
-                    <h1 class="product-title mb-4">{{ $product->name }}</h1>
+                    
+                    {{-- ✅ [แก้ไข] เพิ่ม d-none d-lg-block เพื่อซ่อนในมือถือ แต่โชว์ในคอม --}}
+                    <h1 class="product-title d-none d-lg-block">{{ $product->name }}</h1>
 
                     <table class="table product-info-table">
                         <tbody>
@@ -337,8 +345,6 @@
                             <tr>
                             <tr id="row_part_result">
                                 <td class="bg-light fw-bold align-middle">ส่วนประกอบเพิ่มเติม</td>
-                                
-                                {{-- ✅ เติม id="part_result_cell" ตรงนี้ --}}
                                 <td id="part_result_cell"> 
                                     <div id="res_part_img_div" style="display:none; width: 50px; height: 50px; margin: 0 auto 5px auto;">
                                         <img id="res_part_img" src="" style="width:100%; height:100%; object-fit:contain;">
@@ -383,18 +389,29 @@
             @if($product->id == 19)
                 <div class="rubber-features-section mt-5 pt-4">
                     
-
                 {{-- ✅ ส่วนที่ 1: หัวข้อและคำบรรยาย (วางไว้ก่อน rubber-feature-container) --}}
             <div class="text-center mb-5">
                     
                     {{-- 🖼️ รูปภาพ Banner: ปรับให้เต็มความกว้างและสูง 372px --}}
-                    <img src="{{ asset('images/Hotmobilyfile/poster/keychain.jpg') }}" 
-                        alt="พวงกุญแจยาง" 
-                        class="mb-4" {{-- เปลี่ยน mb-3 เป็น mb-4 เพื่อเพิ่มระยะห่างจากหัวข้ออีกนิด --}}
-                        style="width: 100%; height: 372px; object-fit: cover; display: block;">
+                <img src="{{ asset('images/Hotmobilyfile/poster/keychain.jpg') }}" 
+                    alt="พวงกุญแจยาง" 
+                    class="mb-4"
+                    style="
+                        width: 100vw; /* กว้างเท่ากับหน้าจอ (Viewport Width) */
+                        height: 372px; 
+                        object-fit: cover; 
+                        display: block;
+                        
+                        /* ✅ เทคนิค Breakout: ดึงรูปให้ทะลุ Padding */
+                        margin-left: -50vw; 
+                        left: 50%; 
+                        position: relative; 
+                        right: 50%; 
+                        margin-right: -50vw;
+                    ">
 
-                    <h3 class="fw-bold mb-3" style="color: #333;">พวงกุญแจยาง</h3>
-                    <p class="text-muted mx-auto" style="max-width: 700px; line-height: 1.6; font-size: 16px;">
+                    <h3 class="fw-bold" style="color: #333; margin-top: 60px; font-size: 32px;">พวงกุญแจยาง</h3>
+                    <p class="mx-auto" style="max-width: 700px;line-height: 1.6;font-size: 20px;margin-top: 40px;">
                         พวงกุญแจยางทำจาก ATBC-PVC คุณภาพดี น้ำหนักเบา ทนทาน ป้องกันรอยขีดข่วน 
                         พร้อมสีสันและดีไซน์หลากหลาย เหมาะทั้งพกพาและตกแต่งให้โดดเด่น
                     </p>
@@ -414,7 +431,7 @@
 
                         <div class="feature-item" style="top: 45%;">
                             <h5 class="fw-bold">กลิ่นยางและกลิ่นสีน้อยกว่า</h5>
-                            <p>เราพยายามอย่างต่อเนื่องในการหาวัสดุที่ลดกลิ่นยางและสี</p>
+                            <p>เราพยายามอย่างต่อเนื่องในการหาวัสดุที่ลดกลิ่นยาง และสี เพื่อให้คุณได้รับผลิตภัณฑ์ที่ดีที่สุด</p>
                             
                             {{-- ✏️ เส้นที่ 2 --}}
                             <div class="connector-line" style="width: 300px;right: -140px;"></div>
@@ -422,7 +439,7 @@
 
                         <div class="feature-item" style="top: 80%;">
                             <h5 class="fw-bold">ลงสีได้มากกว่า 18 สี</h5>
-                            <p>เลือกสีได้มากถึง 12 สี (มาตรฐาน) และ 18 สี (พรีเมียม)</p>
+                            <p>คุณสามารถเลือกสีของชิ้นงานได้มากถึง 12 สีสำหรับชิ้นงานแบบมาตราฐาน และได้ถึง 18 สีสำหรับชิ้นงานแบบพรีเมียม</p>
                             
                             {{-- ✏️ เส้นที่ 3 --}}
                             <div class="connector-line" style="width: 370px;right: -152px;"></div>
@@ -452,7 +469,7 @@
                             <div class="connector-line" style="width: 143px;left: -140px;"></div>
                             
                             <h5 class="fw-bold">การสกรีนที่มีคุณภาพ</h5>
-                            <p>สกรีนด้านหลังแบบ UV สวยงามและโอกาสลอกน้อยกว่าปกติ</p>
+                            <p>เราเลือกใช้การสกรีนด้านหลังแบบ UV ซึ่งสวยงามกว่าและมีโอกาสลอกออกน้อยกว่าการพิมพ์แบบปกติ</p>
                         </div>
 
                         <div class="feature-item" style="top: 65%;">
@@ -461,14 +478,91 @@
                             <div class="connector-line" style="width: 150px;left: -147px;"></div>
                             
                             <h5 class="fw-bold">เลือกสีสกรีนได้ตามต้องการ</h5>
-                            <p>การสกรีนด้านหลัง สามารถเลือกสีสกรีนได้ จะสีเดียวหรือหลายสี</p>
+                            <p>การสกรีนด้านหลัง สามารถเลือกสีสกรีนได้ จะสีเดียวหรือหลายสี ก็สามารถทำได้</p>
                         </div>
                     </div>
 
                 </div>
-            </div>
-            @endif
 
+            {{-- ✅ ส่วนที่ 3: ความหนาของฐาน (ลบพื้นหลังและ label ออกแล้ว) --}}
+                <div class="rubber-thickness-container">
+                    
+                    {{-- รูปซ้าย (3mm) --}}
+                    <div class="thickness-img-wrapper left-img">
+                        <img src="{{ asset('images/Hotmobilyfile/product/Rubber(3)/base_3mm.webp') }}" alt="Base 3mm" class="thickness-img">
+                    </div>
+
+                    {{-- ข้อความตรงกลาง --}}
+                    <div class="thickness-content text-center px-4">
+                        <h4 class="fw-bold mb-3">ความหนาของฐาน</h4>
+                        <p class="text-muted mb-0">
+                            คุณสามารถเลือกได้ระหว่างรุ่นมาตรฐาน 3 มม.
+                            และรุ่น 5 มม. ที่หนาและหนักกว่าได้
+                        </p>
+                    </div>
+
+                    {{-- รูปขวา (5mm) --}}
+                    <div class="thickness-img-wrapper right-img">
+                        <img src="{{ asset('images/Hotmobilyfile/product/Rubber(3)/base_5mm.webp') }}" alt="Base 5mm" class="thickness-img">
+                    </div>
+
+                </div>
+
+                
+                    {{-- ✅ ส่วนที่ 4: วัสดุพิเศษ (Special Material Section) --}}
+                    <div class="special-material-section">
+                        
+                        {{-- 👇 แก้ไขชื่อ Class ให้เป็น rubber-section-... เพื่อไม่ให้ชนธีมหลัก --}}
+                        <div class="rubber-section-header text-center">
+                            <h2 class="rubber-section-title">วัสดุพิเศษ</h2>
+                        </div>
+
+                        {{-- Grid แสดงรายการวัสดุ --}}
+                        <div class="material-grid-container">
+                            
+                            {{-- 1. ชิ้นงานเรืองแสง --}}
+                            <div class="material-item">
+                                <div class="material-images">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image49.png') }}" alt="ชิ้นงานเรืองแสง 1">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image51.png') }}" alt="ชิ้นงานเรืองแสง 2">
+                                </div>
+                                <div class="material-name">ชิ้นงานเรืองแสง</div>
+                            </div>
+
+                            {{-- 2. ฟลูออเรสเซนต์ --}}
+                            <div class="material-item">
+                                <div class="material-images">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image53.png') }}" alt="ฟลูออเรสเซนต์ 1">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image54.png') }}" alt="ฟลูออเรสเซนต์ 2">
+                                </div>
+                                <div class="material-name">ฟลูออเรสเซนต์</div>
+                            </div>
+
+                            {{-- 3. กลิตเตอร์ --}}
+                            <div class="material-item">
+                                <div class="material-images">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image55.png') }}" alt="กลิตเตอร์ 1">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image56.png') }}" alt="กลิตเตอร์ 2">
+                                </div>
+                                <div class="material-name">กลิตเตอร์</div>
+                            </div>
+
+                            {{-- 4. Golden Silver --}}
+                            <div class="material-item">
+                                <div class="material-images">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image57.png') }}" alt="Golden Silver 1">
+                                    <img src="{{ asset('images/Hotmobilyfile/Material/image58.png') }}" 
+                                         alt="Golden Silver 2" 
+                                         style="width: 30% !important; max-width: 200px; height: auto;">
+                                </div>
+                                <div class="material-name">Golden Silver</div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div> {{-- End rubber-features-section --}}
+            @endif
         </div> {{-- End bg-white (ปิดตรงนี้) --}}
     </div>
 </div>
