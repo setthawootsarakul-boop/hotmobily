@@ -19,7 +19,6 @@ body { background-color: #fff; }
     font-weight: 800;
     margin-bottom: 40px;
     text-align: center;
-    /* ฟอนต์ยืดหยุ่น */
     font-size: clamp(32px, 4vw, 48px);
 }
 
@@ -36,7 +35,7 @@ body { background-color: #fff; }
 }
 .btn-delete:hover { color: #dc3545; }
 
-/* Footer General */
+/* Footer */
 .cart-footer {
     margin-top: 50px; padding-top: 30px;
     display: flex; align-items: center;
@@ -50,59 +49,41 @@ body { background-color: #fff; }
 
 /* =========================================
    3. LAPTOP & SMALL DESKTOP (992px - 1399px)
-   ✅ ช่วงปัญหา: 1280x800, 1280x768, Macbook Air
-   ✅ วิธีแก้: ปิดการซ้อนทับ + ย่อขนาดรูปและ Text ลง
+   ✅ MacBook Air (13"), Laptop
+   ✅ สถานะ: ปกติ (ห้ามแก้)
    ========================================= */
 @media (min-width: 992px) and (max-width: 1399px) {
-    .header-product { padding-right: 0; text-align: center; }
-    .header-detail { padding-left: 20px; margin-left: 0; text-align: left; }
-    
-    .cart-item-row { border-bottom: 1px solid var(--border-color); padding: 25px 0; }
-    
-    .col-img-wrapper {
-        position: relative; display: flex; align-items: center; justify-content: center; height: 100%;
+    .container {
+        max-width: 94% !important;
+        margin-left: auto !important; margin-right: auto !important;
+        padding-left: 15px; padding-right: 15px;
     }
-
-    /* Checkbox ขยับชิดซ้าย */
+    .header-product { padding-right: 0; text-align: center; }
+    .header-detail { padding-left: 0; margin-left: 0; text-align: center; }
+    .cart-item-row { border-bottom: 1px solid var(--border-color); padding: 25px 0; }
+    .col-img-wrapper { position: relative; display: flex; align-items: center; justify-content: center; height: 100%; }
     .custom-checkbox {
-        width: 30px; height: 30px; /* ลดขนาดลง */
-        border: 1px solid #ccc; border-radius: 4px;
+        width: 30px; height: 30px; border: 1px solid #ccc; border-radius: 4px;
         cursor: pointer; display: flex; align-items: center; justify-content: center;
-        position: absolute; 
-        left: 0px; /* ชิดซ้ายสุดของ col */
-        z-index: 10;
+        position: absolute; left: 0px; z-index: 10;
     }
     .custom-checkbox i { display: none; font-size: 18px; }
     .custom-checkbox.checked { background-color: var(--primary); border-color: var(--primary); color: white; }
     .custom-checkbox.checked i { display: block; }
-
-    /* รูปภาพ: ย่อขนาดลงเพื่อให้พอดีจอ 1280 */
     .product-img-frame {
-        width: 130px; height: 95px; 
-        border: 1px solid #f0f0f0; overflow: hidden;
+        width: 130px; height: 95px; border: 1px solid #f0f0f0; overflow: hidden;
         display: flex; align-items: center; justify-content: center;
-        background-color: #fff;
-        margin-right: 0; /* ห้ามติดลบ */
+        background-color: #fff; margin-right: 0; 
     }
     .product-thumb { width: 100%; height: 100%; object-fit: contain; }
-
-    /* Text details: ลดระยะห่าง */
-    .col-detail-wrapper {
-        margin-left: 0; /* ห้ามติดลบ */
-        padding-left: 15px;
-    }
-
+    .col-detail-wrapper { margin-left: 0; padding-left: 15px; }
     .detail-box {
         border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px;
         color: var(--text-muted); font-size: 0.9rem; background-color: #fff;
         line-height: 1.5; min-height: 80px; width: 100%;
     }
-    
     .product-name-header { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
-    
     .action-group { margin-left: 15px; }
-    
-    /* Footer: ลดช่องว่าง */
     .cart-footer { justify-content: flex-start; gap: 30px; }
     .total-items-text { font-size: 1.3rem; font-weight: 800; color: var(--text-main); }
     .btn-request-quote { padding: 10px 25px; font-size: 1.1rem; }
@@ -111,16 +92,13 @@ body { background-color: #fff; }
 
 /* =========================================
    4. LARGE DESKTOP (Screen >= 1400px)
-   ✅ จอใหญ่: เปิดโหมดซ้อนทับ (Negative Margin) ที่คุณชอบ
+   ✅ จอใหญ่: Design เดิม (Overlap)
    ========================================= */
 @media (min-width: 1400px) {
     .header-product { padding-right: 35px; text-align: center; }
-    .header-detail { padding-left: 0; margin-left: -100px; text-align: center; }
-    
+    .header-detail { padding-left: 0; margin-left: -50px; text-align: center; }
     .cart-item-row { border-bottom: 1px solid var(--border-color); padding: 30px 0; }
-    
     .col-img-wrapper { position: relative; display: flex; align-items: center; justify-content: center; height: 100%; }
-
     .custom-checkbox {
         width: 34px; height: 34px; border: 1px solid #ccc; border-radius: 4px;
         cursor: pointer; display: flex; align-items: center; justify-content: center;
@@ -129,28 +107,21 @@ body { background-color: #fff; }
     .custom-checkbox i { display: none; font-size: 22px; }
     .custom-checkbox.checked { background-color: var(--primary); border-color: var(--primary); color: white; }
     .custom-checkbox.checked i { display: block; }
-
     .product-img-frame {
-        width: 163px; height: 108px;
-        border: 1px solid #f0f0f0; overflow: hidden;
+        width: 163px; height: 108px; border: 1px solid #f0f0f0; overflow: hidden;
         display: flex; align-items: center; justify-content: center;
         background-color: #fff; flex-shrink: 0;
-        margin-right: -35px; /* Effect ซ้อนทับ */
+        margin-right: -35px;
     }
     .product-thumb { width: 100%; height: 100%; object-fit: contain; }
-
-    .col-detail-wrapper { margin-left: -50px; padding-left: 15px; } /* Effect ซ้อนทับ */
-    
+    .col-detail-wrapper { margin-left: -50px; padding-left: 15px; } 
     .product-name-header { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
-
     .detail-box {
         border: 1px solid #e0e0e0; border-radius: 6px; padding: 15px;
-        color: var(--text-muted); font-size: 0.95rem; background-color: #fff;
+        color: var(--text-muted); font-size: 0.9rem; background-color: #fff;
         line-height: 1.6; min-height: 80px; width: 100% !important;
     }
-    
     .action-group { margin-left: 20px; }
-    
     .cart-footer { justify-content: flex-start; gap: 105px; }
     .total-items-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
     .btn-request-quote { padding: 10px 40px; font-size: 1.2rem; }
@@ -158,33 +129,51 @@ body { background-color: #fff; }
 
 
 /* =========================================
-   5. MOBILE & TABLET PORTRAIT (< 992px)
-   ✅ ใช้ Layout เส้นขีด Mobile ที่คุณอนุมัติแล้ว
+   5. MOBILE & TABLET (iPad, Galaxy Fold, iPhone)
+   ✅ แก้ไข: เพิ่มความสูงขั้นต่ำ (min-height) ให้ Detail Box
+   ✅ แก้ไข: ขยาย Container ใน Tablet ให้กว้างขึ้น ไม่ดูลีบ
    ========================================= */
 @media (max-width: 991.98px) {
     
-    /* Headers (List View) */
+    /* 1. ขยาย Container ให้เต็มจอ Tablet (แก้ปัญหาดูลีบด้านข้าง) */
+    .container {
+        max-width: 100% !important;
+        padding-left: 15px; padding-right: 15px;
+    }
+
+    /* 2. ซ่อนเส้น <hr> */
+    hr, .container hr, body hr { 
+        display: none !important; border: none !important;
+        height: 0 !important; margin: 0 !important;
+        opacity: 0 !important; visibility: hidden !important;
+    }
+
+    /* --- Headers --- */
     .header-product, .header-detail {
         display: block !important; float: left !important;
         font-weight: normal; color: #888; font-size: 0.95rem;
         padding-bottom: 10px; margin-bottom: 15px;
         background-color: transparent !important;
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid #eee; 
     }
 
     .header-product {
-        margin-left: 25px !important; width: 130px !important;
-        text-align: center !important; padding-right: 0 !important; margin-right: 0 !important;
+        width: 140px !important; 
+        margin-left: 10px !important; 
+        text-align: center !important; 
+        padding-right: 0 !important; margin-right: 0 !important;
     }
 
     .header-detail {
-        margin-right: 25px !important; width: calc(100% - 180px) !important;
-        margin-left: 0 !important; padding-left: 75px !important; text-align: left !important;
+        width: calc(100% - 150px) !important; 
+        margin-left: 0 !important; margin-right: 0 !important;
+        padding-left: 125px !important; 
+        text-align: left !important;
     }
 
-    /* Items */
+    /* --- Items Row --- */
     .cart-item-row {
-        margin-left: 10px !important; margin-right: 10px !important;
+        margin-left: 0 !important; margin-right: 0 !important; /* ปรับให้เต็มขอบ */
         padding: 20px 0; border-bottom: 1px solid #eee;
         display: flex; flex-direction: row; flex-wrap: nowrap; align-items: flex-start;
         clear: both;
@@ -218,9 +207,20 @@ body { background-color: #fff; }
 
     .product-name-header { font-size: 14px; margin-bottom: 5px; text-align: left; font-weight: normal; }
     
+    /* 🔥 FIX DETAIL BOX: เพิ่ม min-height และ Flex เพื่อจัดกลาง */
     .detail-box {
-        width: 100% !important; padding: 10px; font-size: 0.85rem;
+        width: 380% !important; 
+        padding: 12px; 
+        font-size: 0.85rem;
         border: 1px solid #e0e0e0; border-radius: 0 !important; color: var(--text-muted);
+        
+        /* จุดที่เพิ่ม: บังคับความสูงขั้นต่ำเหมือน Laptop */
+        min-height: 90px; 
+        
+        /* จัดข้อความให้อยู่กลางแนวตั้ง กรณีข้อความสั้น */
+        display: flex; 
+        flex-direction: column; 
+        justify-content: center; 
     }
 
     .action-group { width: 100%; justify-content: flex-end; margin-top: 8px; margin-left: 0; }
@@ -229,16 +229,15 @@ body { background-color: #fff; }
     .cart-footer {
         flex-direction: column; gap: 15px; align-items: center; text-align: center; margin-top: 0; padding-top: 20px; clear: both;
     }
-    .total-items-text { font-size: 14px; font-weight: normal; width: 100%; text-align: start; margin-left: 30px; }
-    .btn-request-quote { width: 220px; font-size: 18px; padding: 10px; }
+    .total-items-text { font-size: 14px; font-weight: normal; width: 100%; text-align: start; margin-left: 10px; }
+    .btn-request-quote { width: 100%; max-width: 300px; font-size: 18px; padding: 10px; }
 }
-
 /* =========================================
-   6. SMALL MOBILE
+   6. SMALL MOBILE (iPhone SE, Fold Cover)
    ========================================= */
 @media (max-width: 380px) {
-    .header-product { width: 110px !important; margin-left: 10px !important; }
-    .header-detail { padding-left: 40px !important; width: calc(100% - 130px) !important; margin-right: 10px !important; }
+    .header-product { width: 110px !important; margin-left: 5px !important; }
+    .header-detail { width: calc(100% - 120px) !important; padding-left: 100px !important; }
     .col-img-wrapper { width: 100px !important; min-width: 100px; margin-right: 10px; }
     .product-img-frame { width: 70px; height: 70px; }
     .custom-checkbox { margin-top: 25px; }
