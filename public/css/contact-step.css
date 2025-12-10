@@ -68,6 +68,7 @@
     max-width: 100% !important;
     padding-left: 73px !important;  /* ✅ ห่างจากขอบจอซ้าย 73px */
     padding-right: 73px !important; /* ✅ ห่างจากขอบจอขวา 73px */
+    margin-top: -10px;
   }
 
   /* 2. จัดการระยะห่างระหว่างปุ่ม */

@@ -155,7 +155,59 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
     /* Desktop Font Size */
     font-size: 1.2rem !important; 
 }
+/* =======================================================
+   📱 ACRYLIC STAND SECTION (ID 12) - Fully Responsive
+   ======================================================= */
 
+/* --- 1. Poster ด้านบน (Breakout Image) --- */
+.acrylic-poster-wrapper {
+    position: relative;
+    width: 100vw; 
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden; /* ป้องกันล้น */
+}
+
+.acrylic-poster-img {
+    width: 100%;
+    height: 371px;      /* ความสูง Desktop */
+    min-height: 250px;  /* ความสูงขั้นต่ำในมือถือ */
+    object-fit: cover;
+    display: block;
+}
+
+/* --- 2. เนื้อหา (Content) --- */
+.acrylic-content {
+    margin-top: 80px; /* ระยะห่างจากรูปบน (Desktop) */
+    padding: 0 15px;
+}
+
+.acrylic-title {
+    color: #333;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.acrylic-desc {
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+/* --- 3. รูปการใช้งานด้านล่าง --- */
+.acrylic-usage-wrapper {
+    margin-top: 60px; /* ระยะห่างจากข้อความ (Desktop) */
+    padding: 0 15px;
+}
+
+.acrylic-usage-img {
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+}
 
 /* ==========================================================================
    📱 MOBILE & TABLET RESPONSIVE (Max-width: 991px)
@@ -293,7 +345,34 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
         margin-top: 5px !important;
     }
 }
+/* =========================================
+   📱 Mobile Responsive (Override)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* ปรับความสูงรูป Banner ในมือถือให้พอดี */
+    .acrylic-poster-img {
+        height: 250px; 
+    }
 
+    /* ลดระยะห่าง (Margin) ในมือถือ */
+    .acrylic-content {
+        margin-top: 40px; 
+    }
+
+    /* ลดขนาดฟอนต์ */
+    .acrylic-title {
+        font-size: 24px;
+    }
+    .acrylic-desc {
+        font-size: 14px;
+    }
+
+    /* ปรับระยะห่างรูปล่าง */
+    .acrylic-usage-wrapper {
+        margin-top: 40px;
+    }
+}
 /* =========================================================
    📱 MOBILE SPECIFIC (Max-width: 576px)
    ========================================================= */

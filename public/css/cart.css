@@ -1,0 +1,245 @@
+/* =========================================
+   1. CORE VARIABLES & BASE
+   ========================================= */
+:root {
+    --primary: #004aad;
+    --accent: #FFA726;
+    --text-main: #000;
+    --text-muted: #666;
+    --border-color: #eee;
+}
+
+body { background-color: #fff; }
+
+/* =========================================
+   2. COMMON STYLES (Shared)
+   ========================================= */
+.cart-title {
+    color: var(--accent);
+    font-weight: 800;
+    margin-bottom: 40px;
+    text-align: center;
+    /* ฟอนต์ยืดหยุ่น */
+    font-size: clamp(32px, 4vw, 48px);
+}
+
+.action-group {
+    display: flex; align-items: center; gap: 15px; 
+    white-space: nowrap;
+}
+.btn-edit {
+    color: var(--text-main); text-decoration: none; font-size: 1rem; 
+    font-weight: 500; display: flex; align-items: center; gap: 5px;
+}
+.btn-delete {
+    color: #333; font-size: 1.2rem; cursor: pointer; transition: 0.2s;
+}
+.btn-delete:hover { color: #dc3545; }
+
+/* Footer General */
+.cart-footer {
+    margin-top: 50px; padding-top: 30px;
+    display: flex; align-items: center;
+}
+.btn-request-quote {
+    background-color: #b00020; color: white; font-weight: 500;
+    border-radius: 8px; border: none; transition: 0.3s; cursor: pointer;
+}
+.btn-request-quote:hover { background-color: #8a0019; }
+
+
+/* =========================================
+   3. LAPTOP & SMALL DESKTOP (992px - 1399px)
+   ✅ ช่วงปัญหา: 1280x800, 1280x768, Macbook Air
+   ✅ วิธีแก้: ปิดการซ้อนทับ + ย่อขนาดรูปและ Text ลง
+   ========================================= */
+@media (min-width: 992px) and (max-width: 1399px) {
+    .header-product { padding-right: 0; text-align: center; }
+    .header-detail { padding-left: 20px; margin-left: 0; text-align: left; }
+    
+    .cart-item-row { border-bottom: 1px solid var(--border-color); padding: 25px 0; }
+    
+    .col-img-wrapper {
+        position: relative; display: flex; align-items: center; justify-content: center; height: 100%;
+    }
+
+    /* Checkbox ขยับชิดซ้าย */
+    .custom-checkbox {
+        width: 30px; height: 30px; /* ลดขนาดลง */
+        border: 1px solid #ccc; border-radius: 4px;
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        position: absolute; 
+        left: 0px; /* ชิดซ้ายสุดของ col */
+        z-index: 10;
+    }
+    .custom-checkbox i { display: none; font-size: 18px; }
+    .custom-checkbox.checked { background-color: var(--primary); border-color: var(--primary); color: white; }
+    .custom-checkbox.checked i { display: block; }
+
+    /* รูปภาพ: ย่อขนาดลงเพื่อให้พอดีจอ 1280 */
+    .product-img-frame {
+        width: 130px; height: 95px; 
+        border: 1px solid #f0f0f0; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        background-color: #fff;
+        margin-right: 0; /* ห้ามติดลบ */
+    }
+    .product-thumb { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Text details: ลดระยะห่าง */
+    .col-detail-wrapper {
+        margin-left: 0; /* ห้ามติดลบ */
+        padding-left: 15px;
+    }
+
+    .detail-box {
+        border: 1px solid #e0e0e0; border-radius: 6px; padding: 12px;
+        color: var(--text-muted); font-size: 0.9rem; background-color: #fff;
+        line-height: 1.5; min-height: 80px; width: 100%;
+    }
+    
+    .product-name-header { font-size: 15px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+    
+    .action-group { margin-left: 15px; }
+    
+    /* Footer: ลดช่องว่าง */
+    .cart-footer { justify-content: flex-start; gap: 30px; }
+    .total-items-text { font-size: 1.3rem; font-weight: 800; color: var(--text-main); }
+    .btn-request-quote { padding: 10px 25px; font-size: 1.1rem; }
+}
+
+
+/* =========================================
+   4. LARGE DESKTOP (Screen >= 1400px)
+   ✅ จอใหญ่: เปิดโหมดซ้อนทับ (Negative Margin) ที่คุณชอบ
+   ========================================= */
+@media (min-width: 1400px) {
+    .header-product { padding-right: 35px; text-align: center; }
+    .header-detail { padding-left: 0; margin-left: -100px; text-align: center; }
+    
+    .cart-item-row { border-bottom: 1px solid var(--border-color); padding: 30px 0; }
+    
+    .col-img-wrapper { position: relative; display: flex; align-items: center; justify-content: center; height: 100%; }
+
+    .custom-checkbox {
+        width: 34px; height: 34px; border: 1px solid #ccc; border-radius: 4px;
+        cursor: pointer; display: flex; align-items: center; justify-content: center;
+        position: absolute; left: 20px; z-index: 10;
+    }
+    .custom-checkbox i { display: none; font-size: 22px; }
+    .custom-checkbox.checked { background-color: var(--primary); border-color: var(--primary); color: white; }
+    .custom-checkbox.checked i { display: block; }
+
+    .product-img-frame {
+        width: 163px; height: 108px;
+        border: 1px solid #f0f0f0; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        background-color: #fff; flex-shrink: 0;
+        margin-right: -35px; /* Effect ซ้อนทับ */
+    }
+    .product-thumb { width: 100%; height: 100%; object-fit: contain; }
+
+    .col-detail-wrapper { margin-left: -50px; padding-left: 15px; } /* Effect ซ้อนทับ */
+    
+    .product-name-header { font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; }
+
+    .detail-box {
+        border: 1px solid #e0e0e0; border-radius: 6px; padding: 15px;
+        color: var(--text-muted); font-size: 0.95rem; background-color: #fff;
+        line-height: 1.6; min-height: 80px; width: 100% !important;
+    }
+    
+    .action-group { margin-left: 20px; }
+    
+    .cart-footer { justify-content: flex-start; gap: 105px; }
+    .total-items-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
+    .btn-request-quote { padding: 10px 40px; font-size: 1.2rem; }
+}
+
+
+/* =========================================
+   5. MOBILE & TABLET PORTRAIT (< 992px)
+   ✅ ใช้ Layout เส้นขีด Mobile ที่คุณอนุมัติแล้ว
+   ========================================= */
+@media (max-width: 991.98px) {
+    
+    /* Headers (List View) */
+    .header-product, .header-detail {
+        display: block !important; float: left !important;
+        font-weight: normal; color: #888; font-size: 0.95rem;
+        padding-bottom: 10px; margin-bottom: 15px;
+        background-color: transparent !important;
+        border-bottom: 1px solid #eee;
+    }
+
+    .header-product {
+        margin-left: 25px !important; width: 130px !important;
+        text-align: center !important; padding-right: 0 !important; margin-right: 0 !important;
+    }
+
+    .header-detail {
+        margin-right: 25px !important; width: calc(100% - 180px) !important;
+        margin-left: 0 !important; padding-left: 75px !important; text-align: left !important;
+    }
+
+    /* Items */
+    .cart-item-row {
+        margin-left: 10px !important; margin-right: 10px !important;
+        padding: 20px 0; border-bottom: 1px solid #eee;
+        display: flex; flex-direction: row; flex-wrap: nowrap; align-items: flex-start;
+        clear: both;
+    }
+
+    /* Left: Checkbox + Image */
+    .col-img-wrapper {
+        width: 115px !important; min-width: 115px; flex-shrink: 0;
+        display: flex; flex-direction: row; align-items: flex-start; justify-content: flex-start;
+        margin-right: 15px;
+    }
+
+    .custom-checkbox {
+        position: relative; left: auto;
+        width: 19px; height: 19px; border: 1px solid #ccc; border-radius: 4px;
+        margin-right: 10px; margin-top: 30px; flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+    }
+    .custom-checkbox i { font-size: 13px; display: none; }
+    .custom-checkbox.checked { background-color: var(--primary); border-color: var(--primary); }
+    .custom-checkbox.checked i { display: block; color: white; }
+
+    .product-img-frame { width: 84px; height: 84px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    .product-thumb { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Right: Details */
+    .col-detail-wrapper {
+        flex: 1; width: auto; display: flex; flex-direction: column;
+        margin-left: 0 !important; padding-left: 0 !important;
+    }
+
+    .product-name-header { font-size: 14px; margin-bottom: 5px; text-align: left; font-weight: normal; }
+    
+    .detail-box {
+        width: 100% !important; padding: 10px; font-size: 0.85rem;
+        border: 1px solid #e0e0e0; border-radius: 0 !important; color: var(--text-muted);
+    }
+
+    .action-group { width: 100%; justify-content: flex-end; margin-top: 8px; margin-left: 0; }
+
+    /* Footer */
+    .cart-footer {
+        flex-direction: column; gap: 15px; align-items: center; text-align: center; margin-top: 0; padding-top: 20px; clear: both;
+    }
+    .total-items-text { font-size: 14px; font-weight: normal; width: 100%; text-align: start; margin-left: 30px; }
+    .btn-request-quote { width: 220px; font-size: 18px; padding: 10px; }
+}
+
+/* =========================================
+   6. SMALL MOBILE
+   ========================================= */
+@media (max-width: 380px) {
+    .header-product { width: 110px !important; margin-left: 10px !important; }
+    .header-detail { padding-left: 40px !important; width: calc(100% - 130px) !important; margin-right: 10px !important; }
+    .col-img-wrapper { width: 100px !important; min-width: 100px; margin-right: 10px; }
+    .product-img-frame { width: 70px; height: 70px; }
+    .custom-checkbox { margin-top: 25px; }
+}

@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -26,3 +27,8 @@ Route::get('/products/category/{slug}', [ProductController::class, 'showByCatego
 // ✅ (แก้ไข) หน้ารายละเอียดสินค้า (ใช้ {slug} เพื่อความชัดเจน)
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
 Route::post('/product/calculate', [ProductController::class, 'calculatePrice'])->name('product.calculate');
+
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
