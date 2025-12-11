@@ -31,6 +31,7 @@
     <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/quotation.css') }}" rel="stylesheet">
     {{-- ✅ Global Styles Fix for 1440px Layout --}}
     <style>
         /* บังคับให้หน้าเว็บกว้างเต็มจอเสมอ ไม่เกิดขอบขาวที่ไม่ตั้งใจ */

@@ -46,7 +46,43 @@ body { background-color: #fff; }
 }
 .btn-request-quote:hover { background-color: #8a0019; }
 
+.empty-cart-container {
+    padding-top: 60px;
+    padding-bottom: 80px;
+}
 
+/* รูปตะกร้า */
+.empty-cart-icon {
+    width: 397px; /* ปรับขนาดตามความเหมาะสม */
+    height: auto;
+    opacity: 0.8; /* ทำให้สีเทาดูจางลงเล็กน้อยตามรูป */
+}
+
+/* ข้อความ */
+.empty-cart-text {
+    font-size: 25px; /* ตามที่กำหนด */
+    font-weight: 800; /* bold */
+    margin-top: 40px;
+    color: var(--text-main); /* หรือสีดำ #000 ตามรูป */
+}
+
+/* ปุ่มเลือกซื้อสินค้า */
+.btn-shop-now {
+    background-color: #FFA726 !important; /* สีส้มตามที่กำหนด */
+    color: #000 !important; /* ตัวหนังสือสีดำ */
+    font-size: 20px !important; /* ขนาด 20px */
+    font-weight: 500 !important; /* normal (500 กำลังดีสำหรับปุ่ม) */
+    padding: 10px 30px;
+    border-radius: 8px;
+    border: none;
+    transition: 0.3s;
+    margin-top: 40px;
+}
+
+.btn-shop-now:hover {
+    background-color: #e69520 !important; /* สีเข้มขึ้นตอน Hover */
+    color: #000 !important;
+}
 /* =========================================
    3. LAPTOP & SMALL DESKTOP (992px - 1399px)
    ✅ MacBook Air (13"), Laptop
@@ -125,6 +161,11 @@ body { background-color: #fff; }
     .cart-footer { justify-content: flex-start; gap: 105px; }
     .total-items-text { font-size: 1.5rem; font-weight: 800; color: var(--text-main); }
     .btn-request-quote { padding: 10px 40px; font-size: 1.2rem; }
+
+    .choices.is-invalid .choices__inner {
+    border-color: #dc3545 !important;
+    background-image: none; /* ลบ icon default ถ้ามี */
+    }
 }
 
 
@@ -231,6 +272,18 @@ body { background-color: #fff; }
     }
     .total-items-text { font-size: 14px; font-weight: normal; width: 100%; text-align: start; margin-left: 10px; }
     .btn-request-quote { width: 100%; max-width: 300px; font-size: 18px; padding: 10px; }
+}
+@media (max-width: 576px) {
+    .empty-cart-icon {
+        width: 237px;
+    }
+    .empty-cart-text {
+        font-size: 22px;
+    }
+    .btn-shop-now {
+        font-size: 18px !important;
+        padding: 8px 25px;
+    }
 }
 /* =========================================
    6. SMALL MOBILE (iPhone SE, Fold Cover)

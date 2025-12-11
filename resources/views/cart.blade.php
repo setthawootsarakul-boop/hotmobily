@@ -9,6 +9,7 @@
 
 <div class="container py-5">
     
+    {{-- 🔥 ย้ายหัวข้อมาไว้ตรงนี้ เพื่อให้แสดงตลอดเวลา ไม่ว่าจะมีของหรือไม่มี --}}
     <h1 class="cart-title">ตะกร้าสินค้า</h1>
 
     @if(count($cartItems) > 0)
@@ -84,9 +85,20 @@
         </div>
 
     @else
-        <div class="text-center py-5">
-            <h3 class="text-muted">ไม่มีสินค้าในตะกร้า</h3>
-            <a href="{{ route('products.index') }}" class="btn btn-primary mt-3">ไปเลือกซื้อสินค้า</a>
+        {{-- =================================================================
+             ✅ ส่วนแสดงผลเมื่อไม่มีสินค้า (Empty Cart UI)
+             ================================================================= --}}
+        <div class="empty-cart-container text-center py-5">
+            {{-- 1. รูปภาพตะกร้า --}}
+            <img src="{{ asset('images/Hotmobilyfile/poster/cart1.png') }}" alt="Empty Cart" class="empty-cart-icon mb-4">
+            
+            {{-- 2. ข้อความ (25px bold) --}}
+            <h3 class="empty-cart-text">ยังไม่มีสินค้าในตะกร้าของคุณ</h3>
+            
+            {{-- 3. ปุ่มเลือกซื้อสินค้า (FFA726, 20px, normal) --}}
+            <a href="{{ route('products.index') }}" class="btn btn-shop-now">
+                เลือกซื้อสินค้า
+            </a>
         </div>
     @endif
 

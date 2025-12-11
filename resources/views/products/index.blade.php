@@ -165,7 +165,7 @@
                 </div>
 
                 <div class="mobile-filter-bar">
-                    <button class="btn w-100 d-flex align-items-center justify-content-center gap-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas">
+                    <button class="btn w-100 d-flex align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterOffcanvas">
                         <i class="bi bi-sliders"></i> 
                         <span>กรองสินค้า</span>
                     </button>

@@ -6,6 +6,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\QuotationController;
+
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -32,3 +34,12 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
 Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
+
+Route::get('/quotation', [QuotationController::class, 'index'])->name('quotation.index');
+Route::post('/quotation/step1', [QuotationController::class, 'storeStep1'])->name('quotation.step1'); // เปลี่ยนชื่อจาก store_temp
+
+// Route สำหรับ Step 2 (ใบกำกับภาษี)
+Route::get('/quotation/tax-info', [QuotationController::class, 'taxInfo'])->name('quotation.tax_info');
+Route::post('/quotation/confirm', [QuotationController::class, 'confirmQuotation'])->name('quotation.confirm');
+
+Route::get('/quotation/success/{id}', [QuotationController::class, 'show'])->name('quotation.show');

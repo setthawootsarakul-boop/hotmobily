@@ -229,7 +229,7 @@
     .mobile-page-banner h2 { margin: 0; font-weight: 800; color: var(--accent); font-size: 1.5rem; letter-spacing: 0.6px; }
     .mobile-header-section { margin-left: calc(-.5 * var(--bs-gutter-x)); margin-right: calc(-.5 * var(--bs-gutter-x)); }
     .mobile-filter-bar { background-color: #f4efe8; padding: 10px 15px; border-bottom: 1px solid #e0e0e0; }
-    .mobile-filter-bar button { color: #333; font-weight: 600; font-size: 1rem; background: transparent; border: none; }
+    .mobile-filter-bar button { color: #333; font-weight: 600; font-size: 1rem; background: transparent; border: none; gap: 10px; }
     .cards-wrapper { box-shadow: none !important; padding: 20px 10px !important; }
     .decor-blocks { display: none !important; }
 
