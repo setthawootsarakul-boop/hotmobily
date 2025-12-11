@@ -1,32 +1,35 @@
-
+/* ========================
+   🔸 PRODUCT SHOWCASE SECTION
+   File: products-showcase.css
+   ======================== */
 .product-showcase-section {
     background-color: #F6F1E9;
     position: relative;
+    padding-bottom: 50px; 
 }
 
 /* หัวข้อ Section */
 .section-title {
     color: #656565;
-    font-size: 36px; /* แก้หน่วยเป็น px */
+    font-size: 36px;
     font-weight: 700;
     margin-top: -50px;
+    text-align: center;
 }
-
-
 
 /* Wrapper ของ Link */
 .product-showcase-item {
     text-decoration: none;
     display: block;
+    margin-bottom: 0; /* Reset margin เพราะ Grid จัดการช่องว่างให้แล้ว */
 }
 
 /* ========================
-   📦 Showcase Box (357x357)
-======================== */
+   📦 Showcase Box (Default Style)
+   ======================== */
 .showcase-box {
     width: 357px;
     height: 357px;
-       
     background-color: transparent;
     display: flex;
     align-items: center;
@@ -35,21 +38,22 @@
     padding: 10px;
 }
 
-/* ✅ จัดการรูปภาพ (ปกติไม่มีเงา) */
+/* รูปภาพ */
 .showcase-img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    transition: filter 0.3s ease; 
 }
 
-/* ✅ เมื่อเอาเมาส์ชี้ที่ Item -> ให้รูปภาพเกิดเงา */
+/* Hover Effect */
 .showcase-box:hover .showcase-img {
     filter: drop-shadow(0 8px 2px rgba(0, 0, 0, 0.3));
 }
 
 /* ========================
    📝 Text Styles
-======================== */
+   ======================== */
 .showcase-title {
     color: #000;
     font-weight: 700;
@@ -57,6 +61,7 @@
     margin-top: 10px;
     margin-bottom: 5px;
     transition: color 0.3s ease;
+    text-align: center;
 }
 
 .showcase-desc {
@@ -67,55 +72,23 @@
     position: relative; 
     z-index: 2;     
     transition: color 0.3s ease;
+    text-align: center;
 }    
 
 .showcase-desc:hover {
     color: #883DE5;
 }
 
-/* ========================
-   📱 Responsive (Mobile)
-======================== */
-@media (max-width: 991.98px) {
-    .section-title {
-        color: #656565;
-        font-size: 24px; 
-        margin-top: -70px;
-    }
-    .showcase-box {
-        width: 320px !important;
-        height: 320px !important;
-        margin: 0 auto 15px auto;
-        aspect-ratio: 1 / 1;
-    }
-    .product-showcase-section .row {
-        gap: 0rem;
-    }
-    .cta-area h3 {
-        font-size: 24px;
-        padding-top: 10px;
 
-    }
-    .showcase-desc {
-        font-size: 18px;
-    }
-}
-
-/* ========================
-   🖥️ Desktop Only (เพิ่มส่วนนี้เพื่อให้ได้ระยะห่าง 109px)
-======================== */
+/* =================================================================
+   🖥️ DESKTOP ONLY (1200px ขึ้นไป)
+   ✅ Grid 3 คอลัมน์ (ขนาดกล่อง 357px ตายตัว)
+   ================================================================= */
 @media (min-width: 1200px) {
     .product-showcase-section .row {
-        /* ✅ เปลี่ยนจาก Flex เป็น Grid */
         display: grid !important;
-        
-        /* ✅ สั่งให้มี 3 คอลัมน์ กว้างคอลัมน์ละ 357px เป๊ะๆ */
         grid-template-columns: repeat(3, 357px) !important;
-        
-        /* ✅ จัดกึ่งกลางตัว Grid ให้อยู่กลาง container */
         justify-content: center !important; 
-        
-        /* ระยะห่าง */
         gap: 38px !important; 
         
         /* Reset ค่าเดิม */
@@ -124,11 +97,107 @@
         --bs-gutter-x: 0 !important;
     }
 
-    /* Reset ค่าของ Column เดิมให้ไม่ตีกับ Grid */
+    /* Reset Column เดิม */
     .product-showcase-section .col-md-4 {
         width: auto !important;
         flex: none !important;
         padding: 0 !important;
         max-width: none !important;
+    }
+}
+
+
+/* =================================================================
+   📱 TABLET FIX (iPad 768px - 1199px)
+   ✅ แก้ปัญหา: ใช้ Grid 3 คอลัมน์ เหมือน Desktop
+   ✅ ถ้าแถวสุดท้ายไม่ครบ ก็ให้เว้นว่างไว้ (ไม่จัดกลาง)
+   ================================================================= */
+@media (min-width: 768px) and (max-width: 1199.98px) {
+    
+    .section-title {
+        font-size: 30px;
+        margin-top: -60px;
+        margin-bottom: 30px;
+    }
+
+    /* 🔥🔥 ใช้ Grid แทน Flex เพื่อบังคับโครงสร้าง 3 ช่อง 🔥🔥 */
+    .product-showcase-section .row {
+        display: grid !important;
+        
+        /* 1fr = 1 ส่วน (repeat 3 1fr คือแบ่ง 3 ส่วนเท่ากันเป๊ะๆ) */
+        grid-template-columns: repeat(3, 1fr) !important; 
+        
+        justify-content: center !important;
+        gap: 20px !important; /* ช่องว่างระหว่างกล่อง */
+        
+        /* Reset ค่า Bootstrap */
+        width: 100% !important;
+        margin: 0 auto !important;
+        padding: 0 20px !important; /* กันชิดขอบจอเกินไป */
+    }
+
+    /* Reset Column */
+    .product-showcase-section .col-md-4 {
+        width: auto !important;
+        max-width: none !important;
+        flex: none !important;
+        padding: 0 !important;
+    }
+
+    /* ปรับขนาดกล่องให้ยืดหดตาม Grid (แต่คงสัดส่วนจัตุรัส) */
+    .showcase-box {
+        width: 100% !important; /* ให้เต็มช่อง Grid ที่แบ่งไว้ */
+        height: auto !important;
+        aspect-ratio: 1 / 1;    /* 🔥 บังคับเป็นสี่เหลี่ยมจัตุรัสเสมอ */
+        
+        /* จำกัดขนาดไม่ให้ใหญ่เกินไปในบางจอ */
+        max-width: 300px !important; 
+        margin: 0 auto !important;
+    }
+
+    .showcase-title {
+        font-size: 18px;
+    }
+    
+    .showcase-desc {
+        font-size: 16px;
+    }
+}
+
+
+/* =================================================================
+   📱 MOBILE ONLY (ต่ำกว่า 767px)
+   ✅ ใช้ Design เดิม (กล่องใหญ่ 320px เรียงเดี่ยวลงมา)
+   ================================================================= */
+@media (max-width: 767.98px) {
+    
+    .section-title {
+        color: #656565;
+        font-size: 24px; 
+        margin-top: -70px;
+    }
+
+    /* เรียงแนวตั้งปกติ */
+    .product-showcase-section .row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0rem;
+    }
+
+    .showcase-box {
+        width: 320px !important;
+        height: 320px !important;
+        margin: 0 auto 15px auto;
+        aspect-ratio: 1 / 1;
+    }
+
+    .cta-area h3 {
+        font-size: 24px;
+        padding-top: 10px;
+    }
+    
+    .showcase-desc {
+        font-size: 18px;
     }
 }

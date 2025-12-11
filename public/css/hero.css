@@ -197,10 +197,7 @@
     opacity: 1;
 }
 
-/* ========================
-   🖥️ Desktop Specific (1200px+)
-   - บังคับ Grid System ให้แสดงผลสวยงาม
-======================== */
+
 @media (min-width: 1200px) {
     /* ปรับ Container ให้กว้างขึ้นถ้าต้องการ */
     .container {

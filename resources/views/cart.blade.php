@@ -19,7 +19,7 @@
             <div class="col-md-8 header-detail">รายละเอียด</div>
         </div>
         <hr class="d-none d-md-block text-secondary opacity-25">
-
+        
         <div class="cart-list">
             @foreach($cartItems as $index => $item)
                 @php
