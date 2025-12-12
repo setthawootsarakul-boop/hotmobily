@@ -108,7 +108,7 @@ body {
 .cart-link .badge {
     background-color: #dc3545 !important;
     color: #fff !important;
-    border: 2px solid #fbab00 !important;
+    border: 1px solid #fbab00 !important;
     
     position: absolute !important;
     /* ปรับตำแหน่งป้ายให้เกาะมุมขวาบนของรูปไซส์ใหม่ */

@@ -4,99 +4,157 @@
 
 @section('content')
 
-{{-- ✅ เรียกใช้ไฟล์ CSS ที่แยกไว้ --}}
+{{-- ✅ Link CSS --}}
 <link rel="stylesheet" href="{{ asset('css/cart.css') }}">
 
 <div class="container py-5">
     
-    {{-- 🔥 ย้ายหัวข้อมาไว้ตรงนี้ เพื่อให้แสดงตลอดเวลา ไม่ว่าจะมีของหรือไม่มี --}}
     <h1 class="cart-title">ตะกร้าสินค้า</h1>
 
-    @if(count($cartItems) > 0)
+    {{-- 🔥 Alert แจ้งเตือนเมื่อครบ 10 ชิ้น 🔥 --}}
+    @if(isset($cartItems) && count($cartItems) >= 10)
+        <div class="alert alert-warning border-0 shadow-sm d-flex align-items-center mb-4" role="alert" style="background-color: #fff3cd; color: #856404; border-left: 5px solid #FFA726 !important;">
+            <i class="bi bi-exclamation-triangle-fill fs-4 me-3 text-warning"></i>
+            <div>
+                <strong>ตะกร้าสินค้าเต็ม (10/10 รายการ)</strong><br>
+                <small>คุณสามารถเพิ่มสินค้าได้สูงสุด 10 รายการ หากต้องการเพิ่มรายการใหม่ กรุณาลบรายการที่ไม่ต้องการออกก่อน</small>
+            </div>
+        </div>
+    @endif
+
+    @if(isset($cartItems) && count($cartItems) > 0)
         
-        {{-- Header Row (Desktop Only) --}}
-        <div class="row"> 
+        {{-- Header Row (Desktop) --}}
+        <div class="row d-none d-md-flex"> 
             <div class="col-md-4 header-product">สินค้า</div> 
             <div class="col-md-8 header-detail">รายละเอียด</div>
         </div>
         <hr class="d-none d-md-block text-secondary opacity-25">
         
-        <div class="cart-list">
-            @foreach($cartItems as $index => $item)
-                @php
-                    $product = $products[$item['product_id']] ?? null;
-                    $imgSrc = $product && $product->images->first() ? asset($product->images->first()->image_url) : asset('images/no-image.png');
-                    $productName = $product ? $product->name : 'สินค้าไม่ทราบชื่อ';
-                    
-                    $opt = $item['options'];
-                    $detailString = "{$productName} > {$opt['size_name']}";
-                    if($opt['print_name'] && $opt['print_name'] != '-') $detailString .= " > {$opt['print_name']}";
-                    if($opt['part_name'] && $opt['part_name'] != '-') $detailString .= " > {$opt['part_name']}";
-                    $detailString .= " > จำนวน " . number_format($item['quantity']) . " ชิ้น";
-                @endphp
-
-                <div class="row cart-item-row align-items-start" id="row-{{ $item['row_id'] }}">
-                    
-                    {{-- Column 1: Checkbox + Image --}}
-                    <div class="col-md-4 col-img-wrapper mb-3 mb-md-0">
-                        <div class="custom-checkbox cart-checkbox" onclick="toggleCheck(this)">
-                            <i class="bi bi-check-lg"></i>
-                        </div>
-
-                        <div class="product-img-frame">
-                            <img src="{{ $imgSrc }}" alt="{{ $productName }}" class="product-thumb">
-                        </div>
-                    </div>
-
-                    {{-- Column 2: Details + Actions --}}
-                    <div class="col-md-8 col-detail-wrapper">
-                        <div class="product-name-header">{{ $productName }}</div>
+        {{-- Form ส่งข้อมูลไปหน้าทำใบเสนอราคา --}}
+        <form id="quotationForm" action="{{ route('quotation.index') }}" method="GET">
+            <div class="cart-list">
+                @foreach($cartItems as $index => $item)
+                    @php
+                        // 1. ดึงข้อมูลสินค้าจาก Database (รองรับทั้ง Object และ Array)
+                        $pId = is_object($item) ? $item->product_id : $item['product_id'];
+                        $product = $products[$pId] ?? null;
                         
-                        <div class="d-flex align-items-center flex-wrap flex-md-nowrap">
-                            <div class="detail-box">
-                                {{ $detailString }}
+                        // 2. หารูปภาพ
+                        $imgSrc = ($product && $product->images && $product->images->first()) 
+                                    ? asset($product->images->first()->image_url) 
+                                    : asset('images/no-image.png');
+                        
+                        $productName = $product ? $product->name : 'สินค้า (ไม่พบข้อมูล)';
+                        $productSlug = $product ? $product->slug : '#'; 
+                        
+                        // 3. ดึง Options
+                        $opt = is_object($item) ? ($item->options ?? []) : ($item['options'] ?? []);
+                        
+                        $sizeName = $opt['size_name'] ?? '-'; 
+                        $printName = $opt['print_name'] ?? '-';
+                        $partName = $opt['part_name'] ?? '-';
+                        $partColor = $opt['part_color'] ?? '-'; // ✅ รับค่าสี
+
+                        // 🔥 4. Logic การแสดงผล: เก็บลง Array แล้วเชื่อมด้วย " > " 🔥
+                        $displayParts = [];
+                        
+                        // 4.1 ชื่อสินค้า
+                        $displayParts[] = $productName;
+
+                        // 4.2 ขนาด (ถ้ามี)
+                        if ($sizeName !== '-' && $sizeName !== '' && $sizeName !== null) {
+                            $displayParts[] = $sizeName;
+                        }
+
+                        // 4.3 การพิมพ์ (ถ้ามี)
+                        if ($printName !== '-' && $printName !== '' && $printName !== null) {
+                            $displayParts[] = $printName;
+                        }
+
+                        // 4.4 ส่วนประกอบ (ชื่อ + สี)
+                        if ($partName !== '-' && $partName !== '' && $partName !== null) {
+                            if ($partColor !== '-' && $partColor !== '' && $partColor !== null) {
+                                // ถ้ามีสี ให้แสดง "ชื่อ (สี)"
+                                $displayParts[] = "{$partName} ({$partColor})";
+                            } else {
+                                // ถ้าไม่มีสี แสดงแค่ชื่อ
+                                $displayParts[] = $partName;
+                            }
+                        }
+
+                        // 4.5 จำนวน
+                        $qty = is_object($item) ? $item->quantity : $item['quantity'];
+                        $displayParts[] = "จำนวน " . number_format($qty) . " ชิ้น";
+
+                        // เชื่อมทุกอย่างด้วยเครื่องหมาย " > "
+                        $detailString = implode(' > ', $displayParts);
+
+                        // ดึง ID ของรายการ (cart_items.id)
+                        $itemId = is_object($item) ? $item->id : $item['row_id'];
+                    @endphp
+
+                    <div class="row cart-item-row align-items-start" id="row-{{ $itemId }}">
+                        
+                        {{-- Column 1: Checkbox + Image --}}
+                        <div class="col-md-4 col-img-wrapper mb-3 mb-md-0">
+                            {{-- Checkbox เลือกสินค้า --}}
+                            <div class="custom-checkbox cart-checkbox" onclick="toggleCheck(this)">
+                                <i class="bi bi-check-lg"></i>
+                                <input type="checkbox" name="selected_items[]" value="{{ $itemId }}" class="d-none">
                             </div>
+
+                            {{-- รูปสินค้า --}}
+                            <div class="product-img-frame">
+                                <img src="{{ $imgSrc }}" alt="{{ $productName }}" class="product-thumb">
+                            </div>
+                        </div>
+
+                        {{-- Column 2: Details + Actions --}}
+                        <div class="col-md-8 col-detail-wrapper">
+                            <div class="product-name-header">{{ $productName }}</div>
                             
-                            <div class="action-group">
-                                {{-- ปุ่มแก้ไข --}}
-                                <a href="{{ route('products.show', $product->slug) }}?mode=edit&row_id={{ $item['row_id'] }}&qty={{ $item['quantity'] }}" class="btn-edit">
-                                    <i class="bi bi-pencil-square me-1"></i> แก้ไข
-                                </a>
+                            <div class="d-flex align-items-center flex-wrap flex-md-nowrap justify-content-between w-100">
+                                {{-- รายละเอียด --}}
+                                <div class="detail-box">
+                                    {{ $detailString }}
+                                </div>
                                 
-                                {{-- ปุ่มลบ --}}
-                                <a href="javascript:void(0)" class="btn-delete" onclick="removeItem('{{ $item['row_id'] }}')">
-                                    <i class="bi bi-trash3"></i>
-                                </a>
+                                {{-- ปุ่มจัดการ --}}
+                                <div class="action-group ms-md-3 mt-2 mt-md-0">
+                                    <a href="{{ route('products.show', $productSlug) }}?mode=edit&row_id={{ $itemId }}&qty={{ $qty }}" class="btn-edit text-decoration-none me-2">
+                                        <i class="bi bi-pencil-square me-1"></i> แก้ไข
+                                    </a>
+                                    
+                                    <a href="javascript:void(0)" class="btn-delete text-decoration-none text-danger" onclick="removeItem('{{ $itemId }}')">
+                                        <i class="bi bi-trash3"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                    <hr class="d-md-none text-secondary opacity-10 my-3">
+                @endforeach
+            </div>
+        </form>
 
         {{-- Footer --}}
         <div class="cart-footer">
             <div class="total-items-text">
-                สินค้าในตะกร้า (<span id="total-count">{{ count($cartItems) }}</span>)
+                สินค้าในตะกร้า (<span id="total-count">{{ count($cartItems) }}</span>/10 รายการ)
             </div>
-            <button class="btn btn-request-quote">
+            
+            <button class="btn btn-request-quote" onclick="submitQuotation()">
                 ขอใบเสนอราคา (<span id="selected-count">0</span>)
             </button>
         </div>
 
     @else
-        {{-- =================================================================
-             ✅ ส่วนแสดงผลเมื่อไม่มีสินค้า (Empty Cart UI)
-             ================================================================= --}}
+        {{-- Empty Cart --}}
         <div class="empty-cart-container text-center py-5">
-            {{-- 1. รูปภาพตะกร้า --}}
-            <img src="{{ asset('images/Hotmobilyfile/poster/cart1.png') }}" alt="Empty Cart" class="empty-cart-icon mb-4">
-            
-            {{-- 2. ข้อความ (25px bold) --}}
-            <h3 class="empty-cart-text">ยังไม่มีสินค้าในตะกร้าของคุณ</h3>
-            
-            {{-- 3. ปุ่มเลือกซื้อสินค้า (FFA726, 20px, normal) --}}
-            <a href="{{ route('products.index') }}" class="btn btn-shop-now">
+            <img src="{{ asset('images/Hotmobilyfile/poster/cart1.png') }}" alt="Empty Cart" class="empty-cart-icon mb-4" style="max-width: 150px;">
+            <h3 class="empty-cart-text text-muted mb-4">ยังไม่มีสินค้าในตะกร้าของคุณ</h3>
+            <a href="{{ route('products.index') }}" class="btn btn-shop-now btn-primary px-4 py-2" style="background-color: #FFA726; border: none;">
                 เลือกซื้อสินค้า
             </a>
         </div>
@@ -107,15 +165,35 @@
 {{-- Scripts --}}
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     function toggleCheck(element) {
         element.classList.toggle('checked');
+        const checkbox = element.querySelector('input[type="checkbox"]');
+        if (checkbox) {
+            checkbox.checked = !checkbox.checked;
+        }
         updateSelectedCount();
     }
 
     function updateSelectedCount() {
         const count = document.querySelectorAll('.custom-checkbox.checked').length;
         document.getElementById('selected-count').innerText = count;
+    }
+
+    function submitQuotation() {
+        const selectedCount = document.querySelectorAll('.custom-checkbox.checked').length;
+        
+        if (selectedCount === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'กรุณาเลือกสินค้า',
+                text: 'โปรดเลือกสินค้าอย่างน้อย 1 รายการเพื่อขอใบเสนอราคา',
+                confirmButtonColor: '#FFA726'
+            });
+            return;
+        }
+        document.getElementById('quotationForm').submit();
     }
 
     function removeItem(rowId) {
@@ -133,8 +211,13 @@
                 axios.post('{{ route("cart.remove") }}', {
                     row_id: rowId,
                     _token: '{{ csrf_token() }}'
-                }).then(response => {
-                    location.reload();
+                })
+                .then(response => {
+                    location.reload(); 
+                })
+                .catch(error => {
+                    console.error(error);
+                    Swal.fire('เกิดข้อผิดพลาด', 'ไม่สามารถลบสินค้าได้', 'error');
                 });
             }
         });

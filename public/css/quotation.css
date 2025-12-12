@@ -6,6 +6,7 @@
     --primary-red: #b00020;
     --text-color: #333;
     --border-color: #eee;
+    --error-color: #dc3545; /* สีแดง Error */
 }
 
 body {
@@ -14,9 +15,8 @@ body {
 }
 
 /* =========================================
-   2. FIX: LAYOUT SHIFT (ป้องกันจอขยับตอน Popup เด้ง)
+   2. FIX: LAYOUT SHIFT
    ========================================= */
-/* บังคับให้ Scrollbar ค้างไว้เสมอ */
 body.swal2-shown, 
 body.swal2-height-auto,
 body.modal-open {
@@ -56,19 +56,33 @@ body.modal-open .navbar {
 }
 
 /* =========================================
-   4. FORM ELEMENTS & VALIDATION (ส่วนสำคัญ)
+   4. FORM ELEMENTS & VALIDATION
    ========================================= */
 .form-label {
     font-weight: 500;
     font-size: 14px;
     color: #555;
+    margin-bottom: 0.5rem;
 }
 
 .form-control, .form-select {
     border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    padding: 10px 15px;
+    border-radius: 4px;
+    
+    /* 🔥 Key Point: บังคับความสูงและ Padding ให้เท่า Choices.js */
+    min-height: 44px; 
+    padding: 8px 15px; /* ปรับ Padding บนล่างให้ข้อความอยู่กึ่งกลาง */
+    
     font-size: 14px;
+    color: #333;
+    background-color: #fff;
+    display: flex;
+    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+}
+
+.form-control[readonly] {
+    background-color: #E9ECEF;
+    opacity: 1;
 }
 
 .form-control:focus, .form-select:focus {
@@ -76,19 +90,27 @@ body.modal-open .navbar {
     box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25);
 }
 
-/* 🔥 เพิ่ม: Styles สำหรับ Error Validation (สีแดง) 🔥 */
+/* 🔥 Styles สำหรับ Error Validation 🔥 */
+
+/* 1. Input ปกติ */
 .form-control.is-invalid {
-    border-color: #dc3545 !important; /* ขอบแดง */
-    padding-right: calc(1.5em + .75rem);
+    border-color: var(--error-color) !important;
     background-image: none !important;
+    padding-right: calc(1.5em + .75rem);
 }
 
+/* 2. Choices.js Dropdown (เมื่อเราใส่ class is-invalid ที่ wrapper) */
+.choices.is-invalid .choices__inner {
+    border-color: var(--error-color) !important;
+}
+
+/* ข้อความ Error */
 .invalid-feedback {
     display: none;
     width: 100%;
     margin-top: .25rem;
     font-size: .875em;
-    color: #dc3545; /* ตัวหนังสือแดง */
+    color: var(--error-color);
     font-weight: 500;
 }
 
@@ -98,177 +120,44 @@ body.modal-open .navbar {
 }
 
 /* =========================================
-   5. TAX INVOICE OPTIONS (Step 1)
+   5. TAX INVOICE OPTIONS
    ========================================= */
-.tax-options-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.tax-option-card {
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 15px 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-    background-color: #fff;
-    position: relative;
-    flex: 1;
-}
-
+.tax-options-container { display: flex; flex-direction: column; gap: 15px; }
+.tax-option-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px 20px; cursor: pointer; transition: all 0.2s; background-color: #fff; position: relative; flex: 1; }
 .tax-option-card:hover { border-color: #ccc; }
 .tax-option-card.selected { border-color: #e0e0e0; }
-
-.custom-radio-icon {
-    width: 24px; height: 24px;
-    border: 2px solid #ccc;
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    color: white; transition: 0.2s; flex-shrink: 0;
-}
-
-.custom-radio-icon.checked {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
-}
+.custom-radio-icon { width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; flex-shrink: 0; }
+.custom-radio-icon.checked { background-color: #0d6efd; border-color: #0d6efd; }
 
 /* =========================================
-   6. PERSON TYPE RADIO (Step 2)
+   6. RADIO & CHOICES.JS
    ========================================= */
-.person-type-label {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-right: 20px;
-    font-weight: 500;
-}
+.person-type-label { cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 20px; font-weight: 500; }
+.person-type-radio { width: 18px; height: 18px; accent-color: #0d6efd; cursor: pointer; }
 
-.person-type-radio {
-    width: 18px;
-    height: 18px;
-    accent-color: #0d6efd;
-    cursor: pointer;
-}
-
-/* =========================================
-   7. CHOICES.JS CUSTOMIZATION
-   ========================================= */
 .choices { margin-bottom: 0; }
-
-.choices__inner {
-    background-color: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    min-height: 44px;
-    padding: 4px 10px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-}
-
-.choices.is-focused .choices__inner {
-    border-color: #FFA726;
-    box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25);
-}
-
-.choices__item--choice { font-size: 14px; }
-
-.choices.is-disabled .choices__inner {
-    background-color: #E9ECEF;
-    cursor: not-allowed;
-}
-
-.choices__placeholder {
-    color: #6c757d;
-    opacity: 1;
-}
-
-/* ไอคอนแว่นขยาย */
-.choices__list--dropdown .choices__input {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: 10px center;
-    background-size: 16px;
-    padding-left: 35px !important;
-    border-radius: 4px;
-    background-color: #f8f9fa;
-    border: 1px solid #eee;
-    margin-bottom: 5px;
-}
-
-/* 🔥 เพิ่ม: Error Style สำหรับ Choices.js 🔥 */
-.choices.is-invalid .choices__inner {
-    border-color: #dc3545 !important;
-    background-image: none;
-}
+.choices__inner { background-color: #fff; border: 1px solid #e0e0e0; border-radius: 6px; min-height: 44px; padding: 4px 10px; display: flex; align-items: center; font-size: 14px; }
+.choices.is-focused .choices__inner { border-color: #FFA726; box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25); }
+.choices.is-disabled .choices__inner { background-color: #E9ECEF; cursor: not-allowed; }
+.choices__placeholder { color: #6c757d; opacity: 1; }
+.choices__list--dropdown .choices__input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 10px center; background-size: 16px; padding-left: 35px !important; border-radius: 4px; background-color: #f8f9fa; border: 1px solid #eee; margin-bottom: 5px; }
 
 /* =========================================
-   8. BUTTONS
+   7. BUTTONS & SWEETALERT
    ========================================= */
-.btn-back {
-    background-color: #FFA726; color: #fff; border: none;
-    border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s;
-    white-space: nowrap;
-}
+.btn-back { background-color: #FFA726; color: #fff; border: none; border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s; white-space: nowrap; }
 .btn-back:hover { background-color: #e69520; color: #fff; }
-
-.btn-create-quote {
-    background-color: #b00020; color: #fff; border: none;
-    border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s;
-    white-space: nowrap;
-}
+.btn-create-quote { background-color: #b00020; color: #fff; border: none; border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s; white-space: nowrap; }
 .btn-create-quote:hover { background-color: #8a0019; color: #fff; }
 
-/* =========================================
-   9. SWEETALERT2 CUSTOM STYLES
-   ========================================= */
-.custom-swal-popup {
-    border-radius: 20px !important;
-    padding-top: 30px !important;
-    padding-bottom: 30px !important;
-}
-
-.custom-swal-confirm {
-    border-radius: 50px !important;
-    padding: 12px 30px !important;
-    font-weight: 600 !important;
-    box-shadow: none !important;
-}
-
-.custom-swal-cancel {
-    border-radius: 50px !important;
-    padding: 12px 30px !important;
-    font-weight: 600 !important;
-    color: #666 !important;
-    border: 1px solid #ddd !important;
-    background-color: transparent !important;
-    margin-right: 15px !important;
-}
-
-.custom-swal-cancel:hover {
-    background-color: #f8f9fa !important;
-    border-color: #ccc !important;
-    color: #000 !important;
-}
+.custom-swal-popup { border-radius: 20px !important; padding-top: 30px !important; padding-bottom: 30px !important; }
+.custom-swal-confirm { border-radius: 50px !important; padding: 12px 30px !important; font-weight: 600 !important; box-shadow: none !important; }
+.custom-swal-cancel { border-radius: 50px !important; padding: 12px 30px !important; font-weight: 600 !important; color: #666 !important; border: 1px solid #ddd !important; background-color: transparent !important; margin-right: 15px !important; }
+.custom-swal-cancel:hover { background-color: #f8f9fa !important; border-color: #ccc !important; color: #000 !important; }
 
 /* =========================================
-   10. RESPONSIVE
+   8. RESPONSIVE
    ========================================= */
-@media (min-width: 768px) and (max-width: 1399px) {
-    .quotation-title { font-size: 40px; }
-    .section-header { margin-left: 0px !important; }
-}
-
-@media (min-width: 1400px) {
-    .quotation-title { font-size: 48px; }
-    .section-header { margin-left: -60px !important; }
-    .btn-back, .btn-create-quote { padding: 10px 40px; font-size: 16px; }
-}
-
-@media (max-width: 576px) {
-    .container { padding-left: 20px; padding-right: 20px; }
-    .tax-option-card span { font-size: 14px; }
-    .bi-file-earmark-text, .bi-file-earmark-x { font-size: 1.5rem !important; }
-}
+@media (min-width: 768px) and (max-width: 1399px) { .quotation-title { font-size: 40px; } .section-header { margin-left: 0px !important; } }
+@media (min-width: 1400px) { .quotation-title { font-size: 48px; } .section-header { margin-left: -60px !important; } .btn-back, .btn-create-quote { padding: 10px 40px; font-size: 16px; } }
+@media (max-width: 576px) { .container { padding-left: 20px; padding-right: 20px; } .tax-option-card span { font-size: 14px; } .bi-file-earmark-text, .bi-file-earmark-x { font-size: 1.5rem !important; } }

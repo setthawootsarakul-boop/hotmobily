@@ -4,12 +4,11 @@
 
 @section('content')
 
-{{-- 1. รับค่าโหมดแก้ไขจาก Query String (ต้องอยู่บนสุด) --}}
+{{-- 1. รับค่าโหมดแก้ไขจาก Query String --}}
 @php
     $isEditMode = request('mode') == 'edit';
     $editRowId = request('row_id');
     $editQty = request('qty', 1);
-    // (Optional: คุณสามารถรับค่า size, print, part มาเพื่อทำ auto-select ปุ่มได้ถ้าต้องการ)
 @endphp
 
 {{-- CSS & Style --}}
@@ -21,6 +20,8 @@
         vertical-align: middle;
         border-color: #ddd !important; 
     }
+    
+    /* ปุ่มประเมินราคา (สีแดง) */
     .btn-estimate-action {
         background-color: #b00020;
         color: white;
@@ -33,7 +34,7 @@
         color: white;
     }
     
-    /* สไตล์ปุ่มอัปเดต (สีเหลือง) เมื่ออยู่ในโหมดแก้ไข */
+    /* ปุ่มอัปเดต (สีเหลือง) เมื่ออยู่ในโหมดแก้ไข */
     .btn-update-action {
         background-color: #ffc107;
         color: #000;
@@ -43,6 +44,19 @@
     }
     .btn-update-action:hover {
         background-color: #e0a800;
+    }
+    
+    /* ปุ่มขอใบเสนอราคา (สีส้ม) */
+    .btn-quote {
+        background-color: #FFA726;
+        color: white;
+        border-radius: 8px;
+        border: none;
+        transition: 0.3s;
+    }
+    .btn-quote:hover {
+        background-color: #e69520;
+        color: white;
     }
 </style>
 
@@ -299,6 +313,7 @@
                     <input type="hidden" id="selected_product_id" value="{{ $product->id }}">
                     <input type="hidden" id="selected_size_id" value="{{ $product->sizes->first()->id ?? '' }}">
                     <input type="hidden" id="selected_printing_id" value="{{ $product->printings->first()->id ?? '' }}">
+                    {{-- Default part_id --}}
                     <input type="hidden" id="selected_part_id" value="{{ $product->parts->where('is_default', 1)->first()->id ?? '' }}">
 
                     <div class="mt-4 d-flex justify-content-end align-items-center">
@@ -306,12 +321,10 @@
                         {{-- ถ้าเป็นโหมดแก้ไข ให้ใส่ค่าจำนวนเดิม --}}
                         <input type="number" class="form-control text-center fw-bold me-3" id="quantityInput" value="{{ $isEditMode ? $editQty : 1 }}" min="1" style="width: 120px; height: 45px; border-radius: 8px;">
                         
-                        {{-- ✅ 1. ปุ่มประเมินราคา (ยังคงอยู่) --}}
+                        {{-- ✅ 1. ปุ่มประเมินราคา --}}
                         <button class="btn btn-estimate-action fw-bold px-4 me-2" onclick="calculatePrice()" style="height: 45px; font-size: 1rem; min-width: 140px;">
                             ประเมินราคา
                         </button>
-
-                        {{-- ❌ 2. ลบปุ่ม "เพิ่ม/อัปเดต" ด้านบนออกแล้ว (ตามคำสั่ง) --}}
                     </div>
 
                 </div> {{-- End col-lg-7 --}}
@@ -356,15 +369,17 @@
                 </div>
             </div>
 
-            {{-- ✅ ปุ่ม Action ด้านล่าง (รวมปุ่ม ขอใบเสนอราคา ที่คุณต้องการ) --}}
+            {{-- ✅ ปุ่ม Action ด้านล่าง --}}
             <div class="action-area-bottom mt-5">
                 <div class="row justify-content-center g-3">
                     <div class="col-md-6 col-lg-4">
-                        <button class="btn btn-quote w-100 py-2 fw-bold">ขอใบเสนอราคา</button>
+                        <button class="btn btn-quote w-100 py-2 fw-bold" onclick="requestQuotation()">
+                            ขอใบเสนอราคา
+                        </button>
                     </div>
                     <div class="col-md-6 col-lg-4">
-                        {{-- ✅ ปุ่มเพิ่ม/อัปเดต ด้านล่าง (ใช้ปุ่มเดียว เปลี่ยนตามโหมด) --}}
-                        <button class="btn btn-estimate-action w-100 py-2 fw-bold" 
+                        {{-- ✅ ปุ่มเพิ่ม/อัปเดต ด้านล่าง --}}
+                        <button class="btn {{ $isEditMode ? 'btn-update-action' : 'btn-estimate-action' }} w-100 py-2 fw-bold" 
                                 onclick="{{ $isEditMode ? 'updateCart()' : 'addToCart()' }}">
                             {{ $isEditMode ? 'อัปเดตตะกร้า' : 'เพิ่มใส่ตะกร้า' }}
                         </button>
@@ -375,7 +390,6 @@
             {{-- Dynamic Sections (Product 19, 12, ...) --}}
             @if($product->id == 19)
                 <div class="rubber-features-section mt-5 pt-4">
-                    {{-- (เนื้อหาพวงกุญแจยาง ID 19 คงเดิม) --}}
                     {{-- Banner --}}
                     <div class="text-center mb-5">
                         <img src="{{ asset('images/Hotmobilyfile/poster/keychain.jpg') }}" 
@@ -489,7 +503,6 @@
                 </div>
             @elseif($product->id == 12)
                 <div class="acrylic-stand-section mt-5 pt-4">
-                    {{-- (เนื้อหาแท่นวางโทรศัพท์ ID 12 คงเดิม) --}}
                     <div class="acrylic-poster-wrapper mb-5">
                         <img src="{{ asset('images/Hotmobilyfile/poster/Rectangle118.png') }}" alt="แท่นวางโทรศัพท์" class="acrylic-poster-img">
                     </div>
@@ -543,9 +556,6 @@
     let currentImageIndex = 0;
     const lightbox = GLightbox({ touchNavigation: true, loop: true, autoplayVideos: true });
 
-    // (ฟังก์ชันอื่นๆ: changeMainImage, openLightbox, selectSize, selectScreen, selectSpec, calculatePrice เหมือนเดิม)
-    // ... (วางโค้ดฟังก์ชันเดิมของคุณได้เลย) ... 
-    
     function changeMainImage(element, src, index) { 
         document.getElementById('mainProductImage').src = src; 
         document.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
@@ -584,7 +594,7 @@
         document.querySelectorAll(`[data-group="${groupName}"]`).forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         const partId = element.getAttribute('data-part-id');
-        document.getElementById('selected_part_id').value = partId;
+        document.getElementById('selected_part_id').value = partId; // ✅ ส่ง ID เพื่อให้ Controller หา color ได้
     }
 
     function calculatePrice() { 
@@ -657,6 +667,9 @@
         const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
         const activePartDiv = document.querySelector('[data-group="part-group"].active');
         const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
+        
+        // ✅ รับ part_id ที่เลือกไว้
+        const partId = document.getElementById('selected_part_id').value;
 
         const data = {
             product_id: productId,
@@ -664,23 +677,36 @@
             size_name: sizeName,
             print_name: printName,
             part_name: partName,
+            part_id: partId, // 🔥 ส่ง part_id ไปด้วย เพื่อให้ Controller หา color ได้
             details_text: "" 
         };
 
         axios.post('{{ route("cart.add") }}', { ...data, _token: '{{ csrf_token() }}' })
         .then(function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'เพิ่มลงตะกร้าแล้ว',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
-                window.location.href = '{{ route("cart.index") }}';
-            });
+            // 🔥 ตรวจสอบสถานะ response
+            if (response.data.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'สำเร็จ',
+                    text: response.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(() => {
+                    window.location.href = '{{ route("cart.index") }}';
+                });
+            } else if (response.data.status === 'error') {
+                // 🔥 แจ้งเตือนเมื่อตะกร้าเต็ม (หรือ Error อื่นๆ ที่ส่งมาแบบนี้)
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'ไม่สามารถเพิ่มได้',
+                    text: response.data.message, 
+                    confirmButtonColor: '#FFA726'
+                });
+            }
         })
         .catch(function (error) {
             console.error(error);
-            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถเพิ่มสินค้าลงตะกร้าได้' });
+            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้' });
         });
     }
 
@@ -688,7 +714,7 @@
     function updateCart() {
         const qty = document.getElementById('quantityInput').value;
         const productId = document.getElementById('selected_product_id').value;
-        const rowId = '{{ $editRowId }}'; // รับค่า row_id จาก PHP
+        const rowId = '{{ $editRowId ?? "" }}'; 
 
         if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
 
@@ -698,6 +724,7 @@
         const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
         const activePartDiv = document.querySelector('[data-group="part-group"].active');
         const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
+        const partId = document.getElementById('selected_part_id').value;
 
         const data = {
             row_id: rowId,
@@ -706,6 +733,7 @@
             size_name: sizeName,
             print_name: printName,
             part_name: partName,
+            part_id: partId,
             details_text: "" 
         };
 
@@ -724,6 +752,56 @@
             console.error(error);
             Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถอัปเดตสินค้าได้' });
         });
+    }
+
+    // ✅ ฟังก์ชันสำหรับปุ่ม "ขอใบเสนอราคา" (ซื้อเลย)
+    function requestQuotation() {
+        const qty = document.getElementById('quantityInput').value;
+        const productId = document.getElementById('selected_product_id').value;
+
+        if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
+
+        const activeSizeBtn = document.querySelector('[data-group="size-group"].active');
+        const sizeName = activeSizeBtn ? activeSizeBtn.innerText.trim() : '-';
+        
+        const activePrintBtn = document.querySelector('[data-group="screen-group"].active');
+        const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
+        
+        const activePartDiv = document.querySelector('[data-group="part-group"].active');
+        const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
+        const partId = document.getElementById('selected_part_id').value;
+
+        const data = {
+            product_id: productId,
+            quantity: qty,
+            size_name: sizeName,
+            print_name: printName,
+            part_name: partName,
+            part_id: partId,
+            details_text: "" 
+        };
+
+        axios.post('{{ route("cart.add") }}', { ...data, _token: '{{ csrf_token() }}' })
+            .then(function (response) {
+                if (response.data.status === 'success') {
+                    // ✅ รับ row_id ที่เพิ่งสร้างมาจาก Controller
+                    const newRowId = response.data.row_id; 
+
+                    // 3. Redirect ไปหน้า quotation.index พร้อมส่ง row_id ไปด้วย
+                    window.location.href = '{{ route("quotation.index") }}?selected_items[]=' + newRowId;
+                } else if (response.data.status === 'error') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'ไม่สามารถทำรายการได้',
+                        text: response.data.message,
+                        confirmButtonColor: '#FFA726'
+                    });
+                }
+            })
+            .catch(function (error) {
+                console.error(error);
+                Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถดำเนินการได้' });
+            });
     }
 </script>
 

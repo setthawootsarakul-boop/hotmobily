@@ -3,29 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Quotation;
-use App\Models\QuotationItem;
-use App\Models\CartItem;
-use App\Models\ProductPrice;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\File; // ✅ เพิ่มบรรทัดนี้เพื่อป้องกัน Error
+use App\Models\Quotation;
+use App\Models\QuotationItem;
+use App\Models\Product;
+use App\Models\ProductPrice;
+use App\Models\CartItem;
 
 class QuotationController extends Controller
 {
-    // =========================================================
-    // 1. หน้าแรก (Step 1): กรอกข้อมูลติดต่อ + ที่อยู่จัดส่ง
-    // =========================================================
-    public function index()
+    public function index(Request $request)
     {
-        // ดึงข้อมูลเก่าจาก Session (ถ้ามี) มาแสดงเผื่อลูกค้ากดย้อนกลับ
+        if ($request->has('selected_items')) {
+            session()->put('quotation_selected_items', $request->selected_items);
+        }
         $tempData = session()->get('quotation_step1', []);
         return view('quotation.index', compact('tempData'));
     }
 
-    // Handle Step 1 Submit
     public function storeStep1(Request $request)
     {
-        // Validate ข้อมูล Step 1
         $request->validate([
             'fullname' => 'required',
             'phone' => 'required',
@@ -37,144 +36,167 @@ class QuotationController extends Controller
             'tax_invoice_req' => 'required'
         ]);
 
-        // เก็บข้อมูล Step 1 ลง Session
-        session()->put('quotation_step1', $request->all());
+        $data = $request->all();
 
-        // เช็คเงื่อนไข
+        // 🔥 ดึงชื่อจาก JSON โดยตรง (วิธีที่แม่นยำที่สุด)
+        try {
+            $jsonPath = public_path('province_with_district_and_sub_district.json');
+            if (File::exists($jsonPath)) {
+                $allData = json_decode(File::get($jsonPath), true);
+                $collectData = collect($allData);
+                
+                // 1. หาจังหวัด
+                $province = $collectData->firstWhere('id', (int)$request->province);
+                if ($province) {
+                    $data['province'] = $province['name_th'];
+                    
+                    // 2. หาอำเภอ
+                    $district = collect($province['districts'])->firstWhere('id', (int)$request->district);
+                    if ($district) {
+                        $data['district'] = $district['name_th'];
+                        
+                        // 3. หาตำบล
+                        $subDistrict = collect($district['sub_districts'])->firstWhere('id', (int)$request->sub_district);
+                        if ($subDistrict) {
+                            $data['sub_district'] = $subDistrict['name_th'];
+                        }
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            // Fallback: หาก JSON พัง ให้ใช้ชื่อที่ส่งมาจาก Hidden Input (ถ้ามี) หรือ ID เดิม
+            $data['province'] = $request->province_name ?? $request->province;
+            $data['district'] = $request->district_name ?? $request->district;
+            $data['sub_district'] = $request->sub_district_name ?? $request->sub_district;
+        }
+
+        session()->put('quotation_step1', $data);
+
         if ($request->tax_invoice_req == '1') {
-            // ถ้าเลือก "แบบกระดาษ" -> ไป Step 2
             return redirect()->route('quotation.tax_info');
         } else {
-            // ถ้า "ไม่ต้องการ" -> บันทึกเลย
-            return $this->saveQuotation($request->all());
+            return $this->saveQuotation($data);
         }
     }
 
-    // =========================================================
-    // 2. หน้าสอง (Step 2): กรอกข้อมูลใบกำกับภาษี
-    // =========================================================
     public function taxInfo()
     {
-        // เช็คว่ามีข้อมูล Step 1 หรือยัง ถ้าไม่มีให้ดีดกลับ
         if (!session()->has('quotation_step1')) {
             return redirect()->route('quotation.index');
         }
-
         $step1Data = session()->get('quotation_step1');
         return view('quotation.tax_info', compact('step1Data'));
     }
 
-    // Handle Step 2 Submit (Final)
     public function confirmQuotation(Request $request)
     {
-        // Validate ข้อมูล Step 2
         $request->validate([
             'tax_person_type' => 'required',
             'tax_name' => 'required',
             'tax_id' => 'required',
-            'tax_province' => 'required',
-            // ... validate อื่นๆ ตามต้องการ
         ]);
 
-        // รวมข้อมูล Step 1 + Step 2
         $step1Data = session()->get('quotation_step1');
-        $finalData = array_merge($step1Data, $request->all());
+        if (!$step1Data) {
+            return redirect()->route('quotation.index')->with('error', 'ข้อมูลหมดอายุ กรุณากรอกใหม่');
+        }
 
+        $taxData = $request->all();
+        
+        // 🔥 แปลงที่อยู่ใบกำกับภาษีโดยใช้ Logic เดียวกัน (JSON)
+        try {
+            $jsonPath = public_path('province_with_district_and_sub_district.json');
+            if (File::exists($jsonPath)) {
+                $allData = json_decode(File::get($jsonPath), true);
+                $collectData = collect($allData);
+                
+                $p = $collectData->firstWhere('id', (int)$request->tax_province);
+                if ($p) {
+                    $taxData['tax_province'] = $p['name_th'];
+                    $d = collect($p['districts'])->firstWhere('id', (int)$request->tax_district);
+                    if ($d) {
+                        $taxData['tax_district'] = $d['name_th'];
+                        $s = collect($d['sub_districts'])->firstWhere('id', (int)$request->tax_sub_district);
+                        if ($s) $taxData['tax_sub_district'] = $s['name_th'];
+                    }
+                }
+            }
+        } catch (\Exception $e) {
+            $taxData['tax_province'] = $request->tax_province_name ?? $request->tax_province;
+            $taxData['tax_district'] = $request->tax_district_name ?? $request->tax_district;
+            $taxData['tax_sub_district'] = $request->tax_sub_district_name ?? $request->tax_sub_district;
+        }
+
+        $finalData = array_merge($step1Data, $taxData);
         return $this->saveQuotation($finalData);
     }
 
-    // =========================================================
-    // 3. Logic บันทึกลง Database (Transaction)
-    // =========================================================
     private function saveQuotation($data)
     {
-        DB::beginTransaction(); // เริ่ม Transaction
-
+        DB::beginTransaction();
         try {
-            // 1. ระบุตัวตน
             $sessionId = Session::getId();
             $userId = auth()->id();
 
             $data['session_id'] = $sessionId;
             $data['user_id'] = $userId;
             $data['status'] = 'pending';
+            $data['quotation_number'] = 'HS-T-' . date('ymd') . '_' . rand(10, 99) . '_' . rand(100, 999);
+            $data['due_date'] = now()->addDays(30);
 
-            // 2. สร้างใบเสนอราคา (Head)
             $quotation = Quotation::create($data);
 
-            // 3. ดึงข้อมูลจากตะกร้า
-            $cartItems = CartItem::where(function($query) use ($sessionId, $userId) {
-                            $query->where('session_id', $sessionId);
-                            if ($userId) {
-                                $query->orWhere('user_id', $userId);
-                            }
-                        })->with('product')->get();
+            $selectedRowIds = session()->get('quotation_selected_items', []);
+            $cartQuery = CartItem::where('session_id', $sessionId);
+            if (!empty($selectedRowIds)) { $cartQuery->whereIn('id', $selectedRowIds); }
+            $cartItems = $cartQuery->get();
 
-            if ($cartItems->isEmpty()) {
-                throw new \Exception('ตะกร้าสินค้าว่างเปล่า');
-            }
+            if ($cartItems->isEmpty()) { throw new \Exception('ไม่พบรายการสินค้าในตะกร้า'); }
 
-            // 4. วนลูปบันทึกรายการสินค้า (Items)
+            $grandTotal = 0;
             foreach ($cartItems as $item) {
-                
-                $qty = $item->quantity;
-                $options = $item->options; // JSON/Array
-                
-                // คำนวณราคาตามขั้นบันได
-                $priceQuery = ProductPrice::where('product_id', $item->product_id)
+                $qty = (int)$item->quantity;
+                $options = $item->options;
+                $product = Product::find($item->product_id);
+                $productName = $product ? $product->name : 'สินค้าทั่วไป';
+
+                $priceRecord = ProductPrice::where('product_id', $item->product_id)
                                 ->where('quantity_min', '<=', $qty)
-                                ->where('quantity_max', '>=', $qty);
+                                ->where('quantity_max', '>=', $qty)
+                                ->first();
+                $unitPrice = $priceRecord ? $priceRecord->price_per_unit : 0;
+                $totalLine = $unitPrice * $qty;
 
-                if (isset($options['size_id'])) {
-                    $priceQuery->where('product_size_id', $options['size_id']);
-                }
-
-                $priceRecord = $priceQuery->first();
-                $unitPrice = $priceRecord ? $priceRecord->price_per_unit : 0; 
-
-                // บันทึกลง QuotationItem
                 QuotationItem::create([
                     'quotation_id' => $quotation->id,
-                    'product_id' => $item->product_id,
-                    'product_name' => $item->product->name,
-                    'options' => $options,
-                    'quantity' => $qty,
+                    'product_id'   => $item->product_id,
+                    'product_name' => $productName,
+                    'options'      => $options,
+                    'quantity'     => $qty,
                     'price_per_unit' => $unitPrice,
-                    'total_price' => $unitPrice * $qty,
+                    'total_price'  => $totalLine,
                 ]);
+                $grandTotal += $totalLine;
             }
 
-            // 5. ล้างตะกร้าสินค้า
-            CartItem::where(function($query) use ($sessionId, $userId) {
-                $query->where('session_id', $sessionId);
-                if ($userId) {
-                    $query->orWhere('user_id', $userId);
-                }
-            })->delete();
+            $quotation->update(['subtotal' => $grandTotal, 'grand_total' => $grandTotal]);
 
-            // 6. ล้าง Session
-            session()->forget(['quotation_step1']);
+            if (!empty($selectedRowIds)) { CartItem::whereIn('id', $selectedRowIds)->delete(); }
+            else { CartItem::where('session_id', $sessionId)->delete(); }
 
+            session()->forget(['quotation_step1', 'quotation_selected_items']);
             DB::commit();
 
-            // 7. ไปหน้าใบเสร็จ
             return redirect()->route('quotation.show', $quotation->id);
-
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'เกิดข้อผิดพลาด: ' . $e->getMessage());
         }
     }
-    
-    // =========================================================
-    // 4. หน้าแสดงผลใบเสนอราคา (Success Page)
-    // =========================================================
+
     public function show($id)
     {
-        // ดึงข้อมูลใบเสนอราคาพร้อมรายการสินค้า
-        $quotation = Quotation::with('quotationItems')->findOrFail($id);
-        
-        // TODO: สร้างไฟล์ resources/views/quotation/show.blade.php เพื่อรองรับหน้านี้
+        $quotation = Quotation::with('items')->findOrFail($id);
         return view('quotation.show', compact('quotation'));
     }
 }

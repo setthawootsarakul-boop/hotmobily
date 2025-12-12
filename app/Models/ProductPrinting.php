@@ -13,7 +13,8 @@ class ProductPrinting extends Model
         'product_id',
         'printing_type',
         'color_type',
-        'note'
+        'note',
+        'price_extra'
     ];
 
     public function product()
