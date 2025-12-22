@@ -1,198 +1,283 @@
 @extends('layouts.main')
 
-@section('title', 'ติดต่อเรา')
+@section('title', 'ใบเสนอราคา ' . $quotation->quotation_number)
 
 @section('content')
-<section class="contact-section py-5">
-    <div class="container">
-        <h2 class="text-center fw-bold mb-5" style="color:#FFA726; font-size:3.3rem;">ติดต่อเรา</h2>
 
-        <!-- 🔹 โลโก้ + ชื่อบริษัท (มือถือ) -->
-        <div class="company-header-mobile d-flex align-items-center justify-content-center text-center mb-4 d-md-none">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="company-logo-mobile me-3">
-            <div class="text-start">
-                <h5 class="fw-bold text-dark mb-1 company-name-mobile">
-                    บริษัท ยู แอนด์ เอิร์ธ (ไทยแลนด์) จำกัด
-                </h5>
-                <p class="text-muted small mb-0 company-en-mobile">
-                    YOU AND EARTH (THAILAND) CO., LTD.
-                </p>
+<style>
+    body { background-color: #f3f4f6; }
+    
+    .quotation-container {
+        background: #fff;
+        max-width: 210mm;
+        margin: 40px auto;
+        padding: 40px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        font-family: 'Sarabun', sans-serif;
+        color: #333;
+    }
+
+    .header-title-bar {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 5px 0;
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .company-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+    }
+    .company-address { font-size: 12px; line-height: 1.5; width: 60%; }
+    .company-logo img { height: 60px; }
+
+    .info-section { display: flex; justify-content: space-between; margin-bottom: 20px; }
+    
+    .customer-info { width: 55%; }
+    .cust-name { font-size: 18px; font-weight: bold; color: #000; margin-bottom: 5px; }
+    .cust-details { color: #777; line-height: 1.6; font-size: 13px; }
+    
+    .doc-info-table {
+        width: 40%;
+        border-collapse: collapse;
+        font-size: 13px;
+    }
+    .doc-info-table td { border: 1px solid #999; padding: 5px 10px; }
+    .doc-info-table td:first-child { background-color: #f0f0f0; font-weight: bold; width: 40%; }
+    .doc-info-table td:last-child { text-align: right; }
+
+    /* --- ตารางสินค้า --- */
+    .product-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        table-layout: fixed;
+    }
+    .product-table th {
+        background-color: #f0f0f0;
+        text-align: center;
+        font-weight: bold;
+        border: 1px solid #999;
+        padding: 8px;
+        white-space: nowrap; 
+    }
+    .product-table td {
+        border: 1px solid #999;
+        padding: 8px;
+        vertical-align: top;
+    }
+
+    .col-no    { width: 45px;  text-align: center; }
+    .col-item  { width: auto; }
+    .col-unit  { width: 100px; text-align: right; }
+    .col-qty   { width: 85px;  text-align: center; } 
+    .col-price { width: 120px; text-align: right; }
+
+    .option-list {
+        margin: 5px 0 0 0;
+        padding-left: 18px;
+        list-style-type: disc;
+        font-size: 11px;
+        color: #666;
+    }
+    .option-list li { margin-bottom: 2px; }
+
+    .bg-light-gray { background-color: #fcfcfc; }
+    .bg-summary { background-color: #e0e0e0; font-weight: bold; }
+
+    /* --- ส่วนตารางข้อมูลด้านล่าง --- */
+    .footer-sections {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+        gap: 20px;
+    }
+    .footer-column { flex: 1; }
+    
+    .info-title { font-weight: bold; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; font-size: 12px; }
+    .footer-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .footer-table td { border: 1px solid #999; padding: 5px 10px; vertical-align: top; }
+    .footer-table td:first-child { background-color: #f0f0f0; width: 35%; font-weight: bold; }
+
+    .no-print-area { margin: 40px auto; max-width: 210mm; text-align: center; position: relative; }
+    .btn-print-wrapper { position: absolute; right: 0; top: 0; }
+    .btn-print { background-color: #b00020; color: white; border: none; padding: 8px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .btn-home { background-color: #FFA726; color: white; text-decoration: none; padding: 12px 40px; border-radius: 6px; font-weight: bold; display: inline-block; margin-top: 50px; }
+    .view-products { color: #FFA726; text-decoration: none; display: block; margin-top: 15px; font-weight: bold; font-size: 14px; }
+
+    @media print {
+        body { background: #fff; }
+        .quotation-container { box-shadow: none; margin: 0; padding: 0; width: 100%; }
+        .no-print, nav, footer, .no-print-area { display: none !important; }
+        @page { margin: 1cm; }
+    }
+</style>
+
+<div class="container-fluid py-4">
+    
+    <div class="quotation-container">
+        <div class="header-title-bar">ใบเสนอราคา</div>
+
+        <div class="company-header">
+            <div class="company-address">
+                <strong>YOU AND EARTH (THAILAND) CO., LTD.</strong><br>
+                23/34-35 The Prime Hua Lamphong, Building A, 3rd Floor, Room No. 303,<br>
+                Soi Sukorn, Trimit Road, Talat Noi, Samphanthawong, Bangkok 10100<br>
+                Tel : 064-604-5614<br>
+                TAX ID: 010-556-3086-07-0, Head Office
+            </div>
+            <div class="company-logo">
+                <img src="{{ asset('images/Hotmobilyfile/logo-thai-s.jpg') }}" alt="HOT STRAP Logo"> 
             </div>
         </div>
 
-        <div class="row g-5 align-items-start justify-content-center flex-md-row flex-column">
-
-            <!-- 🔹 ฝั่งซ้าย (ข้อมูลบริษัท + เบอร์โทร + QR + Social) -->
-            <div class="col-md-5 company-side order-2 order-md-1">
-                <div class="company-info text-start" style="margin-left:20px;">
-
-                    <!-- Desktop โลโก้ -->
-                    <div class="d-none d-md-flex align-items-center mb-4 justify-content-start">
-                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="company-logo me-3">
-                        <div class="text-start">
-                            <h5 class="fw-bold text-dark mb-1" style="font-size:1.2rem;">
-                                บริษัท ยู แอนด์ เอิร์ธ (ไทยแลนด์) จำกัด
-                            </h5>
-                            <p class="text-muted small mb-0" style="font-size:0.95rem;">
-                                YOU AND EARTH (THAILAND) CO., LTD.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- 🔹 ที่อยู่ -->
-                    <p class="text-muted small mb-4 company-address text-start" style="font-size:1rem; line-height:1.8;">
-                        23/34–35 อาคารโปรเจครเดอะไพรด์ หัวลำโพง อาคาร A<br>
-                        ห้องเลขที่ 303 ชั้นที่ 3 ซอยสุกร แขวงตลาดน้อย เขตสัมพันธวงศ์<br>
-                        กรุงเทพมหานคร 10100<br>
-                        เวลาทำการ : จันทร์–ศุกร์ (08:30–17:30 น.)
-                    </p>
-
-                    <!-- 🔹 เบอร์โทร + QR -->
-                    <div class="contact-layout-desktop d-none d-md-flex align-items-start justify-content-start gap-4">
-
-                        <!-- 📞 เบอร์โทร -->
-                        <div class="phone-list">
-                            @foreach ([['064-604-5614', 'tel:0646045614'], ['02-637-8995', 'tel:026378995'], ['02-637-8997', 'tel:026378997']] as [$num, $tel])
-                            <a href="{{ $tel }}" class="phone-item">
-                                <div class="phone-icon-circle">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-                                <span class="phone-number">{{ $num }}</span>
-                            </a>
-                            @endforeach
-                        </div>
-
-                        <!-- 🔹 QR LINE -->
-                        <div class="qr-box text-center">
-                            <div class="qr-frame shadow-frame mx-auto">
-                                <img src="{{ asset('images/line-qr.png') }}" alt="Line QR">
-                            </div>
-                            <p class="qr-text mt-3">Line : hotstrapphai</p>
-                        </div>
-                    </div>
-
-                    <!-- 🔹 โลโก้ Social -->
-                    <div class="social-links-horizontal d-none d-md-flex justify-content-start mt-4 gap-3">
-                        <a href="#" class="social-circle bg-primary text-white"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="social-circle bg-success text-white"><i class="bi bi-line"></i></a>
-                        <a href="#" class="social-circle bg-dark text-white"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="social-circle bg-danger text-white"><i class="bi bi-envelope-fill"></i></a>
-                    </div>
-
-                    <!-- 🔸 Mobile -->
-                    <div class="d-md-none contact-box flex-column align-items-center text-center">
-                        <div class="phone-list">
-                            @foreach ([['064-604-5614', 'tel:0646045614'], ['02-637-8995', 'tel:026378995'], ['02-637-8997', 'tel:026378997']] as [$num, $tel])
-                            <a href="{{ $tel }}" class="phone-item">
-                                <div class="phone-icon-circle">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-                                <span class="phone-number">{{ $num }}</span>
-                            </a>
-                            @endforeach
-                        </div>
-
-                        <div class="qr-box mt-4 text-center">
-                            <div class="qr-frame mx-auto">
-                                <img src="{{ asset('images/line-qr.png') }}" alt="Line QR">
-                            </div>
-                            <p class="qr-text mt-3">Line : hotstrapphai</p>
-                        </div>
-
-                        <div class="social-links mt-4 justify-content-center">
-                            <a href="#" class="social-circle bg-primary text-white"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="social-circle bg-success text-white"><i class="bi bi-line"></i></a>
-                            <a href="#" class="social-circle bg-dark text-white"><i class="bi bi-twitter-x"></i></a>
-                            <a href="#" class="social-circle bg-danger text-white"><i class="bi bi-envelope-fill"></i></a>
-                        </div>
-                    </div>
+        <div class="info-section">
+            <div class="customer-info">
+                <div class="cust-name">{{ $quotation->fullname }}</div>
+                <div class="cust-details">
+                    @php
+                        $addrLine1 = collect([
+                            $quotation->address_no,
+                            $quotation->moo ? "หมู่ " . $quotation->moo : null,
+                            $quotation->building,
+                            $quotation->floor ? "ชั้น " . $quotation->floor : null,
+                            $quotation->village,
+                            $quotation->soi,
+                            $quotation->road
+                        ])->filter()->implode(', ');
+                    @endphp
+                    {{ $addrLine1 }}
+                    <br>
+                    {{ $quotation->sub_district }}, {{ $quotation->district }}, {{ $quotation->province }} {{ $quotation->zipcode }}
+                    <br>
+                    {{ $quotation->email }}
+                    <br>
+                    {{ $quotation->phone }}
                 </div>
             </div>
 
-            <!-- 🔹 ฝั่งขวา (ฟอร์ม) -->
-            <div class="col-md-7 order-1 order-md-2 form-side text-start">
-                <form action="{{ route('contact.send') }}" method="POST" enctype="multipart/form-data"
-                    class="p-5 bg-white rounded shadow-sm border form-lg">
-                    @csrf
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold fs-5">ชื่อ - นามสกุล *</label>
-                        <input type="text" name="name" class="form-control form-control-lg" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold fs-5">อีเมล *</label>
-                        <input type="email" name="email" class="form-control form-control-lg" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold fs-5">เบอร์โทรศัพท์ *</label>
-                        <input type="text" name="phone" class="form-control form-control-lg" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold fs-5">เรื่องที่ต้องการติดต่อ</label>
-                        @foreach (['ขอใบเสนอราคา', 'นัดหมายฝ่ายขาย', 'ขอตัวอย่างสินค้า', 'สอบถามข้อมูลทั่วไป'] as $topic)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="topic[]" value="{{ $topic }}" {{ $topic == 'สอบถามข้อมูลทั่วไป' ? 'checked' : '' }}>
-                            <label class="form-check-label fs-5">{{ $topic }}</label>
-                        </div>
-                        @endforeach
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold fs-5">แนบไฟล์งาน</label>
-                        <input type="file" name="file" class="form-control form-control-lg">
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="form-label fw-semibold fs-5">ข้อความเพิ่มเติม</label>
-                        <textarea name="message" class="form-control form-control-lg" rows="4"></textarea>
-                    </div>
-
-                    <button type="submit"
-                        class="btn btn-warning w-100 fw-bold text-white py-3 shadow-sm"
-                        style="background: linear-gradient(90deg,#e7a21d,#b06d0f); font-size:1.2rem;">
-                        ส่งข้อความ
-                    </button>
-                </form>
-            </div>
+            <table class="doc-info-table">
+                <tr><td>Quotation #</td><td>{{ $quotation->quotation_number }}</td></tr>
+                <tr><td>Date</td><td>{{ $quotation->created_at->format('M d, Y') }}</td></tr>
+                <tr><td>Amount Due</td><td>{{ number_format($quotation->grand_total, 2) }} baht</td></tr>
+            </table>
         </div>
-    </div>
-</section>
 
-<!-- 🔹 ส่วนฟีเจอร์บริษัทในเครือ -->
-<section class="network-section py-5" style="background-color: #F6F1E9;">
-    <div class="container text-center">
-        <h2 class="fw-bold mb-4">เว็บไซต์ในเครือบริษัทของเรา</h2>
-        <div class="row justify-content-center g-4">
-            <div class="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                <a href="https://www.youandearth-th.com/" target="_blank">
-                    <img src="{{ asset('images/youandearth.png') }}" class="img-fluid network-logo" alt="You and Earth">
-                </a>
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th class="col-no">No.</th>
+                    <th class="col-item" style="text-align: left;">Item</th>
+                    <th class="col-unit">Unit Cost</th>
+                    <th class="col-qty">Quantity</th>
+                    <th class="col-price">Price(baht)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($quotation->items as $index => $item)
+                @php
+                    $opt = $item->options ?? [];
+                    $size = $opt['size_name'] ?? '-';
+                    $print = $opt['print_name'] ?? '-';
+                    $part = $opt['part_name'] ?? '-';
+                    $color = $opt['part_color'] ?? '-';
+                @endphp
+                <tr>
+                    <td class="col-no">{{ $index + 1 }}</td>
+                    <td class="col-item">
+                        <strong>{{ $item->product_name }}</strong>
+                        <ul class="option-list">
+                            @if($size != '-') <li>ขนาด: {{ $size }}</li> @endif
+                            @if($print != '-') <li>การพิมพ์: {{ $print }}</li> @endif
+                            @if($part != '-') <li>ส่วนประกอบเพิ่มเติม: {{ $part }} @if($color != '-' && $color != '') ({{ $color }}) @endif</li> @endif
+                        </ul>
+                    </td>
+                    <td class="col-unit">{{ number_format($item->price_per_unit, 2) }}</td>
+                    <td class="col-qty">{{ number_format($item->quantity) }}</td>
+                    <td class="col-price">{{ number_format($item->total_price, 2) }}</td>
+                </tr>
+                @endforeach
+
+                @for($i = 0; $i < max(0, 5 - count($quotation->items)); $i++)
+                <tr>
+                    <td class="col-no" style="height: 30px;"></td>
+                    <td class="col-item"></td>
+                    <td class="col-unit"></td>
+                    <td class="col-qty"></td>
+                    <td class="col-price"></td>
+                </tr>
+                @endfor
+
+                <tr>
+                    <td colspan="2" style="border: none;"></td>
+                    <td colspan="2" class="bg-light-gray" style="text-align: right; font-weight: bold;">Subtotal</td>
+                    <td class="col-price">{{ number_format($quotation->subtotal, 2) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border: none;"></td>
+                    <td colspan="2" class="bg-light-gray" style="text-align: right; font-weight: bold;">Express fee</td>
+                    <td class="col-price">{{ number_format($quotation->express_fee, 2) }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="border: none;"></td>
+                    <td colspan="2" class="bg-summary" style="text-align: right;">Balance Due</td>
+                    <td class="col-price bg-summary">{{ number_format($quotation->grand_total, 2) }} baht</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {{-- 🔥 ส่วนตารางด้านล่าง: จัดเรียง Payment และ Tax Info --}}
+        <div class="footer-sections">
+            {{-- Column 1: Payment Method (แสดงเสมอ) --}}
+            <div class="footer-column">
+                <div class="info-title">P A Y M E N T &nbsp; M E T H O D</div>
+                <table class="footer-table">
+                    <tr><td>Bank's name</td><td>ไทยพาณิชย์ (SCB)</td></tr>
+                    <tr><td>Bank number</td><td>191-213953-5</td></tr>
+                    <tr><td>Account name</td><td>บริษัท ยู แอนด์ เอิร์ธ (ไทยแลนด์) จำกัด</td></tr>
+                    <tr><td>Branch name</td><td>ถนนสาทร</td></tr>
+                </table>
             </div>
-            <div class="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                <a href="https://hotstrapthai.com/" target="_blank">
-                    <img src="{{ asset('images/hotstrap.png') }}" class="img-fluid network-logo" alt="Hotstrap">
-                </a>
+
+            {{-- Column 2: Tax Invoice Info (แสดงเฉพาะเมื่อมีการขอใบกำกับภาษี) --}}
+            @if($quotation->tax_invoice_req == '1')
+            <div class="footer-column">
+                <div class="info-title">T A X &nbsp; I N V O I C E &nbsp; I N F O</div>
+                <table class="footer-table">
+                    <tr><td>Tax Name</td><td>{{ $quotation->tax_name }}</td></tr>
+                    <tr><td>Tax ID</td><td>{{ $quotation->tax_id }}</td></tr>
+                    <tr><td>Address</td><td>
+                        @php
+                            $taxAddr = collect([
+                                $quotation->tax_address_no,
+                                $quotation->tax_moo ? "หมู่ " . $quotation->tax_moo : null,
+                                $quotation->tax_building,
+                                $quotation->tax_soi,
+                                $quotation->tax_road
+                            ])->filter()->implode(' ');
+                        @endphp
+                        {{ $taxAddr }}<br>
+                        {{ $quotation->tax_sub_district }}, {{ $quotation->tax_district }}<br>
+                        {{ $quotation->tax_province }} {{ $quotation->tax_zipcode }}
+                    </td></tr>
+                </table>
             </div>
-            <div class="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                <a href="https://hotmobilythai.com/" target="_blank">
-                    <img src="{{ asset('images/hotmobilythai.png') }}" class="img-fluid network-logo" alt="Hotmobilythai">
-                </a>
-            </div>
-            <div class="col-10 col-sm-6 col-md-5 col-lg-4 col-xl-3">
-                <a href="https://silicone-wristband-studio.jp/" target="_blank">
-                    <img src="{{ asset('images/silicone.png') }}" class="img-fluid network-logo" alt="Silicone Wristband Studio">
-                </a>
-            </div>
+            @endif
         </div>
+
+        <div class="text-center mt-5" style="font-size: 10px; color: #aaa; letter-spacing: 3px;">T E R M S</div>
     </div>
-</section>
 
-
-<!-- Font Awesome -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-
+    <div class="no-print-area">
+        <div class="btn-print-wrapper">
+            <button onclick="window.print()" class="btn-print">พิมพ์ใบเสนอราคา</button>
+        </div>
+        <a href="{{ route('home') }}" class="btn-home">กลับไปหน้าหลัก</a>
+        <a href="{{ route('products.index') }}" class="view-products">ดูสินค้าของเรา</a>
+    </div>
+</div>
 @endsection
