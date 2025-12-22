@@ -16,7 +16,7 @@
     {{-- ✅ Owl Carousel CSS (ใส่ที่นี่เพื่อโหลดทีเดียวทั้งโปรเจกต์) --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     {{-- ✅ Custom CSS --}}
     <link href="{{ asset('css/variables.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
@@ -25,13 +25,16 @@
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/hero.css') }}" rel="stylesheet">
     <link href="{{ asset('css/why.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/order-guide.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
     <link href="{{ asset('css/quotation.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/quotation-show.css') }}" rel="stylesheet">
     {{-- ✅ Global Styles Fix for 1440px Layout --}}
     <style>
         /* บังคับให้หน้าเว็บกว้างเต็มจอเสมอ ไม่เกิดขอบขาวที่ไม่ตั้งใจ */

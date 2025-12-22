@@ -6,13 +6,12 @@
     --primary-red: #b00020;
     --text-color: #333;
     --border-color: #eee;
-    --error-color: #dc3545;
+    --error-color: #dc3545; /* สีแดง Error */
 }
 
 body {
-    background-color: #f3f4f6; /* ปรับพื้นหลังหน้าจอปกติให้เป็นสีเทาอ่อนเพื่อให้กล่องขาวเด่น */
+    background-color: #fff;
     color: var(--text-color);
-    font-family: 'Sarabun', sans-serif;
 }
 
 /* =========================================
@@ -28,6 +27,11 @@ body.modal-open {
 
 .swal2-container {
     overflow-y: auto !important;
+}
+
+body.modal-open .navbar {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
 }
 
 /* =========================================
@@ -48,138 +52,112 @@ body.modal-open {
     color: #000;
     margin-top: 40px; 
     margin-bottom: 25px;
+    margin-left: 0px;
 }
 
 /* =========================================
    4. FORM ELEMENTS & VALIDATION
    ========================================= */
+.form-label {
+    font-weight: 500;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
 .form-control, .form-select {
     border: 1px solid #e0e0e0;
     border-radius: 4px;
+    
+    /* 🔥 Key Point: บังคับความสูงและ Padding ให้เท่า Choices.js */
     min-height: 44px; 
-    padding: 8px 15px;
+    padding: 8px 15px; /* ปรับ Padding บนล่างให้ข้อความอยู่กึ่งกลาง */
+    
     font-size: 14px;
-}
-
-.form-control.is-invalid { border-color: var(--error-color) !important; }
-.invalid-feedback { color: var(--error-color); font-weight: 500; }
-
-/* =========================================
-   9. QUOTATION VIEW PAGE (SHOW.BLADE.PHP)
-   ========================================= */
-
-.action-wrapper { 
-    margin: 40px auto; 
-    max-width: 210mm; 
-    position: relative; 
-}
-
-.quotation-container {
-    background: #fff;
-    width: 100%;
-    padding: 40px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
     color: #333;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    background-color: #fff;
+    display: flex;
+    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
 }
 
-.header-title-bar {
-    background-color: #333 !important;
-    color: #fff !important;
-    text-align: center;
-    padding: 5px 0;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
+.form-control[readonly] {
+    background-color: #E9ECEF;
+    opacity: 1;
 }
 
-.company-header { display: flex; justify-content: space-between; margin-bottom: 30px; align-items: flex-start; }
-.company-address { font-size: 12px; line-height: 1.5; width: 60%; }
-.company-logo img { height: 60px; max-width: 100%; object-fit: contain; }
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25);
+}
 
-.info-section { display: flex; justify-content: space-between; margin-bottom: 20px; }
-.customer-info { width: 55%; }
-.cust-name { font-size: 18px; font-weight: bold; color: #000; margin-bottom: 5px; }
-.cust-details { color: #777; line-height: 1.6; font-size: 13px; }
+/* 🔥 Styles สำหรับ Error Validation 🔥 */
 
-.doc-info-table { width: 40%; border-collapse: collapse; font-size: 13px; }
-.doc-info-table td { border: 1px solid #999; padding: 5px 10px; }
-.doc-info-table td:first-child { background-color: #f0f0f0 !important; font-weight: bold; width: 40%; }
-.doc-info-table td:last-child { text-align: right; }
+/* 1. Input ปกติ */
+.form-control.is-invalid {
+    border-color: var(--error-color) !important;
+    background-image: none !important;
+    padding-right: calc(1.5em + .75rem);
+}
 
-.product-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-.product-table th { background-color: #f0f0f0 !important; text-align: center; font-weight: bold; border: 1px solid #999; padding: 8px; }
-.product-table td { border: 1px solid #999; padding: 8px; vertical-align: top; }
-.col-no { width: 45px; text-align: center; }
-.col-price { width: 120px; text-align: right; }
+/* 2. Choices.js Dropdown (เมื่อเราใส่ class is-invalid ที่ wrapper) */
+.choices.is-invalid .choices__inner {
+    border-color: var(--error-color) !important;
+}
 
-.option-list { margin: 5px 0 0 0; padding-left: 18px; list-style-type: disc; font-size: 11px; color: #666; }
+/* ข้อความ Error */
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: var(--error-color);
+    font-weight: 500;
+}
 
-.bg-light-gray { background-color: #fcfcfc !important; }
-.bg-summary { background-color: #e0e0e0 !important; font-weight: bold; }
-
-.footer-tables-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 30px; width: 100%; gap: 4%; }
-.footer-table-box { width: 48%; flex-basis: 48%; flex-shrink: 0; }
-.footer-info-title { font-weight: bold; margin-bottom: 8px; text-transform: uppercase; font-size: 12px; color: #333; }
-.footer-data-table { width: 100%; border-collapse: collapse; font-size: 11.5px; table-layout: fixed; }
-.footer-data-table td { border: 1px solid #999; padding: 8px 10px; vertical-align: top; line-height: 1.5; word-wrap: break-word; }
-.footer-data-table td:first-child { background-color: #f0f0f0 !important; font-weight: bold; width: 38%; }
-
-.btn-print-wrapper { text-align: right; margin-top: 20px; }
-.btn-print { background-color: var(--primary-red); color: white; border: none; padding: 10px 25px; border-radius: 4px; font-weight: bold; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.3s; }
-.btn-print:hover { background-color: #8e001a; transform: translateY(-1px); }
-
-.btn-home-view { background-color: var(--primary-orange); color: white; text-decoration: none; padding: 10px 25px; border-radius: 4px; font-size: 20px; font-weight: bold; display: inline-block; margin-top: 30px; transition: 0.3s; }
-.btn-home-view:hover { background-color: #fb8c00; color: white; transform: translateY(-1px); }
-
-.view-products-link { color: #FFA726; text-decoration: none; display: inline-block; margin-top: 15px; font-size: 20px; font-weight: bold; transition: 0.3s; }
-.view-products-link:hover { color: #fb8c00; text-decoration: underline; }
-
-/* =========================================
-   10. PRINT CONFIGURATION
-   ========================================= */
-@media print {
-    body { background: #fff !important; }
-    nav, footer, .btn-print-wrapper, .no-print, .navbar, aside, .header-main, .btn-home-view, .view-products-link { 
-        display: none !important; 
-    }
-    .action-wrapper { margin: 0 !important; max-width: none !important; }
-    .quotation-container { margin: 0 !important; padding: 0 !important; width: 100% !important; box-shadow: none !important; border: none !important; }
-    .bg-light-gray { background-color: #fff !important; }
-    thead { display: table-header-group; }
-    .product-table tr { page-break-inside: avoid; }
-    .footer-tables-container { display: flex !important; flex-direction: row !important; page-break-inside: avoid !important; }
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    @page { margin: 1.5cm; size: auto; }
+/* Helper Class เพื่อแสดง Error */
+.d-block {
+    display: block !important;
 }
 
 /* =========================================
-   11. RESPONSIVE
+   5. TAX INVOICE OPTIONS
    ========================================= */
-@media (max-width: 1399px) {
-    .action-wrapper { margin: 20px auto; padding: 0 15px; }
-}
+.tax-options-container { display: flex; flex-direction: column; gap: 15px; }
+.tax-option-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px 20px; cursor: pointer; transition: all 0.2s; background-color: #fff; position: relative; flex: 1; }
+.tax-option-card:hover { border-color: #ccc; }
+.tax-option-card.selected { border-color: #e0e0e0; }
+.custom-radio-icon { width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; flex-shrink: 0; }
+.custom-radio-icon.checked { background-color: #0d6efd; border-color: #0d6efd; }
 
-@media (max-width: 767px) {
-    .quotation-container { padding: 20px; }
-    .company-header { flex-direction: column; text-align: center; gap: 15px; }
-    .company-address { width: 100%; }
-    .company-logo { order: -1; }
-    
-    .info-section { flex-direction: column; gap: 20px; }
-    .customer-info, .doc-info-table { width: 100%; }
-    
-    .product-table { font-size: 11px; display: block; overflow-x: auto; }
-    
-    .footer-tables-container { flex-direction: column; gap: 20px; }
-    .footer-table-box { width: 100%; }
-    
-    .btn-print-wrapper { text-align: center; }
-    .btn-print, .btn-home-view, .view-products-link { width: 100%; text-align: center; }
-}
+/* =========================================
+   6. RADIO & CHOICES.JS
+   ========================================= */
+.person-type-label { cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 20px; font-weight: 500; }
+.person-type-radio { width: 18px; height: 18px; accent-color: #0d6efd; cursor: pointer; }
 
-@media (min-width: 1400px) { 
-    .quotation-title { font-size: 48px; } 
-    .section-header { margin-left: -60px !important; } 
-}
+.choices { margin-bottom: 0; }
+.choices__inner { background-color: #fff; border: 1px solid #e0e0e0; border-radius: 6px; min-height: 44px; padding: 4px 10px; display: flex; align-items: center; font-size: 14px; }
+.choices.is-focused .choices__inner { border-color: #FFA726; box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25); }
+.choices.is-disabled .choices__inner { background-color: #E9ECEF; cursor: not-allowed; }
+.choices__placeholder { color: #6c757d; opacity: 1; }
+.choices__list--dropdown .choices__input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 10px center; background-size: 16px; padding-left: 35px !important; border-radius: 4px; background-color: #f8f9fa; border: 1px solid #eee; margin-bottom: 5px; }
+
+/* =========================================
+   7. BUTTONS & SWEETALERT
+   ========================================= */
+.btn-back { background-color: #FFA726; color: #fff; border: none; border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s; white-space: nowrap; }
+.btn-back:hover { background-color: #e69520; color: #fff; }
+.btn-create-quote { background-color: #b00020; color: #fff; border: none; border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s; white-space: nowrap; }
+.btn-create-quote:hover { background-color: #8a0019; color: #fff; }
+
+.custom-swal-popup { border-radius: 20px !important; padding-top: 30px !important; padding-bottom: 30px !important; }
+.custom-swal-confirm { border-radius: 50px !important; padding: 12px 30px !important; font-weight: 600 !important; box-shadow: none !important; }
+.custom-swal-cancel { border-radius: 50px !important; padding: 12px 30px !important; font-weight: 600 !important; color: #666 !important; border: 1px solid #ddd !important; background-color: transparent !important; margin-right: 15px !important; }
+.custom-swal-cancel:hover { background-color: #f8f9fa !important; border-color: #ccc !important; color: #000 !important; }
+
+/* =========================================
+   8. RESPONSIVE
+   ========================================= */
+@media (min-width: 768px) and (max-width: 1399px) { .quotation-title { font-size: 40px; } .section-header { margin-left: 0px !important; } }
+@media (min-width: 1400px) { .quotation-title { font-size: 48px; } .section-header { margin-left: -60px !important; } .btn-back, .btn-create-quote { padding: 10px 40px; font-size: 16px; } }
+@media (max-width: 576px) { .container { padding-left: 20px; padding-right: 20px; } .tax-option-card span { font-size: 14px; } .bi-file-earmark-text, .bi-file-earmark-x { font-size: 1.5rem !important; } }

@@ -1,123 +1,63 @@
-@extends('layouts.main')
+<?php
 
-@section('content')
-<div class="order-guide-page">
-  <div class="container">
-    <!-- หัวข้อหลัก -->
-    <h2>ขั้นตอนการสั่งซื้อสินค้า</h2>
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\QuotationController;
 
-    <!-- กล่องพื้นขาว -->
-    <div class="order-box">
-      
-      <!-- 🔹 ขั้นตอนที่ 1 -->
-      <div class="step">
-        <div class="step-number">1</div>
-        <div>
-          <h5>เลือกสินค้าและขอใบเสนอราคาเบื้องต้น</h5>
-          <p>ลูกค้าสามารถเลือกสินค้าและกำหนดตัวเลือก (Options) ที่ต้องการได้บนเว็บไซต์ เช่น แบบสินค้า วัสดุ สี และจำนวน จากนั้นระบบจะจัดทำใบเสนอราคาอัตโนมัติเพื่อให้ลูกค้าทราบราคาประเมินเบื้องต้น</p>
-          <p><strong>หมายเหตุ:</strong> ใบเสนอราคาเบื้องต้นนี้เป็นเพียงข้อมูลอ้างอิงเบื้องต้นเท่านั้น ลูกค้าจำเป็นต้องติดต่อฝ่ายขายเพื่อยืนยันรายละเอียดและราคาอย่างเป็นทางการก่อนทำการสั่งซื้อ</p>
-        </div>
-      </div>
+// =========================================================
+// 🏠 General Pages
+// =========================================================
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-      <!-- 🔹 ขั้นตอนที่ 2 -->
-      <div class="step">
-        <div class="step-number">2</div>
-        <div>
-          <h5>แจ้งความต้องการเพิ่มเติม (ติดต่อฝ่ายขาย)</h5>
-          <p>หากลูกค้าต้องการรายละเอียดเฉพาะ เช่น การสกรีนโลโก้ หรือขนาดพิเศษ สามารถติดต่อฝ่ายขายโดยตรงผ่านช่องทางออนไลน์ โทรศัพท์ หรือกรอกแบบฟอร์มบนเว็บไซต์ เพื่อแจ้งข้อมูลเพิ่มเติมเกี่ยวกับแบบสินค้าและจำนวนที่ต้องการ</p>
-        </div>
-      </div>
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
 
-      <!-- 🔹 ขั้นตอนที่ 3 -->
-      <div class="step">
-        <div class="step-number">3</div>
-        <div>
-          <h5>ประเมินและเสนอราคาอย่างเป็นทางการ</h5>
-          <p>เมื่อได้รับข้อมูลครบถ้วน ทีมงานจะตรวจสอบและจัดทำแบบลงในเทมเพลตของบริษัท จากนั้นส่งกลับให้ลูกค้าตรวจสอบ โดยไม่มีค่าใช้จ่าย แม้จะไม่ได้สั่งซื้อ พร้อมจัดทำใบเสนอราคาอย่างเป็นทางการและส่งให้ทางอีเมล</p>
-        </div>
-      </div>
+Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
-      <!-- 🔹 ขั้นตอนที่ 4 -->
-      <div class="step">
-        <div class="step-number">4</div>
-        <div>
-          <h5>ยืนยันการสั่งซื้อและชำระเงิน</h5>
-          <p>หลังจากลูกค้ายืนยันการสั่งซื้อ บริษัทฯ ดำเนินการตามเงื่อนไขการชำระเงินดังนี้</p>
-          <ul class="order-condition-list">
-            <li>มูลค่าสั่งซื้อ <span class="text-danger">ต่ำกว่า 10,000 บาท</span> ➜ <span class="text-danger">ชำระเต็มจำนวน</span></li>
-            <li>มูลค่าสั่งซื้อ <span class="text-danger">10,000 – 50,000 บาท</span> ➜ <span class="text-danger">ลูกค้าติดต่อบุคคลขาย ชำระมัดจำ 50% ส่วนที่เหลือชำระเมื่อรับสินค้า</span></li>
-            <li>มูลค่าสั่งซื้อ <span class="text-danger">มากกว่า 50,000 บาท</span> ➜ <span class="text-danger">กรุณาติดต่อฝ่ายขายเพื่อสอบถามเงื่อนไขการมัดจำ</span></li>
-          </ul>
-          <p><strong>หมายเหตุ:</strong> บริษัทฯ จะเริ่มการผลิตหลังได้รับการยืนยันและการชำระเงินเรียบร้อยแล้ว หากประสงค์จะชำระผ่านบัตรเครดิต กรุณาติดต่อฝ่ายขาย</p>
-        </div>
-      </div>
+// หน้าขั้นตอนการสั่งซื้อสินค้า
+Route::get('/order-guide', function () {
+    return view('order-guide');
+})->name('order-guide'); 
 
-      <!-- 🔹 ขั้นตอนที่ 5 -->
-      <div class="step">
-        <div class="step-number">5</div>
-        <div>
-          <h5>แจ้งการชำระเงิน (แนบหลักฐานผ่านระบบ)</h5>
-          <p>เมื่อชำระเงินเรียบร้อยแล้ว ลูกค้าสามารถเข้าไปที่หน้า “<strong>แจ้งชำระเงิน</strong>” บนเว็บไซต์ เพื่อกรอกข้อมูลและแนบสลิปหรือหลักฐานการชำระเงิน ระบบจะบันทึกข้อมูลและแจ้งเตือนให้ทีมงานตรวจสอบทันที</p>
-        </div>
-      </div>
+// ✅ เพิ่มเติม: หน้าวิธีการชำระเงิน
+Route::get('/payment-method', function () {
+    return view('payment-method');
+})->name('payment-method');
 
-      <!-- 🔹 ขั้นตอนที่ 6 -->
-      <div class="step">
-        <div class="step-number">6</div>
-        <div>
-          <h5>ตรวจสอบสินค้าตัวอย่าง (กรณีมีการสั่งทำตัวอย่าง)</h5>
-          <p>หากลูกค้าสั่งทำตัวอย่าง บริษัทฯ จะจัดส่งสินค้าให้ตรวจสอบ และขอให้ยืนยันผลการตรวจสอบภายในวันที่กำหนด เพื่อไม่ให้กระทบต่อกำหนดการผลิต หากมีการปรับแก้ในดีไซน์หลังการตรวจสอบ อาจมีค่าใช้จ่ายเพิ่มเติม</p>
-        </div>
-      </div>
+// ✅ เพิ่มเติม: Route สำรองสำหรับหน้าอื่นๆ (กัน Error 404 ในเมนูนำทาง)
+Route::get('/design-guide', function () { return view('design-guide'); })->name('design-guide');
+Route::get('/shipping-info', function () { return view('shipping-info'); })->name('shipping-info');
 
-      <!-- 🔹 ขั้นตอนที่ 7 -->
-      <div class="step">
-        <div class="step-number">7</div>
-        <div>
-          <h5>ยืนยันการผลิตและการส่งมอบ</h5>
-          <p>เมื่อเริ่มการผลิตสินค้าจำนวนมาก บริษัทจะส่งอีเมลยืนยันการผลิตและกำหนดวันส่งมอบสินค้าให้ลูกค้าทราบอีกครั้ง</p>
-        </div>
-      </div>
+// =========================================================
+// 🛍️ Product System
+// =========================================================
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/products/category/{slug}', [ProductController::class, 'showByCategory'])->name('products.category');
+Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
+Route::post('/product/calculate', [ProductController::class, 'calculatePrice'])->name('product.calculate');
 
-      <!-- 🔸 ส่วนบัญชีชำระเงิน -->
-      <h4 class="payment-title">บัญชีชำระเงิน</h4>
-      
-      <div class="payment-box">
-        <img src="{{ asset('images/scb-logo.png') }}" alt="SCB Logo Banner">
-        <button id="copyBtn">คัดลอก</button>
-      </div>
-    </div>
-  </div>
-</div>
+// =========================================================
+// 🛒 Cart System (Cookie Based)
+// =========================================================
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/remove', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.update');
 
-<!-- =========================
-     🔹 บทความที่คุณอาจสนใจ
-========================= -->
-<div class="faq-header">
-  <h1>บทความที่คุณอาจสนใจ</h1>
-</div>
+// =========================================================
+// 📄 Quotation System (Flow ขอใบเสนอราคา)
+// =========================================================
+Route::get('/quotation', [QuotationController::class, 'index'])->name('quotation.index');
+Route::post('/quotation/step1', [QuotationController::class, 'storeStep1'])->name('quotation.step1');
+Route::get('/quotation/tax-info', [QuotationController::class, 'taxInfo'])->name('quotation.tax_info');
+Route::post('/quotation/confirm', [QuotationController::class, 'confirmQuotation'])->name('quotation.confirm');
 
-<div class="faq-section">
-  <div class="faq-item" onclick="location.href='{{ route('order-guide') }}#how-to-order'">
-    ขั้นตอนการสั่งซื้อสินค้า
-  </div>
-  <div class="faq-item" onclick="location.href='{{ route('faq') }}#faq'">
-    คำถามที่พบบ่อย (FAQ)
-  </div>
-  <div class="faq-item" onclick="location.href='{{ route('faq') }}#design'">
-    วิธีการออกแบบ
-  </div>
-</div>
+// Result: หน้าแสดงใบเสนอราคา
+Route::get('/quotation/view/{id}', [QuotationController::class, 'show'])->name('quotation.show');
 
-<!-- 🔸 Script คัดลอก -->
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const copyBtn = document.getElementById('copyBtn');
-    copyBtn.addEventListener('click', function() {
-      navigator.clipboard.writeText('1912139535');
-      copyBtn.innerText = 'คัดลอกแล้ว ✓';
-      setTimeout(() => copyBtn.innerText = 'คัดลอก', 2000);
-    });
-  });
-</script>
-@endsection
+// ✅ เพิ่มเติม: Route สำหรับการกดส่งอีเมลแจ้งเตือนฝ่ายขายด้วยตนเอง (จากหน้า View)

@@ -18,23 +18,27 @@ Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.
 Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
 
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
+
+// หน้าขั้นตอนการสั่งซื้อสินค้า
 Route::get('/order-guide', function () {
     return view('order-guide');
-})->name('order-guide');    
+})->name('order-guide'); 
+
+// ✅ เพิ่มเติม: หน้าวิธีการชำระเงิน
+Route::get('/payment-method', function () {
+    return view('payment-method');
+})->name('payment-method');
+
+// ✅ เพิ่มเติม: Route สำรองสำหรับหน้าอื่นๆ (กัน Error 404 ในเมนูนำทาง)
+Route::get('/design-guide', function () { return view('design-guide'); })->name('design-guide');
+Route::get('/shipping-info', function () { return view('shipping-info'); })->name('shipping-info');
 
 // =========================================================
 // 🛍️ Product System
 // =========================================================
-// หน้ารายการสินค้าทั้งหมด
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-
-// หน้าแสดงสินค้าตามหมวดหมู่
 Route::get('/products/category/{slug}', [ProductController::class, 'showByCategory'])->name('products.category');
-
-// หน้ารายละเอียดสินค้า
 Route::get('/products/{slug}', [ProductController::class, 'show'])->name('products.show');
-
-// API คำนวณราคา (AJAX)
 Route::post('/product/calculate', [ProductController::class, 'calculatePrice'])->name('product.calculate');
 
 // =========================================================
@@ -48,16 +52,12 @@ Route::post('/cart/update', [CartController::class, 'updateCart'])->name('cart.u
 // =========================================================
 // 📄 Quotation System (Flow ขอใบเสนอราคา)
 // =========================================================
-// Step 1: กรอกที่อยู่จัดส่ง (รับ selected_items จาก Cart หรือ URL)
 Route::get('/quotation', [QuotationController::class, 'index'])->name('quotation.index');
 Route::post('/quotation/step1', [QuotationController::class, 'storeStep1'])->name('quotation.step1');
-
-// Step 2: ข้อมูลใบกำกับภาษี
 Route::get('/quotation/tax-info', [QuotationController::class, 'taxInfo'])->name('quotation.tax_info');
-
-// Final: บันทึกข้อมูลลง Database
 Route::post('/quotation/confirm', [QuotationController::class, 'confirmQuotation'])->name('quotation.confirm');
 
-// Result: หน้าแสดงใบเสนอราคา (A4 / PDF View)
-// ✅ แก้ไข: เหลือบรรทัดเดียว เพื่อไม่ให้ชื่อซ้ำกัน
+// Result: หน้าแสดงใบเสนอราคา
 Route::get('/quotation/view/{id}', [QuotationController::class, 'show'])->name('quotation.show');
+
+Route::get('/send-test-email', [HomeController::class, 'sendTestEmail'])->name('send.test.email');

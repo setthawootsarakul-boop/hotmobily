@@ -1,5 +1,5 @@
 /* ===============================
-   🎨 ORDER GUIDE PAGE STYLES (統一กับ FAQ)
+   🎨 ORDER GUIDE PAGE STYLES
 =============================== */
 
 /* 🔸 พื้นหลังและฟอนต์หลัก */
@@ -20,54 +20,70 @@ body {
   text-align: center;
   font-weight: 900;
   font-size: 2.4rem;
-  color: #000;
   margin-bottom: 80px;
 }
 
 /* 🔹 กล่องพื้นขาว */
 .order-box {
+  position: relative;
   background-color: #fff;
   margin: 0 auto 40px;
   width: 100%;
   max-width: 1300px;
-  border-radius: 0;
   padding: 40px 50px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   border: 1px solid #e0e0e0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
+/* 🔹 เส้น Timeline (จบก่อน Step 7) */
+.order-box::before {
+  content: "";
+  position: absolute;
+  top: 140px;
+  left: 85px;
+  width: 2px;
+
+  
+  height: calc((70px + 160px) * 6);
+
+  background-color: #ddd;
+}
+
+.step.no-line {
+  padding-bottom: 0;
+}
 /* ===============================
    🔸 STEP LIST
 =============================== */
 .step {
   display: flex;
   align-items: flex-start;
-  padding: 22px 0;
-  border-bottom:  unset;
+  gap: 20px;
+  padding: 40px 0;
 }
 
-.step:last-child {
-  border-bottom: none;
-}
-
+/* วงกลม Step */
 .step-number {
-  background-color: #fbab00;
-  color: #fff;
-  font-weight: 700;
+  position: relative;
+  z-index: 2;
+  background-color: #f7c77a;
+  color: #000;
+  font-weight: normal;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 1.2rem;
+  width: 70px;
+  height: 70px;
+  font-size: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 1rem;
   flex-shrink: 0;
 }
 
+/* ข้อความ */
 .step h5 {
   font-weight: 800;
   font-size: 1.3rem;
+  margin-top: 20px;
   margin-bottom: 8px;
 }
 
@@ -78,10 +94,11 @@ body {
   color: #333;
 }
 
+/* รายการเงื่อนไข */
 .order-condition-list {
   list-style: none;
   padding-left: 0;
-  margin: 8px 0 10px 0;
+  margin: 8px 0 10px;
 }
 
 .order-condition-list li {
@@ -96,20 +113,16 @@ body {
   font-weight: 900;
   font-size: 2.4rem;
   padding: 42px 0 20px;
-  color: #000;
 }
 
 .payment-box {
   position: relative;
-  display: inline-block;
   width: 100%;
-  margin: 0 auto;
 }
 
 .payment-box img {
   width: 100%;
   display: block;
-  border-radius: 0;
 }
 
 #copyBtn {
@@ -124,9 +137,8 @@ body {
   width: 20%;
   padding: 13px 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
 #copyBtn:hover {
@@ -134,22 +146,19 @@ body {
 }
 
 /* ===============================
-   🔸 SECTION: บทความที่คุณอาจสนใจ
+   🔸 บทความที่คุณอาจสนใจ
 =============================== */
 .faq-header {
   text-align: center;
   padding: 60px 20px 30px;
-  background-color: #fff8ec;
 }
 
 .faq-header h1 {
   font-weight: 900;
   font-size: 2.4rem;
-  color: #000;
 }
 
 .faq-section {
-  background-color: #fff8ec;
   padding: 40px 10%;
 }
 
@@ -160,8 +169,6 @@ body {
   transition: all 0.2s ease;
   font-weight: 800;
   font-size: 1.35rem;
-  color: #000;
-  text-align: left;
 }
 
 .faq-item:hover {
@@ -173,69 +180,64 @@ body {
    📱 Responsive
 =============================== */
 @media (max-width: 768px) {
-  .order-guide-page {
-    padding: 0;
-  }
+  .order-guide-page { padding: 0; }
 
   .order-box {
-    width: 103vw;            /* ✅ ให้กว้างเต็มจอ */
-    max-width: none;         /* ✅ ยกเลิกขีดจำกัดเดิม */
-    margin-left: -20px;      /* ✅ ดึงออกจาก padding ของ container */
+    width: 103vw;
+    max-width: none;
+    margin-left: -20px;
     margin-right: -20px;
-    border-radius: 0;        /* ✅ ให้ขอบตรง ไม่โค้ง */
-    padding: 25px 20px;      /* ✅ padding ภายในพอดี */
-    box-shadow: none;        /* ✅ ตัดเงาออกให้เรียบแบบ full width */
+    padding: 25px 20px;
+    box-shadow: none;
   }
 
-  /* ✅ ให้เลขอยู่ "หน้า" ข้อความเหมือนภาพ */
-  .step {
-    display: flex;
-    flex-direction: row;     /* ✅ แสดงแนวนอน */
-    align-items: flex-start;
-    gap: 15px;
-    padding: 20px 0;
-    border-bottom: unset;
+  /* เส้น Timeline Mobile */
+  .order-box::before {
+    top: 100px;
+    left: 47px;
+    height: calc((55px + 270px) * 6);
   }
 
-  .step:last-child {
-    border-bottom: none;
-  }
+  .step { padding: 30px 0; }
 
   .step-number {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     font-size: 1.1rem;
-    margin-bottom: 0;
-    flex-shrink: 0;
   }
 
   .step h5 {
+    margin-top: 5px;
     font-size: 1.2rem;
-    font-weight: 800;
-    margin-bottom: 6px;
   }
 
-  .step p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #333;
-  }
+  .step p { font-size: 1rem; }
 
-  .faq-section {
-    padding: 20px;
-  }
-
-  .faq-item {
-    font-size: 1.1rem;
+  .payment-title { font-size: 1.8rem; }
+  .faq-header h1 { font-size: 24px; }
+  .faq-header { padding: 10px 0px 0px; }
+  /* 🔸 ส่วนบัญชีชำระเงิน Mobile */
+  .payment-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative; 
   }
 
   #copyBtn {
-    width: 40%;
-    font-size: 1rem;
-  }
-
-  .payment-title {
-    font-size: 1.8rem;
-    padding: 30px 0 10px;
+    position: absolute;  
+    left: 50%;           
+    transform: translateX(-50%); 
+    bottom: 20px;        
+    top: auto;
+    width: auto;             
+    min-width: 102px;        
+    white-space: nowrap;     
+    padding: 8px 16px;       
+    font-size: 0.95rem;      
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;      
   }
 }

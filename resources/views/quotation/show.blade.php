@@ -2,16 +2,17 @@
 
 @section('title', 'ใบเสนอราคา ' . $quotation->quotation_number)
 
-{{-- 🔥 ส่วนสำคัญ: ดึงไฟล์ CSS ที่คุณสร้างไว้มาใช้งาน --}}
-@push('styles')
-    <link rel="stylesheet" href="{{ asset('css/quotation.css') }}">
-@endpush
-
 @section('content')
+
 
 <div class="container-fluid py-4">
     <div class="action-wrapper">
         
+        
+        <div class="thank-you-header no-print">
+            ขอบคุณสำหรับการทำใบเสนอราคา
+        </div>
+
         <div class="quotation-container">
             <div class="header-title-bar">ใบเสนอราคา</div>
 
@@ -72,7 +73,7 @@
                         <td class="col-no">{{ $index + 1 }}</td>
                         <td>
                             <strong>{{ $item->product_name }}</strong>
-                            <ul class="option-list">
+                            <ul style="margin: 5px 0 0 0; padding-left: 18px; list-style-type: disc; font-size: 11px; color: #666;">
                                 @if(($opt['size_name'] ?? '-') != '-') <li>ขนาด: {{ $opt['size_name'] }}</li> @endif
                                 @if(($opt['print_name'] ?? '-') != '-') <li>การพิมพ์: {{ $opt['print_name'] }}</li> @endif
                                 @if(($opt['part_name'] ?? '-') != '-') <li>ส่วนประกอบเพิ่มเติม: {{ $opt['part_name'] }}</li> @endif
@@ -108,7 +109,7 @@
 
             <div class="footer-tables-container">
                 <div class="footer-table-box">
-                    <div class="footer-info-title">P A Y M E N T &nbsp; M E T H O D</div>
+                    <div style="font-weight: bold; margin-bottom: 8px; text-transform: uppercase; font-size: 12px;">P A Y M E N T &nbsp; M E T H O D</div>
                     <table class="footer-data-table">
                         <tr><td>Bank's name</td><td>ไทยพาณิชย์ (SCB)</td></tr>
                         <tr><td>Bank number</td><td>191-213953-5</td></tr>
@@ -118,7 +119,7 @@
                 </div>
                 @if($quotation->tax_name)
                 <div class="footer-table-box">
-                    <div class="footer-info-title">T A X &nbsp; I N V O I C E &nbsp; I N F O</div>
+                    <div style="font-weight: bold; margin-bottom: 8px; text-transform: uppercase; font-size: 12px;">T A X &nbsp; I N V O I C E &nbsp; I N F O</div>
                     <table class="footer-data-table">
                         <tr><td>Tax Type</td><td>{{ $quotation->tax_person_type == 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล' }}</td></tr>
                         <tr><td>Tax Name</td><td>{{ $quotation->tax_name }}</td></tr>
@@ -133,6 +134,14 @@
             </div>
 
             <div class="text-center mt-5" style="font-size: 10px; color: #aaa; letter-spacing: 3px;">T E R M S</div>
+            
+            {{-- 🔥 เพิ่มข้อความรายละเอียดใต้ TERMS --}}
+            <div class="text-center terms-detail">
+                ราคาด้านบนเป็นราคาที่รวมค่าจัดส่งเรียบร้อยแล้ว ระยะเวลาการจัดส่งจะเป็นไปตามที่ระบุอยู่บนเว็บไซต์<br>
+                หลังจากสั่งซื้อเรียบร้อยแล้วกรุณาโอนเงินภายใน 7 วัน สอบถามข้อมูลเพิ่มเติมที่ 
+                contact_hs@hotstrapthai.com
+            </div>
+
         </div>
 
         <div class="btn-print-wrapper no-print">
@@ -140,9 +149,8 @@
         </div>
 
         <div class="text-center no-print">
-            <a href="{{ route('home') }}" class="btn-home-view">กลับไปหน้าหลัก</a>
+            <a href="{{ route('home') }}" class="btn-home">กลับไปหน้าหลัก</a>
             <br>
-            
             <a href="{{ route('products.index') }}" class="view-products-link">ดูสินค้าของเรา</a>
         </div>
 

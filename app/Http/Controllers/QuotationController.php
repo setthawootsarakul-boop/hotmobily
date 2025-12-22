@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\File; // ✅ เพิ่มบรรทัดนี้เพื่อป้องกัน Error
+use Illuminate\Support\Facades\File;
+use App\Mail\QuotationNotification; 
 use App\Models\Quotation;
 use App\Models\QuotationItem;
 use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\CartItem;
+use Illuminate\Support\Facades\Mail;
 
 class QuotationController extends Controller
 {
@@ -186,7 +188,7 @@ class QuotationController extends Controller
 
             session()->forget(['quotation_step1', 'quotation_selected_items']);
             DB::commit();
-
+            //////ใส่ตรงนี้////// mail notification to admin//////
             return redirect()->route('quotation.show', $quotation->id);
         } catch (\Exception $e) {
             DB::rollBack();
