@@ -1,8 +1,6 @@
 /* =========================================
-   🎨 PAYMENT METHOD PAGE STYLES (Full Responsive)
+   🖥️ DESKTOP STYLES (แสดงผล 20px ตามเดิม)
    ========================================= */
-
-/* --- 1. General Page Layout --- */
 .payment-page {
     background-color: #fff8ec;
     padding: 80px 20px;
@@ -13,7 +11,7 @@
 .main-title {
     text-align: center;
     font-weight: 900;
-    font-size: 2.5rem;
+    font-size: 48px;
     margin-bottom: 60px;
 }
 
@@ -33,7 +31,27 @@
     border-radius: 4px;
 }
 
-/* --- 2. Card Header --- */
+.main-condition-list, 
+.sub-condition-list,
+.main-condition-list ul {
+    list-style-type: disc !important;
+}
+
+/* หากต้องการให้ Bullet เป็นสีดำสนิท (เผื่อบางกรณีสีจาง) */
+.main-condition-list li::marker,
+.sub-condition-list li::marker {
+    color: #000;
+}
+/* ตั้งค่าฟอนต์ Desktop เป็น 20px */
+.card-body, 
+.card-body p, 
+.card-body ul li {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1.7;
+}
+
+/* --- Card Header --- */
 .card-header {
     display: flex;
     align-items: center;
@@ -62,47 +80,17 @@
     margin: 0;
 }
 
-/* --- 3. Content Typography --- */
-.card-body {
-    color: #000;
-}
-
 .text-red { color: #e63946; }
-.text-red-underline {
-    color: #e63946;
-    text-decoration: underline;
-}
+.text-red-underline { color: #e63946; text-decoration: underline; }
 
-/* --- 4. Section & Alignment (Desktop) --- */
-.main-condition-list {
-    list-style-type: disc;
-    padding-left: 120px;
-    margin-top: -35px;
-}
+/* --- Alignment Desktop --- */
+.main-condition-list { padding-left: 120px; margin-top: -35px; }
+.method-sub-title, .cancel-step { margin-left: 100px; }
+.production-notes { margin-left: 60px; }
 
-.method-sub-title, 
-.production-notes, 
-.cancel-step {
-    margin-left: 100px;
-}
+.bank-banner-wrapper { position: relative; display: inline-block; width: 100%; max-width: 850px; }
+.bank-banner-img { width: 90%; margin-left: 60px; display: block; border-radius: 8px; }
 
-.bank-banner-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: 850px;
-    margin-bottom: 20px;
-}
-
-.bank-banner-img {
-    width: 90%;
-    margin-left: 60px;
-    height: auto;
-    display: block;
-    border-radius: 8px;
-}
-
-/* --- 5. Copy Button (Fixed Size) --- */
 .copy-btn-overlay {
     position: absolute;
     right: 35px;
@@ -111,109 +99,259 @@
     background-color: #fbab00;
     color: #000;
     border: none;
-    width: 150px; /* ล็อกความกว้างให้นิ่ง */
-    height: 35px; 
+    width: 150px;
+    height: 35px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    white-space: nowrap;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.copy-btn-overlay:hover { background-color: #e89a00; }
+/* --- Related Nav --- */
+.nav-title { text-align: center; font-weight: 800; font-size: 2rem; margin: 80px 0 40px; }
+.nav-link-item { display: flex; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid #ccc; text-decoration: none; color: #333; font-weight: 800; font-size: 1.3rem; }
 
-/* --- 6. Related Navigation --- */
-.related-nav {
-    max-width: 900px;
-    margin: 80px auto 0;
-}
-
-.nav-links-container {
+.location-detail-group {
     display: flex;
-    flex-direction: column;
+    align-items: flex-start; /* ให้ไอคอนอยู่ระดับเดียวกับบรรทัดแรก */
+    gap: 15px;               /* ระยะห่างระหว่างไอคอนกับข้อความ */
+    margin-left: 100px;      /* เยื้องขวาตามดีไซน์เดิม */
+    margin-top: 20px;
 }
 
-.nav-link-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 0;
-    border-bottom: 1px solid #ccc;
-    text-decoration: none;
-    color: #333;
-    font-weight: 800;
-    font-size: 1.3rem;
-    transition: 0.3s;
+.location-marker-icon {
+    color: #ffc800;
+    font-size: 24px;
+    margin-top: 5px;         /* ปรับขยับไอคอนลงมานิดหน่อยให้ตรงกลางบรรทัดแรกพอดี */
+    flex-shrink: 0;          /* บังคับไม่ให้ไอคอนโดนบีบจนเบี้ยว */
 }
 
-/* --- 7. Responsive Styles (📱 Mobile & 📟 Tablet) --- */
+.address-text-full {
+    font-size: 20px;
+    font-weight: normal;
+    line-height: 1.7;
+    margin: 0;               /* ล้าง margin เดิมเพื่อให้ flex คุมตำแหน่ง */
+}
+.underline {
+    text-decoration: underline !important;
+    text-underline-offset: 5px;
+}
 
-@media (max-width: 992px) {
-    .payment-grid, .related-nav {
-        max-width: 95%;
+/* ปรับแต่งส่วนท้ายของกล่องที่ 4 */
+.contact-footer-text {
+    text-align: center;
+    margin-top: 30px;
+    width: 100%;
+    display: block;
+    font-weight: bold;
+}
+.note-highlight-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+    /* เยื้องให้ตรงกับตัวหนังสือใน List อื่นๆ บน Desktop */
+    padding-left: 25px; 
+}
+.note-head {
+    margin-bottom: 5px !important; /* ลดระยะห่างใต้คำว่า ** หมายเหตุ ** */
+}
+
+.red-note-text {
+    font-weight: bold;
+    margin-top: 0 !important;    /* ลบช่องว่างด้านบน */
+    margin-bottom: 10px !important; /* กำหนดระยะห่างด้านล่างให้พอดีกับ List */
+    padding-left: 25px;          /* ระยะเยื้อง Desktop (ถ้าต้องการให้ตรงกับ List) */
+}
+
+.note-list {
+    margin-top: 0 !important;    /* ลบช่องว่างด้านบนของ List เพื่อให้ติดกับข้อความสีแดง */
+}
+@media (min-width: 992px) {
+    .contact-footer-text {
+        /* ปรับให้สมดุลกับเนื้อหาด้านบนที่เยื้อง 100px */
+        padding-right: 50px; 
     }
 }
+/* =========================================
+   📱 MOBILE STYLES (ตัวหนังสือ 14px & กล่องเต็มจอ)
+   ========================================= */
 
 @media (max-width: 768px) {
-    .payment-page { padding: 40px 15px; }
-    
-    .main-title { font-size: 1.8rem; margin-bottom: 40px; }
-
-    .info-card { padding: 25px; }
-
-    .card-header { gap: 15px; }
-
-    .card-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.4rem;
+    .main-title {
+        font-size: 24px;
+        margin-top: 25px;
     }
-
-    .payment-detail-title { font-size: 1.3rem; }
-
-    /* 🚩 Reset Margins สำหรับมือถือ */
-    .main-condition-list,
-    .method-sub-title,
-    .production-notes,
-    .cancel-step,
-    .bank-banner-img {
+    .note-highlight-text {
+        font-size: 14px !important;
+        /* ชิดซ้ายให้ตรงแนวเดียวกับข้อความอื่นในกล่องบนมือถือ */
+        padding-left: 0 !important; 
         margin-left: 0 !important;
-        padding-left: 20px; /* เหลือพื้นที่ให้ Bullet */
+        margin-bottom: 15px;
+        display: block;
     }
 
-    .main-condition-list { margin-top: 10px; }
+    .red-note-text {
+        font-size: 14px !important;
+        margin-top: 0 !important;
+        margin-bottom: 8px !important;
+        padding-left: 0 !important; /* ชิดซ้ายในมือถือตามข้อความอื่น */
+        margin-left: 0 !important;
+        display: block;
+    }
 
-    .bank-banner-img {
+    .note-list {
+        margin-top: 0 !important;
+        padding-left: 1.2rem !important;
+    }
+    /* 1. จัดการโครงสร้างกล่องให้เต็มจอ */
+    .payment-page .container {
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    .payment-page { padding: 40px 0; }
+    .payment-grid { width: 100%; padding: 0; }
+
+    .info-card {
         width: 100%;
-        padding-left: 0;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        padding: 25px 20px; /* ระยะห่างจากขอบกล่องขาวเข้ามาหาเนื้อหา */
     }
 
-    /* 🚩 ปรับตำแหน่งปุ่มคัดลอกบนมือถือ */
-    .copy-btn-overlay {
-        position: relative;
-        right: auto;
-        top: auto;
-        transform: none;
-        margin: 15px auto 0;
-        width: 100%; /* เต็มจอเพื่อให้กดง่าย */
+    /* 🚩 2. บังคับให้ทุกอย่างใน Card Body ชิดซ้ายตรงกันเป๊ะ */
+    .card-body, 
+    .card-body div, 
+    .card-body p, 
+    .payment-method-section,
+    .production-notes,
+    .cancel-step {
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        text-align: left;
     }
 
-    /* 🚩 จัดระเบียบ Location Group บนมือถือ */
+    /* 🚩 3. จัดการฟอนต์เนื้อหา 14px */
+    .card-body, 
+    .card-body p, 
+    .card-body li, 
+    .address-text-full,
+    .method-sub-title {
+        font-size: 14px !important;
+        line-height: 1.6 !important;
+        white-space: normal !important;
+    }
+
+    /* 🚩 4. จัดการ List (UL/LI) ให้จุด Bullet อยู่ในแนวที่สวยงาม */
+    .main-condition-list, 
+    .sub-condition-list, 
+    .note-list, 
+    .cancel-list,
+    .card-body ul {
+        margin-left: 0 !important;
+        padding-left: 1.2rem !important; /* เว้นพื้นที่ให้แค่จุด Bullet เท่านั้น */
+        margin-top: 10px !important;
+    }
+
+    .main-condition-list li {
+        margin-bottom: 8px;
+    }
+
+    /* 🚩 5. จัดระเบียบส่วนที่อยู่ (Icon + Text บรรทัดเดียวกัน) */
     .location-detail-group {
-        flex-direction: column;
-        gap: 10px;
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        margin-left: 0 !important;
+        padding-left: 0 !important;
+        margin-top: 15px;
     }
 
     .location-marker-icon {
-        margin-left: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 1.1rem !important;
+        margin-top: 3px !important; /* ปรับให้ตรงกับบรรทัดแรกของที่อยู่ */
+        flex-shrink: 0;
     }
 
     .address-text-full {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* 🚩 6. ปุ่มคัดลอกและรูปภาพ */
+    .bank-banner-wrapper {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0 !important; /* ลดช่องว่างล่างของ wrapper */
+    }
+
+    .bank-banner-img {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* 🚩 ปรับตำแหน่งปุ่มคัดลอกใหม่ */
+    .copy-btn-overlay {
+        position: absolute; /* เปลี่ยนกลับเป็น absolute เพื่อให้ไม่กินที่ว่างด้านล่าง */
+        bottom: 15px;      /* วางห่างจากขอบล่างของรูปภาพ */
+        top: auto;         /* ยกเลิกค่า top เดิม */
+        left: 50%;
+        transform: translateX(-50%); /* จัดกึ่งกลางแนวนอน */
+        margin: 0 !important;
+        width: 120px;
+        height: 32px;
+        font-size: 14px !important;
+        z-index: 10;
+    }
+
+    /* ปรับระยะห่างหัวข้อที่ 2 ให้กระชับขึ้น */
+    .payment-method-section {
+        margin-bottom: 15px !important;
+    }
+
+    /* หัวข้อและไอคอนตัวเลข */
+    .card-header { gap: 15px; margin-bottom: 20px; }
+    .card-icon { width: 50px; height: 50px; font-size: 1.1rem; flex-shrink: 0; }
+    .payment-condition-title, .payment-detail-title { font-size: 1.1rem; }
+    .contact-footer-text {
         margin-left: 0 !important;
-        font-size: 18px !important;
+        font-size: 14px !important;
+        padding: 0 10px;
+    }
+    .related-nav {
+        width: 100%;
+        padding-left: 20px !important;  /* ระยะห่างจากขอบจอฝั่งซ้าย */
+        padding-right: 20px !important; /* ระยะห่างจากขอบจอฝั่งขวา */
+        margin: 40px auto 80px;         /* จัดกึ่งกลางหน้าจอ */
+        box-sizing: border-box;         /* สำคัญ: เพื่อไม่ให้ padding ไปเพิ่มความกว้างเกิน 100% */
+    }
+
+    .nav-links-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 🚩 ปรับขนาดฟอนต์ลิงก์ให้พอดีกับมือถือ */
+    .nav-link-item {
+        padding: 20px 0;               /* ลด padding บน-ล่างลงเล็กน้อย */
+        font-size: 1.1rem !important;  /* ปรับฟอนต์ลงมาให้ไม่ล้นบรรทัด */
+    }
+
+    .nav-link-item span {
+        white-space: normal;           /* ยอมให้ข้อความตัดบรรทัดได้ถ้าชื่อบทความยาวเกินไป */
+        line-height: 1.4;
+    }
+    .nav-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 40px;
+        margin-bottom: -24px;
     }
 }

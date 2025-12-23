@@ -6,33 +6,30 @@
 
 {{-- 1️⃣ Import Swiper CSS & Custom CSS --}}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-{{-- เรียกใช้ hero.css (ถ้าใน layout เรียกอยู่แล้ว บรรทัดนี้ไม่ต้องใส่ก็ได้) --}}
 <link rel="stylesheet" href="{{ asset('css/hero.css') }}"> 
 
 <section class="hero-section position-relative w-100">
     <div class="container-xxl text-center text-lg-start h-100">
-        <div class="row align-items-center h-100 pt-5 pb-5">
+        <div class="row align-items-center h-100 pb-5">
             
-            {{-- 🟡 ฝั่งรูปภาพ (Image Column) --}}
+            {{-- 🟡 ฝั่งรูปภาพและหัวข้อมือถือ (Image Column) --}}
             <div class="col-lg-6 text-center mt-4 mt-lg-0 order-1 order-lg-2 position-relative">
                 
-                {{-- 2️⃣ โครงสร้าง Swiper --}}
+                {{-- 🚩 หัวข้อสำหรับมือถือ: วางไว้บนสุดเหนือ hero-img-container --}}
+                <h1 class="display-4 mb-3 brand-highlight d-lg-none">Hotmobily</h1>
+
                 <div class="hero-img-container">
                     <div class="swiper myHeroSwiper">
                         <div class="swiper-wrapper">
-                            {{-- Slide 1 --}}
                             <div class="swiper-slide">
                                 <img src="{{ asset('images/Top-page/T-keychain.png') }}" class="hero-img" alt="Keychain">
                             </div>
-                            {{-- Slide 2 --}}
                             <div class="swiper-slide">
                                 <img src="{{ asset('images/Top-page/T-phonestand.png') }}" class="hero-img" alt="Phone Stand">
                             </div>
-                            {{-- Slide 3 --}}
                             <div class="swiper-slide">
                                 <img src="{{ asset('images/Top-page/T-standee.png') }}" class="hero-img" alt="Standee">
                             </div>
-                            {{-- Slide 4 --}}
                             <div class="swiper-slide">
                                 <img src="{{ asset('images/Top-page/T-griptok.png') }}" class="hero-img" alt="Griptok">
                             </div>
@@ -40,15 +37,16 @@
                     </div>
                 </div>
 
-                {{-- ปุ่ม Dots (Pagination) --}}
+                {{-- ปุ่ม Dots อยู่ใต้รูปภาพ --}}
                 <div class="custom-pagination"></div>
-
             </div>
 
             {{-- 🟡 ฝั่งเนื้อหาข้อความ --}}
             <div class="col-lg-6 order-2 order-lg-1">
                 <div class="hero-content-wrapper ps-lg-4">
-                    <h1 class="display-4 mb-3 brand-highlight">Hotmobily</h1>
+                    {{-- 🚩 หัวข้อสำหรับ Desktop (ซ่อนบนมือถือ) --}}
+                    <h1 class="display-4 mb-3 brand-highlight d-none d-lg-block">Hotmobily</h1>
+                    
                     <p class="lead mb-4 brand-desc">
                         รับทำพวงกุญแจ เข็มกลัด สแตนดี้ สติ๊กเกอร์ ยางรัดผม แท่นวางโทรศัพท์ <span style="white-space: nowrap">ที่รองแก้ว</span> 
                         ยางหุ้มกุญแจ ที่ติดโทรศัพท์ งานอะคริลิค ยาง และงานสะท้อนแสง
@@ -88,24 +86,13 @@
 @include('partials.reviews')
 @include('partials.contact')
 
-{{-- 3️⃣ Script ของ Swiper.js --}}
+{{-- Scripts... --}}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 <script>
     var swiper = new Swiper(".myHeroSwiper", {
-        spaceBetween: 0,        
-        centeredSlides: true,   
-        loop: true,             
-        speed: 1200,             
-        autoplay: {
-            delay: 3000,        
-            disableOnInteraction: false, 
-        },
-        pagination: {
-            el: ".custom-pagination", 
-            clickable: true,          
-        },
+        spaceBetween: 0, centeredSlides: true, loop: true, speed: 1200,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: ".custom-pagination", clickable: true },
     });
 </script>
-
 @endsection

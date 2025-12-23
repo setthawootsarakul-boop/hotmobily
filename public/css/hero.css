@@ -219,21 +219,38 @@
    📱 Responsive Adjustments (Mobile Only)
 ======================== */
 @media (max-width: 991.98px) {
+    /* ✅ 1. โครงสร้างหลักของ Section */
     .hero-section {
-        /* ✅ 1. ปลดล็อคการจัดกึ่งกลาง (สำคัญมาก) */
-        display: block !important;       /* เลิกใช้ flex ที่ดึงให้กลาง */
-        min-height: auto !important;     /* เลิกบังคับความสูงเต็มจอ */
-        
-        /* ✅ 2. Reset Padding เดิมทิ้งไปเลย */
-        padding-top: 0 !important; 
+        display: block !important;
+        min-height: auto !important;
+        padding-top: 20px !important; /* เพิ่มพื้นที่ด้านบนเล็กน้อย */
         padding-bottom: 40px;
         text-align: center;
     }
 
+    .hero-content-wrapper {
+        padding-left: 0;
+        display: flex;
+        flex-direction: column; /* จัดให้เนื้อหาข้างในเรียงแนวดิ่ง */
+        align-items: center;
+    }
+
+    /* ✅ 2. ข้อความชื่อแบรนด์ (ย้ายมาไว้บนรูปภาพ) */
+    .brand-highlight {
+        order: -1;              /* บังคับให้ขึ้นไปอยู่อันดับแรกสุดใน Flex box */
+        display: block;
+        position: static;       /* ไม่ใช้ absolute เพื่อให้ต่อแถวปกติ */
+        font-size: 48px;
+        font-weight: 800;
+        text-shadow: -2px 1px 0px #000;
+        margin-bottom: 20px;    /* เว้นระยะก่อนถึงรูปภาพ */
+        width: 100%;
+    }
+
+    /* ✅ 3. ส่วนของรูปภาพ Swiper (อยู่ใต้ข้อความ) */
     .hero-img-container {
-        margin-top: -25px !important;  /* <--- แก้เลขนี้เพื่อเลื่อนขึ้น/ลง */
-        
-        height: 230px; 
+        margin-top: 0 !important; /* รีเซ็ตค่าติดลบเพื่อให้เรียงต่อกันสวยงาม */
+        height: auto; 
         width: 100%;
         margin-bottom: 10px;
     }
@@ -246,11 +263,11 @@
         display: block;
     }
 
-    /* ส่วนอื่นๆ คงเดิม ... */
+    /* ✅ 4. จุด Pagination (อยู่ใต้รูปภาพ) */
     .custom-pagination {
         position: relative;
         z-index: 100 !important;
-        margin-top: 0 !important;
+        margin-top: 10px !important;
         margin-bottom: 30px !important;
     }
     
@@ -260,18 +277,7 @@
         margin: 0 5px !important;
     }
 
-    .hero-content-wrapper {
-        padding-left: 0;
-        position: relative;
-        z-index: 10;
-    }
-
-.brand-highlight {
-        font-size: 36px;
-        text-shadow: -2px 1px 0px #000;
-        margin-bottom: 10px;
-    }
-
+    /* ✅ 5. คำบรรยายสินค้า */
     .brand-desc {
         margin: 0 auto;
         font-size: 16px;
@@ -280,50 +286,42 @@
         margin-bottom: 2rem;
     }
 
-    /* ✅ แก้ไขส่วนไอคอน (ตามความต้องการใหม่) */
+    /* ✅ 6. ส่วนไอคอนคุณสมบัติ (Features) */
     .brand-features {
         display: flex;
         flex-direction: row;
-        justify-content: center; /* จัดให้อยู่กึ่งกลางจอ */
+        justify-content: center;
         align-items: flex-start;
-        
-        /* ⛔ ห้ามตกบรรทัด */
         flex-wrap: nowrap !important; 
-        
-        /* ✅ กำหนดระยะห่าง 28px ตามที่ขอ */
         gap: 28px !important; 
-        
         margin-top: 0;
         padding: 0;
         width: 100%;
     }
 
     .brand-features .feature {
-        /* ปรับเป็น auto เพื่อให้ขนาดขึ้นอยู่กับ icon (73px) */
         flex: 0 0 auto; 
         width: auto;
-        min-width: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
 
-    /* ✅ ปรับขนาดวงกลมเป็น 73x73 ตามที่ขอ */
     .icon-circle {
         width: 73px !important;  
         height: 73px !important;
-        min-width: 73px !important; /* บังคับห้ามหด */
+        min-width: 73px !important;
         margin-bottom: 10px;
     }
     
     .icon-circle .feature-icon {
-        width: 35px; /* ปรับขนาดไอคอนข้างในให้สมดุลกับวงกลม 73px */
+        width: 35px;
         height: 35px;
     }
 
     .brand-features p {
         font-size: 0.75rem;
-        white-space: nowrap; /* พยายามให้อยู่บรรทัดเดียวถ้าทำได้ */
+        white-space: nowrap;
         line-height: 1.2;
         margin: 0;
     }
