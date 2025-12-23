@@ -44,9 +44,9 @@
             <li><a class="dropdown-item" href="{{ route('faq') }}">คำถามที่พบบ่อย</a></li>
             <li><a class="dropdown-item" href="{{ route('order-guide') }}#how-to-order">วิธีการสั่งสินค้า</a></li>
             <li><a class="dropdown-item" href="{{ route('payment-method') }}#payment">วิธีการชำระเงิน</a></li>
-            <li><a class="dropdown-item" href="{{ route('faq') }}#design">วิธีการออกแบบ</a></li>
-            <li><a class="dropdown-item" href="{{ route('faq') }}#cancel">วิธีการยกเลิกสินค้า</a></li>
-            <li><a class="dropdown-item" href="{{ route('faq') }}#cookie-policy">นโยบายคุกกี้</a></li>
+            <li><a class="dropdown-item" href="{{ route('design-guide') }}#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment-method') }}#section4">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('cookie-policy') }}#cookie-policy">นโยบายคุกกี้</a></li>
           </ul>
         </li>
 
@@ -159,8 +159,8 @@
             <li><a class="dropdown-item" href="{{ route('faq') }}">คำถามที่พบบ่อย</a></li>
             <li><a class="dropdown-item" href="{{ route('order-guide') }}#how-to-order">วิธีการสั่งสินค้า</a></li>
             <li><a class="dropdown-item" href="{{ route('payment-method') }}#payment">วิธีการชำระเงิน</a></li>
-            <li><a class="dropdown-item" href="{{ route('faq') }}#design">วิธีการออกแบบ</a></li>
-            <li><a class="dropdown-item" href="{{ route('faq') }}#cancel">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('design-guide') }}#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment-method') }}#section4">วิธีการยกเลิกสินค้า</a></li>
             <li><a class="dropdown-item" href="{{ route('faq') }}#cookie-policy">นโยบายคุกกี้</a></li>
         </ul>
       </li>

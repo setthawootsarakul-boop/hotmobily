@@ -3,10 +3,15 @@
 =============================== */
 
 /* 🔸 พื้นหลังและฟอนต์หลัก */
-body {
-  background-color: #fff8ec;
-  font-family: "Noto Sans Thai", "Prompt", sans-serif;
-  color: #000;
+body, 
+.order-guide-page, 
+.design-guide-wrapper,
+.faq-header,
+.faq-section {
+    background-color: #fff8ec !important;
+    font-family: "Noto Sans Thai", "Prompt", sans-serif;
+    color: #000;
+    margin: 0;
 }
 
 /* 🔹 SECTION: พื้นหลังรวม */
@@ -67,7 +72,7 @@ body {
   position: relative;
   z-index: 2;
   background-color: #f7c77a;
-  color: #000;
+  color: #fdfdfd;
   font-weight: normal;
   border-radius: 50%;
   width: 70px;

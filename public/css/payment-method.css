@@ -1,6 +1,15 @@
 /* =========================================
    🖥️ DESKTOP STYLES (แสดงผล 20px ตามเดิม)
    ========================================= */
+html {
+    scroll-behavior: smooth;
+}
+
+/* แถม: เมื่อกดลิงก์มาแล้ว ให้เว้นระยะห่างจากขอบบนนิดนึง ไม่ให้หัวข้อติดขอบจอเกินไป */
+#section3, #section4 {
+    scroll-margin-top: 100px; 
+}
+
 .payment-page {
     background-color: #fff8ec;
     padding: 80px 20px;

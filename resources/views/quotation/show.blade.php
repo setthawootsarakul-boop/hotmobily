@@ -3,12 +3,8 @@
 @section('title', 'ใบเสนอราคา ' . $quotation->quotation_number)
 
 @section('content')
-
-
 <div class="container-fluid py-4">
     <div class="action-wrapper">
-        
-        
         <div class="thank-you-header no-print">
             ขอบคุณสำหรับการทำใบเสนอราคา
         </div>
@@ -31,7 +27,10 @@
 
             <div class="info-section">
                 <div class="customer-info">
-                    <div class="cust-name">{{ $quotation->fullname }}</div>
+                    @if(!empty($quotation->fullname))
+                        <div class="cust-name">{{ $quotation->fullname }}</div>
+                    @endif
+                    
                     <div class="cust-details">
                         @php 
                             $addrLine1 = collect([
@@ -44,11 +43,28 @@
                                 $quotation->road ? "ถนน " . $quotation->road : null
                             ])->filter()->implode(', '); 
                         @endphp
-                        {{ $addrLine1 }}<br>
-                        {{ $quotation->sub_district }}, {{ $quotation->district }}, {{ $quotation->province }} {{ $quotation->zipcode }}<br>
-                        {{ $quotation->email }}<br>{{ $quotation->phone }}
+
+                        @if(!empty($addrLine1))
+                            <div>{{ $addrLine1 }}</div>
+                        @endif
+
+                        @if(!empty($quotation->sub_district) || !empty($quotation->province))
+                            <div>
+                                {{ $quotation->sub_district }}{{ $quotation->district ? ', ' . $quotation->district : '' }} 
+                                {{ $quotation->province }} {{ $quotation->zipcode }}
+                            </div>
+                        @endif
+
+                        @if(!empty($quotation->email))
+                            <div>{{ $quotation->email }}</div>
+                        @endif
+
+                        @if(!empty($quotation->phone))
+                            <div>{{ $quotation->phone }}</div>
+                        @endif
                     </div>
                 </div>
+
                 <table class="doc-info-table">
                     <tr><td>Quotation #</td><td>{{ $quotation->quotation_number }}</td></tr>
                     <tr><td>Date</td><td>{{ $quotation->created_at->format('M d, Y') }}</td></tr>
@@ -56,6 +72,7 @@
                 </table>
             </div>
 
+            {{-- --- ส่วนตารางสินค้าคงเดิม --- --}}
             <table class="product-table">
                 <thead>
                     <tr>
@@ -117,7 +134,8 @@
                         <tr><td>Branch name</td><td>ถนนสาทร</td></tr>
                     </table>
                 </div>
-                @if($quotation->tax_name)
+                
+                @if(!empty($quotation->tax_name))
                 <div class="footer-table-box">
                     <div style="font-weight: bold; margin-bottom: 8px; text-transform: uppercase; font-size: 12px;">T A X &nbsp; I N V O I C E &nbsp; I N F O</div>
                     <table class="footer-data-table">
@@ -125,7 +143,9 @@
                         <tr><td>Tax Name</td><td>{{ $quotation->tax_name }}</td></tr>
                         <tr><td>Tax ID</td><td>{{ $quotation->tax_id }}</td></tr>
                         <tr><td>Address</td><td>
-                            @php $taxAddr = collect([$quotation->tax_address_no, $quotation->tax_moo ? "หมู่ " . $quotation->tax_moo : null, $quotation->tax_building, $quotation->tax_floor ? "ชั้น " . $quotation->tax_floor : null, $quotation->tax_village, $quotation->tax_soi, $quotation->tax_road])->filter()->implode(' '); @endphp
+                            @php 
+                                $taxAddr = collect([$quotation->tax_address_no, $quotation->tax_moo ? "หมู่ " . $quotation->tax_moo : null, $quotation->tax_building, $quotation->tax_floor ? "ชั้น " . $quotation->tax_floor : null, $quotation->tax_village, $quotation->tax_soi, $quotation->tax_road])->filter()->implode(' '); 
+                            @endphp
                             {{ $taxAddr }}<br>{{ $quotation->tax_sub_district }}, {{ $quotation->tax_district }}<br>{{ $quotation->tax_province }} {{ $quotation->tax_zipcode }}
                         </td></tr>
                     </table>
@@ -133,17 +153,18 @@
                 @endif
             </div>
 
-            <div class="text-center mt-5" style="font-size: 10px; color: #aaa; letter-spacing: 3px;">T E R M S</div>
-            
-            {{-- 🔥 เพิ่มข้อความรายละเอียดใต้ TERMS --}}
-            <div class="text-center terms-detail">
-                ราคาด้านบนเป็นราคาที่รวมค่าจัดส่งเรียบร้อยแล้ว ระยะเวลาการจัดส่งจะเป็นไปตามที่ระบุอยู่บนเว็บไซต์<br>
-                หลังจากสั่งซื้อเรียบร้อยแล้วกรุณาโอนเงินภายใน 7 วัน สอบถามข้อมูลเพิ่มเติมที่ 
-                contact_hs@hotstrapthai.com
+            {{-- 🚩 ส่วน TERMS พร้อมเส้นกั้นที่ center สวยๆ --}}
+            <div class="terms-detail">
+                <div style="font-size: 10px; color: #000000; letter-spacing: 3px; margin-bottom: 10px; text-align: center;">T E R M S</div>
+                <div class="terms-description">
+                    ราคาด้านบนเป็นราคาที่รวมค่าจัดส่งเรียบร้อยแล้ว ระยะเวลาการจัดส่งจะเป็นไปตามที่ระบุอยู่บนเว็บไซต์<br>
+                    หลังจากสั่งซื้อเรียบร้อยแล้วกรุณาโอนเงินภายใน 7 วัน สอบถามข้อมูลเพิ่มเติมที่ 
+                    contact_hs@hotstrapthai.com
+                </div>
             </div>
-
         </div>
 
+        {{-- --- ปุ่ม Action ต่างๆ --- --}}
         <div class="btn-print-wrapper no-print">
             <button onclick="window.print()" class="btn-print">พิมพ์ใบเสนอราคา</button>
         </div>
@@ -153,7 +174,6 @@
             <br>
             <a href="{{ route('products.index') }}" class="view-products-link">ดูสินค้าของเรา</a>
         </div>
-
     </div>
 </div>
 @endsection

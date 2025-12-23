@@ -31,7 +31,9 @@ Route::get('/payment-method', function () {
 
 // ✅ เพิ่มเติม: Route สำรองสำหรับหน้าอื่นๆ (กัน Error 404 ในเมนูนำทาง)
 Route::get('/design-guide', function () { return view('design-guide'); })->name('design-guide');
-Route::get('/shipping-info', function () { return view('shipping-info'); })->name('shipping-info');
+Route::get('/cookie-policy', function () {
+    return view('cookie-policy');
+})->name('cookie-policy');
 
 // =========================================================
 // 🛍️ Product System

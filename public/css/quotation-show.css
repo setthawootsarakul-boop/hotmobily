@@ -37,7 +37,7 @@
 
     .company-header { display: flex; justify-content: space-between; margin-bottom: 30px; }
     .company-address { font-size: 12px; line-height: 1.5; width: 60%; }
-    .company-logo img { height: 60px; }
+    .company-logo img { height: 100px; }
     .info-section { display: flex; justify-content: space-between; margin-bottom: 20px; }
     
     .customer-info { width: 55%; }
@@ -112,12 +112,18 @@
         font-size: 12px;
         color: #555;
         line-height: 1.8;
-        margin-top: 10px;
+        margin-top: 50px;
         max-width: 80%;
         margin-left: auto;
         margin-right: auto;
+        text-align: center;
     }
 
+    .terms-description {
+        border-top: 1px solid #333 !important;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
     
     @media print {
         body { background: #fff !important; }
@@ -140,4 +146,220 @@
         .footer-tables-container { display: flex !important; flex-direction: row !important; }
         * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
         @page { margin: 1.5cm; size: auto; }
+    }
+    /* =========================================
+   📱 RESPONSIVE FOR MOBILE (โทรศัพท์)
+   ========================================= */
+    @media (max-width: 767.98px) {
+
+        .quotation-container {
+            padding: 15px !important;
+            width: 100% !important;
+            box-sizing: border-box;
+        }
+
+        .thank-you-header {
+            font-size: 28px !important;
+            margin-bottom: 20px !important;
+        }
+
+        /* --- 2. ส่วนหัว (Header): ที่อยู่บนซ้าย, โลโก้ล่างขวา --- */
+        .company-header {
+            display: flex !important;
+            flex-direction: column !important;
+            margin-bottom: 20px !important;
+        }
+
+        .company-address {
+            order: 1; /* บังคับอยู่บนสุด */
+            width: 100% !important;
+            text-align: left !important;
+            margin-bottom: 15px !important;
+            font-size: 12px !important;
+            line-height: 1.4 !important;
+        }
+
+        .company-logo {
+            order: 2; /* บังคับอยู่ใต้ที่อยู่ */
+            text-align: right !important; /* ผลักโลโก้ไปทางขวา */
+            width: 100% !important;
+        }
+
+        .company-logo img {
+            height: 80px !important;
+        }
+
+        /* --- 3. ส่วนข้อมูล (Info): ลูกค้า และ ตาราง Quotation # --- */
+        .info-section {
+            display: flex !important;
+            flex-direction: row !important; /* เปลี่ยนเป็นแนวนอน */
+            justify-content: space-between !important; /* แยกซ้าย-ขวา */
+            align-items: flex-start !important;
+            gap: 10px !important;
+            margin-bottom: 20px !important;
+            width: 100% !important;
+        }
+
+        .customer-info {
+            order: 1 !important;
+            width: 55% !important; /* กำหนดความกว้างฝั่งซ้าย */
+            text-align: left !important;
+            font-size: 11px !important; /* ลดขนาดฟอนต์เล็กน้อยเพื่อให้พอดีพื้นที่ */
+        }
+
+        .doc-info-table {
+            order: 2 !important;
+            width: 42% !important; /* กำหนดความกว้างฝั่งขวา */
+            margin-left: 0 !important;
+            margin-top: 0 !important;
+            table-layout: auto !important;
+        }
+
+        /* ปรับขนาดฟอนต์ในตารางเล็กให้พอดีกับพื้นที่บีบแคบ */
+        .doc-info-table td {
+            font-size: 10px !important;
+            padding: 3px !important;
+        }
+
+        /* --- 4. ตารางสินค้า (Product Table) --- */
+        .product-table {
+            width: 100% !important;
+            table-layout: auto !important;
+            font-size: 11px !important;
+        }
+
+        .product-table th:nth-child(3), 
+        .product-table td:nth-child(3) {
+            width: 60px !important; 
+            text-align: right !important;
+        }
+
+        .product-table th:nth-child(4), 
+        .product-table td:nth-child(4) {
+            width: 60px !important;
+            text-align: center !important;
+        }
+
+        .product-table th, 
+        .product-table td {
+            padding: 5px 3px !important;
+            word-break: break-word !important;
+            overflow-wrap: break-word;
+        }
+
+        /* คอลัมน์ลำดับและราคาบนมือถือ */
+        .col-no { width: 30px !important; }
+        .col-price { width: 80px !important; }
+
+        /* ส่วนสรุปยอดรวมใต้ตารางสินค้า (Subtotal/Grand Total) */
+        .product-table + table, 
+        .product-table ~ table {
+            width: 100% !important;
+            max-width: 240px !important;
+            margin-left: auto !important;
+            margin-top: 10px !important;
+        }
+
+        /* --- 5. ส่วนท้าย (Footer): Payment Method & Invoice Info --- */
+        .footer-tables-container {
+            display: flex !important;
+            flex-direction: column !important; /* เรียงซ้อนกันเป็นแนวตั้ง */
+            gap: 25px !important;
+            width: 100% !important;
+            margin-top: 20px !important;
+        }
+
+        .footer-table-box {
+            width: 100% !important;
+            max-width: 100% !important;
+            flex-basis: 100% !important;
+        }
+
+        .footer-data-table {
+            width: 100% !important;
+            display: table !important;
+            table-layout: auto !important;
+        }
+
+        .footer-data-table td {
+            padding: 8px !important;
+            font-size: 12px !important;
+            word-break: break-word !important;
+        }
+
+        .footer-data-table td:first-child {
+            width: 38% !important;
+            white-space: nowrap !important;
+        }
+
+        /* หัวข้อ P A Y M E N T   M E T H O D */
+        .quotation-container p b, 
+        .quotation-container p {
+            letter-spacing: 2px !important;
+            font-size: 14px !important;
+            text-align: left !important;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        /* เงื่อนไข (Terms) */
+        .terms-detail {
+            width: 100% !important;
+            max-width: 100% !important;
+            display: block !important;
+            text-align: center !important;
+            
+            /* 🚩 หัวใจสำคัญ: ช่วยให้การตัดบรรทัดแบบกึ่งกลางดูสมดุล ไม่แหว่ง */
+            text-wrap: balance !important; 
+            
+            font-size: 11px !important;
+            line-height: 1.6 !important; /* เพิ่มระยะบรรทัดเพื่อให้อ่านง่ายขึ้นเมื่อจัดกึ่งกลาง */
+            margin-top: 20px !important;
+            padding-top: 15px !important;
+            
+            
+            /* 🚩 ป้องกันคำยาวๆ (เช่น อีเมล) ดันขอบจอ */
+            word-break: break-word !important;
+            overflow-wrap: break-word !important;
+            
+            /* เพิ่ม padding ซ้ายขวานิดหน่อย เพื่อไม่ให้ตัวหนังสือชิดขอบจอเกินไป */
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+            box-sizing: border-box !important;
+        }
+        
+        .terms-description {
+            border-top: 1px solid #333 !important;
+            margin-top: 10px;
+            padding-top: 10px;
+        }
+
+        /* --- 6. ปุ่ม Action --- */
+        .btn-print-wrapper {
+            display: flex !important;
+            flex-direction: row !important; /* จัดให้เรียงแนวนอน */
+            justify-content: center !important; /* วางกึ่งกลางหน้าจอ */
+            gap: 10px !important; /* ระยะห่างระหว่าง 2 ปุ่ม */
+            margin-top: 20px !important;
+            width: 100% !important;
+        }
+
+        .btn-print, .btn-home {
+            width: auto !important;
+            min-width: 150px !important;
+            padding: 8px 28px !important;
+            font-size: 14px !important;
+            margin: 5px !important;
+            text-align: center !important;
+        }
+
+        .thank-you-header {
+            text-align: center !important;
+            font-size: 24px !important;
+            display: block !important; /* มั่นใจว่าไม่ใช่ inline */
+            width: 100% !important;
+        }
+        .action-wrapper {
+        margin: 5px auto;
+        }
     }

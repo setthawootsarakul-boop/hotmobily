@@ -1,0 +1,307 @@
+/* =========================================
+   🎨 DESIGN GUIDE STYLES (Optimized Version)
+   ========================================= */
+
+/* 1. Global & Shared Backgrounds */
+body, 
+.design-guide-wrapper,
+.faq-header,
+.faq-section {
+    background-color: #fff8ec !important;
+    font-family: 'MyPromptFont', sans-serif !important;
+    color: #000;
+}
+
+/* 2. Typography Settings */
+h5, .h5, .design-sub-title, .template-title, 
+.placing-title, .diecut-title, .screen-title, .holesloops-title {
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+h5, .h5 { font-size: 22px; }
+.template-title { font-size: 1.4rem; }
+
+.design-main-title {
+    text-align: center;
+    font-weight: 900;
+    font-size: 2.4rem;
+    margin-bottom: 80px;
+}
+
+/* 3. Layout Containers */
+.design-guide-wrapper {
+    padding: 80px 20px 40px;
+}
+
+.design-content-box {
+    background-color: #ffffff;
+    margin: 0 auto 40px;
+    width: 100%;
+    max-width: 1300px;
+    padding: 40px 50px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    border-radius: 8px; /* เพิ่มความโค้งมนเล็กน้อยให้ดูทันสมัย */
+}
+
+/* 4. Text Sections */
+.design-description, 
+.template-contact-text, 
+.placing-contact-text, 
+.diecut-contact-text, 
+.screen-contact-text, 
+.holesloops-contact-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 25px;
+}
+
+/* 5. Contact & Flex Layouts */
+.design-flex-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.design-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 0 1 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.design-contact-list li:first-child {
+    font-weight: 800;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* QR Code & Images Wrapper (Grouped) */
+.design-qr-box {
+    flex-shrink: 0;
+    margin-top: -15px;
+}
+
+
+/* 6. Image Containers (Grouped for efficiency) */
+.template-image-wrapper,
+.placing-image-wrapper,
+.diecut-image-wrapper,
+.screen-image-wrapper,
+.holesloops-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0 50px; /* เพิ่มระยะห่างระหว่างหัวข้อใหม่ */
+}
+
+.template-image-wrapper img,
+.placing-image-wrapper img,
+.diecut-image-wrapper img,
+.screen-image-wrapper img,
+.holesloops-image-wrapper img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 7. Links & Dividers */
+.contact-link {
+    color: #000;
+    text-decoration: underline;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.contact-link:hover {
+    color: #fbab00;
+}
+
+.design-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 40px 0;
+}
+
+/* 8. FAQ Section */
+.faq-header {
+    text-align: center;
+    padding: 60px 20px 30px;
+}
+
+.faq-header h1 {
+    font-weight: 900;
+    font-size: 2.4rem;
+}
+
+
+.faq-item {
+    border-bottom: 1px solid #aaa;
+    padding: 25px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 800;
+    font-size: 1.35rem;
+}
+
+.faq-item:hover {
+    color: #fbab00;
+    transform: translateX(6px);
+}
+
+
+h5, .h5, .design-sub-title, .template-title, 
+.placing-title, .diecut-title, .screen-title, .holesloops-title {
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 25px; 
+    margin-top: 40px;    
+}
+
+/* --- 4. Text Sections --- */
+/* เพิ่มระยะห่างระหว่างกลุ่มเนื้อหา (Section) */
+.design-description, 
+.template-contact-text, 
+.placing-contact-text, 
+.diecut-contact-text, 
+.screen-contact-text, 
+.holesloops-contact-text {
+    font-size: 1.1rem;
+    line-height: 1.8;    /* 🚩 ปรับให้อ่านง่ายขึ้น */
+    color: #333;
+    margin-bottom: 45px; /* 🚩 เพิ่มระยะห่างก่อนจะขึ้นหัวข้อถัดไป หรือก่อนขึ้นรูปภาพ */
+}
+
+/* --- 6. Image Containers --- */
+/* ปรับระยะห่างของรูปภาพให้สมดุล */
+.template-image-wrapper,
+.placing-image-wrapper,
+.diecut-image-wrapper,
+.screen-image-wrapper,
+.holesloops-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0 60px; /* 🚩 margin-bottom เป็น 60px เพื่อแยกแต่ละหัวข้อให้ขาดจากกัน */
+}
+
+.contact-underline {
+    color: #000;              /* กำหนดสีตัวอักษรเป็นสีดำ */
+    text-decoration: underline; /* เพิ่มขีดเส้นใต้ */
+    text-decoration-color: #000; /* กำหนดสีของเส้นใต้เป็นสีดำ */
+    cursor: pointer;          /* ทำให้เมาส์เป็นรูปมือ (กรณีอยากให้ดูเหมือนกดได้) */
+}
+
+/* เพิ่มเติม: สำหรับ Section ที่อยู่ล่างสุดของกล่องขาว */
+.holesloops-image-wrapper {
+    margin-bottom: 0; /* ตัวสุดท้ายไม่ต้องมีระยะล่าง */
+}
+@media (max-width: 768px) {
+    /* 1. ทำให้พื้นหลังและ Wrapper ชิดขอบที่สุด */
+    .design-guide-wrapper { 
+        padding: 20px 0; 
+    }
+
+    .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+    }
+
+    /* 2. ปรับกล่องเนื้อหาให้ขยายเต็ม 100% และลบขอบ/เงาออก */
+    .design-content-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 30px 15px; 
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        text-align: left !important; /* 🚩 บังคับข้อความในกล่องให้ชิดซ้ายทั้งหมด */
+    }
+
+    /* 3. จัดการกลุ่ม Flex (Contact & QR Code) ให้ชิดซ้าย */
+    .design-flex-container {
+        flex-direction: column;
+        align-items: flex-start !important; /* 🚩 เปลี่ยนจาก center เป็น flex-start */
+        text-align: left !important;       /* 🚩 เปลี่ยนจาก center เป็น left */
+        gap: 20px;
+    }
+
+    .design-contact-list {
+        width: 100%;
+        text-align: left !important;
+        padding-left: 0 !important;
+    }
+
+    /* 4. หัวข้อและคำอธิบายอื่นๆ ให้ชิดซ้าย */
+    .design-main-title { 
+        font-size: 1.6rem; 
+        margin-bottom: 30px; 
+        text-align: left; /* 🚩 หัวข้อใหญ่ถ้าอยากให้ชิดซ้ายด้วย */
+        padding-left: 15px;
+    }
+
+    .design-sub-title, 
+    .template-title, 
+    .template-contact-text,
+    .design-template-section { 
+        text-align: left !important; 
+    }
+
+    /* 5. รูปภาพยังคงให้กว้างเต็มจอแต่แก้จุดทะลุ */
+    .screen-image-wrapper {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .screen-image-wrapper img,
+    .template-image-wrapper img,
+    .placing-image-wrapper img,
+    .diecut-image-wrapper img,
+    .holesloops-image-wrapper img {
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block;
+        margin: 0; /* 🚩 เปลี่ยนจาก margin: 0 auto เป็น 0 เพื่อให้รูปชิดซ้าย (ถ้าไม่เต็มจอ) */
+    }
+
+    /* FAQ ส่วนล่างยังคงให้จัดตามความเหมาะสม */
+    .faq-header h1 { font-size: 22px; text-align: center; } /* FAQ มักจะสวยกว่าถ้าอยู่กลาง */
+    .faq-section { 
+        padding: 20px 20px; /* เพิ่มระยะห่างซ้าย-ขวาบรรทัดนี้ */
+        width: 100%;
+        box-sizing: border-box; /* มั่นใจว่า padding ไม่ทำให้ความกว้างเกินจอ */
+    }
+
+    /* ถ้าต้องการให้ตัวหนังสือใน FAQ ชิดซ้ายเหมือนเนื้อหาด้านบน */
+    .faq-item {
+        padding: 20px 0;
+        text-align: left;
+        font-size: 1.2rem; /* ปรับขนาดให้พอดีกับมือถือ */
+    }
+
+    .faq-header {
+        padding: 40px 20px 10px; /* เพิ่มช่องว่างให้หัวข้อ "บทความที่คุณอาจสนใจ" */
+        text-align: left; /* เปลี่ยนเป็นชิดซ้ายตามความต้องการของคุณ */
+    }
+
+    .design-qr-box {
+        width: 100%;       /* ขยายเต็มพื้นที่เพื่อให้จัดกลางได้ */
+        display: flex;
+        justify-content: center; /* จัดรูปให้อยู่กลางจอในมือถือ */
+        margin-top: 20px;
+    }
+}

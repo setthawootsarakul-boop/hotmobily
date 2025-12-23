@@ -17,24 +17,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    {{-- ✅ Custom CSS --}}
+    
+    {{-- ✅ Custom CSS (ของคุณเดิมทั้งหมด) --}}
     <link href="{{ asset('css/variables.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
-    
-    {{-- โหลด CSS ย่อยเฉพาะเมื่อจำเป็น หรือโหลดรวมตามแผนของคุณ --}}
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/hero.css') }}" rel="stylesheet">
     <link href="{{ asset('css/why.css') }}" rel="stylesheet">
     <link href="{{ asset('css/order-guide.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products.css') }}" rel="stylesheet">
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/cookie-policy.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/contact-full.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
     <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/design-guide.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
     <link href="{{ asset('css/quotation.css') }}" rel="stylesheet">
     <link href="{{ asset('css/quotation-show.css') }}" rel="stylesheet">
+
     {{-- ✅ Global Styles Fix for 1440px Layout --}}
     <style>
         /* บังคับให้หน้าเว็บกว้างเต็มจอเสมอ ไม่เกิดขอบขาวที่ไม่ตั้งใจ */
@@ -50,19 +53,53 @@
             position: relative;
         }
 
-        /* ✅ Logic สำหรับ 1440px:
-           Bootstrap 5 container-xxl จะมีความกว้าง max-width: 1320px
-           ซึ่งเหมาะมากกับหน้าจอ 1440px (เหลือขอบข้างละ ~60px สวยงาม)
-           
-           Class นี้ใส่ไว้เผื่อคุณต้องการใช้ในหน้าอื่นๆ ที่ไม่ใช่ Home 
-           เช่น หน้า Contact-Full หรือ Login
-        */
         .page-container {
             max-width: 1320px;
             margin-left: auto;
             margin-right: auto;
             padding-left: 12px;
             padding-right: 12px;
+        }
+
+        /* 🚩 เพิ่มเติม: Cookie Banner CSS ตามรูปตัวอย่าง */
+        .cookie-banner-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(51, 51, 51, 0.98); /* สีเทาเข้ม */
+            color: #fff;
+            padding: 15px 0;
+            z-index: 99999;
+            display: none; /* ซ่อนไว้รอ JS เช็ค */
+        }
+        .cookie-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .cookie-text { margin: 0; font-size: 0.95rem; }
+        .cookie-link { color: #58a6ff; text-decoration: underline; }
+        .cookie-actions { display: flex; gap: 12px; }
+        
+        /* ปุ่มยอมรับ สีแดง */
+        .btn-cookie-accept {
+            background: #cc0000; color: #fff; border: none;
+            padding: 7px 24px; border-radius: 4px; font-weight: 600; cursor: pointer;
+        }
+        /* ปุ่มปิด สีขาว */
+        .btn-cookie-close {
+            background: #fff; color: #000; border: none;
+            padding: 7px 24px; border-radius: 4px; font-weight: 600; cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .cookie-content { flex-direction: column; padding: 0 20px; }
+            .cookie-actions { width: 100%; }
+            .btn-cookie-accept, .btn-cookie-close { flex: 1; }
         }
     </style>
 </head>
@@ -72,30 +109,84 @@
     @include('partials.navbar')
 
     {{-- ✅ Main Content --}}
-    {{-- เราไม่ใส่ container-xxl ตรงนี้ เพื่อให้ Background ของ Hero/Reviews ยาวเต็มจอ --}}
     <main class="flex-grow-1">
         @yield('content')
     </main>
 
+    {{-- 🚩 เพิ่มเติม: Cookie Banner HTML --}}
+    <div id="cookie-banner" class="cookie-banner-wrapper">
+        <div class="container-xxl">
+            <div class="cookie-content">
+                <p class="cookie-text">
+                    เว็บไซต์นี้มีการจัดเก็บคุกกี้เพื่อมอบประสบการณ์การใช้งานเว็บไซต์ของคุณให้ดียิ่งขึ้น การดำเนินการต่อบนเว็บไซต์นี้ถือว่าคุณยอมรับการใช้งานคุกกี้ 
+                    <a href="{{ route('cookie-policy') }}" class="cookie-link">อ่านเพิ่มเติม</a>
+                </p>
+                <div class="cookie-actions">
+                    <button id="accept-cookie" class="btn-cookie-accept">ยอมรับ</button>
+                    <button id="close-cookie" class="btn-cookie-close">ปิด</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{-- ✅ Footer --}}
     @include('partials.footer')
 
-    {{-- ✅ Scripts --}}
+    {{-- ✅ Scripts (ของคุณเดิมทั้งหมด + เพิ่ม Logic Cookie) --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-    
-    {{-- Script สำหรับจัดการ Navbar เวลา Scroll --}}
     <script>
-        $(window).scroll(function() {
-            if ($(this).scrollTop() > 50) {
-                $('.navbar').addClass('shadow-sm');
-            } else {
-                $('.navbar').removeClass('shadow-sm');
-            }
+        $(document).ready(function() {
+            // 1. Script เดิมของคุณ: จัดการ Navbar เวลา Scroll
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('.navbar').addClass('shadow-sm');
+                } else {
+                    $('.navbar').removeClass('shadow-sm');
+                }
+            });
+
+            // 2. ปรับปรุงใหม่: ให้แสดงแถบคุกกี้ทุกครั้งที่โหลดหน้าเว็บ (เพื่อทดสอบ UI)
+            // เราเอาเงื่อนไข if (!localStorage.getItem(...)) ออกเพื่อให้มันแสดงทุกครั้ง
+            $('#cookie-banner').show(); 
+
+            // เมื่อกดปุ่ม 'ยอมรับ' หรือ 'ปิด' ให้แค่ซ่อนแถบไปเฉยๆ ในหน้านั้น
+            $('#accept-cookie, #close-cookie').click(function() {
+                $('#cookie-banner').fadeOut(300);
+                // บรรทัดด้านล่างนี้คอมเมนต์ไว้ก่อน เพื่อไม่ให้มันจำค่าลงเครื่องจริง
+                // localStorage.setItem('cookie_accepted', 'true'); 
+            });
         });
-    </script>
+    </script>    
 
     @stack('scripts')
 </body>
 </html>
+
+    {{-- <script>
+        $(document).ready(function() {
+            // Script เดิมของคุณ: จัดการ Navbar เวลา Scroll
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 50) {
+                    $('.navbar').addClass('shadow-sm');
+                } else {
+                    $('.navbar').removeClass('shadow-sm');
+                }
+            });
+
+            // 🚩 เพิ่มเติม: Script จัดการ Cookie Banner
+            if (!localStorage.getItem('cookie_accepted')) {
+                $('#cookie-banner').fadeIn();
+            }
+
+            $('#accept-cookie').click(function() {
+                localStorage.setItem('cookie_accepted', 'true');
+                $('#cookie-banner').fadeOut();
+            });
+
+            $('#close-cookie').click(function() {
+                $('#cookie-banner').fadeOut();
+            });
+        });
+    </script> --}}

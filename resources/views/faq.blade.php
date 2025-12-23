@@ -56,14 +56,13 @@
   <div class="faq-item" onclick="location.href='{{ route('order-guide') }}#how-to-order'">
     ขั้นตอนการสั่งซื้อสินค้า
   </div>
-  <div class="faq-item" onclick="location.href='{{ route('faq') }}#design'">
+  <div class="faq-item" onclick="location.href='{{ route('design-guide') }}#design'">
     วิธีการออกแบบ
   </div>
-  <div class="faq-item" onclick="location.href='{{ route('faq') }}#cancel'">
-    วิธีการยกเลิกคำสั่งซื้อ
+  <div class="faq-item" onclick="location.href='{{ route('payment-method') }}#section4'"> 
+      วิธีการยกเลิกคำสั่งซื้อ
   </div>
-  <div class="faq-item" onclick="location.href='{{ route('faq') }}#delivery'">
-    การจัดส่งสินค้า
+    <div class="faq-item" onclick="location.href='{{ route('payment-method') }}#section3'"> การจัดส่งสินค้า</div>
   </div>
 </div>
 

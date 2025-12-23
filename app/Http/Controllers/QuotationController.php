@@ -13,6 +13,12 @@ use App\Models\Product;
 use App\Models\ProductPrice;
 use App\Models\CartItem;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
+use Mailtrap\Helper\ResponseHelper;
+use Mailtrap\MailtrapClient;
+use Mailtrap\Mime\MailtrapEmail;
+use Symfony\Component\Mime\Address;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class QuotationController extends Controller
 {
@@ -187,9 +193,74 @@ class QuotationController extends Controller
             else { CartItem::where('session_id', $sessionId)->delete(); }
 
             session()->forget(['quotation_step1', 'quotation_selected_items']);
+            
             DB::commit();
-            //////ใส่ตรงนี้////// mail notification to admin//////
+
+            // 🚀 ส่วนส่งอีเมลแจ้งเตือน
+            try {
+                $customerName = $data['fullname'] ?? 'ลูกค้า'; 
+                $quotationNo = $quotation->quotation_number;
+                $siteUrl = url('/');
+
+                $text = '<!DOCTYPE html>
+                    <html>
+                    <head>
+                        <meta charset="utf-8">
+                        <style>
+                            body { font-family: "Helvetica", Arial, sans-serif; background-color: #f4f4f4; color: #333; }
+                            .header { background-color: #fbab00; padding: 30px; text-align: center; color: white; }
+                            .content { padding: 30px; background: white; border-radius: 8px; margin-top: 20px; }
+                            .order-summary { background-color: #fff8ec; padding: 20px; border-radius: 6px; margin: 20px 0; }
+                            .btn { display: inline-block; padding: 12px 25px; background-color: #fbab00; color: white; text-decoration: none; border-radius: 6px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div style="max-width: 600px; margin: auto;">
+                            <div class="header"><h1>ขอบคุณที่ไว้วางใจ Hotmobily</h1></div>
+                            <div class="content">
+                                <p>สวัสดีคุณ <strong>' . htmlspecialchars($customerName) . '</strong>,</p>
+                                <p>เราได้รับคำขอใบเสนอราคาของคุณเรียบร้อยแล้ว ทีมงานของเรากำลังตรวจสอบข้อมูลและจะติดต่อกลับโดยเร็วที่สุด</p>
+                                <div class="order-summary">
+                                    <p><strong>เลขที่ใบเสนอราคา:</strong> ' . $quotationNo . '</p>
+                                    <p><strong>สถานะ:</strong> กำลังดำเนินการตรวจสอบ</p>
+                                </div>
+                                <div style="text-align: center;"><a href="' . $siteUrl . '" class="btn">เข้าสู่เว็บไซต์ของเรา</a></div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>';
+
+                $phpmailer = new PHPMailer(true);
+                $phpmailer->CharSet = "UTF-8";
+                $phpmailer->isSMTP();
+                $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
+                $phpmailer->SMTPAuth = true;
+                $phpmailer->Port = 2525;
+                $phpmailer->Username = 'd67afb6d8954e9';
+                $phpmailer->Password = '280901d4fac261';
+                
+                // $phpmailer->setFrom('no-reply@hotstrapthai.com', 'Hotstrap Thai');
+                
+                
+                // if(isset($data['email'])) {
+                //     $phpmailer->addAddress($data['email']); 
+                // }
+                
+                // สำเนาลับส่งเข้า Mailtrap Sandbox
+                $phpmailer->addAddress('cd685a991d-4bf6a9+user1@inbox.mailtrap.io'); 
+
+                $phpmailer->Subject = 'ขอบคุณที่ติดต่อขอใบเสนอราคา - Hotstrap Thai (No. ' . $quotationNo . ')';
+                $phpmailer->isHTML(true);
+                $phpmailer->Body = $text;
+                $phpmailer->send();
+
+            } catch (\Exception $mailEx) {
+                
+                \Log::error("Mail Error: " . $mailEx->getMessage());
+            }
+
             return redirect()->route('quotation.show', $quotation->id);
+            
         } catch (\Exception $e) {
             DB::rollBack();
             return back()->with('error', 'เกิดข้อผิดพลาด: ' . $e->getMessage());

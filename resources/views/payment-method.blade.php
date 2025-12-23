@@ -62,7 +62,7 @@
                 </div>
             </div> 
 
-            <div class="info-card">
+            <div class="info-card" id="section3">
                 <div class="card-header">
                     <span class="card-icon">3</span>
                     <h5 class="payment-detail-title">ระยะเวลาการผลิตและจัดส่ง</h5>
@@ -86,7 +86,7 @@
                 </div>
             </div>
 
-            <div class="info-card">
+            <div class="info-card" id="section4">
                 <div class="card-header">
                     <span class="card-icon">4</span>
                     <h5 class="payment-detail-title">การยกเลิกและเปลี่ยนแปลงคำสั่งซื้อ</h5>
@@ -117,17 +117,15 @@
         <div class="related-nav">
             <div class="nav-links-container">
                 <a href="{{ route('order-guide') }}" class="nav-link-item">
-                    <span>ขั้นตอนการสั่งซื้อสินค้า</span>  
+                    <span>ขั้นตอนการสั่งซื้อสินค้า</span>
                 </a>
                 <a href="{{ route('faq') }}" class="nav-link-item">
-                    <span>คำถามที่พบบ่อย (FAQ)</span>    
+                    <span>คำถามที่พบบ่อย (FAQ)</span>
                 </a>
                 <a href="{{ route('design-guide') }}" class="nav-link-item">
-                    <span>วิธีการออกแบบ</span>      
+                    <span>วิธีการออกแบบ</span>
                 </a>
-                <a href="{{ route('shipping-info') }}" class="nav-link-item">
-                    <span>การจัดส่งสินค้า</span>
-                </a>
+                <div class="faq-item" onclick="location.href='{{ route('payment-method') }}#section3'"> การจัดส่งสินค้า</div>
             </div>
         </div>
     </div>

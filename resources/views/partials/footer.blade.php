@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-subscribe">
-          <h5 class="fw-bold mb-3">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
+          <h5 class="fw-bold mb-3 "style="color: #ddd;">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
           <p class="small mb-3">รับโปรโมชั่นลับพิเศษและข่าวสารใหม่ๆ จากเราได้ก่อนใคร</p>
           <form class="d-flex">
             <input type="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
