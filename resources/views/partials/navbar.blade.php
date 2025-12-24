@@ -70,7 +70,7 @@
           </a>
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarContact">
             <li><a class="dropdown-item" href="{{ route('contact.full') }}">ติดต่อบริษัท</a></li>
-            <li><a class="dropdown-item" href="{{ route('contact.full') }}#contact-form">แบบฟอร์มย่อ</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment') }}">แจ้งชำระเงิน</a></li>
           </ul>
         </li>
       </ul>

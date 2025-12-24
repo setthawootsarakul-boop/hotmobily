@@ -1,0 +1,205 @@
+/* คลีนธีมสีครีม */
+.payment-section {
+    background-color: #f8f4eb;
+    padding: 80px 0;
+    font-family: 'Prompt', sans-serif;
+}
+
+.payment-title {
+    text-align: center;
+    font-weight: 600;
+    font-size: 2.2rem;
+    margin-bottom: 50px;
+    color: #1a1a1a;
+}
+
+.payment-card-container {
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+
+/* ฝั่งข้อมูลซ้าย */
+.payment-meta-info {
+    padding: 50px;
+    background-color: #fff;
+    border-right: 1px solid #f0f0f0;
+}
+
+.info-headline {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #555;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.contact-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+.pill-item {
+    background: #fdfaf3;
+    border: 1px solid #f2e8d5;
+    padding: 10px 20px;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: #333;
+    font-weight: 400;
+}
+
+.line-contact-box {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.qr-img {
+    width: 110px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.line-id {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.working-hours {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 40px;
+}
+
+/* ธนาคารและการคัดลอก */
+.bank-display-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.bank-img {
+    width: 100%;
+    display: block;
+}
+
+.btn-copy-overlay {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffab2d;
+    border: none;
+    color: #000;
+    padding: 6px 25px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* ฟอร์มขวา */
+.payment-form-container {
+    padding: 50px;
+}
+
+.form-group-custom {
+    margin-bottom: 22px;
+}
+
+.form-group-custom label {
+    display: block;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 400;
+}
+
+.req { color: #d9534f; }
+
+.form-group-custom input, 
+.form-group-custom textarea {
+    width: 100%;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.form-group-custom input:focus {
+    border-color: #ffab2d;
+    outline: none;
+}
+
+.custom-file-upload {
+    border: 2px dashed #eee;
+    padding: 30px;
+    text-align: center;
+    border-radius: 10px;
+    color: #999;
+    cursor: pointer;
+}
+
+.btn-submit-payment {
+    width: 100%;
+    background: #ffab2d;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* FAQ Section - ปรับเป็นแบบรายการตามรูป */
+.payment-articles-section {
+    margin-top: 80px;
+    text-align: center;
+}
+
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.article-list {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.article-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e1dccf;
+    text-decoration: none;
+    color: #1a1a1a;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.article-item:last-child {
+    border-bottom: none;
+}
+
+.article-item:hover {
+    color: #ffab2d;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .payment-grid { grid-template-columns: 1fr; }
+    .payment-meta-info { border-right: none; border-bottom: 1px solid #f0f0f0; }
+}

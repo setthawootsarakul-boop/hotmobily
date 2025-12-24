@@ -63,3 +63,9 @@ Route::post('/quotation/confirm', [QuotationController::class, 'confirmQuotation
 Route::get('/quotation/view/{id}', [QuotationController::class, 'show'])->name('quotation.show');
 
 Route::get('/send-test-email', [HomeController::class, 'sendTestEmail'])->name('send.test.email');
+
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
+Route::get('/contact/success', [ContactController::class, 'success'])->name('contact.success');
+
+Route::get('/payment', function () { return view('payment');})->name('payment');

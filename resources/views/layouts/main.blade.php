@@ -29,9 +29,11 @@
     <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cookie-policy.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/contact-full.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/contact-success.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
     <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-page.css') }}" rel="stylesheet">
     <link href="{{ asset('css/design-guide.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
@@ -138,7 +140,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script>
         $(document).ready(function() {
-            // 1. Script เดิมของคุณ: จัดการ Navbar เวลา Scroll
+
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 50) {
                     $('.navbar').addClass('shadow-sm');
@@ -147,15 +149,13 @@
                 }
             });
 
-            // 2. ปรับปรุงใหม่: ให้แสดงแถบคุกกี้ทุกครั้งที่โหลดหน้าเว็บ (เพื่อทดสอบ UI)
-            // เราเอาเงื่อนไข if (!localStorage.getItem(...)) ออกเพื่อให้มันแสดงทุกครั้ง
+
             $('#cookie-banner').show(); 
 
-            // เมื่อกดปุ่ม 'ยอมรับ' หรือ 'ปิด' ให้แค่ซ่อนแถบไปเฉยๆ ในหน้านั้น
+
             $('#accept-cookie, #close-cookie').click(function() {
                 $('#cookie-banner').fadeOut(300);
-                // บรรทัดด้านล่างนี้คอมเมนต์ไว้ก่อน เพื่อไม่ให้มันจำค่าลงเครื่องจริง
-                // localStorage.setItem('cookie_accepted', 'true'); 
+
             });
         });
     </script>    
@@ -164,7 +164,8 @@
 </body>
 </html>
 
-    {{-- <script>
+
+    {{-- <script> สำหรับใช้จริง
         $(document).ready(function() {
             // Script เดิมของคุณ: จัดการ Navbar เวลา Scroll
             $(window).scroll(function() {
