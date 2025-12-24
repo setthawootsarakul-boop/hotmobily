@@ -57,7 +57,7 @@
             <i class="bi bi-chevron-down caret-icon ms-1"></i>
           </a>
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDetails">
-            <li><a class="dropdown-item" href="{{ route('products.index') }}#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="{{ route('accessories') }}#accessory">อุปกรณ์เสริม</a></li>
             <li><a class="dropdown-item" href="{{ route('products.index') }}#gallery">แกลลอรี่</a></li>
           </ul>
         </li>

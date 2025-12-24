@@ -4,7 +4,7 @@
       <div class="row gy-4 align-items-stretch">
         
         <div class="col-md-4 text-center text-md-start footer-company">
-          <img src="{{ asset('images/logo.png') }}" alt="Hotmobily Logo" class="footer-logo mb-3">
+          <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Hotmobily Logo" class="footer-logo mb-3">
           
           <p class="mb-2">บริษัท ยู แอนด์ เอิร์ธ (ไทยแลนด์) จำกัด</p>
           <p class="mb-2">(จันทร์ - ศุกร์ 8.30 - 17.30)</p>
@@ -34,13 +34,13 @@
 
         <div class="col-md-4 text-center text-md-start footer-social">
           <div class="social-icons-footer">
-            <a href="#"><img src="{{ asset('images/fb.png') }}" class="social-img" alt="Facebook"></a>
-            <a href="#"><img src="{{ asset('images/line.png') }}" class="social-img" alt="LINE"></a>
-            <a href="#"><img src="{{ asset('images/x.png') }}" class="social-img" alt="X"></a>
-            <a href="#"><img src="{{ asset('images/gmail.png') }}" class="social-img" alt="Gmail"></a>
+            <a href="#"><img src="<?php echo e(asset('images/fb.png')); ?>" class="social-img" alt="Facebook"></a>
+            <a href="#"><img src="<?php echo e(asset('images/line.png')); ?>" class="social-img" alt="LINE"></a>
+            <a href="#"><img src="<?php echo e(asset('images/x.png')); ?>" class="social-img" alt="X"></a>
+            <a href="#"><img src="<?php echo e(asset('images/gmail.png')); ?>" class="social-img" alt="Gmail"></a>
           </div>
           <p>Line : <span>hotstrapthai</span></p>
-          <img src="{{ asset('images/line-qr.png') }}" alt="Line QR Code" class="qr-code">
+          <img src="<?php echo e(asset('images/line-qr.png')); ?>" alt="Line QR Code" class="qr-code">
         </div>
 
       </div>
@@ -150,4 +150,4 @@
       behavior: "smooth" // เลื่อนแบบนุ่มนวล
     });
   }
-</script>
+</script><?php /**PATH C:\project\hotmobily\resources\views/partials/footer.blade.php ENDPATH**/ ?>

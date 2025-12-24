@@ -12,7 +12,7 @@ body {
 
 .faq-header h1 {
   font-weight: 900;
-  font-size: 2.4rem;
+  font-size: 48px;
   color: #000;
   margin-top: 25px;
 }
@@ -134,7 +134,7 @@ body {
 ============================= */
 .faq-section {
   background-color: #fff8ec;
-  padding: 40px 10%;
+  padding: 40px 16%;
 }
 
 .faq-item {
@@ -143,7 +143,7 @@ body {
   cursor: pointer;
   transition: all 0.2s;
   font-weight: 800;
-  font-size: 1.35rem;
+  font-size: 25px;
   color: #000;
   text-align: left;
 }
@@ -185,7 +185,7 @@ body {
 
   .faq-header h1 {
     font-weight: 500;
-    font-size: 1.9rem;
+    font-size: 48px;
     margin-top: -5px;
   }
 

@@ -15,7 +15,6 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
-Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
 
 Route::get('/faq', [FaqController::class, 'index'])->name('faq');
 
@@ -68,4 +67,12 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
 Route::get('/contact/success', [ContactController::class, 'success'])->name('contact.success');
 
-Route::get('/payment', function () { return view('payment');})->name('payment');
+Route::get('/payment', function () {
+    return view('payment');
+})->name('payment');
+
+Route::get('/accessories', function () {
+    return view('accessories'); // ชื่อไฟล์ accessories.blade.php
+})->name('accessories');
+
+Route::get('/accessories', [AccessoriesController::class, 'index'])->name('accessories');

@@ -1,0 +1,82 @@
+.accessories-outer-wrapper {
+    background-color: #f7f3e9;
+    padding: 60px 0;
+}
+
+.accessories-main-title {
+    text-align: center;
+    font-weight: 900;
+    font-size: 2.4rem;
+    margin-bottom: 50px;
+    color: #f7a01b;
+}
+
+.accessories-content-box {
+    background: #fff;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.02);
+    border-radius: 8px;
+}
+
+.accessory-type-title {
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: #f7a01b;
+    margin-bottom: 30px;
+}
+
+/* การจัดแถว 4 ช่อง */
+.accessory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.accessory-item {
+    text-align: center;
+}
+
+/* กล่องสี่เหลี่ยมสี F9F9F9 */
+.accessory-item .image-box {
+    background-color: #F9F9F9;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.accessory-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.accessory-item p {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.design-divider {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 40px 0;
+}
+
+/* --- Responsive มือถือขยายเต็มจอ --- */
+@media (max-width: 768px) {
+    .accessories-outer-wrapper { padding: 0; }
+    .accessories-content-box {
+        border-radius: 0;
+        padding: 30px 15px;
+    }
+    .accessory-grid {
+        grid-template-columns: repeat(2, 1fr); /* ในมือถือ 2 ช่องจะดูไม่แน่นเกินไป */
+    }
+}

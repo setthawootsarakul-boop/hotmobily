@@ -5,41 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <title>@yield('title', 'Hotmobily - รับทำของพรีเมี่ยม พวงกุญแจ สแตนดี้')</title>
+    <title><?php echo $__env->yieldContent('title', 'Hotmobily - รับทำของพรีเมี่ยม พวงกุญแจ สแตนดี้'); ?></title>
 
-    {{-- ✅ Bootstrap 5.3 CDN --}}
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    {{-- ✅ Bootstrap Icons --}}
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-    {{-- ✅ Owl Carousel CSS (ใส่ที่นี่เพื่อโหลดทีเดียวทั้งโปรเจกต์) --}}
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <link href="{{ asset('css/accessories.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/variables.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/hero.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/why.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/order-guide.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/products.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cookie-policy.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/contact-success.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/payment-page.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/design-guide.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/quotation.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/quotation-show.css') }}" rel="stylesheet">
+    <link href="<?php echo e(asset('css/accessories.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/variables.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/fonts.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/navbar.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/hero.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/why.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/order-guide.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/products.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/footer.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/cookie-policy.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/contact-step.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/contact-success.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/products-showcase.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/payment-method.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/payment-page.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/design-guide.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/reviews.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/cart.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/quotation.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/quotation-show.css')); ?>" rel="stylesheet">
 
-    {{-- ✅ Global Styles Fix for 1440px Layout --}}
+    
     <style>
         /* บังคับให้หน้าเว็บกว้างเต็มจอเสมอ ไม่เกิดขอบขาวที่ไม่ตั้งใจ */
         html, body {
@@ -106,21 +106,21 @@
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-    {{-- ✅ Navbar --}}
-    @include('partials.navbar')
+    
+    <?php echo $__env->make('partials.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-    {{-- ✅ Main Content --}}
+    
     <main class="flex-grow-1">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </main>
 
-    {{-- 🚩 เพิ่มเติม: Cookie Banner HTML --}}
+    
     <div id="cookie-banner" class="cookie-banner-wrapper">
         <div class="container-xxl">
             <div class="cookie-content">
                 <p class="cookie-text">
                     เว็บไซต์นี้มีการจัดเก็บคุกกี้เพื่อมอบประสบการณ์การใช้งานเว็บไซต์ของคุณให้ดียิ่งขึ้น การดำเนินการต่อบนเว็บไซต์นี้ถือว่าคุณยอมรับการใช้งานคุกกี้ 
-                    <a href="{{ route('cookie-policy') }}" class="cookie-link">อ่านเพิ่มเติม</a>
+                    <a href="<?php echo e(route('cookie-policy')); ?>" class="cookie-link">อ่านเพิ่มเติม</a>
                 </p>
                 <div class="cookie-actions">
                     <button id="accept-cookie" class="btn-cookie-accept">ยอมรับ</button>
@@ -130,10 +130,10 @@
         </div>
     </div>
 
-    {{-- ✅ Footer --}}
-    @include('partials.footer')
+    
+    <?php echo $__env->make('partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
-    {{-- ✅ Scripts (ของคุณเดิมทั้งหมด + เพิ่ม Logic Cookie) --}}
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -159,34 +159,9 @@
         });
     </script>    
 
-    @stack('scripts')
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>
 
 
-    {{-- <script> สำหรับใช้จริง
-        $(document).ready(function() {
-            // Script เดิมของคุณ: จัดการ Navbar เวลา Scroll
-            $(window).scroll(function() {
-                if ($(this).scrollTop() > 50) {
-                    $('.navbar').addClass('shadow-sm');
-                } else {
-                    $('.navbar').removeClass('shadow-sm');
-                }
-            });
-
-            // 🚩 เพิ่มเติม: Script จัดการ Cookie Banner
-            if (!localStorage.getItem('cookie_accepted')) {
-                $('#cookie-banner').fadeIn();
-            }
-
-            $('#accept-cookie').click(function() {
-                localStorage.setItem('cookie_accepted', 'true');
-                $('#cookie-banner').fadeOut();
-            });
-
-            $('#close-cookie').click(function() {
-                $('#cookie-banner').fadeOut();
-            });
-        });
-    </script> --}}
+    <?php /**PATH C:\project\hotmobily\resources\views/layouts/main.blade.php ENDPATH**/ ?>

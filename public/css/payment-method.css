@@ -28,7 +28,7 @@ html {
     display: grid;
     grid-template-columns: 1fr; 
     gap: 30px;
-    max-width: 900px;
+    max-width: 1300px;
     margin: 0 auto;
 }
 
@@ -119,8 +119,39 @@ html {
 }
 
 /* --- Related Nav --- */
-.nav-title { text-align: center; font-weight: 800; font-size: 2rem; margin: 80px 0 40px; }
-.nav-link-item { display: flex; justify-content: space-between; padding: 25px 0; border-bottom: 1px solid #ccc; text-decoration: none; color: #333; font-weight: 800; font-size: 1.3rem; }
+.nav-title { text-align: center; font-weight: 800; font-size: 48px; margin: 80px 0 40px; }
+.nav-link-item {
+    /* เพิ่ม transition เพื่อให้การเคลื่อนไหวลื่นไหล */
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-weight: 800;
+    font-size: 25px;
+    padding: 25px 0;
+}
+
+/* 🚩 เอฟเฟกต์เมื่อเอาเมาส์ชี้ (Hover) */
+.nav-link-item:hover {
+    color: #fbab00 !important;   /* เปลี่ยนตัวหนังสือเป็นสีส้มทอง */
+    transform: translateX(10px); /* ขยับไปทางขวา 10px */
+}
+
+/* กรณีมีไอคอน chevron-right ให้เปลี่ยนสีตามด้วย */
+.nav-link-item:hover i,
+.nav-link-item:hover span {
+    color: #fbab00 !important;
+}
+
+/* ลบเส้นขอบสีดำเวลาคลิก (Focus) */
+.nav-link-item:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
 
 .location-detail-group {
     display: flex;

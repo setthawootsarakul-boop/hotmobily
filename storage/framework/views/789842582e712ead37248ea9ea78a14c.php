@@ -1,8 +1,8 @@
-@extends('layouts.main')
 
-@section('title', 'แจ้งชำระเงิน - Hotmobily')
 
-@section('content')
+<?php $__env->startSection('title', 'แจ้งชำระเงิน - Hotmobily'); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="payment-outer-wrapper">
     <div class="page-container">
         <h1 class="payment-main-headline">แจ้งชำระเงิน</h1>
@@ -21,7 +21,7 @@
                             </div>
 
                             <div class="line-qr-wrapper">
-                                <img src="{{ asset('images/line-qr.png') }}" alt="Line QR">
+                                <img src="<?php echo e(asset('images/line-qr.png')); ?>" alt="Line QR">
                                 <p class="line-id-text">Line : hotstrapthai</p>
                             </div>
                         </div>
@@ -29,7 +29,7 @@
                         <p class="office-hours-text">เวลาทำการ : จันทร์-ศุกร์ (08:30-17:30 น.)</p>
 
                         <div class="sidebar-bank-card">
-                            <img src="{{ asset('images/scb-mobile.png') }}" alt="SCB Account" class="scb-img">
+                            <img src="<?php echo e(asset('images/scb-mobile.png')); ?>" alt="SCB Account" class="scb-img">
                             <button type="button" class="payment-copy-btn">คัดลอก</button>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
 
                 <div class="col-lg-7 payment-form-column">
                     <form action="#" method="POST" class="payment-main-form">
-                        @csrf
+                        <?php echo csrf_field(); ?>
                         <div class="custom-input-group">
                             <label>หมายเลขคำสั่งซื้อ (Order ID) <span class="req">*</span></label>
                             <input type="text" name="order_id" placeholder="" required>
@@ -101,28 +101,28 @@
         <div class="articles-section">
             <h2 class="articles-title">บทความที่คุณอาจสนใจ</h2>
             <div class="articles-list">
-                <a href="{{ route('order-guide') }}" class="article-row">
+                <a href="<?php echo e(route('order-guide')); ?>" class="article-row">
                     <span>ขั้นตอนการสั่งซื้อสินค้า</span>
                     
                     </a>
-                    <a href="{{ route('design-guide') }}" class="article-row">
+                    <a href="<?php echo e(route('design-guide')); ?>" class="article-row">
                         <span>วิธีการออกแบบ</span>
                         
                     </a>
-            <a href="{{ route('payment-method') }}#section4" class="article-row">
+            <a href="<?php echo e(route('payment-method')); ?>#section4" class="article-row">
                 <span>วิธีการยกเลิกคำสั่งซื้อ</span>
 
             </a>
-            <a href="{{ route('payment-method') }}#section3" class="article-row">
+            <a href="<?php echo e(route('payment-method')); ?>#section3" class="article-row">
                 <span>การจัดส่งสินค้า</span>
                 </a>
             </div>
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const copyBtn = document.querySelector('.payment-copy-btn');
@@ -146,4 +146,5 @@
     }
   });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project\hotmobily\resources\views/payment.blade.php ENDPATH**/ ?>

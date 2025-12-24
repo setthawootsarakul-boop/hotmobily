@@ -2,12 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductPartPrice extends Model
 {
-    use HasFactory;
+    protected $table = 'product_part_prices';
 
     protected $fillable = [
         'part_id',
@@ -16,6 +15,7 @@ class ProductPartPrice extends Model
         'price_per_unit'
     ];
 
+    // เชื่อมกลับไปหาตัวอุปกรณ์หลัก
     public function part()
     {
         return $this->belongsTo(ProductPart::class, 'part_id');

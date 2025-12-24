@@ -2,14 +2,13 @@
    🎨 ORDER GUIDE PAGE STYLES
 =============================== */
 
-/* 🔸 พื้นหลังและฟอนต์หลัก */
 body, 
 .order-guide-page, 
 .design-guide-wrapper,
 .faq-header,
 .faq-section {
     background-color: #fff8ec !important;
-    font-family: "Noto Sans Thai", "Prompt", sans-serif;
+    font-family: 'MyPromptFont', sans-serif !important;
     color: #000;
     margin: 0;
 }
@@ -164,7 +163,7 @@ body,
 }
 
 .faq-section {
-  padding: 40px 10%;
+  padding: 40px 16%;
 }
 
 .faq-item {
