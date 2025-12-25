@@ -1,0 +1,265 @@
+.gallery-main-title {
+    font-size: 24px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.gallery-outer-wrapper {
+    background-color: #f7f3e9;
+    padding: 60px 0;
+}
+
+.page-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.gallery-content-box {
+    background: #fff;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.gallery-content-box {
+    background: #fff;
+    padding: 50px;
+}
+
+/* ปรับตำแหน่ง Dropdown ให้ตรงขอบกล่องขาวตามที่คุณแก้ */
+.filter-section-top {
+    max-width: 1300px; 
+    margin: 0 auto 31px auto;
+    display: flex;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+/* --- ส่วนใหม่: Custom Dropdown (ดีไซน์ตามรูป UI) --- */
+.custom-gallery-dropdown {
+    position: relative;
+    width: 270px;
+    min-width: 210px;
+    user-select: none;
+}
+
+.dropdown-trigger {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px; /* รัศมีโค้งตามที่คุณตั้งไว้ใน .gallery-select */
+    padding: 10px 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1b1a1a;
+    font-size: 16px;
+}
+
+.dropdown-menu-list {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    width: 250px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    z-index: 1000;
+    display: none; /* ซ่อนไว้รอคลิก */
+}
+
+.custom-gallery-dropdown.active .dropdown-menu-list {
+    display: block;
+}
+
+.dropdown-menu-list li {
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.dropdown-menu-list li:hover { background-color: #f8f8f8; }
+
+.dropdown-menu-list li.active { background-color: #e9e9e9; }
+
+.dropdown-menu-list li a {
+    text-decoration: none;
+    color: #666;
+    font-size: 15px;
+    flex-grow: 1;
+}
+
+.dropdown-menu-list li.active a { color: #000; font-weight: bold; }
+
+.check-icon { font-weight: bold; color: #333; }
+
+.gallery-grid {
+    display: grid;
+    /* ปรับเป็น repeat(4, 237px) เพื่อล็อกขนาดคอลัมน์ให้เท่ากับขนาดรูป */
+    grid-template-columns: repeat(4, 237px); 
+    
+    /* ใช้ justify-content: space-between เพื่อให้ Grid กระจายตัวชิดขอบซ้าย-ขวาของกล่องขาว */
+    /* หรือใช้ center หากต้องการให้กลุ่มรูปอยู่รวมกันตรงกลาง */
+    justify-content: space-between; 
+    
+    /* ปรับ gap ให้เป็นค่าที่แน่นอน หรือปล่อยให้ space-between จัดการเอง */
+    row-gap: 30px; 
+    
+    margin-bottom: 40px;
+}
+
+.gallery-item {
+    background-color: #F9F9F9;
+    /* ขนาดเป๊ะๆ ตามที่ต้องการ */
+    width: 237px;
+    height: 254px; 
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    max-width: 125%;
+    max-height: 125%;
+    object-fit: contain;
+}
+
+.gallery-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 60px;
+}
+
+/* --- ส่วนปุ่มหมวดหมู่ที่คุณปรับใหม่ (อยู่นอกกล่อง) --- */
+.gallery-category-nav {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 31px;
+    align-items: self-start; /* ตามที่คุณแก้ */
+}
+
+.nav-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.cat-btn {
+    background: #fff;
+    border: 1px solid #eee; /* ปรับเส้นขอบให้จางลง */
+    padding: 5px 37px;
+    border-radius: 50px;
+    color: #333;
+    text-decoration: none;
+    font-size: 21px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    
+    /* แก้ไขเงาตรงนี้ */
+    box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.1)
+}
+
+.cat-btn.active {
+    background-color: #FFD93D; /* สีเหลืองตามที่คุณแก้ */
+    color: #5C4033; /* สีน้ำตาลตามที่คุณแก้ */
+    border-color: #FFD93D;
+    font-weight: bold;
+}
+
+
+@media (max-width: 768px) {
+
+    /* ====== Title ====== */
+    .gallery-main-title {
+        font-size: 28px;
+        line-height: 1.3;
+        margin-bottom: 20px;
+    }
+
+    /* ====== Content Box ====== */
+    .gallery-content-box {
+        padding: 20px 15px;
+    }
+
+    /* ====== Dropdown ====== */
+    .filter-section-top {
+        padding: 0 60px;
+    }
+
+    .custom-gallery-dropdown,
+    .dropdown-menu-list {
+        width: 100%;
+        min-width: unset;
+    }
+
+    /* ====== Gallery Grid ====== */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+
+    /* ====== Gallery Item ====== */
+    .gallery-item {
+        width: 100%;
+        aspect-ratio: 237 / 254; /* ✅ สัดส่วนจริง */
+        height: auto;
+        padding: 12px;
+        border-radius: 10px;
+    }
+
+    .gallery-item img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    /* ====== Pagination ====== */
+    .gallery-pagination {
+        gap: 6px;
+        margin-bottom: 40px;
+    }
+
+    /* ====== Category Navigation ====== */
+    .gallery-category-nav {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        width: 100%;
+        padding: 0 15px;
+        margin-top: 30px;
+    }
+
+    .nav-row {
+        display: contents;
+    }
+
+    .cat-btn {
+        width: 100%;
+        height: 45px;
+        padding: 10px;
+        font-size: 15px;
+        border-radius: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        white-space: normal;
+        box-sizing: border-box;
+    }
+}

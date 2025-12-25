@@ -12,8 +12,8 @@ class ProductPart extends Model
     protected $fillable = [
         'product_id',
         'category_part_id', // 🚩 เพิ่มเพื่อเชื่อมกับหมวดหมู่ อุปกรณ์เสริม 5 กลุ่ม
+        'img_url', // 🚩 ใช้คอลัมน์เดิมที่มีอยู่แล้ว
         'part_name',
-        'image',            // 🚩 อย่าลืมเพิ่ม image ถ้าต้องดึงรูปจากฐานข้อมูล
         'color',
         'note',
         'option_note'

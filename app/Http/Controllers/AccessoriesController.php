@@ -9,21 +9,13 @@ class AccessoriesController extends Controller
 {
     public function index()
     {
-        // ดึงข้อมูลแยกตาม category_part_id ที่เรากำหนดไว้ 1-5
-        // ใช้ eager loading (with) เพื่อประสิทธิภาพที่ดีขึ้น
-        $standardHooks = ProductPart::where('category_part_id', 1)->get();
-        $otherHooks    = ProductPart::where('category_part_id', 2)->get();
-        $standeeBases  = ProductPart::where('category_part_id', 3)->get();
-        $clips         = ProductPart::where('category_part_id', 4)->get();
-        $otherParts    = ProductPart::where('category_part_id', 5)->get();
-
-        // ส่งข้อมูลทั้งหมดไปยังหน้า Blade
-        return view('accessories', compact(
-            'standardHooks', 
-            'otherHooks', 
-            'standeeBases', 
-            'clips', 
-            'otherParts'
-        ));
+        return view('accessories', [
+            // เปลี่ยนมาใช้ unique จาก image_url เพื่อให้ดึงมาครบทุกสี
+            'standardHooks' => ProductPart::where('category_part_id', 1)->get()->unique('image_url'),
+            'otherHooks'    => ProductPart::where('category_part_id', 2)->get()->unique('image_url'),
+            'standeeBases'  => ProductPart::where('category_part_id', 3)->get()->unique('image_url'),
+            'clips'         => ProductPart::where('category_part_id', 4)->get()->unique('image_url'),
+            'otherParts'    => ProductPart::where('category_part_id', 5)->get()->unique('image_url'),
+        ]);
     }
 }

@@ -7,6 +7,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\QuotationController;
+use App\Http\Controllers\AccessoriesController;
+use App\Http\Controllers\GalleryController;
 
 // =========================================================
 // 🏠 General Pages
@@ -76,3 +78,5 @@ Route::get('/accessories', function () {
 })->name('accessories');
 
 Route::get('/accessories', [AccessoriesController::class, 'index'])->name('accessories');
+
+Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');

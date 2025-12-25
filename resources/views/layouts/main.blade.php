@@ -30,6 +30,7 @@
     <link href="{{ asset('css/cookie-policy.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
     <link href="{{ asset('css/contact-success.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/gallery.css') }}" rel="stylesheet">
     <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
     <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
     <link href="{{ asset('css/payment-page.css') }}" rel="stylesheet">

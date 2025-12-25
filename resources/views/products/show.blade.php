@@ -508,14 +508,31 @@
                     </div>
                     <div class="acrylic-content text-center">
                         <h3 class="fw-bold acrylic-title">แท่นวางโทรศัพท์</h3>
-                        <p class="mx-auto text-muted acrylic-desc">แท่นวางโทรศัพท์น้ำหนักเบา...</p>
+                        <p class="mx-auto text-muted acrylic-desc">แท่นวางโทรศัพท์น้ำหนักเบา แข็งแรง ใช้งานสะดวก ปรับมุมมองได้ เหมาะสำหรับดูวิดีโอ ประชุมออนไลน์ หรือใช้งานมือถือโดยไม่ต้องถือให้เมื่อย</p>
                     </div>
                     <div class="acrylic-usage-wrapper d-flex justify-content-center">
                          <img src="{{ asset('images/Hotmobilyfile/poster/Group190.png') }}" alt="ตัวอย่าง" class="img-fluid acrylic-usage-img">
                     </div>
                 </div>
             @endif
+                {{-- ================= SECTION 3: ตัวอย่างผลงาน ================= --}}
+                @if(isset($productGalleries) && $productGalleries->isNotEmpty())
+                <div class="product-gallery-section mt-5">
+                    <div class="container">
+                        <h2 class="product-gallery-title">ตัวอย่างผลงาน</h2>
 
+                        <div class="product-example-grid">
+                            @foreach($productGalleries as $gallery)
+                                <div class="example-item">
+                                    {{-- ดึงรูปจากโฟลเดอร์ images/gallery ตามที่คุณกำหนด --}}
+                                    <img src="{{ asset('images/gallery/' . $gallery->image_path) }}" 
+                                        alt="{{ $gallery->title ?? 'ตัวอย่างผลงาน' }}">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+                @endif
         </div> {{-- End bg-white --}}
     </div>
 </div>

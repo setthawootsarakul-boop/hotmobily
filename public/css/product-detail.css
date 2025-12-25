@@ -208,6 +208,43 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
     width: 100%;
     height: auto;
 }
+/* ส่วนหัวข้อตัวอย่างผลงาน */
+.product-gallery-title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* ตั้งค่า Grid ให้เหมือนหน้า Gallery */
+.product-example-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 237px);
+    justify-content: center;
+    gap: 57px;
+    row-gap: 41px;
+    margin: 80px auto;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.example-item {
+    background-color: #F9F9F9;
+    width: 237px;
+    height: 254px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.example-item img {
+    max-width: 130%;
+    max-height: 130%;
+    object-fit: contain; /* ปรับเป็น contain เพื่อให้เห็นรูปครบถ้วนเหมือนหน้า gallery */
+}
+
 
 /* ==========================================================================
    📱 MOBILE & TABLET RESPONSIVE (Max-width: 991px)
@@ -344,34 +381,45 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
         font-size: 16px !important; /* ปรับลดขนาดฟอนต์ในมือถือ */
         margin-top: 5px !important;
     }
+    
 }
+
 /* =========================================
    📱 Mobile Responsive (Override)
    ========================================= */
 @media (max-width: 768px) {
-    
-    /* ปรับความสูงรูป Banner ในมือถือให้พอดี */
-    .acrylic-poster-img {
-        height: 250px; 
+    /* 1. จัดการ Grid ให้เป็น 2 คอลัมน์ และเว้นระยะห่างให้พอดี */
+    .product-example-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* ✅ บังคับเป็น 2 คอลัมน์ดิ่งลงมา */
+        gap: 12px !important; 
+        padding: 0 15px !important;
+        justify-content: center !important;
+        margin: 40px auto !important; /* เว้นระยะจากส่วนบน */
     }
 
-    /* ลดระยะห่าง (Margin) ในมือถือ */
-    .acrylic-content {
-        margin-top: 40px; 
+    /* 2. ล็อกขนาดกล่องให้มีสัดส่วนเท่ากันทุกใบ */
+    .example-item {
+        width: 100% !important; /* ยืดตามช่อง Grid */
+        height: auto !important;
+        aspect-ratio: 140 / 140 !important; /* ✅ ล็อกสัดส่วน 237x254 ให้คงที่ */
+        padding: 10px !important;
+        background-color: #F9F9F9;
+        box-sizing: border-box;
     }
 
-    /* ลดขนาดฟอนต์ */
-    .acrylic-title {
-        font-size: 24px;
-    }
-    .acrylic-desc {
-        font-size: 14px;
+    /* 3. จัดการรูปภาพในกล่องให้ไม่เบี้ยว */
+    .example-item img {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important; /* ✅ รักษาทรงรูปภาพไม่ให้โดนตัด */
     }
 
-    /* ปรับระยะห่างรูปล่าง */
-    .acrylic-usage-wrapper {
-        margin-top: 40px;
-    }
+    /* --- ส่วนอื่นๆ ของคุณคงเดิม --- */
+    .acrylic-poster-img { height: 250px; }
+    .acrylic-content { margin-top: 40px; }
+    .acrylic-title { font-size: 24px; }
+    .acrylic-desc { font-size: 14px; }
+    .acrylic-usage-wrapper { margin-top: 40px; }
 }
 /* =========================================================
    📱 MOBILE SPECIFIC (Max-width: 576px)

@@ -1,54 +1,87 @@
+/* พื้นหลังของทั้งหน้า */
 .accessories-outer-wrapper {
     background-color: #f7f3e9;
     padding: 60px 0;
 }
 
-.accessories-main-title {
-    text-align: center;
-    font-weight: 900;
-    font-size: 2.4rem;
-    margin-bottom: 50px;
-    color: #f7a01b;
-}
-
-.accessories-content-box {
-    background: #fff;
+.page-container {
     max-width: 1300px;
     margin: 0 auto;
-    padding: 50px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.02);
-    border-radius: 8px;
 }
 
+/* หัวข้อใหญ่ประจำหน้า */
+.accessories-main-title {
+    text-align: center;
+    font-weight: normal;
+    font-size: 48px;
+    margin-bottom: 50px;
+    color: #000000;
+}
+
+/* กล่องขาวใบใหญ่ที่หุ้มเนื้อหาทั้งหมด */
+.accessories-content-box {
+    background: #fff;
+    padding: 50px;
+}
+
+/* หัวข้อกลุ่มอุปกรณ์เสริม */
 .accessory-type-title {
     font-weight: 800;
-    font-size: 1.6rem;
+    font-size: 36px;
     color: #f7a01b;
     margin-bottom: 30px;
 }
 
-/* การจัดแถว 4 ช่อง */
 .accessory-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 30px 20px; /* ระยะห่าง บน-ล่าง 30px / ซ้าย-ขวา 20px */
     margin-bottom: 40px;
+    justify-items: center;
 }
 
+/* คอนเทนเนอร์ของแต่ละไอเทม */
 .accessory-item {
+    width: 237px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
 }
 
-/* กล่องสี่เหลี่ยมสี F9F9F9 */
+/* เฉพาะตัวกล่องใส่รูป (สี่เหลี่ยมจัตุรัสสี F9F9F9) */
 .accessory-item .image-box {
+    width: 237px;
+    height: 237px; /* ปรับให้เป็นจัตุรัสตามที่คุณต้องการ */
     background-color: #F9F9F9;
-    aspect-ratio: 1 / 1;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 12px;
-    padding: 15px;
-    margin-bottom: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-bottom: 15px; /* เว้นระยะห่างก่อนถึงชื่อด้านล่าง */
+}
+
+/* คุมขนาดรูปภาพภายใน */
+.accessory-item .image-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    /* หากรูปมีพื้นหลังขาวติดมา และต้องการให้ดูเนียนกับกล่อง 
+       อาจใช้ mix-blend-mode: multiply; (ได้ผลดีกับรูปที่พื้นหลังขาวสนิท) */
+    mix-blend-mode: multiply; 
+}
+
+/* ชื่ออุปกรณ์ (อยู่นอกกล่อง) */
+.accessory-item p {
+    width: 100%;
+    font-size: 17px;
+    font-weight: normal;
+    color: #585656;
+    margin: 0;
+    padding: 0 5px;
+    line-height: 1.4;
 }
 
 .accessory-item img {
@@ -57,26 +90,61 @@
     object-fit: contain;
 }
 
-.accessory-item p {
-    font-size: 1rem;
-    font-weight: 600;
-    color: #333;
-}
 
+
+/* เส้นคั่นระหว่างหมวด */
 .design-divider {
     border: 0;
     border-top: 1px solid #eee;
     margin: 40px 0;
 }
 
-/* --- Responsive มือถือขยายเต็มจอ --- */
-@media (max-width: 768px) {
-    .accessories-outer-wrapper { padding: 0; }
-    .accessories-content-box {
-        border-radius: 0;
-        padding: 30px 15px;
+/* Responsive สำหรับมือถือ */
+@media (max-width: 1100px) {
+
+    .accessories-main-title {
+        font-size: 24px;
     }
-    .accessory-grid {
-        grid-template-columns: repeat(2, 1fr); /* ในมือถือ 2 ช่องจะดูไม่แน่นเกินไป */
+
+    .accessory-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 500px) {
+    /* ปรับ padding กล่องขาวให้เล็กลงเพื่อให้มีพื้นที่เหลือสำหรับ 2 กล่อง */
+    .accessories-content-box { 
+        padding: 20px 10px; 
+    }
+
+    /* หัวข้อกลุ่มอุปกรณ์เสริมปรับขนาดให้เล็กลงพอดีกับจอ */
+    .accessory-type-title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    /* จัด Grid ให้เป็น 2 คอลัมน์ และลด gap เพื่อไม่ให้เบียดกัน */
+    .accessory-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 20px 10px; 
+        margin-bottom: 30px;
+    }
+
+    /* ปรับขนาดกล่องไอเทมและรูปภาพให้เป็นจตุรัสตามหน้าจอมือถืออัตโนมัติ */
+    .accessory-item { 
+        width: 100%; 
+        max-width: none; 
+    }
+
+    .accessory-item .image-box {
+        width: 100%; /* ให้ความกว้างเต็มคอลัมน์ของมือถือ */
+        height: auto; /* เคลียร์ความสูงคงที่ออก */
+        aspect-ratio: 1 / 1; /* บังคับให้เป็นจตุรัสเสมอทุกขนาดจอ */
+        padding: 10px;
+    }
+
+    /* ปรับขนาดฟอนต์ชื่ออุปกรณ์ในมือถือให้พอดี */
+    .accessory-item p {
+        font-size: 14px;
     }
 }

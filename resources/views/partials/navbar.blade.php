@@ -58,7 +58,7 @@
           </a>
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDetails">
             <li><a class="dropdown-item" href="{{ route('accessories') }}#accessory">อุปกรณ์เสริม</a></li>
-            <li><a class="dropdown-item" href="{{ route('products.index') }}#gallery">แกลลอรี่</a></li>
+            <li><a class="dropdown-item" href="{{ route('gallery.index') }}#gallery">แกลลอรี่</a></li>
           </ul>
         </li>
 
@@ -172,8 +172,8 @@
           <i class="bi bi-chevron-down caret-icon ms-auto"></i>
         </a>
         <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileDetails">
-            <li><a class="dropdown-item" href="{{ route('products.index') }}#accessory">อุปกรณ์เสริม</a></li>
-            <li><a class="dropdown-item" href="{{ route('products.index') }}#gallery">แกลลอรี่</a></li>
+            <li><a class="dropdown-item" href="{{ route('accessories') }}#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="{{ route('gallery.index') }}#gallery">แกลลอรี่</a></li>
         </ul>
       </li>
 
@@ -185,7 +185,7 @@
         </a>
         <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileContact">
             <li><a class="dropdown-item" href="{{ route('contact.full') }}">ติดต่อบริษัท</a></li>
-            <li><a class="dropdown-item" href="{{ route('contact.full') }}#contact-form">แบบฟอร์มย่อ</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment') }}">แจ้งชำระเงิน</a></li>
         </ul>
       </li>
 

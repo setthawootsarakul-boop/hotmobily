@@ -41,6 +41,7 @@
     font-weight: 700; color: #000000;
     font-size: 25px !important; letter-spacing: 0.5px;
     margin-left: 5px !important;
+    margin-top: 0px;
 }
 
 .sidebar-divider { border: 0; height: 1px; background-color: #eee; opacity: 0.8; margin: 0 18px; }

@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\ProductPart; // เพิ่ม Model
 use App\Models\ProductSize; // เพิ่ม Model
 use App\Models\ProductPrinting; // เพิ่ม Model
+use App\Models\Gallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; // เพิ่ม DB Facade
 
@@ -57,7 +58,6 @@ class ProductController extends Controller
         // 1. ดึงข้อมูลสินค้าพร้อมความสัมพันธ์ทั้งหมด
         $product = Product::where('slug', $slug)
                     ->with([
-                        // เรียงลำดับรูปภาพ (ถ้าระบุ sort_order)
                         'images' => function($q) { $q->orderBy('sort_order', 'asc'); },
                         'sizes',
                         'prices',
@@ -69,15 +69,21 @@ class ProductController extends Controller
                     ])
                     ->firstOrFail();
 
-        // 2. เตรียมข้อมูลสำหรับ "ตารางราคา" (Matrix)
+        // 2. [เพิ่มใหม่] ดึงข้อมูล Gallery ที่เกี่ยวข้องกับสินค้านี้เพื่อแสดง "ตัวอย่างผลงาน"
+        // โดยกรองจาก product_id และเรียงลำดับตามที่กำหนดไว้
+        $productGalleries = Gallery::where('product_id', $product->id)
+                            ->orderBy('sort_order', 'asc')
+                            ->get();
+
+        // 3. เตรียมข้อมูลสำหรับ "ตารางราคา" (Matrix)
         $quantities = $product->prices
                         ->unique('quantity_min')
                         ->sortBy('quantity_min')
                         ->pluck('quantity_min');
 
-        return view('products.show', compact('product', 'quantities'));
+        // 4. ส่งค่า $productGalleries ไปยัง View
+        return view('products.show', compact('product', 'quantities', 'productGalleries'));
     }
-
     // 4. [NEW] ฟังก์ชันคำนวณราคา (AJAX)
     public function calculatePrice(Request $request)
     {

@@ -514,14 +514,31 @@
                     </div>
                     <div class="acrylic-content text-center">
                         <h3 class="fw-bold acrylic-title">แท่นวางโทรศัพท์</h3>
-                        <p class="mx-auto text-muted acrylic-desc">แท่นวางโทรศัพท์น้ำหนักเบา...</p>
+                        <p class="mx-auto text-muted acrylic-desc">แท่นวางโทรศัพท์น้ำหนักเบา แข็งแรง ใช้งานสะดวก ปรับมุมมองได้ เหมาะสำหรับดูวิดีโอ ประชุมออนไลน์ หรือใช้งานมือถือโดยไม่ต้องถือให้เมื่อย</p>
                     </div>
                     <div class="acrylic-usage-wrapper d-flex justify-content-center">
                          <img src="<?php echo e(asset('images/Hotmobilyfile/poster/Group190.png')); ?>" alt="ตัวอย่าง" class="img-fluid acrylic-usage-img">
                     </div>
                 </div>
             <?php endif; ?>
+                
+                <?php if(isset($productGalleries) && $productGalleries->isNotEmpty()): ?>
+                <div class="product-gallery-section mt-5">
+                    <div class="container">
+                        <h2 class="product-gallery-title">ตัวอย่างผลงาน</h2>
 
+                        <div class="product-example-grid">
+                            <?php $__currentLoopData = $productGalleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="example-item">
+                                    
+                                    <img src="<?php echo e(asset('images/gallery/' . $gallery->image_path)); ?>" 
+                                        alt="<?php echo e($gallery->title ?? 'ตัวอย่างผลงาน'); ?>">
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
         </div> 
     </div>
 </div>
