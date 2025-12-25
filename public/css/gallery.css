@@ -1,5 +1,5 @@
 .gallery-main-title {
-    font-size: 24px;
+    font-size: 48px;
     font-weight: normal;
     text-align: center;
 }
@@ -180,6 +180,52 @@
     font-weight: bold;
 }
 
+.gallery-pagination-wrapper .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 8px; /* ระยะห่างระหว่างตัวเลข */
+    padding: 0;
+}
+
+/* ปรับแต่งทุกลิงก์ (ตัวเลขและลูกศร) */
+.gallery-pagination-wrapper .page-link {
+    border: none;
+    background: transparent;
+    color: #333;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important; /* ทำเป็นวงกลม */
+    transition: all 0.3s ease;
+}
+
+/* สถานะที่เลือกอยู่ (Active) */
+.gallery-pagination-wrapper .page-item.active .page-link {
+    background-color: #f0f0f0; /* สีพื้นหลังอ่อนๆ ตามรูปตัวอย่าง */
+    color: #000;
+    font-weight: bold;
+}
+
+/* ซ่อนข้อความ "Showing..." ที่ติดมากับ Laravel */
+.gallery-pagination-wrapper nav .flex.items-center.justify-between {
+    display: none !important;
+}
+
+/* ปรับแต่งปุ่มลูกศร */
+.gallery-pagination-wrapper .page-item:first-child .page-link,
+.gallery-pagination-wrapper .page-item:last-child .page-link {
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.gallery-pagination-wrapper .page-link:hover {
+    background-color: #eee;
+}
 
 @media (max-width: 768px) {
 

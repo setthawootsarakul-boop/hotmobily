@@ -43,8 +43,8 @@
                     </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
-            <div class="gallery-pagination">
-                <?php echo e($galleries->appends(request()->query())->links()); ?>
+            <div class="gallery-pagination-wrapper mt-5">
+                <?php echo e($galleries->links('pagination::bootstrap-4')); ?>
 
             </div>
         </div>

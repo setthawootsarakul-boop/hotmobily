@@ -42,8 +42,8 @@
                     </div>
                 @endforeach
             </div>
-            <div class="gallery-pagination">
-                {{ $galleries->appends(request()->query())->links() }}
+            <div class="gallery-pagination-wrapper mt-5">
+                {{ $galleries->links('pagination::bootstrap-4') }}
             </div>
         </div>
 
