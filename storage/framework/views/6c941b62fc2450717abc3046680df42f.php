@@ -1,5 +1,30 @@
 
 
+
+<?php $__env->startPush('styles'); ?>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+<style>
+    /* สไตล์สำหรับ Grid และ Item เพื่อให้ดูเหมือนคลิกได้ */
+    .gallery-grid a {
+        text-decoration: none;
+        display: block;
+        cursor: zoom-in;
+    }
+    .gallery-item {
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+        transform: scale(1.02);
+    }
+    /* ปรับแต่งตำแหน่งคำอธิบายใต้รูปใน Lightbox */
+    .lb-caption {
+        font-family: 'Prompt', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+    }
+</style>
+<?php $__env->stopPush(); ?>
+
 <?php $__env->startSection('content'); ?>
 <div class="gallery-outer-wrapper">
     <div class="page-container">
@@ -38,9 +63,14 @@
         <div class="gallery-content-box">
             <div class="gallery-grid">
                 <?php $__currentLoopData = $galleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                    <div class="gallery-item">
-                        <img src="<?php echo e(asset('images/gallery/' . $item->image_path)); ?>" alt="<?php echo e($item->title); ?>">
-                    </div>
+                    
+                    <a href="<?php echo e(asset('images/gallery/' . $item->image_path)); ?>" 
+                       data-lightbox="product-gallery" 
+                       data-title="<?php echo e($item->title ?? 'ผลงานจาก Hotmobily'); ?>">
+                        <div class="gallery-item">
+                            <img src="<?php echo e(asset('images/gallery/' . $item->image_path)); ?>" alt="<?php echo e($item->title); ?>">
+                        </div>
+                    </a>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
             <div class="gallery-pagination-wrapper mt-5">
@@ -70,17 +100,33 @@
         </div>
     </div>
 </div>
-
-<script>
-// JS สำหรับเปิด-ปิด Dropdown
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdown = document.getElementById('galleryDropdown');
-    dropdown.addEventListener('click', function(e) {
-        this.classList.toggle('active');
-        e.stopPropagation();
-    });
-    document.addEventListener('click', () => dropdown.classList.remove('active'));
-});
-</script>
 <?php $__env->stopSection(); ?>
+
+<?php $__env->startPush('scripts'); ?>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // JS สำหรับเปิด-ปิด Dropdown เดิมของคุณ
+        const dropdown = document.getElementById('galleryDropdown');
+        if (dropdown) {
+            dropdown.addEventListener('click', function(e) {
+                this.classList.toggle('active');
+                e.stopPropagation();
+            });
+            document.addEventListener('click', () => dropdown.classList.remove('active'));
+        }
+
+        // ตั้งค่า Option สำหรับ Lightbox2
+        lightbox.option({
+          'resizeDuration': 200,
+          'wrapAround': true,
+          'albumLabel': "ภาพที่ %1 จาก %2",
+          'alwaysShowNavOnTouchDevices': true,
+          'fadeDuration': 300,
+          'imageFadeDuration': 300
+        });
+    });
+</script>
+<?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project\hotmobily\resources\views/gallery.blade.php ENDPATH**/ ?>

@@ -34,12 +34,15 @@
     <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
     <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
     <link href="{{ asset('css/payment-page.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-status.css') }}" rel="stylesheet">
     <link href="{{ asset('css/design-guide.css') }}" rel="stylesheet">
     <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
     <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
     <link href="{{ asset('css/quotation.css') }}" rel="stylesheet">
     <link href="{{ asset('css/quotation-show.css') }}" rel="stylesheet">
 
+
+    @stack('styles')
     {{-- ✅ Global Styles Fix for 1440px Layout --}}
     <style>
         /* บังคับให้หน้าเว็บกว้างเต็มจอเสมอ ไม่เกิดขอบขาวที่ไม่ตั้งใจ */
@@ -111,7 +114,7 @@
     @include('partials.navbar')
 
     {{-- ✅ Main Content --}}
-    <main class="flex-grow-1">
+    <main class="flex-grow-1" style="background: white;">
         @yield('content')
     </main>
 

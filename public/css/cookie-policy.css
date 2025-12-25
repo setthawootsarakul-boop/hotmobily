@@ -5,15 +5,15 @@
 .text-underline { text-decoration: underline; }
 
 
-.title-section-1 { font-weight: 500; font-size: 24px; margin-bottom: 5px; }
+.title-section-1 { font-weight: 600; font-size: 24px; margin-bottom: 10px; }
 .desc-section-1 { 
     font-size: 20px; line-height: 1.4; color: #333; margin-bottom: 10px; 
-    text-indent: 40px; /* 🚩 ปรับย่อหน้าเฉพาะส่วนที่ 1 */
+    text-indent: 30px;
 }
 .bullet-section-1 { list-style-type: disc; padding-left: 25px; margin-bottom: 25px; }
 .bullet-section-1 li { font-size: 20px; line-height: 1.4; margin-bottom: 4px; }
 
-.title-section-2 { font-weight: 500; font-size: 24px; margin-top: 30px; margin-bottom: 5px; }
+.title-section-2 { font-weight: 600; font-size: 24px; margin-top: 30px; margin-bottom: 10px; }
 .desc-section-2 { 
     font-size: 20px; line-height: 1.4; color: #333; margin-bottom: 10px;
     padding-left: 0px; /* สามารถเลือกใช้ padding แทน text-indent ได้ */
@@ -22,10 +22,10 @@
 .bullet-section-2 li { font-size: 20px; line-height: 1.4; margin-bottom: 4px; }
 
 /* --- ส่วนที่ 3 (การตั้งค่าและการติดต่อ) --- */
-.title-section-3 { font-weight: 500; font-size: 24px; margin-top: 30px; margin-bottom: 5px; }
+.title-section-3 { font-weight: 600; font-size: 24px; margin-top: 30px; margin-bottom: 10px; }
 .desc-section-3 { 
     font-size: 20px; line-height: 1.4; color: #333; margin-bottom: 15px;
-    text-indent: 40px; /* 🚩 ปรับย่อหน้าเฉพาะส่วนที่ 3 */
+    text-indent: 30px; /* 🚩 ปรับย่อหน้าเฉพาะส่วนที่ 3 */
 }
 .contact-section-3 { 
     font-size: 20px; line-height: 1.5; color: #333; 

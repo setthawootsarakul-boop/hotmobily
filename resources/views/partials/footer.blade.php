@@ -50,19 +50,23 @@
       <div class="container text-center">
         <div class="footer-links d-flex flex-wrap justify-content-center align-items-center">
           
-          <a href="#">สินค้าทั้งหมด</a> <span class="divider">|</span>
-          <a href="#">วิธีการสั่งสินค้า</a> <span class="divider">|</span>
-          <a href="#">วิธีการชำระเงิน</a> <span class="divider">|</span>
-          <a href="#">วิธีการออกแบบ</a> <span class="divider">|</span>
-          <a href="#">วิธีการยกเลิกสินค้า</a> <span class="divider">|</span>
-          <a href="#">ระยะเวลาการจัดส่ง</a> <span class="divider">|</span>
-          <div class="w-100 d-none d-lg-block my-1"></div>
-          <a href="#">แจ้งชำระเงิน</a> <span class="divider">|</span>
-          <a href="#">อุปกรณ์เสริม</a> <span class="divider">|</span>
-          <a href="#">แคตตาล็อก</a> <span class="divider">|</span>
-          <a href="#">ติดต่อเรา</a> <span class="divider">|</span>
-          <a href="#">คำถามที่พบบ่อย</a> <span class="divider">|</span>
-          <a href="#">นโยบายคุกกี้</a>
+        <div class="footer-links">
+            <a href="{{ route('products.index') }}">สินค้าทั้งหมด</a> <span class="divider">|</span>
+            <a href="{{ route('order-guide') }}">วิธีการสั่งสินค้า</a> <span class="divider">|</span>
+            <a href="{{ route('payment-method') }}">วิธีการชำระเงิน</a> <span class="divider">|</span>
+            <a href="{{ route('design-guide') }}">วิธีการออกแบบ</a> <span class="divider">|</span>
+            <a href="{{ route('payment-method') }}#section4">วิธีการยกเลิกสินค้า</a> <span class="divider">|</span>
+            <a href="{{ route('payment-method') }}#section4">ระยะเวลาการจัดส่ง</a> <span class="divider">|</span>
+            
+            <div class="w-100 d-none d-lg-block my-1"></div>
+            
+            <a href="{{ route('payment') }}">แจ้งชำระเงิน</a> <span class="divider">|</span>
+            <a href="{{ route('accessories') }}">อุปกรณ์เสริม</a> <span class="divider">|</span>
+            <a href="#">แคตตาล็อก</a> <span class="divider">|</span>
+            <a href="{{ route('contact') }}">ติดต่อเรา</a> <span class="divider">|</span>
+            <a href="{{ route('faq') }}">คำถามที่พบบ่อย</a> <span class="divider">|</span>
+            <a href="{{ route('cookie-policy') }}">นโยบายคุกกี้</a>
+        </div>
 
         </div>
       </div>

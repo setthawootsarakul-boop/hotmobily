@@ -95,12 +95,12 @@ html {
 .method-sub-title, .cancel-step { margin-left: 100px; }
 .production-notes { margin-left: 60px; }
 
-.bank-banner-wrapper { position: relative; display: inline-block; width: 100%; max-width: 850px; }
-.bank-banner-img { width: 90%; margin-left: 60px; display: block; border-radius: 8px; }
+.bank-banner-wrapper { position: relative; display: inline-block; }
+.bank-banner-img { width: 90%; margin-left: 100px; display: block; }
 
 .copy-btn-overlay {
     position: absolute;
-    right: 35px;
+    right: 100px;
     top: 75%;
     transform: translateY(-50%);
     background-color: #fbab00;
@@ -112,7 +112,7 @@ html {
     align-items: center;
     justify-content: center;
     border-radius: 8px;
-    font-weight: bold;
+    font-weight: normal;
     cursor: pointer;
 }
 
@@ -179,16 +179,14 @@ html {
 
 /* ปรับแต่งส่วนท้ายของกล่องที่ 4 */
 .contact-footer-text {
-    text-align: center;
-    margin-top: 30px;
     width: 100%;
     display: block;
     font-weight: bold;
+    margin-left: 100px !important;
 }
 .note-highlight-text {
     font-weight: bold;
     margin-bottom: 10px;
-    /* เยื้องให้ตรงกับตัวหนังสือใน List อื่นๆ บน Desktop */
     padding-left: 25px; 
 }
 .note-head {
@@ -336,16 +334,21 @@ html {
 
     /* 🚩 ปรับตำแหน่งปุ่มคัดลอกใหม่ */
     .copy-btn-overlay {
-        position: absolute; /* เปลี่ยนกลับเป็น absolute เพื่อให้ไม่กินที่ว่างด้านล่าง */
-        bottom: 15px;      /* วางห่างจากขอบล่างของรูปภาพ */
-        top: auto;         /* ยกเลิกค่า top เดิม */
-        left: 50%;
-        transform: translateX(-50%); /* จัดกึ่งกลางแนวนอน */
-        margin: 0 !important;
-        width: 120px;
-        height: 32px;
-        font-size: 14px !important;
-        z-index: 10;
+        position: absolute;
+        right: 100px;
+        top: 90%;
+        transform: translateY(-50%);
+        background-color: #fbab00;
+        color: #000;
+        border: none;
+        width: 150px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        font-weight: normal;
+        cursor: pointer;
     }
 
     /* ปรับระยะห่างหัวข้อที่ 2 ให้กระชับขึ้น */

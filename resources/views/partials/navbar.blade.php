@@ -117,7 +117,7 @@
   <div class="offcanvas-header align-items-center">
     <div class="d-flex align-items-center">
       <img src="{{ asset('images/logo.png') }}" alt="Hotmobily Logo" height="40" class="me-2">
-      <h5 class="mb-0 fw-bold">Hotmobily Thai</h5>
+      <h5 class="fw-bold">Hotmobily Thai</h5>
     </div>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>

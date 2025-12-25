@@ -7,6 +7,25 @@
     <div class="page-container">
         <h1 class="payment-main-headline">แจ้งชำระเงิน</h1>
 
+        
+        <?php if(session('success')): ?>
+            <div class="alert alert-success alert-dismissible fade show mb-4 rounded-3" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> <?php echo e(session('success')); ?>
+
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+        <?php if($errors->any()): ?>
+            <div class="alert alert-danger rounded-3 mb-4">
+                <ul class="mb-0">
+                    <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </ul>
+            </div>
+        <?php endif; ?>
+
         <div class="payment-content-card">
             <div class="row g-0">
                 <div class="col-lg-5 payment-info-column">
@@ -36,58 +55,62 @@
                 </div>
 
                 <div class="col-lg-7 payment-form-column">
-                    <form action="#" method="POST" class="payment-main-form">
+                    
+                    <form action="<?php echo e(route('payment.store')); ?>" method="POST" enctype="multipart/form-data" class="payment-main-form">
                         <?php echo csrf_field(); ?>
+                        
                         <div class="custom-input-group">
                             <label>หมายเลขคำสั่งซื้อ (Order ID) <span class="req">*</span></label>
-                            <input type="text" name="order_id" placeholder="" required>
+                            <input type="text" name="order_id" value="<?php echo e(old('order_id')); ?>" required>
                         </div>
 
                         <div class="custom-input-group">
                             <label>ชื่อ - นามสกุล <span class="req">*</span></label>
-                            <input type="text" name="name" required>
+                            <input type="text" name="name" value="<?php echo e(old('name')); ?>" required>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 custom-input-group">
                                 <label>อีเมล <span class="req">*</span></label>
-                                <input type="email" name="email" required>
+                                <input type="email" name="email" value="<?php echo e(old('email')); ?>" required>
                             </div>
                             <div class="col-md-6 custom-input-group">
                                 <label>เบอร์โทรศัพท์ <span class="req">*</span></label>
-                                <input type="text" name="phone" required>
+                                <input type="text" name="phone" value="<?php echo e(old('phone')); ?>" required>
                             </div>
                         </div>
 
                         <div class="custom-input-group">
                             <label>ยอดเงินที่โอน <span class="req">*</span></label>
-                            <input type="number" step="0.01" name="amount" required>
+                            <input type="number" step="0.01" name="amount" value="<?php echo e(old('amount')); ?>" required>
                         </div>
 
                         <div class="custom-input-group">
                             <label>วันที่ทำรายการ <span class="req">*</span></label>
-                            <input type="date" name="transfer_date" required>
+                            <input type="date" name="transfer_date" value="<?php echo e(old('transfer_date')); ?>" required>
                         </div>
 
                         <div class="custom-input-group">
                             <label>เวลาที่ทำรายการ <span class="req">*</span></label>
-                            <input type="time" name="transfer_time" required>
+                            <input type="time" name="transfer_time" value="<?php echo e(old('transfer_time')); ?>" required>
                         </div>
 
                         <div class="custom-input-group">
                             <label>หลักฐานการชำระเงิน (pdf, jpg, png หรือ gif) <span class="req">*</span></label>
                             <div class="slip-upload-area" id="drop-zone">
-                                <input type="file" id="slip-file" hidden required>
+                                
+                                <input type="file" name="slip" id="slip-file" hidden required accept="image/*,.pdf">
                                 <label for="slip-file">
                                     <i class="bi bi-upload"></i>
-                                    <p>วางไฟล์ตรงนี้ หรือคลิกเพื่อแนบไฟล์</p>
+                                    <p id="file-name-text">วางไฟล์ตรงนี้ หรือคลิกเพื่อแนบไฟล์</p>
                                 </label>
                             </div>
                         </div>
 
                         <div class="custom-input-group">
-                            <label>ข้อความเพิ่มเติม (ถ้ามี) <span class="req">*</span></label>
-                            <input type="text" name="note" required>
+                            
+                            <label>ข้อความเพิ่มเติม (ถ้ามี)</label>
+                            <input type="text" name="note" value="<?php echo e(old('note')); ?>">
                         </div>
 
                         <div class="submit-btn-wrapper">
@@ -101,21 +124,10 @@
         <div class="articles-section">
             <h2 class="articles-title">บทความที่คุณอาจสนใจ</h2>
             <div class="articles-list">
-                <a href="<?php echo e(route('order-guide')); ?>" class="article-row">
-                    <span>ขั้นตอนการสั่งซื้อสินค้า</span>
-                    
-                    </a>
-                    <a href="<?php echo e(route('design-guide')); ?>" class="article-row">
-                        <span>วิธีการออกแบบ</span>
-                        
-                    </a>
-            <a href="<?php echo e(route('payment-method')); ?>#section4" class="article-row">
-                <span>วิธีการยกเลิกคำสั่งซื้อ</span>
-
-            </a>
-            <a href="<?php echo e(route('payment-method')); ?>#section3" class="article-row">
-                <span>การจัดส่งสินค้า</span>
-                </a>
+                <a href="<?php echo e(route('order-guide')); ?>" class="article-row"><span>ขั้นตอนการสั่งซื้อสินค้า</span></a>
+                <a href="<?php echo e(route('design-guide')); ?>" class="article-row"><span>วิธีการออกแบบ</span></a>
+                <a href="<?php echo e(route('payment-method')); ?>#section4" class="article-row"><span>วิธีการยกเลิกคำสั่งซื้อ</span></a>
+                <a href="<?php echo e(route('payment-method')); ?>#section3" class="article-row"><span>การจัดส่งสินค้า</span></a>
             </div>
         </div>
     </div>
@@ -125,24 +137,33 @@
 <?php $__env->startPush('scripts'); ?>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+
     const copyBtn = document.querySelector('.payment-copy-btn');
-    
     if (copyBtn) {
       copyBtn.addEventListener('click', function() {
         const accountNumber = '1912139535'; 
-        
         navigator.clipboard.writeText(accountNumber).then(() => {
           const originalText = copyBtn.innerText;
-          
-          // 🚩 แก้ไข: เหลือแค่การเปลี่ยนข้อความ ไม่ต้องสั่งเปลี่ยนสี (Style)
           copyBtn.innerText = 'คัดลอกแล้ว ✓';
-
           setTimeout(() => {
             copyBtn.innerText = originalText;
-            // 🚩 ลบส่วนที่สั่งคืนค่าสีเดิมออกไปด้วยเพื่อให้โค้ดสะอาด
           }, 2000);
         });
       });
+    }
+
+    // ระบบแสดงชื่อไฟล์เมื่อเลือกอัปโหลด
+    const fileInput = document.getElementById('slip-file');
+    const fileNameText = document.getElementById('file-name-text');
+    const dropZone = document.getElementById('drop-zone');
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function(e) {
+            if (this.files && this.files.length > 0) {
+                fileNameText.innerText = 'ไฟล์ที่เลือก: ' + this.files[0].name;
+                dropZone.style.borderColor = '#FFD93D'; // เปลี่ยนสีขอบเมื่อมีไฟล์
+            }
+        });
     }
   });
 </script>

@@ -28,6 +28,7 @@
     color: #555;
     font-weight: 400;
     margin-bottom: 35px;
+    margin-top: 35px;
 }
 
 .contact-methods-flex {
@@ -145,7 +146,7 @@
 
 /* --- 4. บทความที่น่าสนใจ (Articles) --- */
 .articles-section { margin-top: 80px; padding-bottom: 80px; }
-.articles-title { text-align: center; font-weight: 900; font-size: 2.4rem; margin-bottom: 40px; color: #000; }
+.articles-title { text-align: center; font-weight: normal; font-size: 48px; margin-bottom: 40px; color: #000; }
 .articles-list { max-width: 1300px; margin: 0 auto; }
 
 .article-row {

@@ -9,6 +9,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\PaymentController;
 
 // =========================================================
 // 🏠 General Pages
@@ -69,9 +70,8 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::get('/contact-full', [ContactController::class, 'full'])->name('contact.full');
 Route::get('/contact/success', [ContactController::class, 'success'])->name('contact.success');
 
-Route::get('/payment', function () {
-    return view('payment');
-})->name('payment');
+Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+Route::post('/payment/store', [PaymentController::class, 'store'])->name('payment.store');
 
 Route::get('/accessories', function () {
     return view('accessories'); // ชื่อไฟล์ accessories.blade.php
@@ -80,3 +80,5 @@ Route::get('/accessories', function () {
 Route::get('/accessories', [AccessoriesController::class, 'index'])->name('accessories');
 
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
+
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');

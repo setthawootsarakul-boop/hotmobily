@@ -1,12 +1,37 @@
 @extends('layouts.main')
 
+{{-- 1. เพิ่ม CSS สำหรับ Lightbox2 --}}
+@push('styles')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
+<style>
+    /* สไตล์สำหรับ Grid และ Item เพื่อให้ดูเหมือนคลิกได้ */
+    .gallery-grid a {
+        text-decoration: none;
+        display: block;
+        cursor: zoom-in;
+    }
+    .gallery-item {
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+        transform: scale(1.02);
+    }
+    /* ปรับแต่งตำแหน่งคำอธิบายใต้รูปใน Lightbox */
+    .lb-caption {
+        font-family: 'Prompt', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+    }
+</style>
+@endpush
+
 @section('content')
 <div class="gallery-outer-wrapper">
     <div class="page-container">
         
         <h2 class="gallery-main-title">ผลงานผลิตและออกแบบ</h2>
 
-        {{-- Dropdown ด้านบนนอกกล่อง --}}
+        {{-- Dropdown ด้านบน --}}
         <div class="filter-section-top">
             <div class="custom-gallery-dropdown" id="galleryDropdown">
                 <div class="dropdown-trigger">
@@ -37,9 +62,14 @@
         <div class="gallery-content-box">
             <div class="gallery-grid">
                 @foreach($galleries as $item)
-                    <div class="gallery-item">
-                        <img src="{{ asset('images/gallery/' . $item->image_path) }}" alt="{{ $item->title }}">
-                    </div>
+                    {{-- 2. เปลี่ยนมาใช้ data-lightbox สำหรับระบบ Lightbox2 --}}
+                    <a href="{{ asset('images/gallery/' . $item->image_path) }}" 
+                       data-lightbox="product-gallery" 
+                       data-title="{{ $item->title ?? 'ผลงานจาก Hotmobily' }}">
+                        <div class="gallery-item">
+                            <img src="{{ asset('images/gallery/' . $item->image_path) }}" alt="{{ $item->title }}">
+                        </div>
+                    </a>
                 @endforeach
             </div>
             <div class="gallery-pagination-wrapper mt-5">
@@ -47,7 +77,7 @@
             </div>
         </div>
 
-        {{-- ปุ่มหมวดหมู่แบ่ง 3 บรรทัด (ตามโครงสร้างใหม่ของคุณ) --}}
+        {{-- ปุ่มหมวดหมู่แบ่ง 3 บรรทัด --}}
         <div class="gallery-category-nav">
             <div class="nav-row">
                 <a href="{{ route('gallery.index') }}" class="cat-btn {{ !request('product') ? 'active' : '' }}">แสดงทั้งหมด</a>
@@ -68,16 +98,32 @@
         </div>
     </div>
 </div>
-
-<script>
-// JS สำหรับเปิด-ปิด Dropdown
-document.addEventListener('DOMContentLoaded', function() {
-    const dropdown = document.getElementById('galleryDropdown');
-    dropdown.addEventListener('click', function(e) {
-        this.classList.toggle('active');
-        e.stopPropagation();
-    });
-    document.addEventListener('click', () => dropdown.classList.remove('active'));
-});
-</script>
 @endsection
+
+@push('scripts')
+{{-- 3. โหลด JS ของ Lightbox2 (อาศัย jQuery จากหน้าแม่) --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // JS สำหรับเปิด-ปิด Dropdown เดิมของคุณ
+        const dropdown = document.getElementById('galleryDropdown');
+        if (dropdown) {
+            dropdown.addEventListener('click', function(e) {
+                this.classList.toggle('active');
+                e.stopPropagation();
+            });
+            document.addEventListener('click', () => dropdown.classList.remove('active'));
+        }
+
+        // ตั้งค่า Option สำหรับ Lightbox2
+        lightbox.option({
+          'resizeDuration': 200,
+          'wrapAround': true,
+          'albumLabel': "ภาพที่ %1 จาก %2",
+          'alwaysShowNavOnTouchDevices': true,
+          'fadeDuration': 300,
+          'imageFadeDuration': 300
+        });
+    });
+</script>
+@endpush

@@ -34,12 +34,15 @@
     <link href="<?php echo e(asset('css/products-showcase.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/payment-method.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/payment-page.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/payment-status.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/design-guide.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/reviews.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/cart.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/quotation.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/quotation-show.css')); ?>" rel="stylesheet">
 
+
+    <?php echo $__env->yieldPushContent('styles'); ?>
     
     <style>
         /* บังคับให้หน้าเว็บกว้างเต็มจอเสมอ ไม่เกิดขอบขาวที่ไม่ตั้งใจ */
@@ -111,7 +114,7 @@
     <?php echo $__env->make('partials.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     
-    <main class="flex-grow-1">
+    <main class="flex-grow-1" style="background: white;">
         <?php echo $__env->yieldContent('content'); ?>
     </main>
 
