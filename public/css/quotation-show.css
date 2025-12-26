@@ -1,365 +1,532 @@
-    body { background-color: #f6f1e9; }
-    
-    .action-wrapper { 
-        margin: 40px auto; 
-        max-width: 210mm; 
-        position: relative; 
-    }
+/* ========================================= 
+   GENERAL STYLES
+   ========================================= */
+body { 
+    background-color: #f6f1e9; 
+}
 
-    
-    .thank-you-header {
-        text-align: center;
-        color: #333;
-        font-size: 48px;
-        margin-bottom: 50px;
-    }
+.action-wrapper { 
+    margin: 40px auto; 
+    max-width: 210mm; 
+    position: relative; 
+}
+
+.thank-you-header {
+    text-align: center;
+    color: #333;
+    font-size: 48px;
+    margin-bottom: 50px;
+}
+
+.quotation-container {
+    background: #fff;
+    width: 100%;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    font-family: 'Sarabun', sans-serif;
+    color: #333;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
+/* ========================================= 
+   HEADER SECTION
+   ========================================= */
+.header-title-bar {
+    background-color: #333 !important;
+    color: #fff !important;
+    text-align: center;
+    padding: 5px 0;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.company-header { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 30px; 
+}
+
+.company-address { 
+    font-size: 12px; 
+    line-height: 1.5; 
+    width: 60%; 
+}
+
+.company-logo img { 
+    height: 100px; 
+}
+
+/* ========================================= 
+   INFO SECTION
+   ========================================= */
+.info-section { 
+    display: flex; 
+    justify-content: space-between; 
+    margin-bottom: 20px; 
+}
+
+.customer-info { 
+    width: 55%; 
+}
+
+.cust-name { 
+    font-size: 18px; 
+    font-weight: bold; 
+    color: #000; 
+    margin-bottom: 5px; 
+}
+
+.cust-details { 
+    color: #777; 
+    line-height: 1.6; 
+    font-size: 13px; 
+}
+
+.doc-info-table { 
+    width: 40%; 
+    border-collapse: collapse; 
+    font-size: 13px; 
+}
+
+.doc-info-table td { 
+    border: 1px solid #999; 
+    padding: 5px 10px; 
+}
+
+.doc-info-table td:first-child { 
+    background-color: #f0f0f0 !important; 
+    font-weight: bold; 
+    width: 40%; 
+}
+
+.doc-info-table td:last-child { 
+    text-align: right; 
+}
+
+/* ========================================= 
+   PRODUCT TABLE
+   ========================================= */
+.product-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    font-size: 13px; 
+    table-layout: fixed; 
+}
+
+.product-table th { 
+    background-color: #f0f0f0 !important; 
+    text-align: center; 
+    font-weight: bold; 
+    border: 1px solid #999; 
+    padding: 8px; 
+}
+
+.product-table td { 
+    border: 1px solid #999; 
+    padding: 8px; 
+    vertical-align: top; 
+}
+
+.col-no { 
+    width: 45px; 
+    text-align: center; 
+}
+
+.col-price { 
+    width: 120px; 
+    text-align: right; 
+}
+
+.bg-light-gray { 
+    background-color: #fcfcfc !important; 
+}
+
+.bg-summary { 
+    background-color: #e0e0e0 !important; 
+    font-weight: bold; 
+}
+
+/* ========================================= 
+   🎯 FOOTER TABLES (Payment & Tax Info)
+   ========================================= */
+.footer-tables-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 30px;
+    gap: 20px;
+    width: 100%;
+}
+
+.footer-left-box,
+.footer-right-box {
+    flex: 1;
+    width: 48%;
+    min-width: 0;
+}
+
+.footer-title {
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0;
+}
+
+.footer-info-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    table-layout: fixed;
+}
+
+.footer-info-table td {
+    border: 1px solid #999;
+    padding: 8px 10px;
+    vertical-align: top;
+    line-height: 1.5;
+    word-wrap: break-word;
+}
+
+.footer-info-table td:first-child {
+    background-color: #f0f0f0 !important;
+    font-weight: bold;
+    width: 38%;
+}
+
+/* ========================================= 
+   TERMS SECTION
+   ========================================= */
+.terms-detail {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.8;
+    margin-top: 50px;
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.terms-description {
+    border-top: 1px solid #333 !important;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+/* ========================================= 
+   BUTTONS
+   ========================================= */
+.btn-print-wrapper { 
+    text-align: right; 
+    margin-top: 20px;
+}
+
+.btn-print { 
+    background-color: #b00020; 
+    color: white; 
+    border: none; 
+    padding: 10px 25px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-home { 
+    background-color: #FFA726; 
+    color: white; 
+    text-decoration: none; 
+    padding: 10px 25px; 
+    border-radius: 4px; 
+    font-weight: bold; 
+    display: inline-block; 
+    margin-top: 20px; 
+}
+
+.view-products-link {
+    color: #FFA726;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.view-products-link:hover {
+    color: #fb8c00;
+    text-decoration: underline;
+}
+
+/* ========================================= 
+   📱 MOBILE RESPONSIVE
+   ========================================= */
+@media (max-width: 767.98px) {
 
     .quotation-container {
-        background: #fff;
-        width: 100%;
-        padding: 40px;
-        box-shadow: 0 0 15px rgba(0,0,0,0.1);
-        font-family: 'Sarabun', sans-serif;
-        color: #333;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
+        padding: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box;
     }
 
-    .header-title-bar {
-        background-color: #333 !important;
-        color: #fff !important;
-        text-align: center;
-        padding: 5px 0;
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 20px;
+    .thank-you-header {
+        font-size: 28px !important;
+        margin-bottom: 20px !important;
     }
 
-    .company-header { display: flex; justify-content: space-between; margin-bottom: 30px; }
-    .company-address { font-size: 12px; line-height: 1.5; width: 60%; }
-    .company-logo img { height: 100px; }
-    .info-section { display: flex; justify-content: space-between; margin-bottom: 20px; }
-    
-    .customer-info { width: 55%; }
-    .cust-name { font-size: 18px; font-weight: bold; color: #000; margin-bottom: 5px; }
-    .cust-details { color: #777; line-height: 1.6; font-size: 13px; }
-    
-    .doc-info-table { width: 40%; border-collapse: collapse; font-size: 13px; }
-    .doc-info-table td { border: 1px solid #999; padding: 5px 10px; }
-    .doc-info-table td:first-child { background-color: #f0f0f0 !important; font-weight: bold; width: 40%; }
-    .doc-info-table td:last-child { text-align: right; }
-
-    .product-table { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-    .product-table th { background-color: #f0f0f0 !important; text-align: center; font-weight: bold; border: 1px solid #999; padding: 8px; }
-    .product-table td { border: 1px solid #999; padding: 8px; vertical-align: top; }
-    .col-no { width: 45px; text-align: center; }
-    .col-price { width: 120px; text-align: right; }
-
-    .bg-light-gray { background-color: #fcfcfc !important; }
-    .bg-summary { background-color: #e0e0e0 !important; font-weight: bold; }
-
-    .footer-tables-container { display: flex; justify-content: space-between; align-items: flex-start; margin-top: 30px; width: 100%; gap: 4%; page-break-inside: avoid; }
-    .footer-table-box { width: 48%; flex-basis: 48%; flex-shrink: 0; }
-    .footer-data-table { width: 100%; border-collapse: collapse; font-size: 11.5px; table-layout: fixed; }
-    .footer-data-table td { border: 1px solid #999; padding: 8px 10px; vertical-align: top; line-height: 1.5; word-wrap: break-word; }
-    .footer-data-table td:first-child { background-color: #f0f0f0 !important; font-weight: bold; width: 38%; }
-
-    
-    .btn-print-wrapper { 
-        text-align: right; 
-        margin-top: 20px;
+    /* Company Header */
+    .company-header {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 20px !important;
     }
 
-    .btn-print { 
-        background-color: #b00020; 
-        color: white; 
-        border: none; 
-        padding: 10px 25px; 
-        border-radius: 4px; 
-        font-weight: bold; 
-        cursor: pointer; 
-        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    .company-address {
+        order: 1;
+        width: 100% !important;
+        text-align: left !important;
+        margin-bottom: 15px !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
     }
 
-    .btn-home { 
-        background-color: #FFA726; 
-        color: white; 
-        text-decoration: none; 
-        padding: 10px 25px; 
-        border-radius: 4px; 
-        font-weight: bold; 
-        display: inline-block; 
-        margin-top: 20px; 
+    .company-logo {
+        order: 2;
+        text-align: right !important;
+        width: 100% !important;
     }
 
-    .view-products-link {
-        color: #FFA726;
-        text-decoration: none;
-        display: inline-block;
-        margin-top: 15px;
-        font-weight: bold;
-        font-size: 16px;
-        transition: 0.3s;
+    .company-logo img {
+        height: 80px !important;
     }
 
-    .view-products-link:hover {
-        color: #fb8c00;
-        text-decoration: underline;
+    /* Info Section */
+    .info-section {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+        margin-bottom: 20px !important;
+        width: 100% !important;
     }
 
-    
+    .customer-info {
+        order: 1 !important;
+        width: 55% !important;
+        text-align: left !important;
+        font-size: 11px !important;
+    }
+
+    .doc-info-table {
+        order: 2 !important;
+        width: 42% !important;
+        margin-left: 0 !important;
+        margin-top: 0 !important;
+        table-layout: auto !important;
+    }
+
+    .doc-info-table td {
+        font-size: 10px !important;
+        padding: 3px !important;
+    }
+
+    /* Product Table */
+    .product-table {
+        width: 100% !important;
+        table-layout: auto !important;
+        font-size: 11px !important;
+    }
+
+    .product-table th:nth-child(3), 
+    .product-table td:nth-child(3) {
+        width: 60px !important; 
+        text-align: right !important;
+    }
+
+    .product-table th:nth-child(4), 
+    .product-table td:nth-child(4) {
+        width: 60px !important;
+        text-align: center !important;
+    }
+
+    .product-table th, 
+    .product-table td {
+        padding: 5px 3px !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word;
+    }
+
+    .col-no { width: 30px !important; }
+    .col-price { width: 80px !important; }
+
+    /* Footer Tables */
+    .footer-tables-wrapper {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 25px !important;
+        width: 100% !important;
+        margin-top: 20px !important;
+    }
+
+    .footer-left-box,
+    .footer-right-box {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .footer-info-table {
+        width: 100% !important;
+        display: table !important;
+        table-layout: auto !important;
+    }
+
+    .footer-info-table td {
+        padding: 8px !important;
+        font-size: 12px !important;
+        word-break: break-word !important;
+    }
+
+    .footer-info-table td:first-child {
+        width: 38% !important;
+        white-space: nowrap !important;
+    }
+
+    /* Terms */
     .terms-detail {
-        font-size: 12px;
-        color: #555;
-        line-height: 1.8;
-        margin-top: 50px;
-        max-width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+        text-wrap: balance !important; 
+        font-size: 11px !important;
+        line-height: 1.6 !important;
+        margin-top: 20px !important;
+        padding-top: 15px !important;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        box-sizing: border-box !important;
     }
-
+    
     .terms-description {
         border-top: 1px solid #333 !important;
         margin-top: 10px;
         padding-top: 10px;
     }
+
+    /* Buttons */
+    .btn-print-wrapper {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: center !important;
+        gap: 10px !important;
+        margin-top: 20px !important;
+        width: 100% !important;
+    }
+
+    .btn-print, .btn-home {
+        width: auto !important;
+        min-width: 150px !important;
+        padding: 8px 28px !important;
+        font-size: 14px !important;
+        margin: 5px !important;
+        text-align: center !important;
+    }
+
+    .thank-you-header {
+        text-align: center !important;
+        font-size: 24px !important;
+        display: block !important;
+        width: 100% !important;
+    }
     
-    @media print {
-        body { background: #fff !important; }
-        nav, footer, .btn-print-wrapper, .no-print, .navbar, aside, .header-main, .btn-home, .thank-you-header, .view-products-link { 
-            display: none !important; 
-        }
-
-        .action-wrapper { margin: 0 !important; max-width: none !important; }
-
-        .quotation-container { 
-            margin: 0 !important; 
-            padding: 0 !important; 
-            width: 100% !important; 
-            box-shadow: none !important; 
-            border: none !important;
-        }
-
-        .bg-light-gray { background-color: #fff !important; }
-        thead { display: table-header-group; }
-        .footer-tables-container { display: flex !important; flex-direction: row !important; }
-        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-        @page { margin: 1.5cm; size: auto; }
-    }
-    /* =========================================
-   📱 RESPONSIVE FOR MOBILE (โทรศัพท์)
-   ========================================= */
-    @media (max-width: 767.98px) {
-
-        .quotation-container {
-            padding: 15px !important;
-            width: 100% !important;
-            box-sizing: border-box;
-        }
-
-        .thank-you-header {
-            font-size: 28px !important;
-            margin-bottom: 20px !important;
-        }
-
-        /* --- 2. ส่วนหัว (Header): ที่อยู่บนซ้าย, โลโก้ล่างขวา --- */
-        .company-header {
-            display: flex !important;
-            flex-direction: column !important;
-            margin-bottom: 20px !important;
-        }
-
-        .company-address {
-            order: 1; /* บังคับอยู่บนสุด */
-            width: 100% !important;
-            text-align: left !important;
-            margin-bottom: 15px !important;
-            font-size: 12px !important;
-            line-height: 1.4 !important;
-        }
-
-        .company-logo {
-            order: 2; /* บังคับอยู่ใต้ที่อยู่ */
-            text-align: right !important; /* ผลักโลโก้ไปทางขวา */
-            width: 100% !important;
-        }
-
-        .company-logo img {
-            height: 80px !important;
-        }
-
-        /* --- 3. ส่วนข้อมูล (Info): ลูกค้า และ ตาราง Quotation # --- */
-        .info-section {
-            display: flex !important;
-            flex-direction: row !important; /* เปลี่ยนเป็นแนวนอน */
-            justify-content: space-between !important; /* แยกซ้าย-ขวา */
-            align-items: flex-start !important;
-            gap: 10px !important;
-            margin-bottom: 20px !important;
-            width: 100% !important;
-        }
-
-        .customer-info {
-            order: 1 !important;
-            width: 55% !important; /* กำหนดความกว้างฝั่งซ้าย */
-            text-align: left !important;
-            font-size: 11px !important; /* ลดขนาดฟอนต์เล็กน้อยเพื่อให้พอดีพื้นที่ */
-        }
-
-        .doc-info-table {
-            order: 2 !important;
-            width: 42% !important; /* กำหนดความกว้างฝั่งขวา */
-            margin-left: 0 !important;
-            margin-top: 0 !important;
-            table-layout: auto !important;
-        }
-
-        /* ปรับขนาดฟอนต์ในตารางเล็กให้พอดีกับพื้นที่บีบแคบ */
-        .doc-info-table td {
-            font-size: 10px !important;
-            padding: 3px !important;
-        }
-
-        /* --- 4. ตารางสินค้า (Product Table) --- */
-        .product-table {
-            width: 100% !important;
-            table-layout: auto !important;
-            font-size: 11px !important;
-        }
-
-        .product-table th:nth-child(3), 
-        .product-table td:nth-child(3) {
-            width: 60px !important; 
-            text-align: right !important;
-        }
-
-        .product-table th:nth-child(4), 
-        .product-table td:nth-child(4) {
-            width: 60px !important;
-            text-align: center !important;
-        }
-
-        .product-table th, 
-        .product-table td {
-            padding: 5px 3px !important;
-            word-break: break-word !important;
-            overflow-wrap: break-word;
-        }
-
-        /* คอลัมน์ลำดับและราคาบนมือถือ */
-        .col-no { width: 30px !important; }
-        .col-price { width: 80px !important; }
-
-        /* ส่วนสรุปยอดรวมใต้ตารางสินค้า (Subtotal/Grand Total) */
-        .product-table + table, 
-        .product-table ~ table {
-            width: 100% !important;
-            max-width: 240px !important;
-            margin-left: auto !important;
-            margin-top: 10px !important;
-        }
-
-        /* --- 5. ส่วนท้าย (Footer): Payment Method & Invoice Info --- */
-        .footer-tables-container {
-            display: flex !important;
-            flex-direction: column !important; /* เรียงซ้อนกันเป็นแนวตั้ง */
-            gap: 25px !important;
-            width: 100% !important;
-            margin-top: 20px !important;
-        }
-
-        .footer-table-box {
-            width: 100% !important;
-            max-width: 100% !important;
-            flex-basis: 100% !important;
-        }
-
-        .footer-data-table {
-            width: 100% !important;
-            display: table !important;
-            table-layout: auto !important;
-        }
-
-        .footer-data-table td {
-            padding: 8px !important;
-            font-size: 12px !important;
-            word-break: break-word !important;
-        }
-
-        .footer-data-table td:first-child {
-            width: 38% !important;
-            white-space: nowrap !important;
-        }
-
-        /* หัวข้อ P A Y M E N T   M E T H O D */
-        .quotation-container p b, 
-        .quotation-container p {
-            letter-spacing: 2px !important;
-            font-size: 14px !important;
-            text-align: left !important;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        /* เงื่อนไข (Terms) */
-        .terms-detail {
-            width: 100% !important;
-            max-width: 100% !important;
-            display: block !important;
-            text-align: center !important;
-            
-            /* 🚩 หัวใจสำคัญ: ช่วยให้การตัดบรรทัดแบบกึ่งกลางดูสมดุล ไม่แหว่ง */
-            text-wrap: balance !important; 
-            
-            font-size: 11px !important;
-            line-height: 1.6 !important; /* เพิ่มระยะบรรทัดเพื่อให้อ่านง่ายขึ้นเมื่อจัดกึ่งกลาง */
-            margin-top: 20px !important;
-            padding-top: 15px !important;
-            
-            
-            /* 🚩 ป้องกันคำยาวๆ (เช่น อีเมล) ดันขอบจอ */
-            word-break: break-word !important;
-            overflow-wrap: break-word !important;
-            
-            /* เพิ่ม padding ซ้ายขวานิดหน่อย เพื่อไม่ให้ตัวหนังสือชิดขอบจอเกินไป */
-            padding-left: 10px !important;
-            padding-right: 10px !important;
-            box-sizing: border-box !important;
-        }
-        
-        .terms-description {
-            border-top: 1px solid #333 !important;
-            margin-top: 10px;
-            padding-top: 10px;
-        }
-
-        /* --- 6. ปุ่ม Action --- */
-        .btn-print-wrapper {
-            display: flex !important;
-            flex-direction: row !important; /* จัดให้เรียงแนวนอน */
-            justify-content: center !important; /* วางกึ่งกลางหน้าจอ */
-            gap: 10px !important; /* ระยะห่างระหว่าง 2 ปุ่ม */
-            margin-top: 20px !important;
-            width: 100% !important;
-        }
-
-        .btn-print, .btn-home {
-            width: auto !important;
-            min-width: 150px !important;
-            padding: 8px 28px !important;
-            font-size: 14px !important;
-            margin: 5px !important;
-            text-align: center !important;
-        }
-
-        .thank-you-header {
-            text-align: center !important;
-            font-size: 24px !important;
-            display: block !important; /* มั่นใจว่าไม่ใช่ inline */
-            width: 100% !important;
-        }
-        .action-wrapper {
+    .action-wrapper {
         margin: 5px auto;
-        }
     }
+}
+
+/* ========================================= 
+   🖨️ PRINT MODE (ย้ายมาไว้ล่างสุดของไฟล์)
+   ========================================= */
+@media print {
+    @page { 
+        margin: 0.5cm 1.2cm; 
+        size: A4 portrait; 
+    }
+
+    body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
+
+    /* ซ่อนส่วนที่ไม่พิมพ์ */
+    nav, footer, .navbar, .btn-print-wrapper, .no-print, .thank-you-header, .view-products-link, button { 
+        display: none !important; 
+    }
+
+    /* ล้าง Container ให้ชิดขอบบนที่สุด */
+    .action-wrapper, .quotation-container { 
+        margin: 0 !important; 
+        padding: 0 !important; 
+        width: 100% !important; 
+        display: block !important;
+        box-shadow: none !important;
+    }
+
+    /* 🚩 แก้ไขจุดที่ Logo ตก: ใช้ Absolute ล็อกตำแหน่ง */
+    .company-header {
+        position: relative !important;
+        height: 100px !important;
+        margin-bottom: 20px !important;
+        display: block !important;
+    }
+    
+    .company-address { 
+        position: absolute !important; 
+        top: 0; left: 0; width: 60% !important; 
+    }
+    
+    .company-logo { 
+        position: absolute !important; 
+        top: 0; right: 0; width: 35% !important; 
+        text-align: right !important; 
+    }
+
+    /* 🚩 แก้ไขส่วนท้าย: บังคับแบ่ง 50/50 และขยับขึ้นมาต่อตารางสินค้า */
+    .footer-tables-wrapper {
+        display: grid !important; /* ใช้ Grid เพราะแม่นยำที่สุดในโหมดพิมพ์ */
+        grid-template-columns: 1fr 1fr !important; /* แบ่งครึ่งเป๊ะ */
+        gap: 20px !important;
+        width: 100% !important;
+        margin-top: 10px !important; /* ดึงให้ชิดตารางสินค้ามากขึ้น */
+        page-break-inside: avoid !important; /* ป้องกันกระโดดข้ามหน้าถ้าพื้นที่พอ */
+    }
+
+    .footer-left-box, .footer-right-box {
+        width: 100% !important;
+        display: block !important;
+    }
+
+    .footer-info-table { 
+        width: 100% !important; 
+        table-layout: fixed !important; 
+    }
+
+    /* Terms */
+    .terms-detail { 
+        margin-top: 20px !important;
+        clear: both !important;
+    }
+
+    /* บังคับพิมพ์สี */
+    * { 
+        -webkit-print-color-adjust: exact !important; 
+        print-color-adjust: exact !important; 
+    }
+}

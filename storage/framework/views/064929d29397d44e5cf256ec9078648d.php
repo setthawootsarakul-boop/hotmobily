@@ -1,8 +1,8 @@
-@extends('layouts.main')
 
-@section('title', 'ใบเสนอราคา ' . $quotation->quotation_number)
 
-@section('content')
+<?php $__env->startSection('title', 'ใบเสนอราคา ' . $quotation->quotation_number); ?>
+
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid py-4">
     <div class="action-wrapper">
         <div class="thank-you-header no-print">
@@ -21,18 +21,18 @@
                     TAX ID: 010-556-3086-07-0, Head Office
                 </div>
                 <div class="company-logo">
-                    <img src="{{ asset('images/Hotmobilyfile/logo-thai-s.jpg') }}" alt="Logo"> 
+                    <img src="<?php echo e(asset('images/Hotmobilyfile/logo-thai-s.jpg')); ?>" alt="Logo"> 
                 </div>
             </div>
 
             <div class="info-section">
                 <div class="customer-info">
-                    @if(!empty($quotation->fullname))
-                        <div class="cust-name">{{ $quotation->fullname }}</div>
-                    @endif
+                    <?php if(!empty($quotation->fullname)): ?>
+                        <div class="cust-name"><?php echo e($quotation->fullname); ?></div>
+                    <?php endif; ?>
                     
                     <div class="cust-details">
-                        @php 
+                        <?php 
                             $addrLine1 = collect([
                                 $quotation->address_no ? "เลขที่ " . $quotation->address_no : null,
                                 $quotation->moo ? "หมู่ " . $quotation->moo : null,
@@ -42,33 +42,34 @@
                                 $quotation->soi ? "ซอย " . $quotation->soi : null,
                                 $quotation->road ? "ถนน " . $quotation->road : null
                             ])->filter()->implode(', '); 
-                        @endphp
+                        ?>
 
-                        @if(!empty($addrLine1))
-                            <div>{{ $addrLine1 }}</div>
-                        @endif
+                        <?php if(!empty($addrLine1)): ?>
+                            <div><?php echo e($addrLine1); ?></div>
+                        <?php endif; ?>
 
-                        @if(!empty($quotation->sub_district) || !empty($quotation->province))
+                        <?php if(!empty($quotation->sub_district) || !empty($quotation->province)): ?>
                             <div>
-                                {{ $quotation->sub_district }}{{ $quotation->district ? ', ' . $quotation->district : '' }} 
-                                {{ $quotation->province }} {{ $quotation->zipcode }}
+                                <?php echo e($quotation->sub_district); ?><?php echo e($quotation->district ? ', ' . $quotation->district : ''); ?> 
+                                <?php echo e($quotation->province); ?> <?php echo e($quotation->zipcode); ?>
+
                             </div>
-                        @endif
+                        <?php endif; ?>
 
-                        @if(!empty($quotation->email))
-                            <div>{{ $quotation->email }}</div>
-                        @endif
+                        <?php if(!empty($quotation->email)): ?>
+                            <div><?php echo e($quotation->email); ?></div>
+                        <?php endif; ?>
 
-                        @if(!empty($quotation->phone))
-                            <div>{{ $quotation->phone }}</div>
-                        @endif
+                        <?php if(!empty($quotation->phone)): ?>
+                            <div><?php echo e($quotation->phone); ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
 
                 <table class="doc-info-table">
-                    <tr><td>Quotation #</td><td>{{ $quotation->quotation_number }}</td></tr>
-                    <tr><td>Date</td><td>{{ $quotation->created_at->format('M d, Y') }}</td></tr>
-                    <tr><td>Amount Due</td><td>{{ number_format($quotation->grand_total, 2) }} baht</td></tr>
+                    <tr><td>Quotation #</td><td><?php echo e($quotation->quotation_number); ?></td></tr>
+                    <tr><td>Date</td><td><?php echo e($quotation->created_at->format('M d, Y')); ?></td></tr>
+                    <tr><td>Amount Due</td><td><?php echo e(number_format($quotation->grand_total, 2)); ?> baht</td></tr>
                 </table>
             </div>
 
@@ -83,47 +84,47 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($quotation->items as $index => $item)
-                    @php $opt = $item->options ?? []; @endphp
+                    <?php $__currentLoopData = $quotation->items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <?php $opt = $item->options ?? []; ?>
                     <tr>
-                        <td class="col-no">{{ $index + 1 }}</td>
+                        <td class="col-no"><?php echo e($index + 1); ?></td>
                         <td>
-                            <strong>{{ $item->product_name }}</strong>
+                            <strong><?php echo e($item->product_name); ?></strong>
                             <ul style="margin: 5px 0 0 0; padding-left: 18px; list-style-type: disc; font-size: 11px; color: #666;">
-                                @if(($opt['size_name'] ?? '-') != '-') <li>ขนาด: {{ $opt['size_name'] }}</li> @endif
-                                @if(($opt['print_name'] ?? '-') != '-') <li>การพิมพ์: {{ $opt['print_name'] }}</li> @endif
-                                @if(($opt['part_name'] ?? '-') != '-') <li>ส่วนประกอบเพิ่มเติม: {{ $opt['part_name'] }}</li> @endif
+                                <?php if(($opt['size_name'] ?? '-') != '-'): ?> <li>ขนาด: <?php echo e($opt['size_name']); ?></li> <?php endif; ?>
+                                <?php if(($opt['print_name'] ?? '-') != '-'): ?> <li>การพิมพ์: <?php echo e($opt['print_name']); ?></li> <?php endif; ?>
+                                <?php if(($opt['part_name'] ?? '-') != '-'): ?> <li>ส่วนประกอบเพิ่มเติม: <?php echo e($opt['part_name']); ?></li> <?php endif; ?>
                             </ul>
                         </td>
-                        <td style="text-align: right;">{{ number_format($item->price_per_unit, 2) }}</td>
-                        <td style="text-align: center;">{{ number_format($item->quantity) }}</td>
-                        <td class="col-price">{{ number_format($item->total_price, 2) }}</td>
+                        <td style="text-align: right;"><?php echo e(number_format($item->price_per_unit, 2)); ?></td>
+                        <td style="text-align: center;"><?php echo e(number_format($item->quantity)); ?></td>
+                        <td class="col-price"><?php echo e(number_format($item->total_price, 2)); ?></td>
                     </tr>
-                    @endforeach
-                    @for($i = 0; $i < max(0, 5 - count($quotation->items)); $i++)
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    <?php for($i = 0; $i < max(0, 5 - count($quotation->items)); $i++): ?>
                     <tr><td style="height: 30px;"></td><td></td><td></td><td></td><td></td></tr>
-                    @endfor
+                    <?php endfor; ?>
                 </tbody>
                 <tfoot style="display: table-footer-group;">
                     <tr>
                         <td colspan="2" style="border: none;"></td>
                         <td colspan="2" class="bg-light-gray" style="text-align: right; font-weight: bold; border: 1px solid #999;">Subtotal</td>
-                        <td class="col-price" style="border: 1px solid #999;">{{ number_format($quotation->subtotal, 2) }}</td>
+                        <td class="col-price" style="border: 1px solid #999;"><?php echo e(number_format($quotation->subtotal, 2)); ?></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="border: none;"></td>
                         <td colspan="2" class="bg-light-gray" style="text-align: right; font-weight: bold; border: 1px solid #999;">Express fee</td>
-                        <td class="col-price" style="border: 1px solid #999;">{{ number_format($quotation->express_fee, 2) }}</td>
+                        <td class="col-price" style="border: 1px solid #999;"><?php echo e(number_format($quotation->express_fee, 2)); ?></td>
                     </tr>
                     <tr>
                         <td colspan="2" style="border: none;"></td>
                         <td colspan="2" class="bg-summary" style="text-align: right; border: 1px solid #999;">Balance Due</td>
-                        <td class="col-price bg-summary" style="border: 1px solid #999;">{{ number_format($quotation->grand_total, 2) }} baht</td>
+                        <td class="col-price bg-summary" style="border: 1px solid #999;"><?php echo e(number_format($quotation->grand_total, 2)); ?> baht</td>
                     </tr>
                 </tfoot>
             </table>
 
-            {{-- 🚩 ส่วนตารางท้าย: Payment Method & Tax Invoice Info --}}
+            
             <div class="footer-tables-wrapper">
                 <div class="footer-left-box">
                     <div class="footer-title">PAYMENT METHOD</div>
@@ -135,17 +136,17 @@
                     </table>
                 </div>
                 
-                @if(!empty($quotation->tax_name))
+                <?php if(!empty($quotation->tax_name)): ?>
                 <div class="footer-right-box">
                     <div class="footer-title">TAX INVOICE INFO</div>
                     <table class="footer-info-table">
-                        <tr><td>Tax Type</td><td>{{ $quotation->tax_person_type == 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล' }}</td></tr>
-                        <tr><td>Tax Name</td><td>{{ $quotation->tax_name }}</td></tr>
-                        <tr><td>Tax ID</td><td>{{ $quotation->tax_id }}</td></tr>
+                        <tr><td>Tax Type</td><td><?php echo e($quotation->tax_person_type == 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล'); ?></td></tr>
+                        <tr><td>Tax Name</td><td><?php echo e($quotation->tax_name); ?></td></tr>
+                        <tr><td>Tax ID</td><td><?php echo e($quotation->tax_id); ?></td></tr>
                         <tr>
                             <td>Address</td>
                             <td>
-                                @php 
+                                <?php 
                                     $taxAddrLine1 = collect([
                                         $quotation->tax_address_no, 
                                         $quotation->tax_moo ? "หมู่ " . $quotation->tax_moo : null, 
@@ -165,19 +166,19 @@
                                         $quotation->tax_province, 
                                         $quotation->tax_zipcode
                                     ])->filter()->implode(' ');
-                                @endphp
+                                ?>
 
-                                @if(!empty($taxAddrLine1)) <div>{{ $taxAddrLine1 }}</div> @endif
-                                @if(!empty($taxAddrLine2)) <div>{{ $taxAddrLine2 }}</div> @endif
-                                @if(!empty($taxAddrLine3)) <div>{{ $taxAddrLine3 }}</div> @endif
+                                <?php if(!empty($taxAddrLine1)): ?> <div><?php echo e($taxAddrLine1); ?></div> <?php endif; ?>
+                                <?php if(!empty($taxAddrLine2)): ?> <div><?php echo e($taxAddrLine2); ?></div> <?php endif; ?>
+                                <?php if(!empty($taxAddrLine3)): ?> <div><?php echo e($taxAddrLine3); ?></div> <?php endif; ?>
                             </td>
                         </tr>
                     </table>
                 </div>
-                @endif
+                <?php endif; ?>
             </div>
 
-            {{-- ส่วน TERMS --}}
+            
             <div class="terms-detail">
                 <div style="font-size: 10px; color: #000000; letter-spacing: 3px; margin-bottom: 10px; text-align: center;">T E R M S</div>
                 <div class="terms-description">
@@ -193,10 +194,11 @@
         </div>
 
         <div class="text-center no-print">
-            <a href="{{ route('home') }}" class="btn-home">กลับไปหน้าหลัก</a>
+            <a href="<?php echo e(route('home')); ?>" class="btn-home">กลับไปหน้าหลัก</a>
             <br>
-            <a href="{{ route('products.index') }}" class="view-products-link">ดูสินค้าของเรา</a>
+            <a href="<?php echo e(route('products.index')); ?>" class="view-products-link">ดูสินค้าของเรา</a>
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project\hotmobily\resources\views/quotation/show.blade.php ENDPATH**/ ?>

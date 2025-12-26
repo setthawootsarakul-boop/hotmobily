@@ -29,7 +29,7 @@
             
             <form action="<?php echo e(route('newsletter.subscribe')); ?>" method="POST" class="d-flex flex-column">
                 <?php echo csrf_field(); ?>
-                <div class="d-flex">
+                <div class="d-flex flex-column flex-sm-row gap-2">
                     <input type="email" name="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
                     <button type="submit" class="btn btn-warning fw-semibold px-3">สมัครเลย</button>
                 </div>

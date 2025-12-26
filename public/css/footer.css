@@ -101,12 +101,12 @@
 
   /* 🔹 Company (ซ้าย) */
   .footer-company { text-align: left; padding-top: 60px !important; }
-  .footer-company .footer-logo { margin: 0 auto 1.5rem 0 !important; display: block; }
+  .footer-company .footer-logo { margin: 0 auto 1.5rem 60px !important; display: block; }
 
   /* 🔹 Subscribe (กลาง) */
   .footer-subscribe {
     align-items: flex-start; padding-left: 10px; 
-    padding-top: 170px !important; 
+    padding-top: 130px !important; 
   }
 
   /* 🔥 FIX FORM: จัดให้ปุ่มกับช่องเท่ากันเป๊ะๆ 🔥 */
@@ -156,7 +156,7 @@
   .footer-company { text-align: left; padding-top: 60px !important; }
   .footer-company .footer-logo { margin: 0 auto 1.5rem 60px !important; display: block; }
   
-  .footer-subscribe { align-items: flex-start; padding-left: 18px; padding-top: 170px !important; }
+  .footer-subscribe { align-items: flex-start; padding-left: 18px; padding-top: 130px !important; }
   
   /* 🔥 FIX FORM: ใช้เทคนิคเดียวกับ MacBook 🔥 */
   .footer-subscribe form {
@@ -168,7 +168,7 @@
       width: 260px !important;       /* จอใหญ่ให้กว้างหน่อย */
   }
   .footer-subscribe .btn-warning {
-      height: 40px !important;       /* ✅ สูง 40px เท่ากัน */
+      height: 44px !important;       /* ✅ สูง 40px เท่ากัน */
       padding: 0 25px !important;
       display: flex !important; align-items: center !important; justify-content: center !important;
       min-width: unset !important;
@@ -194,6 +194,7 @@
   }
   /* ปรับหัวข้อให้เล็กและกระชับ */
   .footer-subscribe h5 {
+    margin-top: 0px;
     font-size: 20px !important; 
     margin-bottom: 5px !important;
   }
@@ -251,7 +252,7 @@
 
   /* ช่องอีเมล: ยืดหยุ่นตามพื้นที่ที่เหลือ */
   .footer-subscribe input[type="email"] { 
-      width: 0 !important;  /* ทริค Flexbox */
+      width: auto !important;  /* ทริค Flexbox */
       flex-grow: 1 !important; /* สั่งให้ยืดจนเต็มพื้นที่ที่เหลือ */
       max-width: none !important; 
       margin-bottom: 0 !important; /* เอา Margin ล่างออกเพราะวางข้างกันแล้ว */
@@ -301,12 +302,29 @@
   }
   .footer-company .footer-logo { margin: 0 auto 1rem; }
 
-  .footer-subscribe form { flex-direction: column; width: 100%; max-width: 320px; margin: 0 auto; }
+  .footer-subscribe form {
+        display: flex !important;
+        flex-direction: column !important; /* บังคับตัดบรรทัด */
+        align-items: center !important;    /* จัดลูกทุกตัวให้อยู่กึ่งกลาง */
+        gap: 10px !important;              /* เพิ่มระยะห่างระหว่าง input กับปุ่ม */
+  }
+  .footer-subscribe .form-control {
+        width: 100% !important;
+        max-width: 300px !important; /* ล็อกความกว้างไม่ให้บานเกินไป */
+        margin-right: 0 !important;   /* ล้าง margin ขวาเดิมออก */
+  }
   .footer-subscribe input[type="email"] { width: 240px; height: 25px; max-width: 100%; font-size: 13.5px; font-weight: 600; margin-bottom: 10px; }
 
   .footer-subscribe .btn-warning {
-    width: 111px !important; height: 25px !important; padding: 0 !important; display: flex !important;
-    align-items: center !important; justify-content: center !important; font-size: 13px !important; line-height: 1 !important;
+        width: 111px !important;
+        height: 25px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 13px !important;
+        line-height: 1 !important;
+        margin: 0 auto !important; /* ประกันความชัวร์ด้วยการจัด margin auto */
   }
 
   .footer-social { display: flex; flex-direction: column; align-items: center; }
