@@ -180,51 +180,65 @@
     font-weight: bold;
 }
 
-.gallery-pagination-wrapper .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    gap: 8px; /* ระยะห่างระหว่างตัวเลข */
-    padding: 0;
+.gallery-pagination-wrapper {
+    margin-top: 30px;
 }
 
-/* ปรับแต่งทุกลิงก์ (ตัวเลขและลูกศร) */
-.gallery-pagination-wrapper .page-link {
-    border: none;
-    background: transparent;
-    color: #333;
-    font-size: 18px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50% !important; /* ทำเป็นวงกลม */
-    transition: all 0.3s ease;
-}
-
-/* สถานะที่เลือกอยู่ (Active) */
-.gallery-pagination-wrapper .page-item.active .page-link {
-    background-color: #f0f0f0; /* สีพื้นหลังอ่อนๆ ตามรูปตัวอย่าง */
-    color: #000;
-    font-weight: bold;
-}
-
-/* ซ่อนข้อความ "Showing..." ที่ติดมากับ Laravel */
+/* ซ่อนข้อความ Showing... และปุ่มขนาดใหญ่ที่มาจาก Tailwind (Laravel Default) */
+.gallery-pagination-wrapper nav div:first-child, 
+.gallery-pagination-wrapper nav span.relative.z-0,
 .gallery-pagination-wrapper nav .flex.items-center.justify-between {
     display: none !important;
 }
 
-/* ปรับแต่งปุ่มลูกศร */
-.gallery-pagination-wrapper .page-item:first-child .page-link,
-.gallery-pagination-wrapper .page-item:last-child .page-link {
-    font-size: 24px;
-    font-weight: 300;
+/* บังคับให้แสดงผลเฉพาะส่วนที่เป็นตัวเลขแบบ Bootstrap */
+.gallery-pagination-wrapper .pagination {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 12px;
+    padding: 0;
+    margin: 0;
 }
 
+.gallery-pagination-wrapper .page-item {
+    display: inline-block;
+}
+
+/* ตกแต่งทุกลิงก์ (ตัวเลขและลูกศร) */
+.gallery-pagination-wrapper .page-link {
+    border: none !important;
+    background: transparent !important;
+    color: #333 !important;
+    font-size: 18px !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important; /* บังคับเป็นวงกลม */
+    box-shadow: none !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+}
+
+/* สถานะ Active (หน้าที่เลือกอยู่) */
+.gallery-pagination-wrapper .page-item.active .page-link {
+    background-color: #f0f0f0 !important; /* พื้นหลังเทาอ่อนตาม UI */
+    color: #000 !important;
+    font-weight: bold !important;
+}
+
+/* สถานะ Disabled (เช่น ลูกศรที่กดต่อไม่ได้) */
+.gallery-pagination-wrapper .page-item.disabled .page-link {
+    color: #ccc !important;
+    pointer-events: none;
+}
+
+/* เอฟเฟกต์ตอน Hover */
 .gallery-pagination-wrapper .page-link:hover {
-    background-color: #eee;
+    background-color: #eeeeee !important;
 }
 
 @media (max-width: 768px) {

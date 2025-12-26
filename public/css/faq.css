@@ -92,31 +92,45 @@ body {
 }
 
 /* 🔸 ปุ่ม pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 30px;
-  gap: 10px;
+.pagination .page-link {
+    border: none !important;
+    background: transparent !important;
+    color: #333 !important;
+    font-size: 18px !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important; /* บังคับเป็นวงกลมเป๊ะๆ */
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
 }
 
-.pagination a,
-.pagination span {
-  color: #000;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: background-color 0.2s ease-in-out;
+/* สถานะ Active (หน้าที่เลือกอยู่) */
+.pagination .page-item.active .page-link {
+    background-color: #f0f0f0 !important; /* พื้นหลังเทาอ่อนตาม Gallery */
+    color: #000 !important;
+    font-weight: bold !important;
+    z-index: 1 !important;
 }
 
-.pagination a:hover {
-  background-color: #0a0101;
-  color: #fff;
+/* สถานะ Hover */
+.pagination .page-link:hover {
+    background-color: #eeeeee !important;
+    color: #000 !important;
 }
 
-.pagination .active {
-  background-color: #000000;
-  color: #fff;
+/* สถานะ Disabled (ปุ่มลูกศรที่กดไม่ได้) */
+.pagination .page-item.disabled .page-link {
+    color: #ccc !important;
+    pointer-events: none;
+}
+
+/* แก้ไขระยะขอบที่ติดมากับ Bootstrap */
+.page-item:not(:first-child) .page-link {
+    margin-left: 0 !important;
 }
 
 /* 🔹 ปุ่มอยู่นอกกรอบ */
@@ -124,9 +138,7 @@ body {
   text-align: center;
   margin-top: 50px;
 }
-.page-item:not(:first-child) .page-link {
-    margin-left: 0px!important; 
-}
+
 
 /* =============================
    🔸 SECTION 2: บทความที่คุณอาจสนใจ
@@ -183,8 +195,8 @@ body {
   }
 
   .faq-header h1 {
-    font-weight: 500;
-    font-size: 48px;
+    font-weight: normal;
+    font-size: 28px;
     margin-top: -5px;
   }
 
@@ -212,5 +224,11 @@ body {
 
   .faq-answer {
     font-size: 1rem;
+  }
+  
+  .pagination .page-link {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 16px !important;
   }
 }

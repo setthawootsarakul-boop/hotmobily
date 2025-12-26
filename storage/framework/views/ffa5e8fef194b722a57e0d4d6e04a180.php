@@ -27,6 +27,7 @@
     <link href="<?php echo e(asset('css/order-guide.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/products.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/footer.css')); ?>" rel="stylesheet">
+    <link href="<?php echo e(asset('css/faq.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/cookie-policy.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/contact-step.css')); ?>" rel="stylesheet">
     <link href="<?php echo e(asset('css/contact-success.css')); ?>" rel="stylesheet">

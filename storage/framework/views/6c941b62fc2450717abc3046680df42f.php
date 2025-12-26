@@ -4,7 +4,6 @@
 <?php $__env->startPush('styles'); ?>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet">
 <style>
-    /* สไตล์สำหรับ Grid และ Item เพื่อให้ดูเหมือนคลิกได้ */
     .gallery-grid a {
         text-decoration: none;
         display: block;

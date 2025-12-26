@@ -1,11 +1,10 @@
 @extends('layouts.main')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/faq.css') }}">
 
-<!-- =========================
-     🔹 ส่วนที่ 1: คำถามที่พบบ่อย (FAQ)
-========================= -->
+<div class="faq-page-wrapper" style="background-color: #fff8ec; min-height: 100vh; margin-top: -1px; padding-top: 1px;">
+
+
 <div class="faq-header">
   <h1>คำถามที่พบบ่อย (FAQ)</h1>
 </div>
