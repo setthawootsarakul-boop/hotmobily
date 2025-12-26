@@ -24,12 +24,33 @@
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-subscribe">
-          <h5 class="fw-bold mb-3 "style="color: #ddd;">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
-          <p class="small mb-3">รับโปรโมชั่นลับพิเศษและข่าวสารใหม่ๆ จากเราได้ก่อนใคร</p>
-          <form class="d-flex">
-            <input type="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
-            <button type="submit" class="btn btn-warning fw-semibold px-3">สมัครเลย</button>
-          </form>
+            <h5 class="fw-bold mb-3" style="color: #ddd;">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
+            <p class="small mb-3">รับโปรโมชั่นลับพิเศษและข่าวสารใหม่ๆ จากเราได้ก่อนใคร</p>
+            
+            <form action="<?php echo e(route('newsletter.subscribe')); ?>" method="POST" class="d-flex flex-column">
+                <?php echo csrf_field(); ?>
+                <div class="d-flex">
+                    <input type="email" name="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
+                    <button type="submit" class="btn btn-warning fw-semibold px-3">สมัครเลย</button>
+                </div>
+                
+                
+                <?php $__errorArgs = ['email'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                    <small class="text-danger mt-2"><?php echo e($message); ?></small>
+                <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+
+                
+                <?php if(session('subscribe_success')): ?>
+                    <small class="text-success mt-2"><?php echo e(session('subscribe_success')); ?></small>
+                <?php endif; ?>
+            </form>
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-social">

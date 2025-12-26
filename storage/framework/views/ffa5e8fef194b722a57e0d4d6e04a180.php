@@ -142,9 +142,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
-
+            // Navbar Shadow
             $(window).scroll(function() {
                 if ($(this).scrollTop() > 50) {
                     $('.navbar').addClass('shadow-sm');
@@ -153,18 +155,57 @@
                 }
             });
 
-
+            // Cookie Banner Logic
             $('#cookie-banner').show(); 
-
-
             $('#accept-cookie, #close-cookie').click(function() {
                 $('#cookie-banner').fadeOut(300);
+            });
 
+            
+            // ✅ Newsletter AJAX Logic ด้วย SweetAlert2
+            $(document).on('submit', 'form[action="<?php echo e(route('newsletter.subscribe')); ?>"]', function(e) {
+                e.preventDefault();
+                let form = $(this);
+                let email = form.find('input[name="email"]').val();
+
+                $.ajax({
+                    url: form.attr('action'),
+                    method: 'POST',
+                    data: {
+                        _token: '<?php echo e(csrf_token()); ?>',
+                        email: email
+                    },
+                    success: function(response) {
+                        // แจ้งเตือนเมื่อสำเร็จ
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'สมัครสมาชิกสำเร็จ!',
+                            text: 'ขอบคุณที่สมัครรับข่าวสารจาก Hotmobily',
+                            confirmButtonColor: '#fbab00', 
+                            confirmButtonText: 'ตกลง'
+                        });
+                        form.find('input[name="email"]').val('');
+                    },
+                    error: function(xhr) {
+                        
+                        let errorMsg = xhr.responseJSON && xhr.responseJSON.message 
+                                    ? xhr.responseJSON.message 
+                                    : 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง';
+                        
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'ขออภัย...',
+                            text: errorMsg,
+                            confirmButtonColor: '#333'
+                        });
+                    }
+                });
             });
         });
-    </script>    
+    </script>
 
     <?php echo $__env->yieldPushContent('scripts'); ?>
+    
 </body>
 </html>
 

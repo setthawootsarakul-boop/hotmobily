@@ -24,12 +24,26 @@
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-subscribe">
-          <h5 class="fw-bold mb-3 "style="color: #ddd;">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
-          <p class="small mb-3">รับโปรโมชั่นลับพิเศษและข่าวสารใหม่ๆ จากเราได้ก่อนใคร</p>
-          <form class="d-flex">
-            <input type="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
-            <button type="submit" class="btn btn-warning fw-semibold px-3">สมัครเลย</button>
-          </form>
+            <h5 class="fw-bold mb-3" style="color: #ddd;">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
+            <p class="small mb-3">รับโปรโมชั่นลับพิเศษและข่าวสารใหม่ๆ จากเราได้ก่อนใคร</p>
+            
+            <form action="{{ route('newsletter.subscribe') }}" method="POST" class="d-flex flex-column">
+                @csrf
+                <div class="d-flex">
+                    <input type="email" name="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
+                    <button type="submit" class="btn btn-warning fw-semibold px-3">สมัครเลย</button>
+                </div>
+                
+                {{-- แสดงข้อความ Error (เช่น อีเมลซ้ำ) --}}
+                @error('email')
+                    <small class="text-danger mt-2">{{ $message }}</small>
+                @enderror
+
+                {{-- แสดงข้อความสำเร็จ --}}
+                @if(session('subscribe_success'))
+                    <small class="text-success mt-2">{{ session('subscribe_success') }}</small>
+                @endif
+            </form>
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-social">

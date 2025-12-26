@@ -10,7 +10,7 @@ use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PaymentController;
-
+use App\Http\Controllers\NewsletterController;
 // =========================================================
 // 🏠 General Pages
 // =========================================================
@@ -82,3 +82,5 @@ Route::get('/accessories', [AccessoriesController::class, 'index'])->name('acces
 Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index');
 
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
+
+Route::post('/newsletter-subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscribe');
