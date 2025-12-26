@@ -152,7 +152,7 @@
     @else
         {{-- Empty Cart --}}
         <div class="empty-cart-container text-center py-5">
-            <img src="{{ asset('images/Hotmobilyfile/poster/cart1.png') }}" alt="Empty Cart" class="empty-cart-icon mb-4" style="max-width: 350px;">
+            <img src="{{ asset('images/Hotmobilyfile/poster/cart1.png') }}" alt="Empty Cart" class="empty-cart-icon mb-4" style="max-width: 360px;">
             <h3 class="empty-cart-text text-muted mb-4">ยังไม่มีสินค้าในตะกร้าของคุณ</h3>
             <a href="{{ route('products.index') }}" class="btn btn-shop-now btn-primary px-4 py-2" style="background-color: #FFA726; border: none;">
                 เลือกซื้อสินค้า
