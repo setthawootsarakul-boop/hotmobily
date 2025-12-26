@@ -21,27 +21,27 @@
     
     /* ปุ่มประเมินราคา (สีแดง) */
     .btn-estimate-action {
-        background-color: #b00020;
+        background-color: #FFA726;
         color: white;
         border-radius: 8px;
         transition: 0.3s;
         border: none;
     }
     .btn-estimate-action:hover {
-        background-color: #8a0019;
+        background-color: #e69520;
         color: white;
     }
     
     /* ปุ่มอัปเดต (สีเหลือง) เมื่ออยู่ในโหมดแก้ไข */
     .btn-update-action {
-        background-color: #ffc107;
-        color: #000;
+        background-color: #FFA726;
+        color: #ffffff;
         border-radius: 8px;
         border: none;
         transition: 0.3s;
     }
     .btn-update-action:hover {
-        background-color: #e0a800;
+        background-color: #e69520;
     }
     
     /* ปุ่มขอใบเสนอราคา (สีส้ม) */
@@ -519,7 +519,24 @@
                     </div>
                 </div>
             <?php endif; ?>
+                
+                <?php if(isset($productGalleries) && $productGalleries->isNotEmpty()): ?>
+                <div class="product-gallery-section mt-5">
+                    <div class="container">
+                        <h2 class="product-gallery-title">ตัวอย่างผลงาน</h2>
 
+                        <div class="product-example-grid">
+                            <?php $__currentLoopData = $productGalleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <div class="example-item">
+                                    
+                                    <img src="<?php echo e(asset('images/gallery/' . $gallery->image_path)); ?>" 
+                                        alt="<?php echo e($gallery->title ?? 'ตัวอย่างผลงาน'); ?>">
+                                </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
         </div> 
     </div>
 </div>

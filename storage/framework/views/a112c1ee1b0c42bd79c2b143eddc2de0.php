@@ -1,9 +1,8 @@
 <?php $__env->startSection('content'); ?>
-<link rel="stylesheet" href="<?php echo e(asset('css/faq.css')); ?>">
 
-<!-- =========================
-     🔹 ส่วนที่ 1: คำถามที่พบบ่อย (FAQ)
-========================= -->
+<div class="faq-page-wrapper" style="background-color: #fff8ec; min-height: 100vh; margin-top: -1px; padding-top: 1px;">
+
+
 <div class="faq-header">
   <h1>คำถามที่พบบ่อย (FAQ)</h1>
 </div>
@@ -57,14 +56,13 @@
   <div class="faq-item" onclick="location.href='<?php echo e(route('order-guide')); ?>#how-to-order'">
     ขั้นตอนการสั่งซื้อสินค้า
   </div>
-  <div class="faq-item" onclick="location.href='<?php echo e(route('faq')); ?>#design'">
+  <div class="faq-item" onclick="location.href='<?php echo e(route('design-guide')); ?>#design'">
     วิธีการออกแบบ
   </div>
-  <div class="faq-item" onclick="location.href='<?php echo e(route('faq')); ?>#cancel'">
-    วิธีการยกเลิกคำสั่งซื้อ
+  <div class="faq-item" onclick="location.href='<?php echo e(route('payment-method')); ?>#section4'"> 
+      วิธีการยกเลิกคำสั่งซื้อ
   </div>
-  <div class="faq-item" onclick="location.href='<?php echo e(route('faq')); ?>#delivery'">
-    การจัดส่งสินค้า
+    <div class="faq-item" onclick="location.href='<?php echo e(route('payment-method')); ?>#section3'"> การจัดส่งสินค้า</div>
   </div>
 </div>
 
