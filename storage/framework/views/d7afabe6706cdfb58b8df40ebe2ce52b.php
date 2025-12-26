@@ -23,27 +23,27 @@
     
     /* ปุ่มประเมินราคา (สีแดง) */
     .btn-estimate-action {
-        background-color: #b00020;
+        background-color: #FFA726;
         color: white;
         border-radius: 8px;
         transition: 0.3s;
         border: none;
     }
     .btn-estimate-action:hover {
-        background-color: #8a0019;
+        background-color: #e69520;
         color: white;
     }
     
     /* ปุ่มอัปเดต (สีเหลือง) เมื่ออยู่ในโหมดแก้ไข */
     .btn-update-action {
-        background-color: #ffc107;
-        color: #000;
+        background-color: #FFA726;
+        color: #ffffff;
         border-radius: 8px;
         border: none;
         transition: 0.3s;
     }
     .btn-update-action:hover {
-        background-color: #e0a800;
+        background-color: #e69520;
     }
     
     /* ปุ่มขอใบเสนอราคา (สีส้ม) */
