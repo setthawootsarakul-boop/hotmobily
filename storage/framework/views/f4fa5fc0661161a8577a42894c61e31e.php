@@ -83,7 +83,7 @@ unset($__errorArgs, $__bag); ?>
             
             <a href="<?php echo e(route('payment')); ?>">แจ้งชำระเงิน</a> <span class="divider">|</span>
             <a href="<?php echo e(route('accessories')); ?>">อุปกรณ์เสริม</a> <span class="divider">|</span>
-            <a href="#">แคตตาล็อก</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('gallery.index')); ?>">แกลลอรี่</a> <span class="divider">|</span>
             <a href="<?php echo e(route('contact')); ?>">ติดต่อเรา</a> <span class="divider">|</span>
             <a href="<?php echo e(route('faq')); ?>">คำถามที่พบบ่อย</a> <span class="divider">|</span>
             <a href="<?php echo e(route('cookie-policy')); ?>">นโยบายคุกกี้</a>
