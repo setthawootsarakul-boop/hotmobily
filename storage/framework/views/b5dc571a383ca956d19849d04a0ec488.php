@@ -43,10 +43,10 @@
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarFAQ">
             <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>">คำถามที่พบบ่อย</a></li>
             <li><a class="dropdown-item" href="<?php echo e(route('order-guide')); ?>#how-to-order">วิธีการสั่งสินค้า</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('order-guide')); ?>#payment">วิธีการชำระเงิน</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>#design">วิธีการออกแบบ</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>#cancel">วิธีการยกเลิกสินค้า</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>#cookie-policy">นโยบายคุกกี้</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('payment-method')); ?>#payment">วิธีการชำระเงิน</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('design-guide')); ?>#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('payment-method')); ?>#section4">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('cookie-policy')); ?>#cookie-policy">นโยบายคุกกี้</a></li>
           </ul>
         </li>
 
@@ -57,8 +57,8 @@
             <i class="bi bi-chevron-down caret-icon ms-1"></i>
           </a>
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDetails">
-            <li><a class="dropdown-item" href="<?php echo e(route('products.index')); ?>#accessory">อุปกรณ์เสริม</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('products.index')); ?>#gallery">แกลลอรี่</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('accessories')); ?>#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('gallery.index')); ?>#gallery">แกลลอรี่</a></li>
           </ul>
         </li>
 
@@ -70,7 +70,7 @@
           </a>
           <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarContact">
             <li><a class="dropdown-item" href="<?php echo e(route('contact.full')); ?>">ติดต่อบริษัท</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('contact.full')); ?>#contact-form">แบบฟอร์มย่อ</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('payment')); ?>">แจ้งชำระเงิน</a></li>
           </ul>
         </li>
       </ul>
@@ -118,7 +118,7 @@
   <div class="offcanvas-header align-items-center">
     <div class="d-flex align-items-center">
       <img src="<?php echo e(asset('images/logo.png')); ?>" alt="Hotmobily Logo" height="40" class="me-2">
-      <h5 class="mb-0 fw-bold">Hotmobily Thai</h5>
+      <h5 class="fw-bold">Hotmobily Thai</h5>
     </div>
     <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
@@ -159,9 +159,9 @@
         <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileFAQ">
             <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>">คำถามที่พบบ่อย</a></li>
             <li><a class="dropdown-item" href="<?php echo e(route('order-guide')); ?>#how-to-order">วิธีการสั่งสินค้า</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('order-guide')); ?>#payment">วิธีการชำระเงิน</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>#design">วิธีการออกแบบ</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>#cancel">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('payment-method')); ?>#payment">วิธีการชำระเงิน</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('design-guide')); ?>#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('payment-method')); ?>#section4">วิธีการยกเลิกสินค้า</a></li>
             <li><a class="dropdown-item" href="<?php echo e(route('faq')); ?>#cookie-policy">นโยบายคุกกี้</a></li>
         </ul>
       </li>
@@ -173,8 +173,8 @@
           <i class="bi bi-chevron-down caret-icon ms-auto"></i>
         </a>
         <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileDetails">
-            <li><a class="dropdown-item" href="<?php echo e(route('products.index')); ?>#accessory">อุปกรณ์เสริม</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('products.index')); ?>#gallery">แกลลอรี่</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('accessories')); ?>#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('gallery.index')); ?>#gallery">แกลลอรี่</a></li>
         </ul>
       </li>
 
@@ -186,7 +186,7 @@
         </a>
         <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileContact">
             <li><a class="dropdown-item" href="<?php echo e(route('contact.full')); ?>">ติดต่อบริษัท</a></li>
-            <li><a class="dropdown-item" href="<?php echo e(route('contact.full')); ?>#contact-form">แบบฟอร์มย่อ</a></li>
+            <li><a class="dropdown-item" href="<?php echo e(route('payment')); ?>">แจ้งชำระเงิน</a></li>
         </ul>
       </li>
 

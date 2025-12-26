@@ -24,7 +24,7 @@
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-subscribe">
-          <h5 class="fw-bold mb-3">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
+          <h5 class="fw-bold mb-3 "style="color: #ddd;">สมัครสมาชิกเพื่อรับข่าวสาร</h5>
           <p class="small mb-3">รับโปรโมชั่นลับพิเศษและข่าวสารใหม่ๆ จากเราได้ก่อนใคร</p>
           <form class="d-flex">
             <input type="email" class="form-control me-2" placeholder="ระบุอีเมลของคุณ" required>
@@ -33,11 +33,11 @@
         </div>
 
         <div class="col-md-4 text-center text-md-start footer-social">
-          <div class="social-icons">
+          <div class="social-icons-footer">
             <a href="#"><img src="<?php echo e(asset('images/fb.png')); ?>" class="social-img" alt="Facebook"></a>
             <a href="#"><img src="<?php echo e(asset('images/line.png')); ?>" class="social-img" alt="LINE"></a>
-            <a href="#"><img src="<?php echo e(asset('images/x.jpg')); ?>" class="social-img" alt="X"></a>
-            <a href="#"><img src="<?php echo e(asset('images/gmail.jpg')); ?>" class="social-img" alt="Gmail"></a>
+            <a href="#"><img src="<?php echo e(asset('images/x.png')); ?>" class="social-img" alt="X"></a>
+            <a href="#"><img src="<?php echo e(asset('images/gmail.png')); ?>" class="social-img" alt="Gmail"></a>
           </div>
           <p>Line : <span>hotstrapthai</span></p>
           <img src="<?php echo e(asset('images/line-qr.png')); ?>" alt="Line QR Code" class="qr-code">
@@ -50,19 +50,23 @@
       <div class="container text-center">
         <div class="footer-links d-flex flex-wrap justify-content-center align-items-center">
           
-          <a href="#">สินค้าทั้งหมด</a> <span class="divider">|</span>
-          <a href="#">วิธีการสั่งสินค้า</a> <span class="divider">|</span>
-          <a href="#">วิธีการชำระเงิน</a> <span class="divider">|</span>
-          <a href="#">วิธีการออกแบบ</a> <span class="divider">|</span>
-          <a href="#">วิธีการยกเลิกสินค้า</a> <span class="divider">|</span>
-          <a href="#">ระยะเวลาการจัดส่ง</a> <span class="divider">|</span>
-          <div class="w-100 d-none d-lg-block my-1"></div>
-          <a href="#">แจ้งชำระเงิน</a> <span class="divider">|</span>
-          <a href="#">อุปกรณ์เสริม</a> <span class="divider">|</span>
-          <a href="#">แคตตาล็อก</a> <span class="divider">|</span>
-          <a href="#">ติดต่อเรา</a> <span class="divider">|</span>
-          <a href="#">คำถามที่พบบ่อย</a> <span class="divider">|</span>
-          <a href="#">นโยบายคุกกี้</a>
+        <div class="footer-links">
+            <a href="<?php echo e(route('products.index')); ?>">สินค้าทั้งหมด</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('order-guide')); ?>">วิธีการสั่งสินค้า</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('payment-method')); ?>">วิธีการชำระเงิน</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('design-guide')); ?>">วิธีการออกแบบ</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('payment-method')); ?>#section4">วิธีการยกเลิกสินค้า</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('payment-method')); ?>#section4">ระยะเวลาการจัดส่ง</a> <span class="divider">|</span>
+            
+            <div class="w-100 d-none d-lg-block my-1"></div>
+            
+            <a href="<?php echo e(route('payment')); ?>">แจ้งชำระเงิน</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('accessories')); ?>">อุปกรณ์เสริม</a> <span class="divider">|</span>
+            <a href="#">แคตตาล็อก</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('contact')); ?>">ติดต่อเรา</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('faq')); ?>">คำถามที่พบบ่อย</a> <span class="divider">|</span>
+            <a href="<?php echo e(route('cookie-policy')); ?>">นโยบายคุกกี้</a>
+        </div>
 
         </div>
       </div>
