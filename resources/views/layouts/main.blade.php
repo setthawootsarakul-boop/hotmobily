@@ -18,29 +18,29 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <link href="{{ asset('css/accessories.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/variables.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/fonts.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/hero.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/why.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/order-guide.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/products.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/footer.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/faq.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cookie-policy.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/contact-step.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/contact-success.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/gallery.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/products-showcase.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/payment-method.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/payment-page.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/payment-status.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/design-guide.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/reviews.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/cart.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/quotation.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/quotation-show.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/accessories.css') }}?v={{ filemtime(public_path('css/accessories.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/variables.css') }}?v={{ filemtime(public_path('css/variables.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/fonts.css') }}?v={{ filemtime(public_path('css/fonts.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/navbar.css') }}?v={{ filemtime(public_path('css/navbar.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/hero.css') }}?v={{ filemtime(public_path('css/hero.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/why.css') }}?v={{ filemtime(public_path('css/why.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/order-guide.css') }}?v={{ filemtime(public_path('css/order-guide.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/products.css') }}?v={{ filemtime(public_path('css/products.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/footer.css') }}?v={{ filemtime(public_path('css/footer.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/faq.css') }}?v={{ filemtime(public_path('css/faq.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/cookie-policy.css') }}?v={{ filemtime(public_path('css/cookie-policy.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/contact-step.css') }}?v={{ filemtime(public_path('css/contact-step.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/contact-success.css') }}?v={{ filemtime(public_path('css/contact-success.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/gallery.css') }}?v={{ filemtime(public_path('css/gallery.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/products-showcase.css') }}?v={{ filemtime(public_path('css/products-showcase.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-method.css') }}?v={{ filemtime(public_path('css/payment-method.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-page.css') }}?v={{ filemtime(public_path('css/payment-page.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/payment-status.css') }}?v={{ filemtime(public_path('css/payment-status.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/design-guide.css') }}?v={{ filemtime(public_path('css/design-guide.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/reviews.css') }}?v={{ filemtime(public_path('css/reviews.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/cart.css') }}?v={{ filemtime(public_path('css/cart.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/quotation.css') }}?v={{ filemtime(public_path('css/quotation.css')) }}" rel="stylesheet">
+    <link href="{{ asset('css/quotation-show.css') }}?v={{ filemtime(public_path('css/quotation-show.css')) }}" rel="stylesheet">
 
 
     @stack('styles')
