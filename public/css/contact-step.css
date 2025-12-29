@@ -1,7 +1,23 @@
+/* ========================================= 
+   ✅ MODAL FIX (กันจอขยับ/สั่น เวลาเปิดปุ่มโทรหรือแอดไลน์)
+   ========================================= */
+body.modal-open {
+    padding-right: 0 !important;
+    overflow-y: scroll !important; /* บังคับให้มีแถบ scroll ค้างไว้ป้องกันจอเด้งซ้ายขวา */
+}
+
+.fixed-top, .sticky-top, header {
+    padding-right: 0 !important;
+}
+
+.modal {
+    padding-right: 0 !important;
+}
+
 /* ===============================
-   🔸 CTA SECTION (Contact & Steps)
-   Class: .cta-area
-   ================================= */
+    🔸 CTA SECTION (Contact & Steps)
+    Class: .cta-area
+    ================================= */
 
 /* --- 1. BASE STYLES (พื้นฐานใช้ทุกหน้าจอ) --- */
 .cta-area {
@@ -16,7 +32,7 @@
   padding: 4rem 0;
   position: relative;
   padding-top: 80px;
-  padding-bottom: 90px;  
+  padding-bottom: 90px;   
 }
 
 /* หัวข้อ */
@@ -35,7 +51,6 @@
   cursor: pointer;
   border-radius: 10px;
   text-decoration: none;
-  /* ย้าย transition ไปที่รูปภาพแทน เพื่อให้เงา Smooth */
 }
 
 /* ตัวรูปภาพปุ่ม */
@@ -46,21 +61,21 @@
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
   display: block;
   
-  /* ✅ เพิ่ม Transition ตรงนี้เพื่อให้เงาเด้งนุ่มๆ เหมือน Product Showcase */
+  /* ✅ Transition ตรงนี้เพื่อให้เงาเด้งนุ่มๆ เหมือน Product Showcase */
   transition: filter 0.3s ease, transform 0.3s ease; 
 }
 
 /* Effect Hover */
 .contact-btn-wrapper:hover .contact-btn-img {
   filter: drop-shadow(0 8px 2px rgba(0, 0, 0, 0.3));
-  transform: translateY(-3px); /* ขยับลอยขึ้นนิดนึงเพิ่มมิติ (ถ้าชอบ) */
+  transform: translateY(-3px); /* ขยับลอยขึ้นนิดนึงเพิ่มมิติ */
 } 
 
 
 /* =================================================================
-   💻 LAPTOP / MACBOOK (หน้าจอ 992px ถึง 1499px)
-   ✅ คงค่าเดิมที่แก้ให้ MacBook แล้ว (เรียง 3 ไม่ตก)
-   ================================================================= */
+    💻 LAPTOP / MACBOOK (หน้าจอ 992px ถึง 1499px)
+    ✅ คงค่าเดิมที่แก้ให้ MacBook แล้ว (เรียง 3 ไม่ตก)
+    ================================================================= */
 @media (min-width: 992px) and (max-width: 1499px) {
   
   .cta-area .container-fluid,
@@ -96,9 +111,9 @@
 
 
 /* =================================================================
-   🖥️ LARGE DESKTOP (หน้าจอ 1500px ขึ้นไป)
-   ✅ ใช้ Design เดิมของคุณ
-   ================================================================= */
+    🖥️ LARGE DESKTOP (หน้าจอ 1500px ขึ้นไป)
+    ✅ ใช้ Design เดิมของคุณ
+    ================================================================= */
 @media (min-width: 1500px) {
   
   .cta-area .container-fluid,
@@ -131,12 +146,11 @@
 
 
 /* =================================================================
-   📱 TABLET FIX (768px - 991px)
-   ✅ แก้ปัญหา Tablet: บังคับเรียง 3 ปุ่มแนวนอน (เหมือน MacBook)
-   ================================================================= */
+    📱 TABLET FIX (768px - 991px)
+    ✅ แก้ปัญหา Tablet: บังคับเรียง 3 ปุ่มแนวนอน (เหมือน MacBook)
+    ================================================================= */
 @media (min-width: 768px) and (max-width: 991.98px) {
   
-  /* ลดขอบข้างใน Tablet ให้มีที่เหลือเยอะๆ */
   .cta-area .container-fluid,
   .steps-area .container-fluid {
     padding-left: 15px !important;
@@ -147,15 +161,10 @@
   .steps-area .row {
     display: flex;
     justify-content: center;
-    
-    /* 🔥 บังคับห้ามตัดบรรทัด (เหมือน MacBook) 🔥 */
     flex-wrap: nowrap !important; 
-    
-    /* ลดช่องว่างให้เหลือน้อยที่สุด เพื่อให้ยัด 3 ปุ่มลงได้ */
     gap: 10px !important;  
   }
 
-  /* บังคับ Column ให้แบ่งเท่ากัน */
   .cta-area .col-lg-4,
   .steps-area .col-lg-4 {
     flex: 1 1 auto !important;
@@ -163,14 +172,12 @@
     padding: 0 !important;
   }
 
-  /* รูปภาพยืดหดตาม Column */
   .contact-btn-img {
     width: 100% !important;
     height: auto !important;
     max-width: 100% !important;
   }
   
-  /* ปรับหัวข้อ Tablet ไม่ให้ใหญ่เกิน */
   .cta-area h3 {
      font-size: 30px; 
      margin-bottom: 40px;
@@ -179,9 +186,9 @@
 
 
 /* =================================================================
-   📱 MOBILE ONLY (ต่ำกว่า 767px)
-   ✅ มือถือ: ยอมให้เรียงแนวตั้งได้ตามปกติ
-   ================================================================= */
+    📱 MOBILE ONLY (ต่ำกว่า 767px)
+    ✅ มือถือ: ยอมให้เรียงแนวตั้งได้ตามปกติ
+    ================================================================= */
 @media (max-width: 767.98px) {
   
   .cta-area .row,
