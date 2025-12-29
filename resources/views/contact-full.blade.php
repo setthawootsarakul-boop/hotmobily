@@ -43,16 +43,23 @@
                     </div>
 
                     <div class="qr-line-section">
-                        <img src="{{ asset('images/line-qr.png') }}" alt="Line QR" class="line-qr-img">
-                        <p class="line-id-text">Line : hotstrapthai</p>
+                        {{-- ครอบลิงก์ทั้งหมด และเพิ่มคลาส text-decoration-none --}}
+                        <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank" class="line-link-wrapper">
+                            <img src="{{ asset('images/line-qr.png') }}" alt="Line QR" class="line-qr-img">
+                            <p class="line-id-text">Line : hotstrapthai</p>
+                        </a>
                     </div>
                 </div>
 
                 <div class="social-icons">
-                    <a href="#"><img src="{{ asset('images/fb.png') }}" alt="Facebook"></a>
-                    <a href="#"><img src="{{ asset('images/line.png') }}" alt="Line"></a>
+                    <a href="https://www.facebook.com/hotmobilyTH" target="_blank">
+            <img src="{{ asset('images/fb.png') }}" class="social-img" alt="Facebook">
+        </a>
+                    <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank">
+            <img src="{{ asset('images/line.png') }}" class="social-img" alt="LINE">
+        </a>
                     <a href="#"><img src="{{ asset('images/x.png') }}" alt="X"></a>
-                    <a href="#"><img src="{{ asset('images/gmail.png') }}" alt="Email"></a>
+                    <a href="mailto:setthawootsarakul@gmail.com?subject=Inquiry&body="><img src="{{ asset('images/gmail.png') }}" alt="Email"></a>
                 </div>
             </div>
 

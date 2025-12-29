@@ -72,6 +72,14 @@
     flex-shrink: 0;
 }
 
+.line-link-wrapper {
+    text-decoration: none !important; /* กำจัดเส้นใต้เด็ดขาด */
+    color: inherit !important;       /* ใช้สีเดิมของข้อความ ไม่ใช้สีน้ำเงิน */
+    display: inline-block !important; /* ล็อกขนาดและตำแหน่งให้คงที่ */
+    border: none !important;          /* ป้องกันเส้นขอบรูปภาพ */
+    outline: none !important;
+}
+
 .line-qr-wrapper img {
     width: 157px;
     height: 157px;

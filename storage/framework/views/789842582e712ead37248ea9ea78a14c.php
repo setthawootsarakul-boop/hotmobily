@@ -40,8 +40,10 @@
                             </div>
 
                             <div class="line-qr-wrapper">
-                                <img src="<?php echo e(asset('images/line-qr.png')); ?>" alt="Line QR">
-                                <p class="line-id-text">Line : hotstrapthai</p>
+                                <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank" class="line-link-wrapper">
+                                    <img src="<?php echo e(asset('images/line-qr.png')); ?>" alt="Line QR" class="line-qr-img">
+                                    <p class="line-id-text">Line : hotstrapthai</p>
+                                </a>
                             </div>
                         </div>
 

@@ -48,13 +48,17 @@
 
         <div class="col-md-4 text-center text-md-start footer-social">
           <div class="social-icons-footer">
-            <a href="#"><img src="{{ asset('images/fb.png') }}" class="social-img" alt="Facebook"></a>
-            <a href="#"><img src="{{ asset('images/line.png') }}" class="social-img" alt="LINE"></a>
+            <a href="https://www.facebook.com/hotmobilyTH" target="_blank">
+              <img src="{{ asset('images/fb.png') }}" class="social-img" alt="Facebook">
+            </a>
+            <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank">
+            <img src="{{ asset('images/line.png') }}" class="social-img" alt="LINE">
+            </a>
             <a href="#"><img src="{{ asset('images/x.png') }}" class="social-img" alt="X"></a>
-            <a href="#"><img src="{{ asset('images/gmail.png') }}" class="social-img" alt="Gmail"></a>
+            <a href="mailto:setthawootsarakul@gmail.com?subject=Inquiry&body="><img src="{{ asset('images/gmail.png') }}" class="social-img" alt="Gmail"></a>
           </div>
           <p>Line : <span>hotstrapthai</span></p>
-          <img src="{{ asset('images/line-qr.png') }}" alt="Line QR Code" class="qr-code">
+          <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank"><img src="{{ asset('images/line-qr.png') }}" alt="Line QR Code" class="qr-code">
         </div>
 
       </div>

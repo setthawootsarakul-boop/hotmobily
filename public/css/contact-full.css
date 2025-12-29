@@ -117,7 +117,30 @@
     box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.2);
     display: block;
 }
+.line-link-wrapper {
+    text-decoration: none !important; /* เอาเส้นใต้ออกเด็ดขาด */
+    display: inline-block;           /* ป้องกันรูปขยับและคุมพื้นที่ให้พอดี */
+    color: inherit;                  /* ให้ใช้สีตัวอักษรเดิมที่มีอยู่ ไม่ใช้สีน้ำเงิน */
+}
 
+.line-link-wrapper:hover {
+    text-decoration: none !important; /* ตอนเอาเมาส์ชี้ก็ต้องไม่มีเส้นใต้ */
+    color: inherit;
+}
+
+.line-id-text {
+    margin-top: 8px;
+    margin-bottom: 0;
+    text-decoration: none !important; /* ประกันความชัวร์ที่ตัวอักษรอีกชั้น */
+    color: #333;                      /* กำหนดสีที่ต้องการ (เช่น สีดำหรือเทาเข้ม) */
+}
+
+/* ป้องกันรูปภาพขยับจากการโดนบีบด้วย Line-height ของ Link */
+.line-qr-img {
+    display: block;
+    margin: 0 auto;
+    border: none;
+}
 .line-id-text {
     text-align: center;
     font-size: 14px;
