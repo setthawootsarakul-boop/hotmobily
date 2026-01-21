@@ -1,0 +1,117 @@
+/* public/css/contact-success.css */
+
+.success-section { 
+    min-height: calc(100vh - 250px); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background-color: #f7f3e9;
+    width: 100%;
+    margin: 0;
+    padding: 60px 20px; /* เพิ่ม padding ด้านข้างสำหรับจอเล็ก */
+}
+
+.success-card { 
+    text-align: center; 
+    max-width: 500px; 
+    width: 100%;
+    margin: 0 auto; 
+    padding: 20px;
+}
+
+.success-icon-img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.success-card h1 { 
+    font-weight: bold; 
+    color: #000; 
+    margin-bottom: 15px; 
+    font-size: 2.5rem; /* Desktop size */
+    line-height: 1.2;
+}
+
+.success-card p { 
+    color: #666; 
+    font-size: 1.1rem; 
+    line-height: 1.6; 
+    padding-top: 10px; 
+}
+
+.btn-home { 
+    background-color: #ffab2d; 
+    color: #000; 
+    border: none; 
+    padding: 12px 40px; 
+    border-radius: 5px; 
+    font-weight: bold; 
+    margin-top: 30px; 
+    text-decoration: none; 
+    display: inline-block;
+    transition: transform 0.2s, background-color 0.2s;
+    width: auto; /* ให้กว้างตามเนื้อหา */
+}
+
+.btn-home:hover {
+    background-color: #e69a28;
+    color: #000;
+}
+
+.btn-products { 
+    display: block; 
+    margin-top: 20px; 
+    color: #ffab2d; 
+    text-decoration: none; 
+    font-weight: 500; 
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN (Media Queries)
+   ============================================================ */
+
+/* สำหรับ Tablet (หน้าจอน้อยกว่า 768px) */
+@media (max-width: 768px) {
+    .success-section {
+        min-height: calc(100vh - 350px); /* ปรับตามความสูง Navbar/Footer มือถือ */
+        padding: 40px 15px;
+    }
+    
+    .success-card h1 {
+        font-size: 24px; /* ย่อขนาดหัวข้อลงเล็กน้อย */
+    }
+    
+    .success-icon-img {
+        width: 130px; /* ย่อรูปไอคอน */
+    }
+}
+
+/* สำหรับมือถือ (หน้าจอน้อยกว่า 576px) */
+@media (max-width: 576px) {
+    .success-card h1 {
+        font-size: 1.75rem; /* ขนาดพอดีกับมือถือ ไม่ล้นขอบ */
+    }
+
+    .success-card p {
+        font-size: 1rem;
+    }
+
+    .btn-home {
+        width: 100%; /* ปรับปุ่มให้เต็มหน้าจอมือถือเพื่อให้กดง่ายขึ้น */
+        padding: 14px 20px;
+        margin-top: 20px;
+    }
+
+    .success-icon-img {
+        width: 110px;
+        margin-bottom: 30px;
+    }
+    
+    .success-section {
+        padding: 30px 10px;
+    }
+}

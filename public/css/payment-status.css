@@ -1,0 +1,99 @@
+/* คอนเทนเนอร์หลักจัดกึ่งกลางหน้าจอ */
+.payment-success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 20px;
+}
+
+.success-card {
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.success-img {
+    width: 150px;
+    margin-bottom: 30px;
+}
+
+/* หัวข้อแจ้งชำระเงินสำเร็จ */
+.success-title {
+    font-weight: bold;
+    font-size: 40px;
+    color: #000;
+    margin-bottom: 15px;
+}
+
+/* รายละเอียดข้อความ */
+.success-description {
+    color: #6c757d;
+    font-size: 18px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+}
+
+/* กลุ่มปุ่ม Action */
+.success-action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+.btn-primary-action {
+    background-color: #FFA726; /* สีส้มตามรูป */
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px;
+    width: 80%;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.btn-primary-action:hover {
+    background-color: #e69520;
+}
+
+.btn-secondary-action {
+    color: #FFA726 !important;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 20px;
+    transition: opacity 0.3s;
+}
+
+.btn-secondary-action:hover {
+    opacity: 0.8;
+}
+
+/* =========================================
+   📱 RESPONSIVE (ปรับขนาดสำหรับมือถือ)
+   ========================================= */
+@media (max-width: 768px) {
+    .success-title {
+        font-size: 30px; /* ลดขนาดหัวข้อ */
+    }
+    
+    .success-description {
+        font-size: 16px; /* ลดขนาดคำบรรยาย */
+        padding: 0 10px;
+    }
+
+    .success-img {
+        width: 120px; /* ลดขนาดรูปลงเล็กน้อย */
+    }
+
+    .btn-primary-action {
+        width: 170px;
+        height: 50px;
+        font-size: 14px;
+    }
+
+    .btn-secondary-action {
+        font-size: 14px;
+    }
+}

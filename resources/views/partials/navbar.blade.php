@@ -1,18 +1,194 @@
-<nav class="navbar navbar-expand-lg sticky-top py-2 shadow-sm bg-warning">
-  <div class="container">
-    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
-      <img src="{{ asset('img/logo.png') }}" alt="Logo" width="40" height="40" class="rounded-circle shadow-sm">
-      <span class="fw-bold">HotMobily</span>
+<nav class="navbar navbar-expand-lg sticky-top bg-orange shadow-sm">
+  <div class="container d-flex align-items-center justify-content-between px-lg-3 px-2">
+
+    {{-- Logo --}}
+    <a class="navbar-brand d-flex align-items-center me-lg-2" href="/">
+      <img src="{{ asset('images/logo.png') }}" alt="Hotmobily Logo" height="40">
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div id="nav" class="collapse navbar-collapse">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="#why">ทำไมต้องเรา</a></li>
-        <li class="nav-item"><a class="nav-link" href="#steps">ขั้นตอน</a></li>
-        <li class="nav-item"><a class="nav-link" href="#contact">ติดต่อเรา</a></li>
+
+    {{-- Desktop Menu --}}
+    <div id="navbarNav" class="collapse navbar-collapse justify-content-center order-2 order-lg-1 d-none d-lg-flex">
+      <ul class="navbar-nav align-items-center gap-4">
+
+        {{-- 1. สินค้าทั้งหมด --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            สินค้าทั้งหมด
+            <i class="bi bi-chevron-down caret-icon ms-1"></i>
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarProducts">
+            <li><a class="dropdown-item" href="{{ route('products.index') }}">สินค้าทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-keychain') }}">พวงกุญแจอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'rubber-keychain') }}">พวงกุญแจยาง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'reflective-keychain') }}">พวงกุญแจสะท้อนแสง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'screen-reflective-keychain') }}">พวงกุญแจสกรีนลายสะท้อนแสง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-coaster') }}">ที่รองแก้วอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'rubber-coaster') }}">ที่รองแก้วยาง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-standee') }}">สแตนดี้อะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-phone-stand') }}">แท่นวางโทรศัพท์มือถืออะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-pin') }}">เข็มกลัดอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-hair-tie') }}">ยางรัดผมอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'griptok') }}">กริ๊บต๊อก</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'key-cover') }}">ยางหุ้มกุญแจ</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'reflective-sticker') }}">สติ๊กเกอร์สะท้อนแสง</a></li>
+          </ul>
+        </li>
+
+        {{-- 2. คำถามที่พบบ่อย --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            คำถามที่พบบ่อย
+            <i class="bi bi-chevron-down caret-icon ms-1"></i>
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarFAQ">
+            <li><a class="dropdown-item" href="{{ route('faq') }}">คำถามที่พบบ่อย</a></li>
+            <li><a class="dropdown-item" href="{{ route('order-guide') }}#how-to-order">วิธีการสั่งสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment-method') }}#payment">วิธีการชำระเงิน</a></li>
+            <li><a class="dropdown-item" href="{{ route('design-guide') }}#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment-method') }}#section4">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('cookie-policy') }}#cookie-policy">นโยบายคุกกี้</a></li>
+          </ul>
+        </li>
+
+        {{-- 3. รายละเอียดเพิ่มเติม --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            รายละเอียดเพิ่มเติม
+            <i class="bi bi-chevron-down caret-icon ms-1"></i>
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarDetails">
+            <li><a class="dropdown-item" href="{{ route('accessories') }}#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="{{ route('gallery.index') }}#gallery">แกลลอรี่</a></li>
+          </ul>
+        </li>
+
+        {{-- 4. ติดต่อเรา --}}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle fw-normal" href="#" id="navbarContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            ติดต่อเรา
+            <i class="bi bi-chevron-down caret-icon ms-1"></i>
+          </a>
+          <ul class="dropdown-menu border-0 shadow-sm" aria-labelledby="navbarContact">
+            <li><a class="dropdown-item" href="{{ route('contact.full') }}">ติดต่อบริษัท</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment') }}">แจ้งชำระเงิน</a></li>
+          </ul>
+        </li>
       </ul>
+    </div>
+
+    {{-- โซนขวา (ตะกร้า + ปุ่มเมนูมือถือ) --}}
+    <div class="d-flex align-items-center order-1 order-lg-2">
+      
+    <a href="{{ route('cart.index') }}" class="nav-link cart-link position-relative"> 
+          
+          <img src="{{ asset('images/vector.png') }}" alt="Cart" class="cart-icon-img">
+          
+          @php
+              $cartCount = 0;
+              // ใช้วิธีดึงจาก DB แทน Cookie
+              try {
+                  $sessionId = session()->getId();
+                  // ถ้ามี Model CartItem ให้เรียกใช้ (ใส่ namespace เต็ม หรือ use ข้างบน)
+                  $cartCount = \App\Models\CartItem::where('session_id', $sessionId)->count();
+              } catch (\Exception $e) {
+                  $cartCount = 0;
+              }
+          @endphp
+
+
+          {{-- แสดง Badge เฉพาะเมื่อมีสินค้า --}}
+          @if($cartCount > 0)
+            <span class="badge rounded-pill bg-danger position-absolute custom-badge-pos">
+                {{ $cartCount }}
+                <span class="visually-hidden">items in cart</span>
+            </span>
+          @endif
+      </a>
+
+      <button class="navbar-toggler border-0 d-lg-none ms-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
     </div>
   </div>
 </nav>
+
+{{-- Mobile Menu (Offcanvas) --}}
+<div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+  <div class="offcanvas-header align-items-center">
+    <div class="d-flex align-items-center">
+      <img src="{{ asset('images/logo.png') }}" alt="Hotmobily Logo" height="40" class="me-2">
+      <h5 class="fw-bold">Hotmobily Thai</h5>
+    </div>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+
+  <div class="offcanvas-body">
+    <ul class="navbar-nav flex-column gap-2">
+      
+      {{-- Mobile: สินค้าทั้งหมด --}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold" href="#" id="mobileProducts" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          สินค้าทั้งหมด
+          <i class="bi bi-chevron-down caret-icon ms-auto"></i>
+        </a>
+        <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileProducts">
+            <li><a class="dropdown-item" href="{{ route('products.index') }}">สินค้าทั้งหมด</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-keychain') }}">พวงกุญแจอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'rubber-keychain') }}">พวงกุญแจยาง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'reflective-keychain') }}">พวงกุญแจสะท้อนแสง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'screen-reflective-keychain') }}">พวงกุญแจสกรีนลายสะท้อนแสง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-coaster') }}">ที่รองแก้วอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'rubber-coaster') }}">ที่รองแก้วยาง</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-standee') }}">สแตนดี้อะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-phone-stand') }}">แท่นวางโทรศัพท์มือถืออะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-pin') }}">เข็มกลัดอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'acrylic-hair-tie') }}">ยางรัดผมอะคริลิค</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'griptok') }}">กริ๊บต๊อก</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'key-cover') }}">ยางหุ้มกุญแจ</a></li>
+            <li><a class="dropdown-item" href="{{ route('products.show', 'reflective-sticker') }}">สติ๊กเกอร์สะท้อนแสง</a></li>
+        </ul>
+      </li>
+
+      {{-- Mobile: คำถามที่พบบ่อย --}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold" href="#" id="mobileFAQ" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          คำถามที่พบบ่อย
+          <i class="bi bi-chevron-down caret-icon ms-auto"></i>
+        </a>
+        <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileFAQ">
+            <li><a class="dropdown-item" href="{{ route('faq') }}">คำถามที่พบบ่อย</a></li>
+            <li><a class="dropdown-item" href="{{ route('order-guide') }}#how-to-order">วิธีการสั่งสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment-method') }}#payment">วิธีการชำระเงิน</a></li>
+            <li><a class="dropdown-item" href="{{ route('design-guide') }}#design">วิธีการออกแบบ</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment-method') }}#section4">วิธีการยกเลิกสินค้า</a></li>
+            <li><a class="dropdown-item" href="{{ route('faq') }}#cookie-policy">นโยบายคุกกี้</a></li>
+        </ul>
+      </li>
+
+      {{-- Mobile: รายละเอียดเพิ่มเติม --}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold" href="#" id="mobileDetails" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          รายละเอียดเพิ่มเติม
+          <i class="bi bi-chevron-down caret-icon ms-auto"></i>
+        </a>
+        <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileDetails">
+            <li><a class="dropdown-item" href="{{ route('accessories') }}#accessory">อุปกรณ์เสริม</a></li>
+            <li><a class="dropdown-item" href="{{ route('gallery.index') }}#gallery">แกลลอรี่</a></li>
+        </ul>
+      </li>
+
+      {{-- Mobile: ติดต่อเรา --}}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle fw-bold" href="#" id="mobileContact" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          ติดต่อเรา
+          <i class="bi bi-chevron-down caret-icon ms-auto"></i>
+        </a>
+        <ul class="dropdown-menu border-0 shadow-sm ps-3" aria-labelledby="mobileContact">
+            <li><a class="dropdown-item" href="{{ route('contact.full') }}">ติดต่อบริษัท</a></li>
+            <li><a class="dropdown-item" href="{{ route('payment') }}">แจ้งชำระเงิน</a></li>
+        </ul>
+      </li>
+
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,432 @@
+/* =========================================
+   1. โครงสร้างหลัก (Main Layout)
+   ========================================= */
+.contact-full-page {
+    background-color: #fff;
+}
+
+.contact-main-title {
+    text-align: center;
+    color: #ffb400; /* สีส้มตาม UI */
+    font-weight: 900;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    padding-top: 50px;
+}
+
+.contact-flex-wrapper {
+    display: flex;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =========================================
+   2. ฝั่งซ้าย: ข้อมูลติดต่อ (Contact Info)
+   ========================================= */
+.contact-info-side { 
+    flex: 1; 
+}
+
+.company-brand-header { 
+    display: flex; 
+    align-items: center; /* จัดให้ Logo และชื่อบริษัทอยู่กึ่งกลางในแนวตั้งร่วมกัน */
+    gap: 20px;           /* ระยะห่างระหว่าง Logo กับชื่อบริษัท */
+    margin-bottom: 25px;
+    width: 100%;
+}
+
+.brand-logo-img { 
+    width: 80px;         /* ปรับขนาด Logo ตามความเหมาะสม */
+    height: auto; 
+    flex-shrink: 0;      /* ป้องกันไม่ให้รูปถูกบีบ */
+}
+
+.brand-text { 
+    font-size: 1.2rem;   /* ขนาดชื่อบริษัท */
+    line-height: 1.4;
+    text-align: left;    /* บังคับให้ข้อความชิดซ้ายเสมอ */
+}
+
+.address-detail, .work-time { 
+    color: #666; 
+    font-size: 0.95rem; 
+    margin-bottom: 15px; 
+}
+
+.contact-and-qr-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px; 
+    margin-top: 60px;
+}
+.contact-channels {
+    padding-top: 10px;
+}
+
+.channel-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid #f2e8d5;
+    background: #f8f0e5;
+    padding: 5px 35px;
+    border-radius: 55px;
+    margin-bottom: 17px;
+}
+
+.icon-bg-green {
+    background-color: #28a745;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.qr-line-section { 
+    text-align: center; 
+    width: fit-content; 
+    margin-bottom: 30px; 
+}
+
+.qr-frame {
+    width: 137px;
+    height: 137px;
+    border: 1px solid #e0e0e0;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.line-qr-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 5px 3px rgba(0, 0, 0, 0.2);
+    display: block;
+}
+.line-link-wrapper {
+    text-decoration: none !important; /* เอาเส้นใต้ออกเด็ดขาด */
+    display: inline-block;           /* ป้องกันรูปขยับและคุมพื้นที่ให้พอดี */
+    color: inherit;                  /* ให้ใช้สีตัวอักษรเดิมที่มีอยู่ ไม่ใช้สีน้ำเงิน */
+}
+
+.line-link-wrapper:hover {
+    text-decoration: none !important; /* ตอนเอาเมาส์ชี้ก็ต้องไม่มีเส้นใต้ */
+    color: inherit;
+}
+
+.line-id-text {
+    margin-top: 8px;
+    margin-bottom: 0;
+    text-decoration: none !important; /* ประกันความชัวร์ที่ตัวอักษรอีกชั้น */
+    color: #333;                      /* กำหนดสีที่ต้องการ (เช่น สีดำหรือเทาเข้ม) */
+}
+
+/* ป้องกันรูปภาพขยับจากการโดนบีบด้วย Line-height ของ Link */
+.line-qr-img {
+    display: block;
+    margin: 0 auto;
+    border: none;
+}
+.line-id-text {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 8px;
+    font-weight: 500;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-left: 70px;
+}
+
+.social-icons img { 
+    width: 50px; 
+    transition: 0.3s; 
+}
+
+/* =========================================
+   3. ฝั่งขวา: แบบฟอร์ม (Contact Form)
+   ========================================= */
+.contact-form-side { 
+    flex: 1.5; 
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.form-group-floating {
+    position: relative;
+    width: 100%;
+}
+
+.form-control { 
+    border: 1px solid #ddd; 
+    border-radius: 4px; 
+    padding: 10px; 
+}
+
+.form-group-floating .form-control {
+    padding: 12px 15px;
+    height: 50px;
+}
+
+.form-group-floating label {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #656565;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.form-group-floating .form-control:focus + label,
+.form-group-floating .form-control:not(:placeholder-shown) + label {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.form-control::placeholder {
+    color: transparent;
+}
+
+.text-danger {
+    color: #ff0000 !important;
+}
+
+.checkbox-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.checkbox-grid label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.file-upload-box {
+    border: 1px solid #ddd; /* เส้นทึบปกติ */
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    color: #999;
+    cursor: pointer;
+    background-color: #ffffff;
+    transition: border-color 0.2s;
+}
+
+.file-note {
+    font-size: 0.75rem; 
+    color: #ff0000;
+    font-weight: normal;
+    display: inline;
+    margin-left: 5px;
+}
+
+.btn-send-message {
+    background: #ffb400;
+    color: #fff;
+    border: none;
+    padding: 10px 40px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* =========================================
+   4. เว็บไซต์ในเครือ (Network Section)
+   ========================================= */
+.network-section {
+    background-color: #f8f0e5;
+    padding: 80px 0;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.network-title { 
+    font-weight: 800; 
+    margin-bottom: 40px; 
+}
+
+.network-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 304px);
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.network-item img {
+    width: 304px;
+    height: 190px;
+    background: transparent !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+/* ปรับตำแหน่ง Label "ข้อความ" ให้สมดุลกับช่องขนาดปกติ (rows="4") */
+.form-group-floating textarea + label {
+    top: 12px;      /* 🚩 ปรับตำแหน่งให้อยู่ด้านบนของช่องพิมพ์ในระยะที่พอดี */
+    left: 15px;
+    transform: none; 
+    color: #656565; 
+    font-weight: normal;
+}
+
+/* คงค่าความสูงเดิมของ textarea */
+.contact-form-side textarea.form-control {
+    height: auto;    /* 🚩 ปล่อยให้ความสูงเป็นไปตาม Attribute rows="4" ใน HTML */
+    min-height: 100px; /* หรือกำหนดความหนาที่ใกล้เคียงกับ 4 บรรทัด */
+    padding-top: 12px;
+}
+
+/* ส่วนการซ่อน Label เมื่อพิมพ์ยังคงเดิม */
+.form-group-floating textarea:focus + label,
+.form-group-floating textarea:not(:placeholder-shown) + label {
+    opacity: 0;
+    visibility: hidden;
+}
+/* =========================================
+   5. การรองรับหน้าจอ (Responsive)
+   ========================================= */
+
+/* สำหรับ Tablet และหน้าจอขนาดกลาง */
+@media (max-width: 992px) {
+    .contact-flex-wrapper { 
+        flex-direction: column; 
+        gap: 50px; 
+    }
+    
+    .contact-info-side, .contact-form-side {
+        width: 100%;
+    }
+}
+
+/* สำหรับมือถือ (ปรับแต่งตามรูป image_3812e2.png) */
+@media (max-width: 768px) {
+    /* 🚩 สลับลำดับ: ให้ฝั่งขวา (Form) ขึ้นก่อนฝั่งซ้าย (Info) */
+    .contact-flex-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+    }
+
+    .contact-main-title {
+        font-size: 1.8rem;
+        padding-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    /* จัดข้อมูลฝั่ง Info ให้อยู่กึ่งกลางทั้งหมดตามรูป */
+    .contact-info-side {
+        display: contents; 
+    }
+
+    .contact-form-side {
+        order: 2;
+        width: 100%;
+    }
+
+
+    .address-detail, 
+    .work-time,
+    .contact-and-qr-wrapper,
+    .social-icons {
+        order: 3;
+        text-align: center; /* จัดกึ่งกลางตามรูป */
+        width: 100%;
+    }
+
+    .contact-and-qr-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .company-brand-header {
+        order: 1;
+        display: flex;
+        flex-direction: row; /* เรียงซ้าย-ขวาตามรูป */
+        align-items: center;
+        justify-content: flex-start;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .brand-logo-img {
+        width: 65px;      /* ลดขนาดลงเล็กน้อยเพื่อให้พอดีกับจอมือถือ */
+    }
+
+    .brand-text {
+        font-size: 1.1rem;
+    }
+
+    .address-detail, .work-time {
+        font-size: 0.85rem;
+        margin-bottom: 20px;
+    }
+
+    /* จัดกลุ่มเบอร์โทรและ QR ให้เรียงเป็นแนวตั้งตัวเดียว */
+    .contact-and-qr-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    .channel-item {
+        width: 100%; /* ให้แถบเบอร์โทรยาวกว้างขึ้นในมือถือ */
+        max-width: 280px;
+        justify-content: flex-start;
+    }
+
+    /* ปรับปุ่มส่งข้อความให้เต็มกว้าง */
+    .btn-send-message {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* Social Icons จัดกึ่งกลาง */
+    .social-icons {
+        margin-left: 0;
+        justify-content: center;
+        margin-top: -35px;
+        margin-bottom: -35px;
+        gap: 20px;
+    }
+    .social-icons img {
+        width: 50px; /* ย่อขนาดลงเล็กน้อยให้พอดีจอ */
+    }
+
+    /* ปรับ Network Grid ให้เรียงเดี่ยว */
+    .network-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+}

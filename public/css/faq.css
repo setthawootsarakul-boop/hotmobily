@@ -1,0 +1,235 @@
+/* 🎨 THEME สำหรับหน้า FAQ */
+body {
+  background-color: #fff8ec;  
+}
+
+/* 🔹 ส่วนหัว */
+.faq-header {
+  background-color: #fff8ec;
+  text-align: center;
+  padding: 60px 20px 30px;
+}
+
+.faq-header h1 {
+  font-weight: normal;
+  font-size: 48px;
+  color: #000;
+  margin-top: 25px;
+}
+
+/* 🔹 ปุ่มติดต่อเรา */
+.faq-contact-btn {
+  display: inline-block;
+  background-color: #fbab00;
+  max-width: 700px;
+  border-radius: 0px !important;
+  color: #fff;
+  font-weight: 650;
+  font-size: 1.5rem;
+
+  padding: 14px 40px;
+  border-radius: 6px;
+  margin-bottom: 45px;
+  transition: all 0.25s ease-in-out;
+  text-decoration: none;
+}
+
+.faq-contact-btn:hover {
+  background-color: #e89a00;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* =============================
+   🔸 SECTION 1: Q&A (จากฐานข้อมูล)
+============================= */
+.faq-list {
+  background-color: #fff;
+  margin: 40px auto;
+  width: 100%;
+  max-width: 1300px;
+  border-radius: 0px !important;
+  padding: 40px 50px;
+  border: 1px solid #e0e0e0;       /* ✅ เพิ่มขอบเทาอ่อนรอบกรอบ */
+}
+
+/* 🔹 กล่องแต่ละคำถาม */
+.faq-box {
+  border-bottom: unset !important;
+  padding: 22px 0;
+}
+
+.faq-question {
+  font-weight: 800;
+  color: #000;
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-question:hover {
+  color: #fbab00;
+}
+
+.faq-answer {
+  display: none;
+  font-size: 1.1rem;
+  color: #333;
+  margin-top: 10px;
+  line-height: 1.6;
+  padding-left: 10px;
+}
+
+.faq-box.active .faq-answer {
+  display: block;
+}
+
+.faq-box.active .faq-question {
+  color: #11100e;
+}
+
+/* 🔸 ปุ่ม pagination */
+.pagination .page-link {
+    border: none !important;
+    background: transparent !important;
+    color: #333 !important;
+    font-size: 18px !important;
+    width: 40px !important;
+    height: 40px !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important; /* บังคับเป็นวงกลมเป๊ะๆ */
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+}
+
+/* สถานะ Active (หน้าที่เลือกอยู่) */
+.pagination .page-item.active .page-link {
+    background-color: #f0f0f0 !important; /* พื้นหลังเทาอ่อนตาม Gallery */
+    color: #000 !important;
+    font-weight: bold !important;
+    z-index: 1 !important;
+}
+
+/* สถานะ Hover */
+.pagination .page-link:hover {
+    background-color: #eeeeee !important;
+    color: #000 !important;
+}
+
+/* สถานะ Disabled (ปุ่มลูกศรที่กดไม่ได้) */
+.pagination .page-item.disabled .page-link {
+    color: #ccc !important;
+    pointer-events: none;
+}
+
+/* แก้ไขระยะขอบที่ติดมากับ Bootstrap */
+.page-item:not(:first-child) .page-link {
+    margin-left: 0 !important;
+}
+
+/* 🔹 ปุ่มอยู่นอกกรอบ */
+.faq-contact-area {
+  text-align: center;
+  margin-top: 50px;
+}
+
+
+/* =============================
+   🔸 SECTION 2: บทความที่คุณอาจสนใจ
+============================= */
+.faq-section {
+  background-color: #fff8ec;
+  padding: 40px 16%;
+}
+
+.faq-item {
+  border-bottom: 1px solid #aaa;
+  padding: 25px 0;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: 800;
+  font-size: 25px;
+  color: #000;
+  text-align: left;
+}
+
+.faq-item:hover {
+  color: #fbab00;
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid #aaa;
+}
+
+.faq-subtitle {
+  font-weight: 800;
+  font-size: 1.4rem;
+  margin: 40px 0 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #fbab00;
+  color: #000;
+}
+.active>.page-link, .page-link.active {
+    z-index: 3;
+    color: var(--bs-pagination-active-color);
+    background-color: #0e0d0d !important;
+    border-color: #070707 !important;
+}
+
+/* 🔹 Responsive */
+@media (max-width: 768px) {
+  .faq-header {
+    background-color: #fff8ec;
+    text-align: center;
+    padding: 40px 34px 29px;
+  }
+
+  .faq-section {
+    padding: 20px;
+  }
+
+  .faq-header h1 {
+    font-weight: normal;
+    font-size: 28px;
+    margin-top: -5px;
+  }
+
+  .faq-item {
+    font-size: 1.1rem;
+  }
+
+  .faq-contact-btn {
+    font-size: 1.3rem;
+    max-width: 300px;
+    border-radius: 0px;
+    padding: 10px 25px;
+  }
+
+  .faq-list {
+    border-radius: 1.2px;
+    margin: -1px auto;
+    width: 100%;
+    padding: 25px;
+    margin-top: 20px;
+  }
+
+  .faq-question {
+    font-size: 1.15rem;
+  }
+
+  .faq-answer {
+    font-size: 1rem;
+  }
+  
+  .pagination .page-link {
+        width: 35px !important;
+        height: 35px !important;
+        font-size: 16px !important;
+  }
+}

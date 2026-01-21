@@ -1,0 +1,152 @@
+/* ========================
+   🔸 WHY CHOOSE US SECTION
+======================== */
+.why-section {
+    background-color: #fff;
+    position: relative;
+    min-height: 452px;
+}
+
+.why-section h2.section-title {
+    color: #656565;
+    font-size: 36px;
+    margin-bottom: 57px;
+    padding-top: 46px;
+    text-align: center; /* แนะนำใส่เพื่อให้มั่นใจว่าอยู่กลาง */
+}
+
+/* --- Container ควบคุมระยะห่าง --- */
+.why-gap-control {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* ยอมให้ตกบรรทัดได้ถ้าจำเป็นจริงๆ */
+    gap: 30px; /* ค่า Default (Mobile) */
+}
+
+/* --- Wrapper ของแต่ละก้อน --- */
+.why-item-wrapper {
+    width: 220px; 
+    display: flex;
+    flex-direction: column; /* จัด Icon กับ Text เป็นแนวตั้ง */
+    align-items: center;
+}
+
+/* --- วงกลมไอคอน --- */
+.why-icon {
+    background-color: #f6a800;
+    width: 171px; 
+    height: 171px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-shadow: none; 
+}
+
+/* รูปภาพในวงกลม */
+.why-icon img {
+    width: auto;       
+    height: auto;      
+    max-width: 80%;    
+    max-height: 80%;   
+    object-fit: contain; 
+    filter: brightness(0) invert(1); /* สีขาว */
+}
+
+/* ข้อความ */
+.why-text {
+    color: #000;
+    font-weight: normal;
+    font-size: 17px; 
+    line-height: 1.5;
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+
+/* =================================================================
+   🖥️ DESKTOP (992px ขึ้นไป)
+   ✅ ใช้ Design เดิม (ห่างกัน 120px)
+   ================================================================= */
+@media (min-width: 992px) {
+    .why-gap-control {
+        gap: 120px !important; /* ระยะห่างกว้างๆ สำหรับจอใหญ่ */
+    }
+}
+
+
+/* =================================================================
+   📱 TABLET FIX (iPad 768px - 991px)
+   ✅ แก้ปัญหา: ของเดิมดูกลวง เพราะใช้ Spec มือถือ
+   ✅ วิธีแก้: บังคับเรียง 4 อันแถวเดียว + ขยาย icon + ลด gap
+   ================================================================= */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    
+    /* 1. จัดเรียงแนวนอน 4 อัน (ไม่แตกแถว) */
+    .why-gap-control {
+        gap: 20px !important; /* ลดระยะห่างให้ยัดลงในแถวเดียวได้ */
+        flex-wrap: nowrap !important; /* 🔥 บังคับห้ามตัดบรรทัด */
+    }
+
+    /* 2. ปรับ Wrapper ให้ยืดหยุ่น */
+    .why-item-wrapper {
+        width: auto !important;
+        flex: 1; /* แบ่งพื้นที่เท่าๆ กัน */
+        max-width: 200px;
+    }
+
+    /* 3. ขยายวงกลมให้เต็มตากว่ามือถือ (แต่เล็กกว่า Desktop นิดนึง) */
+    .why-icon {
+        width: 145px !important;
+        height: 145px !important;
+    }
+
+    .why-text {
+        font-size: 16px;
+        margin-top: 1rem;
+    }
+    
+    /* ปรับหัวข้อ Tablet */
+    .why-section h2.section-title {
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+}
+
+
+/* =================================================================
+   📱 MOBILE ONLY (ต่ำกว่า 767px)
+   ✅ ใช้ Design เดิม (เรียง 2x2)
+   ================================================================= */
+@media (max-width: 767.98px) {
+    
+    .why-gap-control {
+        gap: 30px 15px; /* บนล่าง 30, ซ้ายขวา 15 */
+    }
+
+    /* ลดขนาด Icon ในมือถือ */
+    .why-icon {
+        width: 136.61px;
+        height: 136.61px;
+    }
+
+    .why-icon img {
+        max-width: 70%;  
+        max-height: 70%;
+    }
+
+    .why-text {
+        font-size: 16px;
+    }
+    
+    /* ให้มือถือแสดงทีละ 2 อัน (2 col) */
+    .why-item-wrapper {
+        width: 45% !important; 
+    }
+
+    .why-section h2.section-title {
+        font-size: 22px;
+        margin-bottom: 40px;
+    }
+}

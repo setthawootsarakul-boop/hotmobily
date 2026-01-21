@@ -1,0 +1,336 @@
+/* =================================================================
+   🔸 FOOTER SECTION: FIXED TABLET & MACBOOK
+   ================================================================= */
+
+/* --- 1. BASE STYLES (พื้นฐาน) --- */
+.footer-section { background-color: #333333; width: 100%; padding-top: 4rem; }
+.footer-section .container { padding: 0 1rem; }
+.footer-section .row { display: flex; align-items: flex-start; justify-content: space-between; gap: 2rem; }
+
+/* Company */
+.footer-company { text-align: left; flex: 1; }
+.footer-company .footer-logo { width: 90px; display: block; margin: 0 auto 1rem auto; }
+.footer-company p { margin-bottom: 0.4rem; line-height: 1.6; font-size: 0.95rem; color: #ddd; }
+.footer-company a { color: #fff; text-decoration: underline; }
+
+/* Subscribe */
+.footer-subscribe { flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding-left: 40px; }
+.footer-subscribe h5 { font-weight: 700; font-size: 1.5rem; margin-bottom: 0.5rem; }
+.footer-subscribe p { color: #bbb; font-size: 0.9rem; margin-bottom: 1.2rem; }
+.footer-subscribe form { display: flex; align-items: center; gap: 0.5rem; width: 100%; }
+
+/* 🔥 แก้ไข Input: กำหนดความสูงตายตัว 40px 🔥 */
+.footer-subscribe input[type="email"] { 
+    background-color: #ccc; 
+    border: none; 
+    border-radius: 4px; 
+    
+    height: 40px;          /* ✅ เพิ่ม: ล็อกความสูง */
+    padding: 0 12px;       /* ✅ แก้: ตัด padding บนล่างออก */
+    
+    width: 260px; 
+    max-width: 280px; 
+    font-size: 0.95rem; 
+    color: #333; 
+}
+.footer-subscribe input[type="email"]::placeholder { color: #777; }
+
+/* 🔥 แก้ไขปุ่ม: กำหนดความสูงตายตัว 40px ให้เท่า Input 🔥 */
+.footer-subscribe .btn-warning { 
+    background-color: #FFC107; 
+    color: #000; 
+    font-weight: 700; 
+    border: none; 
+    border-radius: 4px; 
+    transition: 0.3s;
+    
+    height: 40px;          /* ✅ เพิ่ม: ล็อกความสูงเท่า input */
+    padding: 0 20px;       /* ✅ แก้: ตัด padding บนล่างออก */
+    
+    /* จัดตัวหนังสือให้อยู่กึ่งกลาง */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+.footer-subscribe .btn-warning:hover { background-color: #ffda4d; }
+
+/* Social */
+.footer-social { flex: 1; text-align: center; display: flex; flex-direction: column; align-items: center; }
+.footer-social .social-icons-footer { margin-bottom: 1rem; display: flex; gap: 10px; }
+.social-img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; transition: 0.3s; }
+.footer-social p { margin-top: 0; margin-bottom: 10px; color: #fff; font-size: 1rem; }
+.footer-social .qr-code { width: 146px; height: 146px; border-radius: 0px; padding: 5px; background-color: #fff; border: none; }
+
+/* Links & Copyright */
+.footer-links-section { background: linear-gradient(359deg, #a3a3a3 39%, #5e5e5e 100%); padding: 1.5rem 0; margin-top: 3rem; text-align: center; border-top: none; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0; }
+.footer-links a { color: #000000; font-size: 14px; text-decoration: none; transition: 0.3s; text-decoration: underline; padding: 0 8px; }
+.footer-links a:hover { color: #FFC107; text-decoration: underline; }
+.footer-links span { color: #000000; font-size: 14px; }
+.footer-bottom-section { background-color: #D2C1B6; color: #0a0909; height: 32px; text-align: center; padding: 10px 0; font-size: 10px; }
+.social-icons-footer-footer {
+    display: flex;
+    gap: 16px;                /* ระยะห่างระหว่างไอคอน */
+    justify-content: center;   /* จัดกึ่งกลางสำหรับจอเล็ก */
+    margin-bottom: 10px;
+}
+
+.social-icons-footer-footer .social-img {
+    width: 48px;              /* ขนาดไอคอนใน Footer มักจะเล็กกว่าในหน้า Contact */
+    height: auto;
+    display: block;
+}
+
+/* =================================================================
+   💻 3. LAPTOP / MACBOOK (992px - 1399px)
+   ✅ แก้ไข: ล็อกความสูงปุ่มและช่องอีเมลให้เท่ากัน (40px)
+   ✅ ปรับปุ่มให้กระชับ ไม่ดูใหญ่เทอะทะ
+   ================================================================= */
+@media (min-width: 992px) and (max-width: 1399px) {
+  
+  .footer-section .row {
+    justify-content: center !important;
+    gap: 30px !important; 
+    align-items: flex-start !important;
+  }
+
+  .footer-company, .footer-subscribe, .footer-social {
+    flex: 0 0 auto !important; width: auto !important; max-width: 350px;           
+  }
+
+  /* 🔹 Company (ซ้าย) */
+  .footer-company { text-align: left; padding-top: 60px !important; }
+  .footer-company .footer-logo { margin: 0 auto 1.5rem 60px !important; display: block; }
+
+  /* 🔹 Subscribe (กลาง) */
+  .footer-subscribe {
+    align-items: flex-start; padding-left: 10px; 
+    padding-top: 130px !important; 
+  }
+
+  /* 🔥 FIX FORM: จัดให้ปุ่มกับช่องเท่ากันเป๊ะๆ 🔥 */
+  .footer-subscribe form {
+      display: flex !important;
+      align-items: center !important;
+      gap: 5px !important; /* ระยะห่างระหว่างช่องกับปุ่ม */
+  }
+
+  /* ปรับช่องอีเมล */
+  .footer-subscribe input[type="email"] {
+      height: 40px !important;       /* ✅ ล็อกความสูง */
+      margin-bottom: 0 !important;   /* เอา margin ล่างออก */
+      width: 200px !important;       /* กำหนดความกว้างให้พอดี */
+      font-size: 14px !important;
+  }
+
+  /* ปรับปุ่มสมัครเลย */
+  .footer-subscribe .btn-warning {
+      height: 40px !important;       /* ✅ ล็อกความสูงให้เท่าช่องอีเมลเป๊ะ */
+      padding: 0 20px !important;    /* ปรับ padding ข้างให้พอดี (บนล่าง 0 เพราะใช้ height คุมแล้ว) */
+      font-size: 14px !important;
+      line-height: 1 !important;
+      
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      min-width: unset !important;   /* ปลดล็อกความกว้างขั้นต่ำที่ทำให้ดูใหญ่ */
+      white-space: nowrap !important;
+  }
+
+  /* 🔹 Social (ขวา) */
+  .footer-social {
+    padding-top: 100px; align-items: center !important; text-align: center !important;
+  }
+}
+
+
+/* =================================================================
+   🖥️ 4. LARGE DESKTOP (1400px+)
+   ✅ แก้ไข: ล็อกความสูงปุ่มและช่องอีเมลให้เท่ากัน (เหมือน MacBook)
+   ================================================================= */
+@media (min-width: 1400px) {
+  .footer-section .row { justify-content: center !important; gap: 81px !important; align-items: flex-start !important; }
+  .footer-company, .footer-subscribe, .footer-social { flex: 0 0 auto !important; width: auto !important; max-width: 400px; }
+  
+  .footer-company { text-align: left; padding-top: 60px !important; }
+  .footer-company .footer-logo { margin: 0 auto 1.5rem 60px !important; display: block; }
+  
+  .footer-subscribe { align-items: flex-start; padding-left: 18px; padding-top: 130px !important; }
+  
+  /* 🔥 FIX FORM: ใช้เทคนิคเดียวกับ MacBook 🔥 */
+  .footer-subscribe form {
+      display: flex !important; align-items: center !important; gap: 5px !important;
+  }
+  .footer-subscribe input[type="email"] {
+      height: 40px !important;       /* ✅ สูง 40px */
+      margin-bottom: 0 !important;
+      width: 260px !important;       /* จอใหญ่ให้กว้างหน่อย */
+  }
+  .footer-subscribe .btn-warning {
+      height: 44px !important;       /* ✅ สูง 40px เท่ากัน */
+      padding: 0 25px !important;
+      display: flex !important; align-items: center !important; justify-content: center !important;
+      min-width: unset !important;
+  }
+
+  .footer-social { padding-top: 100px; align-items: center !important; text-align: center !important; }
+  .footer-social .social-icons-footer { justify-content: center !important; }
+
+}
+
+
+/* =================================================================
+   📱 TABLET ONLY (iPad, Galaxy Tab)
+   ✅ แก้ไขล่าสุด: เอาปุ่ม "สมัครเลย" กลับมาวางข้างช่องอีเมล (แนวนอน)
+   ✅ ปรับขนาดช่องและปุ่มให้พอดีกับความกว้างจอ Tablet
+   ================================================================= */
+@media (min-width: 768px) and (max-width: 991.98px) {
+
+
+
+  .footer-company .footer-logo {
+    width: 60px;
+  }
+  /* ปรับหัวข้อให้เล็กและกระชับ */
+  .footer-subscribe h5 {
+    margin-top: 0px;
+    font-size: 20px !important; 
+    margin-bottom: 5px !important;
+  }
+  
+  .footer-subscribe p {
+      font-size: 13px !important; 
+      margin-bottom: 10px !important;
+  }
+
+  /* 1. Container หลัก - ลด Padding ข้างเพื่อให้มีที่เหลือตรงกลางมากขึ้น */
+  .footer-section { 
+      padding-top: 4rem !important; 
+  }
+
+  .footer-section .container {
+      padding-left: 15px !important;  /* ลดเหลือ 15px */
+      padding-right: 15px !important;
+  }
+
+  /* 2. จัดเรียง 3 คอลัมน์แนวนอน */
+  .footer-section .row {
+    flex-direction: row !important;  
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    justify-content: center !important; 
+    gap: 10px !important; /* ลดช่องว่างระหว่างคอลัมน์ลงนิดนึง */
+  }
+
+  /* 3. กำหนดขนาดคอลัมน์ */
+  .footer-company, .footer-subscribe, .footer-social {
+    width: auto !important; 
+    flex: 1 1 auto !important;
+    max-width: 280px; /* เพิ่ม max-width ให้หายใจสะดวกขึ้น */
+    padding-left: 0 !important;
+    text-align: left !important;
+  }
+
+  /* --- Company (ซ้าย) --- */
+  .footer-company { margin-top: 25px !important; margin-left: 30px !important; }
+  .footer-company .footer-logo { margin: 0 0 1rem 60px !important; display: block; }
+
+  /* --- Subscribe (กลาง) : เป้าหมายหลัก --- */
+  .footer-subscribe {
+      padding-left: 0 !important; 
+      margin-top: 100px !important; /* ดันลงมาตามดีไซน์ Step */
+  }
+  
+  /* 🔥🔥 แก้ไข: กลับมาใช้แนวนอน (Row) 🔥🔥 */
+  .footer-subscribe form {
+    flex-direction: row !important;  /* แนวนอน */
+    align-items: center !important;
+    width: 100%;
+    gap: 5px !important; /* ระยะห่างระหว่างช่องอีเมลกับปุ่ม */
+  }
+
+  /* ช่องอีเมล: ยืดหยุ่นตามพื้นที่ที่เหลือ */
+  .footer-subscribe input[type="email"] { 
+      width: auto !important;  /* ทริค Flexbox */
+      flex-grow: 1 !important; /* สั่งให้ยืดจนเต็มพื้นที่ที่เหลือ */
+      max-width: none !important; 
+      margin-bottom: 0 !important; /* เอา Margin ล่างออกเพราะวางข้างกันแล้ว */
+      height: 38px !important; /* ปรับความสูงให้เท่าปุ่ม */
+      min-width: 0 !important; /* กันช่องระเบิด */
+  }
+
+  /* ปุ่มกด: ขนาดพอดีคำ */
+  .footer-subscribe .btn-warning {
+      width: auto !important;
+      min-width: unset !important;
+      white-space: nowrap !important; /* ห้ามตัดบรรทัด */
+      padding: 0 10px !important;   /* ลด Padding ข้างให้กระชับ */
+      font-size: 13px !important;     
+      height: 38px !important;        /* สูงเท่า input */
+      margin-top: 0 !important;
+      
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0; /* ห้ามปุ่มหดตัว */
+  }
+
+  /* --- Social (ขวา) --- */
+  .footer-social {
+      align-items: center !important;
+      text-align: center !important;
+      padding-top: 0 !important;
+      margin-top: 45px !important; 
+  }
+  
+  .footer-social p { order: 2; margin-bottom: 5px; }
+  .footer-social .qr-code { order: 3; margin-bottom: 10px; width: 140px; height: 140px; margin-left: -5px; } 
+  .footer-social .social-icons-footer { order: 1; justify-content: center !important; gap: 5px; }
+}
+
+/* =================================================================
+   📱 MOBILE ONLY (เหมือนเดิม 100% ตามที่คุณชอบ)
+   ================================================================= */
+@media (max-width: 767.98px) {
+  
+  .footer-section { padding-top: 3rem; }
+  .footer-section .row { flex-direction: column; align-items: center; gap: 0rem; }
+
+  .footer-company, .footer-subscribe, .footer-social {
+    text-align: center; align-items: center; padding-left: 0; width: 100%; padding-top: 0 !important;
+  }
+  .footer-company .footer-logo { margin: 0 auto 1rem; }
+
+  .footer-subscribe form {
+        display: flex !important;
+        flex-direction: column !important; /* บังคับตัดบรรทัด */
+        align-items: center !important;    /* จัดลูกทุกตัวให้อยู่กึ่งกลาง */
+        gap: 10px !important;              /* เพิ่มระยะห่างระหว่าง input กับปุ่ม */
+  }
+  .footer-subscribe .form-control {
+        width: 100% !important;
+        max-width: 300px !important; /* ล็อกความกว้างไม่ให้บานเกินไป */
+        margin-right: 0 !important;   /* ล้าง margin ขวาเดิมออก */
+  }
+  .footer-subscribe input[type="email"] { width: 240px; height: 25px; max-width: 100%; font-size: 13.5px; font-weight: 600; margin-bottom: 10px; }
+
+  .footer-subscribe .btn-warning {
+        width: 111px !important;
+        height: 25px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 13px !important;
+        line-height: 1 !important;
+        margin: 0 auto !important; /* ประกันความชัวร์ด้วยการจัด margin auto */
+  }
+
+  .footer-social { display: flex; flex-direction: column; align-items: center; }
+  .footer-social p { order: 1; margin-bottom: 5px; }
+  .footer-social .qr-code { order: 2; margin-bottom: 20px; }
+  .footer-social .social-icons-footer { order: 3; padding-top: 20px; margin-bottom: 0; margin-top: 0; }
+  
+  .footer-links a { font-size: 13px !important; white-space: nowrap; }
+}

@@ -1,0 +1,294 @@
+/* =========================================
+   🎨 ORDER GUIDE PAGE STYLES (Global)
+   ========================================= */
+body, 
+.order-guide-page, 
+.design-guide-wrapper,
+.faq-header,
+.faq-section {
+    background-color: #fff8ec !important;
+    font-family: 'MyPromptFont', sans-serif !important;
+    color: #000;
+    margin: 0;
+}
+
+.order-guide-page {
+    padding: 80px 20px 40px;
+}
+
+.order-guide-page h2 {
+    text-align: center;
+    font-weight: normal;
+    font-size: 48px;
+    margin-bottom: 80px;
+}
+
+/* 🔹 กล่องพื้นขาวหลัก */
+.order-box {
+    position: relative;
+    background-color: #fff;
+    margin: 0 auto 40px;
+    width: 100%;
+    max-width: 1300px;
+    padding: 40px 50px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.order-box::before {
+    display: none !important;
+}
+
+/* =========================================
+   🔸 TIMELINE LOGIC (เส้นเชื่อมขั้นตอน 1-7)
+   ========================================= */
+
+.steps-wrapper {
+    position: relative;
+    margin-left: 35px; /* กึ่งกลางวงกลม 70px */
+    padding-left: 50px;
+}
+
+/* 2. สร้างเส้นเชื่อมระหว่าง Step โดยใช้ ::before ของแต่ละ Step */
+.step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 10px 0 50px 25px;
+}
+
+/* วาดเส้นจากกึ่งกลางวงกลมปัจจุบัน ลงไปหาตัวถัดไป */
+.step::before {
+    content: "";
+    position: absolute;
+    left: -36px; /* จัดให้ตรงกึ่งกลางวงกลม (35px + ความหนาเส้น) */
+    top: 35px;   /* เริ่มจากกึ่งกลางวงกลม (70px / 2) */
+    width: 2px;
+    height: 100%; /* ลากยาวลงไปถึงตัวถัดไป */
+    background-color: #ddd;
+    z-index: 1;
+}
+
+/* 🚩 จุดสำคัญ: Step สุดท้าย (เลข 7) ไม่ต้องมีเส้นยื่นลงไปข้างล่าง */
+.step:last-child::before {
+    display: none;
+}
+
+/* 3. วงกลมตัวเลข (ทับเส้นพอดี) */
+.step-number {
+    position: absolute;
+    left: -70px; /* ขยับวงกลมให้ตรงกึ่งกลางเส้น (35px + 35px) */
+    top: 0;
+    z-index: 2;
+    background-color: #f7c77a;
+    color: #fff;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.step h5 {
+    font-weight: 800;
+    font-size: 18px;
+    margin: 10px 0 8px 0;
+}
+
+.step p, 
+.order-condition-list li {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+}
+
+.order-condition-list { 
+    list-style: none; 
+    padding: 0; 
+    margin: 8px 0 10px;
+}
+
+.order-condition-list li {
+    margin-bottom: 5px;
+}
+
+/* =========================================
+   🔸 บัญชีชำระเงิน
+   ========================================= */
+.payment-title {
+    text-align: center;
+    font-weight: 900;
+    font-size: 2.4rem;
+    padding: 42px 0 20px;
+}
+
+.payment-box {
+    position: relative;
+    width: 100%;
+}
+
+.payment-box img {
+    width: 100%;
+    display: block;
+}
+
+#copyBtn {
+    position: absolute;
+    right: 15px;
+    top: 75%;
+    transform: translateY(-50%);
+    background-color: #fbab00;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    width: 20%;
+    padding: 25px 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#copyBtn:hover {
+    background-color: #e89a00;
+}
+
+/* =========================================
+   🔸 บทความที่คุณอาจสนใจ (FAQ Section)
+   ========================================= */
+.faq-header {
+    text-align: center;
+    padding: 60px 20px 30px;
+}
+
+.faq-header h1 {
+    font-weight: 900;
+    font-size: 2.4rem;
+}
+
+.faq-section {
+    padding: 40px 16%;
+}
+
+.faq-item {
+    border-bottom: 1px solid #aaa;
+    padding: 25px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 800;
+    font-size: 1.35rem;
+}
+
+.faq-item:hover {
+    color: #fbab00;
+    transform: translateX(6px);
+}
+
+/* =========================================
+   📱 RESPONSIVE (Mobile)
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. บังคับโครงสร้างหลักให้ชิดขอบจอ (แก้ปัญหาติดขอบซ้าย) */
+    body .order-guide-page,
+    body .order-guide-page .container,
+    body .order-guide-page .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* 2. กล่องขาวหลัก (Order Box) เต็มจอ */
+    .order-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 40px 15px !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+    }
+
+    .order-guide-page h2 {
+    font-weight: normal;
+    font-size: 28px;
+    margin-bottom: 40px;
+    }
+
+    .order-guide-page {
+        padding: 40px 0 20px !important;
+    }
+
+    .steps-wrapper {
+        margin-left: 55px !important;
+        padding-left: 20px !important;
+    }
+
+    .step::before {
+        left: -41px !important;
+        width: 2px;
+    }
+
+    .step-number {
+        width: 55px;
+        height: 55px;
+        left: -68px !important;
+        font-size: 1.2rem;
+    }
+
+    /* 4. ส่วนของ FAQ (บทความที่คุณอาจสนใจ) - แก้ให้เต็มจอ */
+    .faq-header {
+        padding: 40px 15px 10px !important;
+        background-color: #fff8ec !important; /* ให้สีเนียนไปกับพื้นหลัง */
+    }
+
+    .faq-header h1 {
+        font-size: 28px !important;
+        font-weight: normal !important;
+    }
+
+    .faq-section {
+        /* ลบ padding 16% เดิมออก เพื่อให้แสดงผลเต็มจออ่านง่ายขึ้น */
+        padding: 10px 15px 50px !important; 
+        background-color: #fff8ec !important;
+    }
+
+    .faq-item {
+        font-size: 1.1rem !important;
+        padding: 20px 0 !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    /* 5. ส่วนชำระเงินและปุ่ม Copy */
+    .payment-title { 
+        font-size: 24px !important;
+        margin-top: -50px !important;
+        font-weight: normal !important;
+    }
+
+    .step {
+        padding: 0px 0 30px 15px !important;
+    }
+    #copyBtn {
+        position: relative;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: -60px;
+        width: 60% !important;
+        bottom: 0;
+    }
+}
+
+/* ดักซ้ำสำหรับจอเล็กพิเศษ */
+@media (max-width: 576px) {
+    .order-guide-page .container, 
+    .faq-section {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+}

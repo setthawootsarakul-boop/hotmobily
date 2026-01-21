@@ -1,0 +1,328 @@
+/* ==================================================
+   🔸 Hero Section Styles (Revised for 1440px, Centered)
+   ================================================== */
+
+:root {
+    --hero-bg-color: #FFC81A;
+    --hero-text-color: #000000;
+    --hero-highlight-color: #FCA311;
+}
+
+.hero-section {
+    background-color: var(--hero-bg-color);
+    color: var(--hero-text-color);
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    /* ✅ ใช้ min-height และ flex เพื่อจัดกลางแนวตั้งทั้ง Section */
+    min-height: 660px; 
+    display: flex;
+    align-items: center; /* จัดกลางแนวตั้ง */
+    justify-content: center; /* จัดกลางแนวนอน */
+    padding: 60px 0; /* เพิ่ม Padding บนล่างหน่อย */
+    margin-top: -15px;
+}
+
+/* ==================================================
+   🔸 Swiper & Hero Custom Styles
+   ================================================== */
+
+/* 1. ปรับขนาดกล่อง Container ให้พอดีกับรูป */
+.hero-img-container {
+    width: 100%;
+    /* ลดความสูงจาก 550px เหลือแค่พอดีกับรูป + พื้นที่นิดหน่อย */
+    height: 430px; 
+    position: relative;
+    overflow: hidden;
+    
+    /* จัดรูปให้อยู่กึ่งกลางเสมอ */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 2. บังคับขนาดรูปภาพตามที่ต้องการ (473x419) */
+.hero-img {
+    /* ความสูง Fixed ตามที่ขอ */
+    height: 419px !important;
+    
+    /* ความกว้างให้ Auto ตามสัดส่วน แต่ไม่เกิน 473px */
+    width: auto !important;
+    max-width: 473px !important;
+    
+    /* รูปไม่เบี้ยว และไม่โดนตัด */
+    object-fit: contain; 
+    
+    display: block;
+    margin: 0 auto;
+}
+
+/* 🟢 Container ของจุด (Pagination) */
+.custom-pagination {
+    position: static !important; 
+    margin-top: 1rem !important; /* ลดระยะห่างด้านบนปุ่ม */
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* 🟢 ปรับแต่งตัวจุด */
+.swiper-pagination-bullet {
+    width: 61px !important;  
+    height: 6px !important;
+    margin: 0 10px !important; 
+    background-color: #fff !important; 
+    border-radius: 0 !important;
+    border: none !important;
+    opacity: 1 !important; 
+    transition: all 0.3s ease;
+    display: inline-block !important;
+}
+
+.swiper-pagination-bullet-active {
+    background-color: #9ea0a5 !important;
+}
+
+/* ========================
+   ✨ Typography & Content (Centered)
+======================== */
+.hero-content-wrapper {
+    z-index: 2;
+    position: relative;
+    padding-top: 0; /* เอา padding-top ออก ให้ flex จัดการเอง */
+    /* ✅ จัดเนื้อหาฝั่งขวาให้อยู่กึ่งกลางในพื้นที่ของมัน */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    height: 100%; 
+}
+
+.brand-highlight {
+    color: #ffffff;
+    text-shadow: -5px 2px 0px #000;
+    font-weight: 800;
+    line-height: 1.1;
+    font-size: 5rem;
+    margin-bottom: 1.5rem;
+}
+
+.brand-desc {
+    color: var(--hero-text-color);
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 1.8;
+    max-width: 600px; /* จำกัดความกว้างข้อความไม่ให้ยาวเกินไป */
+}
+
+/* ========================
+   🏆 Features (Aligned)
+======================== */
+.brand-features {
+    margin-top: 4rem;
+    gap: 3rem !important; /* ปรับระยะห่างให้พอดี */
+    
+    /* ✅ จัดเรียง Features */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* หรือ center ถ้าอยากให้ Features อยู่กลาง */
+}
+
+.brand-features .feature {
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.icon-circle {
+    background-color: #fff;
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.icon-circle .feature-icon {
+    width: 53px;
+    height: 53px;
+    object-fit: contain;
+}
+
+.brand-features p {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+}
+
+/* ========================
+   ⚪ Dots Navigation
+======================== */
+.image-dots-wrapper {
+    position: static !important; /* ยกเลิก absolute เดิม */
+    transform: none !important;  /* ยกเลิกการขยับตำแหน่งเดิม */
+    margin-top: 1.5rem;          /* เว้นระยะห่างจากรูป */
+}
+
+.gap-2 {
+    gap: 0rem !important;
+}
+
+.image-dots {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dot {
+    display: inline-block;
+    width: 61px;  
+    height: 6px;
+    margin: 0 10px;
+    background-color: #fff; 
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #9ea0a5; 
+    opacity: 1;
+}
+
+
+@media (min-width: 1200px) {
+    /* ปรับ Container ให้กว้างขึ้นถ้าต้องการ */
+    .container {
+        max-width: 1320px; 
+    }
+    
+    /* จัดให้รูปกับเนื้อหาอยู่กึ่งกลางกันและกัน */
+    .hero-section .row {
+        align-items: center; 
+    }
+    
+    /* ดันเนื้อหาไปทางขวานิดนึง ถ้ามันชิดรูปเกินไป */
+    .hero-content-wrapper {
+        padding-left: 2rem; 
+    }
+}
+
+/* ========================
+   📱 Responsive Adjustments (Mobile Only)
+======================== */
+@media (max-width: 991.98px) {
+    /* ✅ 1. โครงสร้างหลักของ Section */
+    .hero-section {
+        display: block !important;
+        min-height: auto !important;
+        padding-top: 20px !important; /* เพิ่มพื้นที่ด้านบนเล็กน้อย */
+        padding-bottom: 40px;
+        text-align: center;
+    }
+
+    .hero-content-wrapper {
+        padding-left: 0;
+        display: flex;
+        flex-direction: column; /* จัดให้เนื้อหาข้างในเรียงแนวดิ่ง */
+        align-items: center;
+    }
+
+    /* ✅ 2. ข้อความชื่อแบรนด์ (ย้ายมาไว้บนรูปภาพ) */
+    .brand-highlight {
+        order: -1;              /* บังคับให้ขึ้นไปอยู่อันดับแรกสุดใน Flex box */
+        display: block;
+        position: static;       /* ไม่ใช้ absolute เพื่อให้ต่อแถวปกติ */
+        font-size: 48px;
+        font-weight: 800;
+        text-shadow: -2px 1px 0px #000;
+        margin-bottom: 20px;    /* เว้นระยะก่อนถึงรูปภาพ */
+        width: 100%;
+    }
+
+    /* ✅ 3. ส่วนของรูปภาพ Swiper (อยู่ใต้ข้อความ) */
+    .hero-img-container {
+        margin-top: 0 !important; /* รีเซ็ตค่าติดลบเพื่อให้เรียงต่อกันสวยงาม */
+        height: auto; 
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .hero-img {
+        width: 263px !important;
+        height: 216px !important;
+        object-fit: contain;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* ✅ 4. จุด Pagination (อยู่ใต้รูปภาพ) */
+    .custom-pagination {
+        position: relative;
+        z-index: 100 !important;
+        margin-top: 10px !important;
+        margin-bottom: 30px !important;
+    }
+    
+    .swiper-pagination-bullet {
+        width: 40px !important;
+        height: 4px !important;
+        margin: 0 5px !important;
+    }
+
+    /* ✅ 5. คำบรรยายสินค้า */
+    .brand-desc {
+        margin: 0 auto;
+        font-size: 16px;
+        padding: 0 15px;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    /* ✅ 6. ส่วนไอคอนคุณสมบัติ (Features) */
+    .brand-features {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: nowrap !important; 
+        gap: 28px !important; 
+        margin-top: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .brand-features .feature {
+        flex: 0 0 auto; 
+        width: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .icon-circle {
+        width: 73px !important;  
+        height: 73px !important;
+        min-width: 73px !important;
+        margin-bottom: 10px;
+    }
+    
+    .icon-circle .feature-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .brand-features p {
+        font-size: 0.75rem;
+        white-space: nowrap;
+        line-height: 1.2;
+        margin: 0;
+    }
+}

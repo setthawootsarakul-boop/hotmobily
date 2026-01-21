@@ -1,0 +1,463 @@
+/* ============================
+   1. Variables (Theme Colors)
+============================ */
+:root {
+    --bg-page: #f6efe5; --brown-text: #3b2f2f; --active-orange: #FFC107;
+    --btn-gray: #F1F3F5; --btn-text-gray: #495057; --border-color: #D1D1D1;
+    --breadcrumb-active: #0d6efd; --btn-red: #D90429; --hover-price: #FF8000; --header-table-bg: #F0F0F0;
+}
+
+/* ============================
+   2. Global Layout
+============================ */
+body { background-color: var(--bg-page); font-family: 'MyPromptFont', sans-serif; color: var(--brown-text); overflow-x: hidden; }
+.product-breadcrumb .breadcrumb-item a { color: #333; text-decoration: none; font-size: 0.95rem; }
+.product-breadcrumb .breadcrumb-item.active { color: var(--breadcrumb-active); font-weight: 500; }
+.product-detail-page .bg-white { border-radius: 20px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.05) !important; overflow: hidden; }
+
+/* ============================
+   3. Gallery Section (Global)
+============================ */
+.gallery-container { display: flex; gap: 15px; align-items: stretch; }
+.thumbnails { width: 130px; display: flex; flex-direction: column; gap: 10px; padding-right: 5px; overflow: hidden; }
+.thumbnails::-webkit-scrollbar { display: none; }
+
+.thumb-item { width: 100%; flex: 1; aspect-ratio: unset; border: 2px solid transparent; border-radius: 8px; cursor: pointer; overflow: hidden; opacity: 0.7; transition: all 0.2s ease; background-color: #FAFAFA; padding: 5px; display: flex; align-items: center; justify-content: center; }
+.thumb-item img { width: 100%; height: 100%; object-fit: contain; }
+.thumb-item:hover { opacity: 1; border-color: #ddd; }
+.thumb-item.active { opacity: 1; border-color: var(--active-orange); box-shadow: 0 0 0 1px var(--active-orange); }
+
+.main-image-wrapper { flex-grow: 1; width: 100%; aspect-ratio: 1 / 1; background-color: #FAFAFA; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e6e6e6; position: relative; }
+.main-image-wrapper img { width: 100%; height: 100%; object-fit: contain; }
+
+.btn-file-guide { background: linear-gradient(to right, #FFA726, #FF9800); color: white; border: none; font-size: 16px; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3); width: 350px;}
+.btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
+
+/* ============================
+   4. Product Info & Specs
+============================ */
+h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 400; text-align: left; margin-left: -5px; }
+
+/* Table Reset */
+.product-info-table, .product-info-table tbody, .product-info-table tr { display: block; width: 100%;  }
+.product-info-table tr { margin-bottom: 8px; }
+.product-info-table td { display: inline; border: none; padding: 0; vertical-align: baseline; }
+
+.product-info-table .label { font-weight: 700; color: #000; font-size: 16px; padding-right: 5px; width: auto !important; min-width: 0 !important; }
+.product-info-table .value { color: #333; font-size: 1rem; line-height: 1.6; word-wrap: break-word; }
+.product-info-table .value .d-flex { display: inline-flex !important; flex-wrap: wrap; align-items: center; gap: 10px; vertical-align: middle; margin-top: -2px; }
+
+/* Spec Buttons */
+.btn-spec { font-size: 16px !important; white-space: nowrap !important; display: inline-flex !important; justify-content: center; align-items: center; padding: 0 !important; background-color: #EAEAEA; color: #333; border: 1px solid transparent; border-radius: 12px; font-weight: 400 !important; transition: all 0.2s ease; cursor: pointer; margin-bottom: 0 !important; }
+.btn-spec:hover { background-color: #dcdcdc; }
+.btn-spec.active { background-color: #FFC069; color: #000; border-color: transparent; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); transform: translateY(-1px); }
+
+#size-group .btn-spec { width: 109px !important; height: 27px !important; }
+#screen-group .btn-spec { width: 137px !important; height: 27px !important; }
+
+#size-group { display: inline-flex !important; flex-wrap: wrap; gap: 10px !important; width: auto; vertical-align: middle; }
+#screen-group { display: flex !important; width: 100%; flex-wrap: wrap; gap: 10px !important; margin-top: 12px; align-items: flex-start !important; vertical-align: baseline !important; margin-left: 50px !important; }
+
+/* ============================
+   5. Price Table
+============================ */
+.price-table.table-responsive { max-height: 400px; overflow-y: auto; border-radius: 12px; border: 1px solid #eee; box-shadow: none; }
+.price-table .table { width: 100%; margin-bottom: 0; border-collapse: collapse; border-style: hidden; }
+.price-table .table th, .price-table .table td { text-align: center; vertical-align: middle; border: 1px solid #f0f0f0; }
+.price-table .table thead th { background-color: #f9fafb; color: #444; font-weight: 600; font-size: 0.9rem; padding: 12px 10px; white-space: nowrap; position: sticky; top: 0; z-index: 20; border-bottom: 2px solid #eee; }
+.price-table .table tbody td { font-size: 0.95rem; color: #555; padding: 10px; }
+.price-table .table tbody tr.price-row td:first-child { background-color: #fff; color: var(--brown-text); font-weight: 600; border-right: 2px solid #eee; }
+.price-table .table tbody tr:hover { background-color: #f8f9fa; }
+.price-table .table tbody tr.price-row td.size-col:hover { background-color: var(--active-orange); color: #fff; border-color: var(--active-orange); cursor: default; }
+
+/* ============================
+   6. Extra Parts
+============================ */
+.parts-grid { display: grid !important; gap: 21px !important; grid-template-columns: repeat(4, 1fr) !important; margin-right: 0 !important; margin-left: 0 !important; --bs-gutter-x: 0 !important; }
+.parts-grid > div { width: auto !important; max-width: none !important; padding: 0 !important; flex: 0 0 auto !important; }
+.part-box { width: 149px; height: 149px; margin: 0 auto; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; border: 0.3px solid #000000; position: relative; background-color: #fff; display: flex; flex-direction: column; justify-content: center; padding: 3px; }
+.part-box.active { border-color: var(--active-orange); background-color: #fffdf5; box-shadow: 0 0 0 2px var(--active-orange); }
+.part-img-box { width: 100%; height: 100%; aspect-ratio: auto !important; display: flex; align-items: center; justify-content: center; overflow: hidden; background-color: #f9f9f9; border-radius: 6px; margin-bottom: 0; }
+.part-img-box img { width: 100%; height: 100%; object-fit: contain; padding: 0; }
+.part-price-tag { position: absolute; top: 4px; right: 4px; font-size: 0.7rem; font-weight: bold; padding: 1px 5px; border-radius: 4px; color: white; z-index: 10; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+.part-price-tag.extra { background-color: #dc3545; }
+
+/* ============================
+   7. Action Buttons & Lightbox
+============================ */
+.action-area { border-top: 1px solid #eee; background-color: #fdfdfd; }
+.btn-estimate, .btn-quote, .btn-add-to-cart { background-color: #BC1717; color: white; border: none; padding: 10px; border-radius: 8px; transition: all 0.2s ease; font-weight: 600; }
+.btn-estimate:hover, .btn-quote:hover, .btn-add-to-cart:hover { background-color: #b00020; color: white; }
+
+.glightbox-clean .goverlay { background: rgba(255, 255, 255, 0.92) !important; backdrop-filter: blur(5px); }
+.glightbox-clean .gslide-media { border-radius: 16px !important; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1) !important; background-color: #fff; padding: 10px; }
+.glightbox-clean .gslide-title { font-size: 1em; font-weight: 400; text-align: center; color: #000; margin-bottom: 19px; line-height: 1.4em; }
+.glightbox-clean .gbtn { border-radius: 50% !important; width: 45px; height: 45px; margin: 10px; }
+.glightbox-clean .gbtn svg { color: #333 !important; width: 22px; height: 22px; }
+.glightbox-clean .gclose { top: 15px; right: 15px; background-color: #f50c0c !important; }
+.glightbox-clean .gclose svg { color: #fff !important; }
+.glightbox-clean .gslide-description { background: transparent !important; color: #333 !important; }
+
+
+/* ==========================================================================
+   🧩 RUBBER KEYCHAIN FEATURE SECTION (ID 19)
+   ========================================================================== */
+
+/* 1. Desktop Default Styles */
+.rubber-feature-container { display: flex; justify-content: center; align-items: stretch; position: relative; max-width: 1200px; margin: 0 auto; padding: 40px 0; min-height: 500px; }
+.feature-column.text-column { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; }
+.feature-item { position: absolute; width: 100%; padding: 0 20px; box-sizing: border-box; }
+.feature-item h5 { font-size: 1.1rem; color: #222; margin-bottom: 5px; }
+.feature-item p { font-size: 0.9rem; color: #555; line-height: 1.4; margin: 0; }
+.image-column { flex: 0 0 380px; display: flex; justify-content: center; position: relative; margin: 0 10px; z-index: 1; }
+.rubber-img-wrapper { width: 50%; position: relative; display: flex; align-items: center; }
+.rubber-img { width: 100%; height: auto; display: block; object-fit: contain; position: relative; z-index: 1; }
+.dot-point { width: 12px; height: 12px; background-color: #ff8c00; border: 2px solid #fff; border-radius: 50%; position: absolute; box-shadow: 0 0 0 2px #ff8c00; transform: translate(-50%, -50%); z-index: 10; }
+.connector-line { position: absolute; height: 1px; background-color: #ccc; top: 20px; z-index: 5; }
+
+/* 2. Rubber Thickness (Desktop) */
+.rubber-thickness-container { display: flex; align-items: center; justify-content: center; margin-top: -40px; }
+.thickness-img { width: 100%; height: auto; display: block; object-fit: cover; }
+.thickness-content { flex: 1; padding: 0 40px; }
+.thickness-content h4 { color: #333; font-size: 1.25rem; }
+.thickness-content p { font-size: 1rem; line-height: 1.6; color: #666; }
+
+/* =========================================
+   ✨ Special Material Section (วัสดุพิเศษ)
+   ========================================= */
+.special-material-section { max-width: 1000px; margin: 70px auto; position: relative; }
+
+/* แก้ไข Header เพื่อไม่ให้ชนธีมหลัก */
+.rubber-section-header { position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 50px; border: none !important; background: transparent !important; }
+.rubber-section-title { font-size: 32px !important; font-weight: 800 !important; color: #000 !important; padding: 0 30px !important; position: relative; background-color: #fff !important; z-index: 2; margin: 0 !important; line-height: 1.2 !important; display: inline-block !important; }
+.rubber-section-header::before { content: ""; position: absolute; top: 50%; left: -100px; right: -100px; height: 2px !important; background-color: #000000 !important; z-index: 1; display: block !important; }
+
+.material-item {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+}
+.material-images { display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; }
+.material-images img { width: 45%; max-width: 350px; height: auto; object-fit: contain; }
+
+/* ✅ แก้ไขชื่อวัสดุให้เป็นกึ่งกลางเสมอ (Desktop) */
+.rubber-features-section .material-name {
+    width: 100% !important;
+    display: block !important;
+    text-align: center !important;
+    margin-top: 10px !important;
+    color: #333 !important;
+    font-weight: 600 !important;
+    
+    /* Desktop Font Size */
+    font-size: 1.2rem !important; 
+}
+/* =======================================================
+   📱 ACRYLIC STAND SECTION (ID 12) - Fully Responsive
+   ======================================================= */
+
+/* --- 1. Poster ด้านบน (Breakout Image) --- */
+.acrylic-poster-wrapper {
+    position: relative;
+    width: 100vw; 
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: hidden; /* ป้องกันล้น */
+}
+
+.acrylic-poster-img {
+    width: 100%;
+    height: 371px;      /* ความสูง Desktop */
+    min-height: 250px;  /* ความสูงขั้นต่ำในมือถือ */
+    object-fit: cover;
+    display: block;
+}
+
+/* --- 2. เนื้อหา (Content) --- */
+.acrylic-content {
+    margin-top: 80px; /* ระยะห่างจากรูปบน (Desktop) */
+    padding: 0 15px;
+}
+
+.acrylic-title {
+    color: #333;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.acrylic-desc {
+    max-width: 800px;
+    line-height: 1.6;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+/* --- 3. รูปการใช้งานด้านล่าง --- */
+.acrylic-usage-wrapper {
+    margin-top: 60px; /* ระยะห่างจากข้อความ (Desktop) */
+    padding: 0 15px;
+}
+
+.acrylic-usage-img {
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+}
+/* ส่วนหัวข้อตัวอย่างผลงาน */
+.product-gallery-title {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 30px;
+}
+
+/* ตั้งค่า Grid ให้เหมือนหน้า Gallery */
+.product-example-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 237px);
+    justify-content: center;
+    gap: 57px;
+    row-gap: 41px;
+    margin: 80px auto;
+    width: 100%;
+    max-width: 1100px;
+}
+
+.example-item {
+    background-color: #F9F9F9;
+    width: 237px;
+    height: 254px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.example-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; /* ปรับเป็น contain เพื่อให้เห็นรูปครบถ้วนเหมือนหน้า gallery */
+}
+
+
+
+/* ==========================================================================
+   📱 MOBILE & TABLET RESPONSIVE (Max-width: 991px)
+   ========================================================================== */
+@media (max-width: 991px) {
+    
+    /* --- 1. จัด Container หลัก (เรียงลงแนวตั้ง) --- */
+    .rubber-feature-container { display: block; position: relative; padding-bottom: 20px; height: auto; min-height: 800px; margin-top: -70px; }
+
+    /* --- 2. จัดการรูปภาพ --- */
+    .feature-column.image-column { display: flex; flex-direction: column; width: 100%; margin: 0; z-index: 1; }
+    .rubber-img-wrapper { width: 55%; position: relative; margin-bottom: 20px; }
+    
+    /* รูปบน (L): ชิดขวา */
+    .rubber-img-wrapper:first-child { align-self: flex-end; margin-right: -10px; margin-left: auto; }
+    /* รูปล่าง (R): ชิดซ้าย */
+    .rubber-img-wrapper:last-child { align-self: flex-start; margin-left: -10px; margin-right: auto; margin-top: 40px; }
+
+    /* --- 3. จัดการกลุ่มข้อความ --- */
+    .feature-column.text-column { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2; pointer-events: none; }
+    .feature-item { position: absolute; width: 55%; padding: 5px; pointer-events: auto; transform: none; }
+    .feature-item h5 { font-size: 0.9rem; margin-bottom: 2px; }
+    .feature-item p { font-size: 0.75rem; line-height: 1.2; }
+
+    /* ปรับตำแหน่งข้อความฝั่งซ้าย (คู่รูปบน) */
+    .left-text .feature-item { left: 5px; right: auto; text-align: left; }
+    .left-text .feature-item:nth-child(1) { top: 9% !important; }
+    .left-text .feature-item:nth-child(2) { top: 24% !important; }
+    .left-text .feature-item:nth-child(3) { top: 39% !important; }
+
+    /* ปรับตำแหน่งข้อความฝั่งขวา (คู่รูปล่าง) */
+    .right-text .feature-item { right: 5px; left: auto; text-align: right; }
+    .right-text .feature-item:nth-child(1) { top: 68% !important; }
+    .right-text .feature-item:nth-child(2) { top: 81% !important; }
+
+    /* --- 4. ปรับเส้นโยงและจุด --- */
+    .connector-line, .dot-point { display: block !important; }
+    .connector-line { width: 30px !important; top: 15px !important; }
+
+    /* เส้นฝั่งซ้าย */
+    .left-text .feature-item:nth-child(1) .connector-line { width: 60px !important; right: -60px !important; top: 15px !important; transform: rotate(0deg); }
+    .left-text .feature-item:nth-child(2) .connector-line { width: 138px !important; right: -104px !important; top: 15px !important; }
+    .left-text .feature-item:nth-child(3) .connector-line { width: 180px !important; right: -115px !important; top: 14px !important; }
+
+    /* เส้นฝั่งขวา */
+    .right-text .feature-item:nth-child(1) .connector-line { width: 95px !important; left: -105px !important; top: 19px !important; }
+    .right-text .feature-item:nth-child(2) .connector-line { width: 100px !important; left: -110px !important; top: 17px !important; }
+    
+    /* ปรับ Text ฝั่งขวาให้ชิดซ้าย */
+    .right-text .feature-item:nth-child(1), .right-text .feature-item:nth-child(2) { text-align: left !important; }
+    .right-text .feature-item h5 { font-size: 1rem !important; margin-bottom: 5px !important; }
+
+    /* --- 5. ส่วน Banner --- */
+    .rubber-features-section .text-center img.mb-4 { height: 200px !important; }
+    .rubber-features-section h3 { font-size: 1.5rem !important; margin-top: 30px !important; text-align: center !important; padding: 0 15px; }
+    .rubber-features-section p { font-size: 0.9rem !important; padding: 0 15px; text-align: left !important; }
+    
+    /* --- 6. ส่วน Thickness --- */
+    .rubber-thickness-container { display: flex; flex-direction: column; padding: 20px 10px; margin-top: 20px; }
+    .thickness-img-wrapper.left-img { order: 3; margin-bottom: 20px; align-self: flex-start; margin-left: -10px; margin-right: auto; }
+    .thickness-content { order: 2; padding: 10px 5px 30px 5px; margin-bottom: 0; text-align: left !important; }
+    .thickness-img-wrapper.right-img { order: 1; margin-bottom: 15px; align-self: flex-end; margin-right: -10px; margin-left: auto; }
+    .thickness-img-wrapper { width: 100%; max-width: 300px; flex: auto; }
+
+    /* --- 7. ส่วน Special Material (Mobile Override) --- */
+    .rubber-section-title { font-size: 1.5rem !important; padding: 0 15px !important; }
+    .rubber-section-header::before { left: 15px !important; right: 15px !important; }
+    
+    .material-grid-container { gap: 40px; }
+    .material-images { gap: 15px; }
+    .material-images img { width: 48%; }
+    
+
+
+    /* --- 8. General Styles --- */
+    .gallery-container { 
+        flex-direction: column-reverse !important; 
+        gap: 10px !important; 
+    }
+
+    /* 2. แถบรูปย่อย (Thumbnails): ใช้ Grid แบ่ง 4 ช่อง */
+    .thumbnails { 
+        width: 100% !important; 
+        padding-right: 0 !important;
+        
+        /* ✅ ใช้ Grid: สั่งให้แบ่งเป็น 4 คอลัมน์เท่าๆ กัน */
+        display: grid !important;
+        grid-template-columns: repeat(4, 1fr) !important; 
+        gap: 10px !important;
+        
+        /* ปิด Scroll เพื่อให้โชว์ครบทุกรูปเป็นชั้นๆ */
+        overflow: visible !important; 
+        justify-content: center !important;
+    }
+    
+    /* 3. ตัวกล่องรูปย่อยแต่ละอัน */
+    .thumb-item { 
+        width: 100% !important; /* ยืดให้เต็มช่อง Grid ของตัวเอง */
+        height: auto !important;
+        aspect-ratio: 1 / 1;    /* บังคับสี่เหลี่ยมจัตุรัส */
+        padding: 2px; 
+        
+        /* ลบค่า Flex เดิมทิ้ง */
+        flex: none !important;
+    }
+
+    /* 4. รูปใหญ่ (Main Image): ขยายเต็มจอ */
+    .main-image-wrapper { 
+        width: 100% !important; 
+        margin-bottom: 0; 
+        aspect-ratio: 1 / 1; 
+    }
+    .parts-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 10px !important; }
+    .part-box { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1; }
+
+
+    .material-item {
+        /* 1. ใช้ Flexbox แนวตั้ง */
+        display: flex !important;
+        flex-direction: column !important;
+        
+        /* 2. คำสั่งนี้คือตัวจัดกึ่งกลางที่แท้จริง (เหมือน text-center ของ bootstrap) */
+        align-items: center !important; 
+        
+        /* 3. กำหนดความกว้างแม่ให้เต็มพื้นที่ Grid */
+        width: 100% !important;
+        max-width: 100% !important; /* ปลดล็อก 900px เดิมออกเพื่อให้มันยืดเต็ม */
+        
+        /* เผื่อไว้สำหรับ Text */
+        text-align: center !important;
+    }
+
+    .rubber-features-section .material-name {
+        font-size: 16px !important; /* ปรับลดขนาดฟอนต์ในมือถือ */
+        margin-top: 5px !important;
+    }
+    
+}
+
+/* =========================================
+   📱 Mobile Responsive (Override)
+   ========================================= */
+@media (max-width: 768px) {
+
+    .btn-file-guide {   
+        width: 100% !important; /* ขยายเต็มความกว้างมือถือ */
+    }
+
+    .product-detail-page .row > * {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    /* หรือถ้าอยากให้มีช่องว่างแค่เล็กน้อยแทนที่จะเป็น 0 */
+    .product-detail-page .row {
+        --bs-gutter-x: 0rem; /* ปรับค่าตัวแปรแทนการลบ Property */
+    }
+    /* 1. จัดการ Grid ให้เป็น 2 คอลัมน์ และเว้นระยะห่างให้พอดี */
+    .product-example-grid {
+        grid-template-columns: repeat(2, 1fr) !important; /* ✅ บังคับเป็น 2 คอลัมน์ดิ่งลงมา */
+        gap: 12px !important; 
+        padding: 0 15px !important;
+        justify-content: center !important;
+        margin: 40px auto !important; /* เว้นระยะจากส่วนบน */
+    }
+
+    /* 2. ล็อกขนาดกล่องให้มีสัดส่วนเท่ากันทุกใบ */
+    .example-item {
+        width: 100% !important; /* ยืดตามช่อง Grid */
+        height: auto !important;
+        aspect-ratio: 140 / 140 !important; /* ✅ ล็อกสัดส่วน 237x254 ให้คงที่ */
+        padding: 10px !important;
+        background-color: #F9F9F9;
+        box-sizing: border-box;
+    }
+
+    /* 3. จัดการรูปภาพในกล่องให้ไม่เบี้ยว */
+    .example-item img {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        object-fit: contain !important; /* ✅ รักษาทรงรูปภาพไม่ให้โดนตัด */
+    }
+
+    /* --- ส่วนอื่นๆ ของคุณคงเดิม --- */
+    .acrylic-poster-img { height: 250px; }
+    .acrylic-content { margin-top: 40px; }
+    .acrylic-title { font-size: 24px; }
+    .acrylic-desc { font-size: 14px; }
+    .acrylic-usage-wrapper { margin-top: 40px; }
+}
+/* =========================================================
+   📱 MOBILE SPECIFIC (Max-width: 576px)
+   ========================================================= */
+@media (max-width: 576px) {
+    body { background-color: #fff !important; }
+    .product-detail-page { background-color: #fff; padding: 0 !important; }
+    .product-detail-page .container { padding: 0; max-width: 100%; }
+    .bg-white { box-shadow: none !important; border-radius: 0 !important; padding: 20px 15px !important; }
+    .product-title { font-size: 1.4rem; margin-bottom: 1rem; padding-left: 15px; }
+    #size-group .btn-spec, #screen-group .btn-spec { width: auto !important; min-width: 70px; height: 32px !important; padding: 0 12px !important; font-size: 0.85rem !important; }
+    #screen-group { margin-left: 0 !important; justify-content: flex-start; margin-top: 8px; }
+    #size-group, #screen-group { gap: 8px !important; }
+    .product-info-table .label { width: auto !important; padding-right: 5px !important; font-size: 16px; }
+    .product-info-table .value { font-size: 16px; padding-left: 0; }
+    .price-table.table-responsive { display: block; width: 100%; overflow-x: auto !important; margin-bottom: 15px; border-right: 1px solid #eee; border-radius: 0; }
+    .price-table .table { width: auto !important; min-width: 100%; }
+    .price-table .table th, .price-table .table td { white-space: nowrap !important; padding: 10px 15px; }
+    .action-area .row { row-gap: 10px; }
+}
+
+/* Smallest Screens (< 450px) */
+@media (max-width: 450px) {
+    .parts-grid { gap: 8px !important; }
+}

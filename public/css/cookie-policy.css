@@ -1,0 +1,74 @@
+
+.cookie-policy-page { background-color: #fff8ec !important; font-family: 'MyPromptFont', sans-serif !important; padding: 80px 20px; }
+.cookie-main-title { text-align: center; font-weight: normal; font-size: 48px; margin-bottom: 60px; }
+.cookie-content-box { background-color: #ffffff; margin: 0 auto; width: 100%; max-width: 1300px; padding: 20px 60px; border: 1px solid #e0e0e0; }
+.text-underline { text-decoration: underline; }
+
+
+.title-section-1 { font-weight: 600; font-size: 24px; margin-bottom: 10px; }
+.desc-section-1 { 
+    font-size: 20px; line-height: 1.4; color: #333; margin-bottom: 10px; 
+    text-indent: 30px;
+}
+.bullet-section-1 { list-style-type: disc; padding-left: 25px; margin-bottom: 25px; }
+.bullet-section-1 li { font-size: 20px; line-height: 1.4; margin-bottom: 4px; }
+
+.title-section-2 { font-weight: 600; font-size: 24px; margin-top: 30px; margin-bottom: 10px; }
+.desc-section-2 { 
+    font-size: 20px; line-height: 1.4; color: #333; margin-bottom: 10px;
+    padding-left: 0px; /* สามารถเลือกใช้ padding แทน text-indent ได้ */
+}
+.bullet-section-2 { list-style-type: disc; padding-left: 25px; margin-bottom: 25px; }
+.bullet-section-2 li { font-size: 20px; line-height: 1.4; margin-bottom: 4px; }
+
+/* --- ส่วนที่ 3 (การตั้งค่าและการติดต่อ) --- */
+.title-section-3 { font-weight: 600; font-size: 24px; margin-top: 30px; margin-bottom: 10px; }
+.desc-section-3 { 
+    font-size: 20px; line-height: 1.4; color: #333; margin-bottom: 15px;
+    text-indent: 30px; /* 🚩 ปรับย่อหน้าเฉพาะส่วนที่ 3 */
+}
+.contact-section-3 { 
+    font-size: 20px; line-height: 1.5; color: #333; 
+    margin-top: 10px;
+    /* ส่วนนี้มักไม่นิยมย่อหน้าบรรทัดแรก เพื่อให้ข้อมูลติดต่ออ่านง่าย */
+}
+
+/* --- Responsive --- */
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    
+    /* 1. จัดการตัวครอบหลักให้ชิดขอบ */
+    .cookie-policy-page {
+        padding: 40px 0; /* ลด padding ด้านบน/ล่าง และเอา padding ด้านข้างออก */
+    }
+
+    .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* 2. ทำให้กล่องขาวขยายเต็ม 100% */
+    .cookie-content-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important; /* ลบ margin ทั้งหมดเพื่อให้แนบขอบจอ */
+        padding: 5px 15px;    /* เหลือ padding ข้างในไว้เล็กน้อยเพื่อให้ตัวหนังสือไม่ติดขอบจอเกินไป */
+        border: none;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .cookie-main-title {
+        margin-bottom: 39px;
+    }
+    /* 3. จัดการข้อความ */
+    .cookie-main-title {
+        font-size: 24px;
+        padding: 0 15px; /* เพิ่ม padding ให้หัวข้อใหญ่ที่อยู่นอกกล่องไม่ติดขอบจอ */
+    }
+
+    .desc-section-1, .desc-section-3 { 
+        text-indent: 20px; 
+    }
+}

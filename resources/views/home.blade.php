@@ -1,54 +1,98 @@
 @extends('layouts.main')
 
+@section('title', 'หน้าแรก | Hotmobily')
+
 @section('content')
-<!-- HERO -->
-<section class="hero text-center text-white d-flex align-items-center justify-content-center">
-  <div class="container">
-    <h1 class="fw-bold display-5 mb-3">HotMobily</h1>
-    <p class="lead mb-4">พวงกุญแจ เข็มกลัด และของพรีเมียมคุณภาพสูง</p>
-    <a href="#contact" class="btn btn-dark px-4 py-2">ขอใบเสนอราคา</a>
-  </div>
-</section>
 
-<!-- WHY -->
-<section id="why" class="section bg-white text-center">
-  <div class="container">
-    <h2 class="fw-bold mb-5">ทำไมต้องเลือกเรา</h2>
-    <div class="row g-4">
-      <div class="col-md-3">
-        <div class="p-4 shadow-soft rounded-4">
-          <i class="bi bi-palette fs-2 text-warning"></i>
-          <h5 class="mt-3">ออกแบบฟรี</h5>
+{{-- 1️⃣ Import Swiper CSS & Custom CSS --}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<link rel="stylesheet" href="{{ asset('css/hero.css') }}"> 
+
+<section class="hero-section position-relative w-100">
+    <div class="container-xxl text-center text-lg-start h-100">
+        <div class="row align-items-center h-100 pb-5">
+            
+            {{-- 🟡 ฝั่งรูปภาพและหัวข้อมือถือ (Image Column) --}}
+            <div class="col-lg-6 text-center mt-4 mt-lg-0 order-1 order-lg-2 position-relative">
+                
+                {{-- 🚩 หัวข้อสำหรับมือถือ: วางไว้บนสุดเหนือ hero-img-container --}}
+                <h1 class="display-4 mb-3 brand-highlight d-lg-none">Hotmobily</h1>
+
+                <div class="hero-img-container">
+                    <div class="swiper myHeroSwiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-keychain.png') }}" class="hero-img" alt="Keychain">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-phonestand.png') }}" class="hero-img" alt="Phone Stand">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-standee.png') }}" class="hero-img" alt="Standee">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="{{ asset('images/Top-page/T-griptok.png') }}" class="hero-img" alt="Griptok">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{-- ปุ่ม Dots อยู่ใต้รูปภาพ --}}
+                <div class="custom-pagination"></div>
+            </div>
+
+            {{-- 🟡 ฝั่งเนื้อหาข้อความ --}}
+            <div class="col-lg-6 order-2 order-lg-1">
+                <div class="hero-content-wrapper ps-lg-4">
+                    {{-- 🚩 หัวข้อสำหรับ Desktop (ซ่อนบนมือถือ) --}}
+                    <h1 class="display-4 mb-3 brand-highlight d-none d-lg-block">Hotmobily</h1>
+                    
+                    <p class="lead mb-4 brand-desc">
+                        รับทำพวงกุญแจ เข็มกลัด สแตนดี้ สติ๊กเกอร์ ยางรัดผม แท่นวางโทรศัพท์ <span style="white-space: nowrap">ที่รองแก้ว</span> 
+                        ยางหุ้มกุญแจ ที่ติดโทรศัพท์ งานอะคริลิค ยาง และงานสะท้อนแสง
+                    </p>
+
+                    <div class="d-flex justify-content-lg-start justify-content-center gap-4 brand-features flex-wrap">
+                        <div class="feature text-center">
+                            <div class="icon-circle">
+                                <img src="{{ asset('images/box.png') }}" alt="คุณภาพดี" class="feature-icon">
+                            </div>
+                            <p>คุณภาพดี</p>
+                        </div>
+                        <div class="feature text-center">
+                            <div class="icon-circle">
+                                <img src="{{ asset('images/clock.png') }}" alt="ส่งตรงเวลา" class="feature-icon">
+                            </div>
+                            <p>ส่งตรงเวลา</p>
+                        </div>
+                        <div class="feature text-center">
+                            <div class="icon-circle">
+                                <img src="{{ asset('images/check.png') }}" alt="สินค้าตามมาตรฐาน" class="feature-icon">
+                            </div>
+                            <p>สินค้าตามมาตรฐาน</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-      <div class="col-md-3">
-        <div class="p-4 shadow-soft rounded-4">
-          <i class="bi bi-hand-thumbs-up fs-2 text-warning"></i>
-          <h5 class="mt-3">คุณภาพสูง</h5>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="p-4 shadow-soft rounded-4">
-          <i class="bi bi-alarm fs-2 text-warning"></i>
-          <h5 class="mt-3">ตรงเวลา</h5>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="p-4 shadow-soft rounded-4">
-          <i class="bi bi-heart fs-2 text-warning"></i>
-          <h5 class="mt-3">บริการดีเยี่ยม</h5>
-        </div>
-      </div>
     </div>
-  </div>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" class="section bg-light text-center">
-  <div class="container">
-    <h2 class="fw-bold mb-4">ติดต่อเรา</h2>
-    <p class="text-secondary mb-3">แอดไลน์หรือส่งไฟล์เพื่อขอประเมินราคา</p>
-    <a href="#" class="btn btn-warning fw-bold text-dark px-4">คุยกับเรา</a>
-  </div>
-</section>
+{{-- ✅ include ส่วนอื่น --}}
+@include('partials.why')
+@include('partials.steps')
+@include('partials.product-showcase')
+@include('partials.reviews')
+@include('partials.contact')
+
+{{-- Scripts... --}}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    var swiper = new Swiper(".myHeroSwiper", {
+        spaceBetween: 0, centeredSlides: true, loop: true, speed: 1200,
+        autoplay: { delay: 3000, disableOnInteraction: false },
+        pagination: { el: ".custom-pagination", clickable: true },
+    });
+</script>
 @endsection
