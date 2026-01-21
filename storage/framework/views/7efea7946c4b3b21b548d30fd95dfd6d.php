@@ -3,7 +3,6 @@
 <?php $__env->startSection('title', 'ติดต่อเรา - Hotmobily'); ?>
 
 <?php $__env->startSection('content'); ?>
-<link rel="stylesheet" href="<?php echo e(asset('css/contact-full.css')); ?>">
 
 <div class="contact-full-page">
     <div class="container-xxl">
@@ -21,7 +20,7 @@
                 
                 <p class="address-detail">
                     23/34-35 อาคารโครงการเดอะไพร์ม หัวลำโพง อาคาร A<br>
-                    ห้องเลขที่ 303 ชั้นที่ 3 ซอยสุกร แขวงตลาดน้อย<br>
+                    ห้องเลขที่ 404 ชั้นที่ 4 ซอยสุกร แขวงตลาดน้อย<br>
                     เขตสัมพันธวงศ์ กรุงเทพมหานคร 10100
                 </p>
                 <p class="work-time">เวลาทำการ : จันทร์-ศุกร์ (08:30-17:30 น.)</p>
@@ -43,7 +42,6 @@
                     </div>
 
                     <div class="qr-line-section">
-                        
                         <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank" class="line-link-wrapper">
                             <img src="<?php echo e(asset('images/line-qr.png')); ?>" alt="Line QR" class="line-qr-img">
                             <p class="line-id-text">Line : hotstrapthai</p>
@@ -53,22 +51,20 @@
 
                 <div class="social-icons">
                     <a href="https://www.facebook.com/hotmobilyTH" target="_blank">
-            <img src="<?php echo e(asset('images/fb.png')); ?>" class="social-img" alt="Facebook">
-        </a>
+                        <img src="<?php echo e(asset('images/fb.png')); ?>" class="social-img" alt="Facebook">
+                    </a>
                     <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank">
-            <img src="<?php echo e(asset('images/line.png')); ?>" class="social-img" alt="LINE">
-        </a>
+                        <img src="<?php echo e(asset('images/line.png')); ?>" class="social-img" alt="LINE">
+                    </a>
                     <a href="#"><img src="<?php echo e(asset('images/x.png')); ?>" alt="X"></a>
-                    <a href="mailto:setthawootsarakul@gmail.com?subject=Inquiry&body="><img src="<?php echo e(asset('images/gmail.png')); ?>" alt="Email"></a>
+                    <a href="mailto:sales.ye@youandearth-th.com?subject=Inquiry&body="><img src="<?php echo e(asset('images/gmail.png')); ?>" alt="Email"></a>
                 </div>
             </div>
 
             
             <div class="contact-form-side">
-                
                 <form action="<?php echo e(route('contact.store')); ?>" method="POST" enctype="multipart/form-data">
                     <?php echo csrf_field(); ?>
-                    
                     
                     <?php if(session('success')): ?>
                         <div class="alert alert-success mb-3"><?php echo e(session('success')); ?></div>
@@ -76,7 +72,6 @@
 
                     
                     <div class="form-group-floating mb-3">
-                        
                         <input type="text" name="name" class="form-control" id="name" placeholder=" " value="<?php echo e(old('name')); ?>" required>
                         <label for="name">ชื่อ - นามสกุล <span class="text-danger">*</span></label>
                     </div>
@@ -96,7 +91,6 @@
                     <div class="form-group mb-2">
                         <label>เรื่องที่ต้องการติดต่อ</label>
                         <div class="checkbox-grid">
-                            
                             <label><input type="checkbox" name="subjects[]" value="ขอใบเสนอราคา"> ขอใบเสนอราคา</label>
                             <label><input type="checkbox" name="subjects[]" value="นัดหมายฝ่ายขาย"> นัดหมายฝ่ายขาย</label>
                             <label><input type="checkbox" name="subjects[]" value="ขอตัวอย่างสินค้า"> ขอตัวอย่างสินค้า</label>
@@ -110,23 +104,20 @@
                             <span class="file-note">(***ไฟล์ที่อัปโหลดได้คือ ai, psd, pdf, doc, xls, jpeg, jpg, png, zip ขนาดไม่เกิน 10MB***)</span>
                         </label>
                         
-                        
                         <div class="file-upload-box" onclick="document.getElementById('file_input').click()">
                             <i class="fas fa-upload"></i>
-                            
                             <div id="file_list_display">
                                 <p>วางไฟล์ลงที่นี่ หรือคลิกเพื่อแนบไฟล์</p>
                             </div>
-                            
-                            
                             <input type="file" name="attachment[]" id="file_input" hidden multiple onchange="showMultipleFileNames(this)">
                         </div>
                     </div>
 
+                    
                     <div class="form-group mb-4">
-                        <label>ส่งข้อความเพิ่มเติม</label>
+                        <label>ส่งข้อความเพิ่มเติม <span class="text-danger">*</span></label>
                         <div class="form-group-floating">
-                            <textarea name="message" class="form-control" id="additional_message" rows="4" placeholder=" "><?php echo e(old('message')); ?></textarea>
+                            <textarea name="message" class="form-control" id="additional_message" rows="4" placeholder=" " required><?php echo e(old('message')); ?></textarea>
                             <label for="additional_message">ข้อความ</label>
                         </div>
                     </div>
@@ -137,7 +128,6 @@
         </div>
     </div>
 
-    
     <section class="network-section">
         <h3 class="network-title">เว็บไซต์ในเครือของเรา</h3>
         <div class="network-grid">
@@ -165,20 +155,16 @@
     </section>
 </div>
 
-
 <script>
 function showMultipleFileNames(input) {
     const displayArea = document.getElementById('file_list_display');
     
     if (input.files && input.files.length > 0) {
         let fileNames = '<ul style="list-style: none; padding: 0; margin-top: 10px; color: #333;">';
-        
-        // วนลูปเพื่อดึงชื่อไฟล์ทั้งหมดออกมาแสดง
         for (let i = 0; i < input.files.length; i++) {
             fileNames += '<li><i class="fas fa-file-alt"></i> ' + input.files[i].name + '</li>';
         }
-        
-        fileNames += '</ul>';
+        fileNames += 'ul>';
         displayArea.innerHTML = fileNames;
     } else {
         displayArea.innerHTML = '<p>วางไฟล์ลงที่นี่ หรือคลิกเพื่อแนบไฟล์</p>';

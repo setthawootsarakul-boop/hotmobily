@@ -205,7 +205,6 @@
                                 </a>
 
                                 <div class="product-title">
-                                    {{-- ✅ 2. ลิงก์ตรงชื่อสินค้า (ใช้ตัวแปรเดิม) --}}
                                     <a href="{{ $productLink }}">
                                         {{ $product->name }}
                                     </a>

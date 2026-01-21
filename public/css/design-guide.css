@@ -205,49 +205,52 @@ h5, .h5, .design-sub-title, .template-title,
     margin-bottom: 0; /* ตัวสุดท้ายไม่ต้องมีระยะล่าง */
 }
 @media (max-width: 768px) {
-    /* 1. ทำให้พื้นหลังและ Wrapper ชิดขอบที่สุด */
-    .design-guide-wrapper { 
-        padding: 20px 0; 
-    }
-
-    .container {
+    /* 1. บังคับโครงสร้างภายนอกให้ชนขอบจอ โดยระบุเฉพาะหน้านี้เท่านั้น */
+    .design-guide-wrapper,
+    .design-guide-wrapper .container,
+    .design-guide-wrapper .container-fluid {
         padding-left: 0 !important;
         padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: -40px !important;  
+        width: 100% !important;
         max-width: 100% !important;
     }
 
-    /* 2. ปรับกล่องเนื้อหาให้ขยายเต็ม 100% และลบขอบ/เงาออก */
+    /* 2. ปรับกล่องเนื้อหาขาวให้เต็ม 100% (ชิดขอบจอ) */
     .design-content-box {
         width: 100% !important;
         max-width: 100% !important;
         margin: 0 !important;
-        padding: 30px 15px; 
-        box-shadow: none;
-        border: none;
-        border-radius: 0;
-        text-align: left !important; /* 🚩 บังคับข้อความในกล่องให้ชิดซ้ายทั้งหมด */
+        padding: 30px 15px !important; /* เว้นระยะเนื้อหาข้างใน 15px */
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important; /* ลบขอบมนเพื่อให้ชนขอบจอเนียนๆ */
+        text-align: left !important;
     }
 
-    /* 3. จัดการกลุ่ม Flex (Contact & QR Code) ให้ชิดซ้าย */
+    /* 3. จัดการหัวข้อหลัก (ให้อยู่กึ่งกลางตามความต้องการเดิม) */
+    .design-main-title { 
+        font-size: 28px !important; 
+        margin: 40px 0 !important;
+        text-align: center !important;
+        padding: 0 15px !important;
+        line-height: 1.3;
+    }
+
+    /* 4. จัดการ Flex Container (Contact & QR Code) ให้ชิดซ้าย */
     .design-flex-container {
-        flex-direction: column;
-        align-items: flex-start !important; /* 🚩 เปลี่ยนจาก center เป็น flex-start */
-        text-align: left !important;       /* 🚩 เปลี่ยนจาก center เป็น left */
-        gap: 20px;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+        gap: 20px !important;
     }
 
     .design-contact-list {
-        width: 100%;
+        width: 100% !important;
         text-align: left !important;
         padding-left: 0 !important;
-    }
-
-    /* 4. หัวข้อและคำอธิบายอื่นๆ ให้ชิดซ้าย */
-    .design-main-title { 
-        font-size: 1.6rem; 
-        margin-bottom: 30px; 
-        text-align: left; /* 🚩 หัวข้อใหญ่ถ้าอยากให้ชิดซ้ายด้วย */
-        padding-left: 15px;
     }
 
     .design-sub-title, 
@@ -257,10 +260,9 @@ h5, .h5, .design-sub-title, .template-title,
         text-align: left !important; 
     }
 
-    /* 5. รูปภาพยังคงให้กว้างเต็มจอแต่แก้จุดทะลุ */
+    /* 5. จัดการรูปภาพทุกส่วนให้เต็มจอและไม่ขยับทะลุขอบ */
     .screen-image-wrapper {
-        flex-direction: column;
-        gap: 15px;
+        flex-direction: column !important;
     }
 
     .screen-image-wrapper img,
@@ -271,34 +273,39 @@ h5, .h5, .design-sub-title, .template-title,
         width: 100% !important;
         max-width: 100% !important;
         height: auto !important;
-        display: block;
-        margin: 0; /* 🚩 เปลี่ยนจาก margin: 0 auto เป็น 0 เพื่อให้รูปชิดซ้าย (ถ้าไม่เต็มจอ) */
+        display: block !important;
+        margin: 10px 0 !important; /* ให้รูปชิดซ้ายตามเนื้อหา */
     }
 
-    /* FAQ ส่วนล่างยังคงให้จัดตามความเหมาะสม */
-    .faq-header h1 { font-size: 22px; text-align: center; } /* FAQ มักจะสวยกว่าถ้าอยู่กลาง */
-    .faq-section { 
-        padding: 20px 20px; /* เพิ่มระยะห่างซ้าย-ขวาบรรทัดนี้ */
-        width: 100%;
-        box-sizing: border-box; /* มั่นใจว่า padding ไม่ทำให้ความกว้างเกินจอ */
-    }
-
-    /* ถ้าต้องการให้ตัวหนังสือใน FAQ ชิดซ้ายเหมือนเนื้อหาด้านบน */
-    .faq-item {
-        padding: 20px 0;
-        text-align: left;
-        font-size: 1.2rem; /* ปรับขนาดให้พอดีกับมือถือ */
-    }
-
+    /* 6. ส่วน FAQ ด้านล่าง (บทความที่น่าสนใจ) */
     .faq-header {
-        padding: 40px 20px 10px; /* เพิ่มช่องว่างให้หัวข้อ "บทความที่คุณอาจสนใจ" */
-        text-align: left; /* เปลี่ยนเป็นชิดซ้ายตามความต้องการของคุณ */
+        padding: 35px 15px 10px !important;
     }
 
+    .faq-header h1 { 
+        font-size: 24px !important; 
+        text-align: center !important; 
+        font-weight: normal !important;
+    }
+
+    .faq-section { 
+        padding: 10px 15px 40px !important; /* ลบ padding 16% เดิมออก */
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .faq-item {
+        padding: 18px 0 !important;
+        text-align: left !important;
+        font-size: 1.1rem !important;
+        border-bottom: 1px solid #eee !important;
+    }
+
+    /* QR Code Box ในมือถือให้จัดกลางเพื่อความสวยงาม */
     .design-qr-box {
-        width: 100%;       /* ขยายเต็มพื้นที่เพื่อให้จัดกลางได้ */
-        display: flex;
-        justify-content: center; /* จัดรูปให้อยู่กลางจอในมือถือ */
-        margin-top: 20px;
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
     }
 }

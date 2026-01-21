@@ -146,7 +146,7 @@
     border-radius: 8px;
     font-weight: 600;
     font-size: 1rem;
-    color: #000;
+    color: #ffffff;
     cursor: pointer;
     display: inline-block; 
     width: auto;  
@@ -268,5 +268,11 @@ button:focus-visible,
     }
     .articles-title {
         font-size: 24px;
+    }
+    .payment-main-headline {
+        font-size: 28px;
+        font-weight: normal !important;
+        padding-top: 35px;
+        margin-bottom: 30px;
     }
 }

@@ -21,7 +21,7 @@
                 <div class="card-body">
                     <ul class="main-condition-list">
                         <li>ในกรณีที่คำสั่งซื้อมูลค่า <span class="text-red">น้อยกว่า 10,000 บาท</span> ลูกค้าจะ<span class="text-red-underline">ต้องชำระเงินเต็มจำนวน</span></li>
-                        <li>ในกรณีที่<span class="text-red">คำสั่งซื้อมูลค่า 10,000 – 50,000 บาท</span>
+                        <li>ในกรณีที่<span class="text-red">คำสั่งซื้อมูลค่า 10,000 - 50,000 บาท</span>
                             <ul class="sub-condition-list">
                                 <li>ลูกค้า<span class="text-red">นิติบุคคล</span> → <span class="text-red-underline">ชำระมัดจำ 50%</span> ของยอดสั่งซื้อ</li>
                                 <li>ลูกค้า<span class="text-red">ทั่วไป</span> → <span class="text-red-underline">ชำระเต็มจำนวน</span></li>
@@ -55,7 +55,7 @@
                             <i class="fas fa-map-marker-alt location-marker-icon"></i>
                             <p class="address-text-full">
                                 23/34-35 อาคารโครงการเดอะไพร์ม หัวลำโพง อาคาร A <br>
-                                ห้องเลขที่ 303 ชั้นที่ 3 ซอยสุกร แขวงตลาดน้อย เขตสัมพันธวงศ์ กรุงเทพมหานคร 10100
+                                ห้องเลขที่ 404 ชั้นที่ 4 ซอยสุกร แขวงตลาดน้อย เขตสัมพันธวงศ์ กรุงเทพมหานคร 10100
                             </p>
                         </div>
                     </div>

@@ -87,8 +87,8 @@ unset($__defined_vars, $__key, $__value); ?>
 <?php $component = $__componentOriginal0bc865510ef3ecddbe48edc4e8cc9ddb; ?>
 <?php unset($__componentOriginal0bc865510ef3ecddbe48edc4e8cc9ddb); ?>
 <?php endif; ?>
-        <?php if (isset($component)) { $__componentOriginal5131cdd8ffd44ce9fe7ed2c3030dd413 = $component; } ?>
-<?php if (isset($attributes)) { $__attributesOriginal5131cdd8ffd44ce9fe7ed2c3030dd413 = $attributes; } ?>
+        <?php if (isset($component)) { $__componentOriginal5131cdd8ffd44ce9fe7ed2c4040dd413 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal5131cdd8ffd44ce9fe7ed2c4040dd413 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'laravel-exceptions-renderer::components.http-method','data' => ['method' => ''.e($request->method()).'']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('laravel-exceptions-renderer::http-method'); ?>
 <?php if ($component->shouldRender()): ?>
@@ -99,13 +99,13 @@ unset($__defined_vars, $__key, $__value); ?>
 <?php $component->withAttributes(['method' => ''.e($request->method()).'']); ?>
 <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
-<?php if (isset($__attributesOriginal5131cdd8ffd44ce9fe7ed2c3030dd413)): ?>
-<?php $attributes = $__attributesOriginal5131cdd8ffd44ce9fe7ed2c3030dd413; ?>
-<?php unset($__attributesOriginal5131cdd8ffd44ce9fe7ed2c3030dd413); ?>
+<?php if (isset($__attributesOriginal5131cdd8ffd44ce9fe7ed2c4040dd413)): ?>
+<?php $attributes = $__attributesOriginal5131cdd8ffd44ce9fe7ed2c4040dd413; ?>
+<?php unset($__attributesOriginal5131cdd8ffd44ce9fe7ed2c4040dd413); ?>
 <?php endif; ?>
-<?php if (isset($__componentOriginal5131cdd8ffd44ce9fe7ed2c3030dd413)): ?>
-<?php $component = $__componentOriginal5131cdd8ffd44ce9fe7ed2c3030dd413; ?>
-<?php unset($__componentOriginal5131cdd8ffd44ce9fe7ed2c3030dd413); ?>
+<?php if (isset($__componentOriginal5131cdd8ffd44ce9fe7ed2c4040dd413)): ?>
+<?php $component = $__componentOriginal5131cdd8ffd44ce9fe7ed2c4040dd413; ?>
+<?php unset($__componentOriginal5131cdd8ffd44ce9fe7ed2c4040dd413); ?>
 <?php endif; ?>
         <div class="flex-1 text-sm font-light truncate text-neutral-950 dark:text-white">
             <span data-tippy-content="<?php echo e($request->fullUrl()); ?>">

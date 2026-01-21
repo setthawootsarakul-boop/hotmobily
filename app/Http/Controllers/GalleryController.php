@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Gallery; // เรียกใช้ Model Gallery ที่สร้างใหม่
-use App\Models\Category; // เรียกใช้ Model Category เพื่อดึงชื่อหมวดหมู่
+use App\Models\Gallery; 
+use App\Models\Category; 
 use Illuminate\Http\Request;
 
 class GalleryController extends Controller
@@ -11,7 +11,6 @@ class GalleryController extends Controller
 
     public function index(Request $request)
     {
-        // ดึงรายชื่อสินค้าทั้งหมดมาทำเป็นปุ่ม (เช่น พวงกุญแจอะคริลิค, พวงกุญแจยาง)
         $products_list = \App\Models\Product::orderBy('rank', 'asc')->get();
 
         $query = \App\Models\Gallery::query();

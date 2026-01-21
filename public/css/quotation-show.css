@@ -265,6 +265,28 @@ body {
     text-decoration: underline;
 }
 
+.thank-you-box {
+    background-color: #fff8ec; /* สีพื้นหลังส้มอ่อน */
+    border: 1px solid #fbab00;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(251, 171, 0, 0.1);
+}
+
+.thank-you-title {
+    color: #fbab00;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.thank-you-subtitle {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.6;
+}
 /* ========================================= 
    📱 MOBILE RESPONSIVE
    ========================================= */
@@ -466,7 +488,19 @@ body {
     body { background: #fff !important; margin: 0 !important; padding: 0 !important; }
 
     /* ซ่อนส่วนที่ไม่พิมพ์ */
-    nav, footer, .navbar, .btn-print-wrapper, .no-print, .thank-you-header, .view-products-link, button { 
+    nav, 
+    footer, 
+    .navbar, 
+    .btn-print-wrapper, 
+    .btn-print,    /* ปุ่มพิมพ์ */
+    .btn-home,     /* ปุ่มกลับหน้าหลัก */
+    .no-print, 
+    .thank-you-header, 
+    .view-products-link, 
+    .thank-you-box, /* กล่องขอบคุณสีส้ม */
+    button,        /* ดักจับทุกปุ่มที่เป็นแท็ก button */
+    .sbutton       /* 🎯 เพิ่มคลาส sbutton ตามที่คุณแจ้ง */
+    { 
         display: none !important; 
     }
 

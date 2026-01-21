@@ -10,7 +10,6 @@
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
-
 <style>
     .choices { margin-bottom: 0; }
     .choices__inner { background-color: #fff; border: 1px solid #e0e0e0; border-radius: 6px; min-height: 44px; padding: 4px 10px; display: flex; align-items: center; font-size: 14px; }
@@ -20,49 +19,41 @@
     
     .form-control::placeholder { color: #6c757d; opacity: 1; }
 
-    .choices__list--dropdown .choices__input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 10px center; background-size: 16px; padding-left: 35px !important; border-radius: 4px; background-color: #f8f9fa; border: 1px solid #eee; margin-bottom: 5px; }
+    .choices__list--dropdown .choices__input { 
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"); 
+        background-repeat: no-repeat; background-position: 10px center; background-size: 16px; padding-left: 35px !important; border-radius: 4px; background-color: #f8f9fa; border: 1px solid #eee; margin-bottom: 5px; 
+    }
     
     .form-control.is-invalid { border-color: #dc3545 !important; padding-right: calc(1.5em + .75rem); background-image: none !important; }
-    .choices.is-invalid .choices__inner { border-color: #dc3545 !important; background-image: none; }
+    .choices.is-invalid .choices__inner { border-color: #dc3545 !important; }
     .invalid-feedback { display: none; width: 100%; margin-top: .25rem; font-size: .875em; color: #dc3545; font-weight: 500; }
     .d-block { display: block !important; }
 
     /* Custom Tax Radio Card */
     .tax-options-container { display: flex; gap: 15px; flex-wrap: wrap; }
     .tax-option-card {
-        flex: 1; min-width: 250px;
-        border: 1px solid #e0e0e0; border-radius: 8px;
-        padding: 15px 20px; cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        background-color: #fff;
+        flex: 1; min-width: 250px; border: 1px solid #e0e0e0; border-radius: 8px;
+        padding: 30px 20px; cursor: pointer; transition: all 0.2s ease-in-out; background-color: #fff;
     }
+    .tax-option-card.selected { border-color: #FFA726; background-color: #fff9f0; box-shadow: 0 2px 8px rgba(255,167,38,0.15); }
     
     .custom-radio-icon {
-        width: 24px; height: 24px;
-        border: 2px solid #ccc; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        margin-right: 10px; flex-shrink: 0;
+        width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center; margin-right: 10px; flex-shrink: 0;
     }
-    .custom-radio-icon.checked {
-        border-color: #FFA726; background-color: #FFA726; color: white;
-    }
+    .custom-radio-icon.checked { border-color: #FFA726; background-color: #FFA726; color: white; }
 
-    /* SweetAlert Styles */
     .custom-swal-popup { border-radius: 15px !important; padding: 2rem !important; }
-    .custom-swal-confirm { background-color: #FFA726 !important; border-color: #FFA726 !important; box-shadow: none !important; padding: 10px 25px !important; font-weight: bold; }
+    .custom-swal-confirm { background-color: #FFA726 !important; border-color: #FFA726 !important; padding: 10px 25px !important; font-weight: bold; }
     .custom-swal-cancel { color: #666 !important; background: #f8f9fa !important; border: 1px solid #ddd !important; padding: 10px 25px !important; font-weight: bold; }
 </style>
 
 <div class="container py-5">
-    
     <?php if(session('error')): ?>
         <div class="alert alert-danger alert-dismissible fade show mb-4 shadow-sm" role="alert" style="border-left: 5px solid #dc3545;">
             <div class="d-flex align-items-center">
                 <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
-                <div>
-                    <strong>แจ้งเตือน!</strong> <?php echo e(session('error')); ?>
-
-                </div>
+                <div><strong>แจ้งเตือน!</strong> <?php echo e(session('error')); ?></div>
             </div>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -72,13 +63,11 @@
 
     <form action="<?php echo e(route('quotation.step1')); ?>" method="POST" id="quotationForm" novalidate>
         <?php echo csrf_field(); ?>
-
         
-        <input type="hidden" name="province_name" id="province_name">
-        <input type="hidden" name="district_name" id="district_name">
-        <input type="hidden" name="sub_district_name" id="sub_district_name">
+        <input type="hidden" name="province_name" id="province_name" value="<?php echo e(old('province_name', $tempData['province_name'] ?? '')); ?>">
+        <input type="hidden" name="district_name" id="district_name" value="<?php echo e(old('district_name', $tempData['district_name'] ?? '')); ?>">
+        <input type="hidden" name="sub_district_name" id="sub_district_name" value="<?php echo e(old('sub_district_name', $tempData['sub_district_name'] ?? '')); ?>">
 
-        
         <h4 class="section-header">ที่อยู่ในการรับสินค้า</h4>
 
         <div class="row g-3 mb-4">
@@ -88,51 +77,55 @@
                 <div class="invalid-feedback">กรุณากรอกข้อมูล</div>
             </div>
             <div class="col-md-6">
+                <label class="form-label">ชื่อบริษัท / หน่วยงาน <small class="text-muted">(ถ้ามี)</small></label>
+                <input type="text" name="company_name" class="form-control" value="<?php echo e(old('company_name', $tempData['company_name'] ?? '')); ?>">
+            </div>
+            <div class="col-md-6">
                 <label class="form-label">เบอร์โทรศัพท์ <span class="text-danger">*</span></label>
                 <input type="text" name="phone" class="form-control" value="<?php echo e(old('phone', $tempData['phone'] ?? '')); ?>" required>
                 <div class="invalid-feedback">กรุณากรอกข้อมูล</div>
             </div>
-            <div class="col-12">
+            <div class="col-md-6">
                 <label class="form-label">อีเมล <span class="text-danger">*</span></label>
                 <input type="email" name="email" class="form-control" value="<?php echo e(old('email', $tempData['email'] ?? '')); ?>" required>
                 <div class="invalid-feedback">กรุณากรอกข้อมูล</div>
             </div>
         </div>
 
-        
         <div class="row g-3 mb-4">
             <div class="col-md-6">
                 <label class="form-label">จังหวัด <span class="text-danger">*</span></label>
-                <div id="province-wrapper">
-                    <select name="province" id="province" class="form-control" required></select>
-                </div>
+                
+                <select name="province" id="province" class="form-control" required></select>
                 <div class="invalid-feedback" id="province-error">โปรดเลือกจังหวัด</div>
             </div>
             <div class="col-md-6">
                 <label class="form-label">อำเภอ / เขต <span class="text-danger">*</span></label>
-                <div id="district-wrapper">
-                    <select name="district" id="district" class="form-control" required disabled></select>
-                </div>
+                <select name="district" id="district" class="form-control" required disabled></select>
                 <div class="invalid-feedback" id="district-error">โปรดเลือกอำเภอ / เขต</div>
             </div>
             <div class="col-md-6">
                 <label class="form-label">ตำบล / แขวง <span class="text-danger">*</span></label>
-                <div id="sub-district-wrapper">
-                    <select name="sub_district" id="sub_district" class="form-control" required disabled></select>
-                </div>
+                <select name="sub_district" id="sub_district" class="form-control" required disabled></select>
                 <div class="invalid-feedback" id="sub-district-error">โปรดเลือกตำบล / แขวง</div>
             </div>
             <div class="col-md-6">
                 <label class="form-label">รหัสไปรษณีย์ <span class="text-danger">*</span></label>
-                <input type="text" name="zipcode" id="zipcode" class="form-control" style="background-color: #E9ECEF;" readonly required placeholder="รหัสไปรษณีย์">
-                <div class="invalid-feedback">กรุณากรอกข้อมูล</div>
+                <input type="text" name="zipcode" id="zipcode" class="form-control" value="<?php echo e(old('zipcode', $tempData['zipcode'] ?? '')); ?>" style="background-color: #E9ECEF;" readonly required>
             </div>
         </div>
 
-        
         <div class="row g-3 mb-4">
-            <div class="col-md-4"><label class="form-label">เลขที่</label><input type="text" name="address_no" class="form-control" value="<?php echo e(old('address_no', $tempData['address_no'] ?? '')); ?>"></div>
-            <div class="col-md-4"><label class="form-label">ชื่ออาคาร</label><input type="text" name="building" class="form-control" value="<?php echo e(old('building', $tempData['building'] ?? '')); ?>"></div>
+            <div class="col-md-4">
+                <label class="form-label font-weight-bold">เลขที่ <span class="text-danger">*</span></label>
+                <input type="text" name="tax_address_no" class="form-control" value="<?php echo e(old('tax_address_no', $tempData['tax_address_no'] ?? '')); ?>" required>
+                <div class="invalid-feedback">กรุณากรอกเลขที่</div>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label font-weight-bold">ชื่ออาคาร <span class="text-danger">*</span></label>
+                <input type="text" name="tax_building" class="form-control" value="<?php echo e(old('tax_building', $tempData['tax_building'] ?? '')); ?>" required>
+                <div class="invalid-feedback">กรุณากรอกชื่ออาคาร</div>
+            </div>
             <div class="col-md-4"><label class="form-label">ชั้นที่</label><input type="text" name="floor" class="form-control" value="<?php echo e(old('floor', $tempData['floor'] ?? '')); ?>"></div>
             <div class="col-md-6"><label class="form-label">หมู่</label><input type="text" name="moo" class="form-control" value="<?php echo e(old('moo', $tempData['moo'] ?? '')); ?>"></div>
             <div class="col-md-6"><label class="form-label">หมู่บ้าน</label><input type="text" name="village" class="form-control" value="<?php echo e(old('village', $tempData['village'] ?? '')); ?>"></div>
@@ -141,40 +134,40 @@
         </div>
 
         <div class="mb-5">
-            <label class="form-label">ข้อความเพิ่มเติม <small class="text-muted">* กรุณาระบุข้อมูล หรือข้อความ ตามที่ท่านต้องการ กรณีไม่มีข้อมูลให้เว้นว่างไว้ไม่ต้องใส่ - (ขีด)</small></label>
+            <label class="form-label">ข้อความเพิ่มเติม <small class="text-muted">กรุณาระบุข้อมูล หรือข้อความ ตามที่ท่านต้องการ กรณีไม่มีข้อมูลให้เว้นว่างไว้ไม่ต้องใส่ - (ขีด)</small></label>
             <textarea name="note" class="form-control" rows="3"><?php echo e(old('note', $tempData['note'] ?? '')); ?></textarea>
         </div>
 
-        
         <h4 class="section-header">ใบกำกับภาษี</h4>
         
         <div class="tax-options-container mb-5">
-            <label class="tax-option-card selected" id="opt-no-tax">
+            <?php $currentTax = old('tax_invoice_req', $tempData['tax_invoice_req'] ?? '0'); ?>
+            
+            <div class="tax-option-card <?php echo e($currentTax == '0' ? 'selected' : ''); ?>" onclick="selectTaxOption(this)">
                 <div class="d-flex align-items-center w-100">
-                    <div class="custom-radio-icon checked me-3">
-                        <i class="bi bi-check-lg"></i>
+                    <div class="custom-radio-icon <?php echo e($currentTax == '0' ? 'checked' : ''); ?> me-3">
+                        <?php if($currentTax == '0'): ?> <i class="bi bi-check-lg"></i> <?php endif; ?>
                     </div>
                     <span class="fw-bold text-dark">ไม่ต้องการใบกำกับภาษี</span>
-                    <i class="bi bi-file-earmark-x ms-2 text-muted fs-4"></i>
                 </div>
-                <input type="radio" name="tax_invoice_req" value="0" checked hidden onchange="selectTaxOption(this)">
-            </label>
+                <input type="radio" name="tax_invoice_req" value="0" <?php echo e($currentTax == '0' ? 'checked' : ''); ?> hidden>
+            </div>
 
-            <label class="tax-option-card" id="opt-paper-tax">
+            <div class="tax-option-card <?php echo e($currentTax == '1' ? 'selected' : ''); ?>" onclick="selectTaxOption(this)">
                 <div class="d-flex align-items-center w-100">
-                    <div class="custom-radio-icon me-3"></div>
+                    <div class="custom-radio-icon <?php echo e($currentTax == '1' ? 'checked' : ''); ?> me-3">
+                        <?php if($currentTax == '1'): ?> <i class="bi bi-check-lg"></i> <?php endif; ?>
+                    </div>
                     <span class="fw-bold text-dark">แบบกระดาษ</span>
-                    <i class="bi bi-file-earmark-text ms-2 text-muted fs-4"></i>
                 </div>
-                <input type="radio" name="tax_invoice_req" value="1" hidden onchange="selectTaxOption(this)">
-            </label>
+                <input type="radio" name="tax_invoice_req" value="1" <?php echo e($currentTax == '1' ? 'checked' : ''); ?> hidden>
+            </div>
         </div>
 
         <div class="d-flex justify-content-between align-items-center mt-5">
             <a href="<?php echo e(route('cart.index')); ?>" class="btn btn-back">ย้อนกลับ</a>
             <button type="button" class="btn btn-create-quote" onclick="preSubmitCheck()">สร้างใบเสนอราคา</button>
         </div>
-
     </form>
 </div>
 
@@ -183,176 +176,166 @@
 <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
-    // ประกาศตัวแปรเก็บ instance ของ Choices เพื่อใช้เรียกภายหลัง
-    let provinceChoices, districtChoices, subDistrictChoices;
 
-    function selectTaxOption(radio) {
-        document.querySelectorAll('.tax-option-card').forEach(el => el.classList.remove('selected'));
-        document.querySelectorAll('.custom-radio-icon').forEach(el => {
-            el.classList.remove('checked');
-            el.innerHTML = '';
-        });
-        const parentLabel = radio.closest('label');
-        parentLabel.classList.add('selected');
-        const iconDiv = parentLabel.querySelector('.custom-radio-icon');
-        iconDiv.classList.add('checked');
-        iconDiv.innerHTML = '<i class="bi bi-check-lg"></i>';
+<script>
+    let provinceChoices, districtChoices, subDistrictChoices;
+    let allData = [];
+
+    // ฟังก์ชันช่วยดึงค่า: เช็คจาก LocalStorage ก่อน ถ้าไม่มีค่อยเช็คจาก Session PHP
+    function getSavedValue(key, phpValue) {
+        return localStorage.getItem('quote_' + key) || phpValue || '';
     }
 
+    // ฟังก์ชันจัดการใบกำกับภาษี
+    function selectTaxOption(cardElement) {
+        document.querySelectorAll('.tax-option-card').forEach(el => el.classList.remove('selected'));
+        document.querySelectorAll('.custom-radio-icon').forEach(el => { el.classList.remove('checked'); el.innerHTML = ''; });
+        cardElement.classList.add('selected');
+        const radio = cardElement.querySelector('input[type="radio"]');
+        radio.checked = true;
+        const iconDiv = cardElement.querySelector('.custom-radio-icon');
+        iconDiv.classList.add('checked');
+        iconDiv.innerHTML = '<i class="bi bi-check-lg"></i>';
+        localStorage.setItem('quote_tax_invoice_req', radio.value);
+    }
+
+    // ฟังก์ชันตรวจสอบและบันทึกข้อมูลก่อนส่ง
     function preSubmitCheck() {
         const form = document.getElementById('quotationForm');
-        let isValid = true;
+        
+        const dataToSave = new FormData(form);
+        for (let [key, value] of dataToSave.entries()) {
+            localStorage.setItem('quote_' + key, value);
+        }
 
-        // 🔥 ดึงชื่อสถานที่จริงมาเก็บไว้ใน Hidden Input ก่อน Submit 🔥
-        // ใช้ .getValue(true) เพื่อเอาข้อความ (Label) แทน Value (ID)
         document.getElementById('province_name').value = provinceChoices.getValue(true) || '';
         document.getElementById('district_name').value = districtChoices.getValue(true) || '';
         document.getElementById('sub_district_name').value = subDistrictChoices.getValue(true) || '';
 
-        form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
-        form.querySelectorAll('.choices.is-invalid').forEach(el => el.classList.remove('is-invalid')); 
-        form.querySelectorAll('.invalid-feedback').forEach(el => el.classList.remove('d-block'));
+        localStorage.setItem('quote_province_name', document.getElementById('province_name').value);
+        localStorage.setItem('quote_district_name', document.getElementById('district_name').value);
+        localStorage.setItem('quote_sub_district_name', document.getElementById('sub_district_name').value);
 
-        form.querySelectorAll('input[required]').forEach(input => {
-            if (!input.value.trim()) {
-                input.classList.add('is-invalid');
-                const errorDiv = input.nextElementSibling;
-                if(errorDiv && errorDiv.classList.contains('invalid-feedback')) {
-                    errorDiv.classList.add('d-block');
-                }
-                isValid = false;
-            }
-        });
-
-        ['province', 'district', 'sub_district'].forEach(id => {
-            const select = document.getElementById(id);
-            if (select && select.value === "") {
-                const wrapper = select.closest('.choices') || select.parentElement.querySelector('.choices');
-                if(wrapper) wrapper.classList.add('is-invalid');
-                const errorMsg = document.getElementById(id + '-error');
-                if(errorMsg) errorMsg.classList.add('d-block');
-                isValid = false;
-            }
-        });
+        let isValid = true;
+        if (!document.getElementById('province').value) {
+            isValid = false;
+            Swal.fire('แจ้งเตือน', 'กรุณาเลือกที่อยู่ให้ครบถ้วน', 'warning');
+        }
 
         if (isValid) {
             const taxReq = document.querySelector('input[name="tax_invoice_req"]:checked').value;
-
             if (taxReq === '1') {
                 form.submit();
-                return; 
-            }
-
-            Swal.fire({
-                title: 'ยืนยันขอใบเสนอราคา',
-                html: `
-                    <div class="mb-3">
-                        <img src="<?php echo e(asset('images/Hotmobilyfile/poster/robot-bill.png')); ?>" style="width: 150px; margin-bottom: 15px;">
-                    </div>
-                    <p class="text-muted" style="font-size: 14px;">
-                        ใบเสนอราคานี้จัดทำโดยระบบอัตโนมัติเพื่อเป็นการอ้างอิงราคาเบื้องต้นเท่านั้น<br>
-                        กรุณาติดต่อฝ่ายขายเพื่อยืนยันข้อมูลการสั่งซื้อและราคาอย่างเป็นทางการ
-                    </p>
-                `,
-                showCancelButton: true,
-                confirmButtonText: 'ดำเนินการต่อ',
-                cancelButtonText: 'ยกเลิก',
-                confirmButtonColor: '#ff8c00',
-                cancelButtonColor: '#fff',
-                customClass: {
-                    popup: 'custom-swal-popup',
-                    confirmButton: 'custom-swal-confirm',
-                    cancelButton: 'custom-swal-cancel'
-                },
-                reverseButtons: true,
-                scrollbarPadding: false,
-                heightAuto: false 
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }
-            });
-
-        } else {
-            const firstError = document.querySelector('.is-invalid');
-            if(firstError) {
-                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            } else {
+                Swal.fire({
+                    title: 'ยืนยันขอใบเสนอราคา',
+                    html: `<img src="<?php echo e(asset('images/Hotmobilyfile/poster/robot-bill.png')); ?>" style="width:120px;margin-bottom:10px;"><p>ระบบจะสร้างใบเสนอราคาให้อัตโนมัติ</p>`,
+                    showCancelButton: true, confirmButtonText: 'ดำเนินการต่อ', confirmButtonColor: '#FFA726'
+                }).then((result) => { if (result.isConfirmed) {
+                    form.submit(); 
+                }});
             }
         }
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-        const choicesConfig = {
-            searchEnabled: true, itemSelectText: '', shouldSort: false, searchPlaceholderValue: 'พิมพ์เพื่อค้นหา...', noResultsText: 'ไม่พบข้อมูล', noChoicesText: 'ไม่มีข้อมูล', allowHTML: true
-        };
+        const config = { searchEnabled: true, itemSelectText: '', shouldSort: false, allowHTML: true };
+        provinceChoices = new Choices('#province', config);
+        districtChoices = new Choices('#district', config);
+        subDistrictChoices = new Choices('#sub_district', config);
 
-        // กำหนด Instance ให้ตัวแปรที่ประกาศไว้ข้างบน
-        provinceChoices = new Choices('#province', { ...choicesConfig, placeholderValue: 'เลือกจังหวัด' });
-        districtChoices = new Choices('#district', { ...choicesConfig, placeholderValue: 'เลือกอำเภอ / เขต' });
-        subDistrictChoices = new Choices('#sub_district', { ...choicesConfig, placeholderValue: 'เลือกตำบล / แขวง' });
+        const oldP = getSavedValue('province', "<?php echo e(old('province', $tempData['province'] ?? '')); ?>");
+        const oldD = getSavedValue('district', "<?php echo e(old('district', $tempData['district'] ?? '')); ?>");
+        const oldS = getSavedValue('sub_district', "<?php echo e(old('sub_district', $tempData['sub_district'] ?? '')); ?>");
+        const oldZip = getSavedValue('zipcode', "<?php echo e(old('zipcode', $tempData['zipcode'] ?? '')); ?>");
+
+        const textInputs = ['fullname', 'company_name', 'phone', 'email', 'tax_address_no', 'tax_building', 'floor', 'moo', 'village', 'soi', 'road', 'note'];
+        textInputs.forEach(name => {
+            const el = document.querySelector(`[name="${name}"]`);
+            if (el) {
+                const val = getSavedValue(name, "");
+                if (val) el.value = val;
+            }
+        });
 
         const zipcodeInput = document.getElementById('zipcode');
-        let allData = [];
 
-        axios.get('<?php echo e(asset("province_with_district_and_sub_district.json")); ?>')
-            .then(response => {
-                allData = response.data;
-                populateProvinces();
-            })
-            .catch(error => { console.error('Error:', error); });
-
-        function populateProvinces() {
+        axios.get('<?php echo e(asset("province_with_district_and_sub_district.json")); ?>').then(response => {
+            allData = response.data;
+            
+            // ✅ แก้ไขส่วนนี้: จัดเรียงให้ "กรุงเทพมหานคร" ขึ้นก่อนจังหวัดอื่น
             allData.sort((a, b) => {
                 if (a.name_th === 'กรุงเทพมหานคร') return -1;
                 if (b.name_th === 'กรุงเทพมหานคร') return 1;
-                return a.name_th.localeCompare(b.name_th);
+                return a.name_th.localeCompare(b.name_th, 'th');
             });
-            const provinceOptions = allData.map(p => ({ value: p.id, label: p.name_th }));
-            provinceOptions.unshift({ value: '', label: 'เลือกจังหวัด', selected: true, disabled: true, placeholder: true });
-            provinceChoices.setChoices(provinceOptions, 'value', 'label', true);
-        }
+            
+            // 1. โหลดจังหวัด
+            provinceChoices.setChoices(allData.map(p => ({ 
+                value: p.id.toString(), label: p.name_th, selected: (p.id == oldP) 
+            })), 'value', 'label', true);
 
-        document.getElementById('province').addEventListener('change', function(event) {
-            const provinceId = parseInt(event.detail.value);
-            const provinceData = allData.find(p => p.id === provinceId);
+            // 2. โหลดอำเภอ
+            if (oldP) {
+                const pData = allData.find(p => p.id == oldP);
+                if (pData) {
+                    pData.districts.sort((a, b) => a.name_th.localeCompare(b.name_th, 'th'));
+                    districtChoices.enable();
+                    districtChoices.setChoices(pData.districts.map(d => ({
+                        value: d.id.toString(), label: d.name_th, selected: (d.id == oldD)
+                    })), 'value', 'label', true);
 
-            districtChoices.clearStore(); districtChoices.setChoices([], 'value', 'label', true); districtChoices.enable();
-            subDistrictChoices.clearStore(); subDistrictChoices.setChoices([], 'value', 'label', true); subDistrictChoices.disable();
-            zipcodeInput.value = '';
-
-            if (provinceData && provinceData.districts) {
-                provinceData.districts.sort((a, b) => a.name_th.localeCompare(b.name_th));
-                districtChoices.setChoices(provinceData.districts.map(d => ({ value: d.id, label: d.name_th })), 'value', 'label', true);
+                    // 3. โหลดตำบล
+                    if (oldD) {
+                        const dData = pData.districts.find(d => d.id == oldD);
+                        if (dData) {
+                            dData.sub_districts.sort((a, b) => a.name_th.localeCompare(b.name_th, 'th'));
+                            subDistrictChoices.enable();
+                            subDistrictChoices.setChoices(dData.sub_districts.map(s => ({
+                                value: s.id.toString(), label: s.name_th, selected: (s.id == oldS),
+                                customProperties: { zip: s.zip_code }
+                            })), 'value', 'label', true);
+                            if (oldZip) zipcodeInput.value = oldZip;
+                        }
+                    }
+                }
             }
         });
 
-        document.getElementById('district').addEventListener('change', function(event) {
-            const provinceId = parseInt(document.getElementById('province').value);
-            const districtId = parseInt(event.detail.value);
-            const provinceData = allData.find(p => p.id === provinceId);
-            if (!provinceData) return;
-            const districtData = provinceData.districts.find(d => d.id === districtId);
-
-            subDistrictChoices.clearStore(); subDistrictChoices.setChoices([], 'value', 'label', true); subDistrictChoices.enable();
+        document.getElementById('province').addEventListener('change', function(e) {
+            const pData = allData.find(p => p.id == e.detail.value);
+            districtChoices.clearStore(); subDistrictChoices.clearStore(); subDistrictChoices.disable();
             zipcodeInput.value = '';
-
-            if (districtData && districtData.sub_districts) {
-                districtData.sub_districts.sort((a, b) => a.name_th.localeCompare(b.name_th));
-                subDistrictChoices.setChoices(districtData.sub_districts.map(s => ({ value: s.id, label: s.name_th, customProperties: { zip: s.zip_code } })), 'value', 'label', true);
+            if (pData) {
+                pData.districts.sort((a, b) => a.name_th.localeCompare(b.name_th, 'th'));
+                districtChoices.enable();
+                districtChoices.setChoices(pData.districts.map(d => ({ value: d.id.toString(), label: d.name_th })), 'value', 'label', true);
             }
+            localStorage.setItem('quote_province', e.detail.value);
         });
 
-        document.getElementById('sub_district').addEventListener('addItem', function(event) {
-            const zip = event.detail.customProperties.zip;
-            if (zip) zipcodeInput.value = zip;
+        document.getElementById('district').addEventListener('change', function(e) {
+            const pId = document.getElementById('province').value;
+            const pData = allData.find(p => p.id == pId);
+            const dData = pData ? pData.districts.find(d => d.id == e.detail.value) : null;
+            subDistrictChoices.clearStore();
+            zipcodeInput.value = '';
+            if (dData) {
+                dData.sub_districts.sort((a, b) => a.name_th.localeCompare(b.name_th, 'th'));
+                subDistrictChoices.enable();
+                subDistrictChoices.setChoices(dData.sub_districts.map(s => ({ value: s.id.toString(), label: s.name_th, customProperties: { zip: s.zip_code } })), 'value', 'label', true);
+            }
+            localStorage.setItem('quote_district', e.detail.value);
         });
-        
-        document.getElementById('sub_district').addEventListener('change', function(event) {
-             if(!event.detail.value) zipcodeInput.value = '';
+
+        document.getElementById('sub_district').addEventListener('addItem', function(e) {
+            if (e.detail.customProperties) {
+                zipcodeInput.value = e.detail.customProperties.zip;
+                localStorage.setItem('quote_zipcode', e.detail.customProperties.zip);
+            }
+            localStorage.setItem('quote_sub_district', e.detail.value);
         });
     });
 </script>
-
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.main', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\project\hotmobily\resources\views/quotation/index.blade.php ENDPATH**/ ?>

@@ -9,6 +9,13 @@
     $isEditMode = request('mode') == 'edit';
     $editRowId = request('row_id');
     $editQty = request('qty', 1);
+
+    // 🔥 ส่วนที่เพิ่ม: เช็คราคาจากฐานข้อมูล (ต้องมีแถวราคา และราคาต้อง > 0)
+    $hasPrices = $product->prices->where('price_per_unit', '>', 0)->isNotEmpty();
+
+    if(in_array($product->id, [6, 15])) {
+        $hasPrices = false;
+    }
 ?>
 
 
@@ -151,7 +158,7 @@
 
                                     <?php if($isStandee): ?>
                                         
-                                        <?php if(!$shouldHideButtons): ?>
+                                        <?php if($hasPrices && !$shouldHideButtons): ?> 
                                             <div class="d-inline-flex gap-2 flex-wrap" id="size-group" style="vertical-align: top;">
                                                 <?php $__currentLoopData = $product->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <button class="btn btn-spec <?php echo e($key == 0 ? 'active' : ''); ?> mb-1" 
@@ -170,9 +177,9 @@
                                         
                                         <?php if($hasNote): ?>
                                             <span class="text-dark" style="line-height: 1.6; display: inline-block; margin-bottom: 5px;"><?php echo e($firstSize->note); ?></span>
-                                            <?php if(!$shouldHideButtons): ?> <br> <?php endif; ?>
+                                            <?php if($hasPrices && !$shouldHideButtons): ?> <br> <?php endif; ?>
                                         <?php endif; ?>
-                                        <?php if(!$shouldHideButtons): ?>
+                                        <?php if($hasPrices && !$shouldHideButtons): ?> 
                                             <div class="d-inline-flex gap-2 flex-wrap" id="size-group">
                                                 <?php $__currentLoopData = $product->sizes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $size): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                     <button class="btn btn-spec <?php echo e($key == 0 ? 'active' : ''); ?> mb-1" 
@@ -228,6 +235,7 @@
                                     <td class="label">การสกรีน <?php if($product->id == 12): ?> <i class="bi bi-info-circle-fill text-danger" data-bs-toggle="modal" data-bs-target="#screenInfoModal"></i> <?php endif; ?> :</td>
                                     <td class="value">
                                         <span id="printing-note"><?php echo e($validPrintings->first()->note ?? '-'); ?></span>
+                                        <?php if($hasPrices): ?> 
                                         <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
                                             <?php $__currentLoopData = $validPrintings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $printing): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                                 <button class="btn btn-spec <?php echo e($loop->first ? 'active' : ''); ?> mb-1" 
@@ -241,6 +249,7 @@
                                                 </button>
                                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                         </div>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                                 <?php endif; ?>
@@ -249,7 +258,7 @@
                     </table>
                     
                     
-                    <?php if($product->prices->isNotEmpty()): ?>
+                    <?php if($hasPrices && $product->prices->isNotEmpty()): ?> 
                     <div class="price-table-wrapper mt-4">
                         <?php $__currentLoopData = $product->printings; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $printing): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <div id="price-table-<?php echo e($printing->id); ?>" class="price-table table-responsive" style="<?php echo e($key == 0 ? '' : 'display: none;'); ?>">
@@ -293,7 +302,7 @@
                     <?php endif; ?>
                     
                     
-                    <?php if($product->parts->isNotEmpty()): ?>
+                    <?php if($hasPrices && $product->parts->isNotEmpty()): ?> 
                     <div class="mt-5">
                         <h3 class="mb-4">ส่วนประกอบเพิ่มเติม</h3>
                         <div class="row g-3 parts-grid">
@@ -315,22 +324,49 @@
                     <?php endif; ?>
 
                     
+                    <?php if($hasPrices): ?> 
                     <input type="hidden" id="selected_product_id" value="<?php echo e($product->id); ?>">
                     <input type="hidden" id="selected_size_id" value="<?php echo e($product->sizes->first()->id ?? ''); ?>">
                     <input type="hidden" id="selected_printing_id" value="<?php echo e($product->printings->first()->id ?? ''); ?>">
-                    
                     <input type="hidden" id="selected_part_id" value="<?php echo e($product->parts->where('is_default', 1)->first()->id ?? ''); ?>">
 
                     <div class="mt-4 d-flex justify-content-end align-items-center">
                         <label for="quantityInput" class="form-label fw-bold me-3 mb-0" style="font-size: 1.1rem;">จำนวน :</label>
-                        
                         <input type="number" class="form-control text-center fw-bold me-3" id="quantityInput" value="<?php echo e($isEditMode ? $editQty : 1); ?>" min="1" style="width: 120px; height: 45px; border-radius: 8px;">
-                        
                         
                         <button class="btn btn-estimate-action fw-bold px-4 me-2" onclick="calculatePrice()" style="height: 45px; font-size: 1rem; min-width: 140px;">
                             ประเมินราคา
                         </button>
                     </div>
+
+                    
+                    <div class="action-area-bottom mt-5">
+                        <div class="row justify-content-center g-3">
+                            <div class="col-md-6 col-lg-4">
+                                <button class="btn btn-quote w-100 py-2 fw-bold" onclick="requestQuotation()">
+                                    ขอใบเสนอราคา
+                                </button>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <button class="btn <?php echo e($isEditMode ? 'btn-update-action' : 'btn-estimate-action'); ?> w-100 py-2 fw-bold" 
+                                        onclick="<?php echo e($isEditMode ? 'updateCart()' : 'addToCart()'); ?>">
+                                    <?php echo e($isEditMode ? 'อัปเดตตะกร้า' : 'เพิ่มใส่ตะกร้า'); ?>
+
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <?php else: ?>
+                        
+                        <div class="alert alert-secondary mt-5 text-center py-4 rounded-4" style="background-color: #f8f9fa; border: 1px dashed #ccc;">
+                            <p class="mb-0 text-muted">สินค้านี้ยังไม่เปิดระบบคำนวณราคาอัตโนมัติ กรุณาติดต่อสอบถามเจ้าหน้าที่เพื่อรับใบเสนอราคา</p>
+                            <div class="mt-3">
+                                <a href="https://line.me/R/ti/p/@842kcbjl" target="_blank" class="btn btn-success btn-sm rounded-pill px-4">
+                                    <i class="bi bi-line me-1"></i> ติดต่อเจ้าหน้าที่ผ่าน LINE
+                                </a>
+                            </div>
+                        </div>
+                    <?php endif; ?>
 
                 </div> 
             </div> 
@@ -338,7 +374,6 @@
 
             
             <div id="estimationResult" class="mt-5 pt-4 border-top" style="display: none;">
-                
                 <div class="row g-4">
                     <div class="col-md-6">
                         <h5 class="fw-bold text-center mb-3">ข้อมูล</h5>
@@ -375,25 +410,6 @@
             </div>
 
             
-            <div class="action-area-bottom mt-5">
-                <div class="row justify-content-center g-3">
-                    <div class="col-md-6 col-lg-4">
-                        <button class="btn btn-quote w-100 py-2 fw-bold" onclick="requestQuotation()">
-                            ขอใบเสนอราคา
-                        </button>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        
-                        <button class="btn <?php echo e($isEditMode ? 'btn-update-action' : 'btn-estimate-action'); ?> w-100 py-2 fw-bold" 
-                                onclick="<?php echo e($isEditMode ? 'updateCart()' : 'addToCart()'); ?>">
-                            <?php echo e($isEditMode ? 'อัปเดตตะกร้า' : 'เพิ่มใส่ตะกร้า'); ?>
-
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            
             <?php if($product->id == 19): ?>
                 <div class="rubber-features-section mt-5 pt-4">
                     
@@ -404,165 +420,31 @@
                         <p class="mx-auto" style="max-width: 700px; line-height: 1.6; font-size: 20px; margin-top: 40px;">พวงกุญแจยางทำจาก ATBC-PVC คุณภาพดี น้ำหนักเบา ทนทาน ป้องกันรอยขีดข่วน พร้อมสีสันและดีไซน์หลากหลาย เหมาะทั้งพกพาและตกแต่งให้โดดเด่น</p>
                     </div>
                     
-                    
-                    <div class="rubber-feature-container">
-                        <div class="feature-column text-column left-text">
-                            <div class="feature-item" style="top: 10%;">
-                                <h5 class="fw-bold">ส่วนประกอบชิ้นงานที่หลากหลาย</h5>
-                                <p>เรามีส่วนประกอบชิ้นงานให้คุณเลือกมากถึง 20 แบบ</p>
-                                <div class="connector-line" style="width: 232px;right: -105px;"></div>
-                            </div>
-                            <div class="feature-item" style="top: 45%;">
-                                <h5 class="fw-bold">กลิ่นยางและกลิ่นสีน้อยกว่า</h5>
-                                <p>เราพยายามอย่างต่อเนื่องในการหาวัสดุที่ลดกลิ่นยาง และสี เพื่อให้คุณได้รับผลิตภัณฑ์ที่ดีที่สุด</p>
-                                <div class="connector-line" style="width: 300px;right: -140px;"></div>
-                            </div>
-                            <div class="feature-item" style="top: 80%;">
-                                <h5 class="fw-bold">ลงสีได้มากกว่า 18 สี</h5>
-                                <p>คุณสามารถเลือกสีของชิ้นงานได้มากถึง 12 สีสำหรับชิ้นงานแบบมาตราฐาน และได้ถึง 18 สีสำหรับชิ้นงานแบบพรีเมียม</p>
-                                <div class="connector-line" style="width: 370px;right: -152px;"></div>
-                            </div>
-                        </div>
-
-                        <div class="feature-column image-column">
-                            <div class="rubber-img-wrapper">
-                                <img src="<?php echo e(asset('/images/Hotmobilyfile/poster/210-L.webp')); ?>" alt="Rubber Left" class="rubber-img">
-                                <span class="dot-point" style="top: 15%; left: 56%;"></span>
-                                <span class="dot-point" style="top: 50%; left: 74%;"></span>
-                                <span class="dot-point" style="top: 85%;left: 80%;"></span>
-                            </div>
-                            <div class="rubber-img-wrapper">
-                                <img src="<?php echo e(asset('/images/Hotmobilyfile/poster/210-R.webp')); ?>" alt="Rubber Right" class="rubber-img">
-                                <span class="dot-point" style="top: 40%;right: 70%;"></span>
-                                <span class="dot-point" style="top: 70%; right: 73%;"></span>
-                            </div>
-                        </div>
-
-                        <div class="feature-column text-column right-text">
-                            <div class="feature-item" style="top: 35%;">
-                                <div class="connector-line" style="width: 143px;left: -140px;"></div>
-                                <h5 class="fw-bold">การสกรีนที่มีคุณภาพ</h5>
-                                <p>เราเลือกใช้การสกรีนด้านหลังแบบ UV ซึ่งสวยงามกว่าและมีโอกาสลอกออกน้อยกว่าการพิมพ์แบบปกติ</p>
-                            </div>
-                            <div class="feature-item" style="top: 65%;">
-                                <div class="connector-line" style="width: 150px;left: -147px;"></div>
-                                <h5 class="fw-bold">เลือกสีสกรีนได้ตามต้องการ</h5>
-                                <p>การสกรีนด้านหลัง สามารถเลือกสีสกรีนได้ จะสีเดียวหรือหลายสี ก็สามารถทำได้</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    
-                    <div class="rubber-thickness-container">
-                        <div class="thickness-img-wrapper left-img">
-                            <img src="<?php echo e(asset('images/Hotmobilyfile/product/Rubber(3)/base_3mm.webp')); ?>" alt="Base 3mm" class="thickness-img">
-                        </div>
-                        <div class="thickness-content text-center px-4">
-                            <h4 class="fw-bold mb-3">ความหนาของฐาน</h4>
-                            <p class="text-muted mb-0">
-                                คุณสามารถเลือกได้ระหว่างรุ่นมาตรฐาน 3 มม. และรุ่น 5 มม. ที่หนาและหนักกว่าได้
-                            </p>
-                        </div>
-                        <div class="thickness-img-wrapper right-img">
-                            <img src="<?php echo e(asset('images/Hotmobilyfile/product/Rubber(3)/base_5mm.webp')); ?>" alt="Base 5mm" class="thickness-img">
-                        </div>
-                    </div>
-
-                    
-                    <div class="special-material-section mt-5">
-                        <div class="rubber-section-header text-center mb-5">
-                            <h2 class="rubber-section-title">วัสดุพิเศษ</h2>
-                        </div>
-                        <div class="material-grid-container">
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image49.png')); ?>" alt="ชิ้นงานเรืองแสง 1">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image51.png')); ?>" alt="ชิ้นงานเรืองแสง 2">
-                                </div>
-                                <div class="material-name">ชิ้นงานเรืองแสง</div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image53.png')); ?>" alt="ฟลูออเรสเซนต์ 1">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image54.png')); ?>" alt="ฟลูออเรสเซนต์ 2">
-                                </div>
-                                <div class="material-name">ฟลูออเรสเซนต์</div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image55.png')); ?>" alt="กลิตเตอร์ 1">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image56.png')); ?>" alt="กลิตเตอร์ 2">
-                                </div>
-                                <div class="material-name">กลิตเตอร์</div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image57.png')); ?>" alt="Golden Silver 1">
-                                    <img src="<?php echo e(asset('images/Hotmobilyfile/Material/image58.png')); ?>" 
-                                         alt="Golden Silver 2" 
-                                         style="width: 30% !important; max-width: 120px; height: auto;">
-                                </div>
-                                <div class="material-name">Golden Silver</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             <?php elseif($product->id == 12): ?>
                 <div class="acrylic-stand-section mt-5 pt-4">
-                    <div class="acrylic-poster-wrapper mb-5">
-                        <img src="<?php echo e(asset('images/Hotmobilyfile/poster/Rectangle118.png')); ?>" alt="แท่นวางโทรศัพท์" class="acrylic-poster-img">
-                    </div>
-                    <div class="acrylic-content text-center">
-                        <h3 class="fw-bold acrylic-title">แท่นวางโทรศัพท์</h3>
-                        <p class="mx-auto text-muted acrylic-desc">แท่นวางโทรศัพท์น้ำหนักเบา แข็งแรง ใช้งานสะดวก ปรับมุมมองได้ เหมาะสำหรับดูวิดีโอ ประชุมออนไลน์ หรือใช้งานมือถือโดยไม่ต้องถือให้เมื่อย</p>
-                    </div>
-                    <div class="acrylic-usage-wrapper d-flex justify-content-center">
-                         <img src="<?php echo e(asset('images/Hotmobilyfile/poster/Group190.png')); ?>" alt="ตัวอย่าง" class="img-fluid acrylic-usage-img">
+                    <div class="acrylic-poster-wrapper mb-5 text-center">
+                        <img src="<?php echo e(asset('images/Hotmobilyfile/poster/Rectangle118.png')); ?>" alt="แท่นวางโทรศัพท์" class="img-fluid rounded-4">
                     </div>
                 </div>
             <?php endif; ?>
-                
-                <?php if(isset($productGalleries) && $productGalleries->isNotEmpty()): ?>
-                <div class="product-gallery-section mt-5">
-                    <div class="container">
-                        <h2 class="product-gallery-title">ตัวอย่างผลงาน</h2>
 
-                        <div class="product-example-grid">
-                            <?php $__currentLoopData = $productGalleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <div class="example-item">
-                                    
-                                    <img src="<?php echo e(asset('images/gallery/' . $gallery->image_path)); ?>" 
-                                        alt="<?php echo e($gallery->title ?? 'ตัวอย่างผลงาน'); ?>">
-                                </div>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            
+            <?php if(isset($productGalleries) && $productGalleries->isNotEmpty()): ?>
+            <div class="product-gallery-section mt-5">
+                <h2 class="product-gallery-title text-center mb-4">ตัวอย่างผลงาน</h2>
+                <div class="product-example-grid">
+                    <?php $__currentLoopData = $productGalleries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $gallery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="example-item">
+                            <img src="<?php echo e(asset('images/gallery/' . $gallery->image_path)); ?>" alt="<?php echo e($gallery->title ?? 'ตัวอย่างผลงาน'); ?>">
                         </div>
-                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
-                <?php endif; ?>
+            </div>
+            <?php endif; ?>
+
         </div> 
     </div>
-</div>
-
-
-<div class="modal fade" id="screenInfoModal" tabindex="-1" aria-labelledby="screenInfoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius: 16px;">
-      <div class="modal-header border-0 pb-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body pt-0 pb-4 px-4">
-        <h4 class="fw-bold mb-4 text-center" id="screenInfoModalLabel">การสกรีน</h4>
-        <div class="mb-3">
-            <h6 class="fw-bold" style="color: #FFC107; font-size: 1.1rem;">สกรีน UV ฟูลคัลเลอร์ + เคลือบหมึกขาว คือ</h6>
-            <p class="text-muted mb-0" style="font-size: 0.95rem;">การสกรีนแบบอิงค์เจ็ทยูวีฟูลคัลเลอร์ + ทาทับด้วยหมึกสีขาว</p>
-        </div>
-        <div>
-            <h6 class="fw-bold" style="color: #0d6efd; font-size: 1.1rem;">สกรีน UV ด้านเดียว + เคลือบหมึกขาว คือ</h6>
-            <p class="text-muted mb-0" style="font-size: 0.95rem;">การสกรีนยูวี + ทาทับด้วยหมึกสีขาว</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 
@@ -617,7 +499,7 @@
         document.querySelectorAll(`[data-group="${groupName}"]`).forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         const partId = element.getAttribute('data-part-id');
-        document.getElementById('selected_part_id').value = partId; // ✅ ส่ง ID เพื่อให้ Controller หา color ได้
+        document.getElementById('selected_part_id').value = partId;
     }
 
     function calculatePrice() { 
@@ -678,7 +560,6 @@
         });
     }
 
-    // ✅ ฟังก์ชันเพิ่มลงตะกร้า (โหมดปกติ)
     function addToCart() {
         const qty = document.getElementById('quantityInput').value;
         const productId = document.getElementById('selected_product_id').value;
@@ -690,8 +571,6 @@
         const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
         const activePartDiv = document.querySelector('[data-group="part-group"].active');
         const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
-        
-        // ✅ รับ part_id ที่เลือกไว้
         const partId = document.getElementById('selected_part_id').value;
 
         const data = {
@@ -700,47 +579,28 @@
             size_name: sizeName,
             print_name: printName,
             part_name: partName,
-            part_id: partId, // 🔥 ส่ง part_id ไปด้วย เพื่อให้ Controller หา color ได้
+            part_id: partId,
             details_text: "" 
         };
 
         axios.post('<?php echo e(route("cart.add")); ?>', { ...data, _token: '<?php echo e(csrf_token()); ?>' })
         .then(function (response) {
-            // 🔥 ตรวจสอบสถานะ response
             if (response.data.status === 'success') {
                 Swal.fire({
-                    icon: 'success',
-                    title: 'สำเร็จ',
-                    text: response.data.message,
-                    showConfirmButton: false,
-                    timer: 1500
+                    icon: 'success', title: 'สำเร็จ', text: response.data.message, showConfirmButton: false, timer: 1500
                 }).then(() => {
                     window.location.href = '<?php echo e(route("cart.index")); ?>';
                 });
-            } else if (response.data.status === 'error') {
-                // 🔥 แจ้งเตือนเมื่อตะกร้าเต็ม (หรือ Error อื่นๆ ที่ส่งมาแบบนี้)
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'ไม่สามารถเพิ่มได้',
-                    text: response.data.message, 
-                    confirmButtonColor: '#FFA726'
-                });
+            } else {
+                Swal.fire({ icon: 'warning', title: 'ไม่สามารถเพิ่มได้', text: response.data.message, confirmButtonColor: '#FFA726' });
             }
-        })
-        .catch(function (error) {
-            console.error(error);
-            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้' });
         });
     }
 
-    // ✅ ฟังก์ชันอัปเดตตะกร้า (โหมดแก้ไข)
     function updateCart() {
         const qty = document.getElementById('quantityInput').value;
         const productId = document.getElementById('selected_product_id').value;
         const rowId = '<?php echo e($editRowId ?? ""); ?>'; 
-
-        if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
-
         const activeSizeBtn = document.querySelector('[data-group="size-group"].active');
         const sizeName = activeSizeBtn ? activeSizeBtn.innerText.trim() : '-';
         const activePrintBtn = document.querySelector('[data-group="screen-group"].active');
@@ -749,82 +609,35 @@
         const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
         const partId = document.getElementById('selected_part_id').value;
 
-        const data = {
-            row_id: rowId,
-            product_id: productId,
-            quantity: qty,
-            size_name: sizeName,
-            print_name: printName,
-            part_name: partName,
-            part_id: partId,
-            details_text: "" 
-        };
-
-        axios.post('<?php echo e(route("cart.update")); ?>', { ...data, _token: '<?php echo e(csrf_token()); ?>' })
-        .then(function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'อัปเดตตะกร้าเรียบร้อย',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
+        axios.post('<?php echo e(route("cart.update")); ?>', { 
+            row_id: rowId, product_id: productId, quantity: qty, size_name: sizeName, print_name: printName, part_name: partName, part_id: partId, _token: '<?php echo e(csrf_token()); ?>' 
+        })
+        .then(() => {
+            Swal.fire({ icon: 'success', title: 'อัปเดตเรียบร้อย', showConfirmButton: false, timer: 1500 }).then(() => {
                 window.location.href = '<?php echo e(route("cart.index")); ?>';
             });
-        })
-        .catch(function (error) {
-            console.error(error);
-            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถอัปเดตสินค้าได้' });
         });
     }
 
-    // ✅ ฟังก์ชันสำหรับปุ่ม "ขอใบเสนอราคา" (ซื้อเลย)
     function requestQuotation() {
         const qty = document.getElementById('quantityInput').value;
         const productId = document.getElementById('selected_product_id').value;
-
-        if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
-
         const activeSizeBtn = document.querySelector('[data-group="size-group"].active');
         const sizeName = activeSizeBtn ? activeSizeBtn.innerText.trim() : '-';
-        
         const activePrintBtn = document.querySelector('[data-group="screen-group"].active');
         const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
-        
         const activePartDiv = document.querySelector('[data-group="part-group"].active');
         const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
         const partId = document.getElementById('selected_part_id').value;
 
-        const data = {
-            product_id: productId,
-            quantity: qty,
-            size_name: sizeName,
-            print_name: printName,
-            part_name: partName,
-            part_id: partId,
-            details_text: "" 
-        };
-
-        axios.post('<?php echo e(route("cart.add")); ?>', { ...data, _token: '<?php echo e(csrf_token()); ?>' })
-            .then(function (response) {
-                if (response.data.status === 'success') {
-                    // ✅ รับ row_id ที่เพิ่งสร้างมาจาก Controller
-                    const newRowId = response.data.row_id; 
-
-                    // 3. Redirect ไปหน้า quotation.index พร้อมส่ง row_id ไปด้วย
-                    window.location.href = '<?php echo e(route("quotation.index")); ?>?selected_items[]=' + newRowId;
-                } else if (response.data.status === 'error') {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'ไม่สามารถทำรายการได้',
-                        text: response.data.message,
-                        confirmButtonColor: '#FFA726'
-                    });
-                }
-            })
-            .catch(function (error) {
-                console.error(error);
-                Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถดำเนินการได้' });
-            });
+        axios.post('<?php echo e(route("cart.add")); ?>', { 
+            product_id: productId, quantity: qty, size_name: sizeName, print_name: printName, part_name: partName, part_id: partId, _token: '<?php echo e(csrf_token()); ?>' 
+        })
+        .then((response) => {
+            if (response.data.status === 'success') {
+                window.location.href = '<?php echo e(route("quotation.index")); ?>?selected_items[]=' + response.data.row_id;
+            }
+        });
     }
 </script>
 

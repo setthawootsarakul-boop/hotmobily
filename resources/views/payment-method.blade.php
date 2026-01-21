@@ -132,15 +132,51 @@
 </div>
 
 <script>
-    document.getElementById('copyAccountBtn').addEventListener('click', function() {
-        navigator.clipboard.writeText('1912139535');
-        const btn = this;
-        btn.innerText = 'คัดลอกแล้ว ✓';
-        btn.classList.add('copied');
-        setTimeout(() => {
-            btn.innerText = 'คัดลอก';
-            btn.classList.remove('copied');
-        }, 2000);
+    document.addEventListener('DOMContentLoaded', function() {
+        const copyBtn = document.getElementById('copyAccountBtn');
+        
+        if (copyBtn) {
+            copyBtn.addEventListener('click', function() {
+                const accNo = this.getAttribute('data-account');
+                
+                // ใช้ฟังก์ชันคัดลอกที่รองรับทุก Browser
+                copyToClipboard(accNo, this);
+            });
+        }
+
+        function copyToClipboard(text, btn) {
+            if (navigator.clipboard && window.isSecureContext) {
+                // สำหรับ HTTPS และ Browser ใหม่
+                navigator.clipboard.writeText(text).then(() => {
+                    showSuccess(btn);
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed"; // ป้องกันหน้าจอเลื่อน
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showSuccess(btn);
+                } catch (err) {
+                    console.error('Copy fallback failed', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function showSuccess(btn) {
+            const originalText = btn.innerText;
+            btn.innerText = 'คัดลอกแล้ว ✓';
+            btn.classList.add('copied');
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('copied');
+            }, 2000);
+        }
     });
 </script>
 @endsection

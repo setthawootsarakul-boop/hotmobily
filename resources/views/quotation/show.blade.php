@@ -5,17 +5,24 @@
 @section('content')
 <div class="container-fluid py-4">
     <div class="action-wrapper">
-        <div class="thank-you-header no-print">
-            ขอบคุณสำหรับการทำใบเสนอราคา
-        </div>
+        <div class="thank-you-box no-print">
+                    <div class="thank-you-title">
+                        <i class="fas fa-check-circle"></i> ขอบคุณสำหรับการขอใบเสนอราคา
+                    </div>
+                    <div class="thank-you-subtitle">
+                        เราได้รับคำขอของคุณเรียบร้อยแล้ว <strong>ฝ่ายขายจะติดต่อกลับหาคุณภายใน 24 ชั่วโมง</strong><br>
+                        หรือภายในวันทำการถัดไป หากท่านต้องการความช่วยเหลือด่วน โปรดโทร 064-604-5614
+                    </div>
+                </div>
 
         <div class="quotation-container">
             <div class="header-title-bar">ใบเสนอราคา</div>
 
+            {{-- ส่วนข้อมูลบริษัท Hotmobily (คงเดิม) --}}
             <div class="company-header">
                 <div class="company-address">
                     <strong>YOU AND EARTH (THAILAND) CO., LTD.</strong><br>
-                    23/34-35 The Prime Hua Lamphong, Building A, 3rd Floor, Room No. 303,<br>
+                    23/34-35 The Prime Hua Lamphong, Building A, 3rd Floor, Room No. 404,<br>
                     Soi Sukorn, Trimit Road, Talat Noi, Samphanthawong, Bangkok 10100<br>
                     Tel : 064-604-5614<br>
                     TAX ID: 010-556-3086-07-0, Head Office
@@ -27,11 +34,18 @@
 
             <div class="info-section">
                 <div class="customer-info">
+                    {{-- 1. ชื่อบุคคล (ตัวหนาเป็นหลัก) --}}
                     @if(!empty($quotation->fullname))
                         <div class="cust-name">{{ $quotation->fullname }}</div>
                     @endif
                     
                     <div class="cust-details">
+                        {{-- ✅ 2. แสดงชื่อบริษัท (เป็น Text ธรรมดาอยู่ใต้ชื่อ) --}}
+                        @if(!empty($quotation->company_name))
+                            <div style="margin-bottom: 5px;">{{ $quotation->company_name }}</div>
+                        @endif
+
+                        {{-- 3. รายละเอียดที่อยู่ (จัดกลุ่มตามคอลัมน์จริงใน SQL) --}}
                         @php 
                             $addrLine1 = collect([
                                 $quotation->address_no ? "เลขที่ " . $quotation->address_no : null,
@@ -123,10 +137,10 @@
                 </tfoot>
             </table>
 
-            {{-- 🚩 ส่วนตารางท้าย: Payment Method & Tax Invoice Info --}}
+           
             <div class="footer-tables-wrapper">
                 <div class="footer-left-box">
-                    <div class="footer-title">PAYMENT METHOD</div>
+                    <div class="footer-title" style="font-weight: bold; margin-bottom: 10px;">PAYMENT METHOD</div>
                     <table class="footer-info-table">
                         <tr><td>Bank's name</td><td>ไทยพาณิชย์ (SCB)</td></tr>
                         <tr><td>Bank number</td><td>191-213953-5</td></tr>
@@ -137,39 +151,36 @@
                 
                 @if(!empty($quotation->tax_name))
                 <div class="footer-right-box">
-                    <div class="footer-title">TAX INVOICE INFO</div>
+                    <div class="footer-title" style="font-weight: bold; margin-bottom: 10px;">TAX INVOICE INFO</div>
                     <table class="footer-info-table">
                         <tr><td>Tax Type</td><td>{{ $quotation->tax_person_type == 'individual' ? 'บุคคลธรรมดา' : 'นิติบุคคล' }}</td></tr>
+                        
+                        @if($quotation->tax_person_type == 'juristic' && !empty($quotation->tax_company))
+                            <tr><td>Company</td><td>{{ $quotation->tax_company }}</td></tr>
+                        @endif
+
                         <tr><td>Tax Name</td><td>{{ $quotation->tax_name }}</td></tr>
                         <tr><td>Tax ID</td><td>{{ $quotation->tax_id }}</td></tr>
                         <tr>
                             <td>Address</td>
                             <td>
                                 @php 
-                                    $taxAddrLine1 = collect([
-                                        $quotation->tax_address_no, 
-                                        $quotation->tax_moo ? "หมู่ " . $quotation->tax_moo : null, 
-                                        $quotation->tax_building, 
+                                    // รวบที่อยู่ให้แสดงผลต่อเนื่องกัน ไม่บีบเป็นแนวตั้ง
+                                    $fullTaxAddr = collect([
+                                        $quotation->tax_address_no ? "เลขที่ " . $quotation->tax_address_no : null, 
+                                        $quotation->tax_building ? "อาคาร/หมู่บ้าน " . $quotation->tax_building : null,
                                         $quotation->tax_floor ? "ชั้น " . $quotation->tax_floor : null, 
-                                        $quotation->tax_village, 
-                                        $quotation->tax_soi ? "ซอย " . $quotation->tax_soi : null, 
-                                        $quotation->tax_road ? "ถนน " . $quotation->tax_road : null
-                                    ])->filter()->implode(' ');
-
-                                    $taxAddrLine2 = collect([
-                                        $quotation->tax_sub_district, 
-                                        $quotation->tax_district
-                                    ])->filter()->implode(', ');
-
-                                    $taxAddrLine3 = collect([
-                                        $quotation->tax_province, 
+                                        $quotation->tax_moo ? "หมู่ " . $quotation->tax_moo : null, 
+                                        $quotation->tax_village,
+                                        $quotation->tax_soi ? "ซอย " . $quotation->tax_soi : null,
+                                        $quotation->tax_road ? "ถนน " . $quotation->tax_road : null,
+                                        $quotation->tax_sub_district,
+                                        $quotation->tax_district,
+                                        $quotation->tax_province,
                                         $quotation->tax_zipcode
                                     ])->filter()->implode(' ');
                                 @endphp
-
-                                @if(!empty($taxAddrLine1)) <div>{{ $taxAddrLine1 }}</div> @endif
-                                @if(!empty($taxAddrLine2)) <div>{{ $taxAddrLine2 }}</div> @endif
-                                @if(!empty($taxAddrLine3)) <div>{{ $taxAddrLine3 }}</div> @endif
+                                {{ $fullTaxAddr }}
                             </td>
                         </tr>
                     </table>
@@ -199,4 +210,16 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Object.keys(localStorage).forEach(key => {
+            if (key.startsWith('quote_') || key.startsWith('tax_')) {
+                localStorage.removeItem(key);
+            }
+        });
+        console.log('Quotation storage cleared successfully.');
+    });
+</script>
+
 @endsection

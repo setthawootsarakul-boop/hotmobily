@@ -98,7 +98,7 @@
         </div>
 
         <div class="mb-5">
-            <label class="form-label">ข้อความเพิ่มเติม <small class="text-muted">* กรุณาระบุข้อมูล หรือข้อความ ตามที่ท่านต้องการ กรณีไม่มีข้อมูลให้เว้นว่างไว้ไม่ต้องใส่ - (ขีด)</small></label>
+            <label class="form-label">ข้อความเพิ่มเติม <small class="text-muted">กรุณาระบุข้อมูล หรือข้อความ ตามที่ท่านต้องการ กรณีไม่มีข้อมูลให้เว้นว่างไว้ไม่ต้องใส่ - (ขีด)</small></label>
             <textarea name="tax_note" class="form-control" rows="3"></textarea>
         </div>
 

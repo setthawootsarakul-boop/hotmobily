@@ -16,7 +16,7 @@
             <div class="company-header">
                 <div class="company-address">
                     <strong>YOU AND EARTH (THAILAND) CO., LTD.</strong><br>
-                    23/34-35 The Prime Hua Lamphong, Building A, 3rd Floor, Room No. 303,<br>
+                    23/34-35 The Prime Hua Lamphong, Building A, 3rd Floor, Room No. 404,<br>
                     Soi Sukorn, Trimit Road, Talat Noi, Samphanthawong, Bangkok 10100<br>
                     Tel : 064-604-5614<br>
                     TAX ID: 010-556-3086-07-0, Head Office

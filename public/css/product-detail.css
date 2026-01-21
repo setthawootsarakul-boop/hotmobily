@@ -30,7 +30,7 @@ body { background-color: var(--bg-page); font-family: 'MyPromptFont', sans-serif
 .main-image-wrapper { flex-grow: 1; width: 100%; aspect-ratio: 1 / 1; background-color: #FAFAFA; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #e6e6e6; position: relative; }
 .main-image-wrapper img { width: 100%; height: 100%; object-fit: contain; }
 
-.btn-file-guide { background: linear-gradient(to right, #FFA726, #FF9800); color: white; border: none; font-size: 1rem; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3); }
+.btn-file-guide { background: linear-gradient(to right, #FFA726, #FF9800); color: white; border: none; font-size: 16px; transition: all 0.2s ease; box-shadow: 0 4px 10px rgba(255, 152, 0, 0.3); width: 350px;}
 .btn-file-guide:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(255, 152, 0, 0.4); color: white; }
 
 /* ============================
@@ -39,7 +39,7 @@ body { background-color: var(--bg-page); font-family: 'MyPromptFont', sans-serif
 h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 400; text-align: left; margin-left: -5px; }
 
 /* Table Reset */
-.product-info-table, .product-info-table tbody, .product-info-table tr { display: block; width: 100%; }
+.product-info-table, .product-info-table tbody, .product-info-table tr { display: block; width: 100%;  }
 .product-info-table tr { margin-bottom: 8px; }
 .product-info-table td { display: inline; border: none; padding: 0; vertical-align: baseline; }
 
@@ -241,10 +241,11 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
 }
 
 .example-item img {
-    max-width: 130%;
-    max-height: 130%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain; /* ปรับเป็น contain เพื่อให้เห็นรูปครบถ้วนเหมือนหน้า gallery */
 }
+
 
 
 /* ==========================================================================
@@ -389,6 +390,20 @@ h1.product-title { font-size: 24px; color: #000; line-height: 1.2; font-weight: 
    📱 Mobile Responsive (Override)
    ========================================= */
 @media (max-width: 768px) {
+
+    .btn-file-guide {   
+        width: 100% !important; /* ขยายเต็มความกว้างมือถือ */
+    }
+
+    .product-detail-page .row > * {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    /* หรือถ้าอยากให้มีช่องว่างแค่เล็กน้อยแทนที่จะเป็น 0 */
+    .product-detail-page .row {
+        --bs-gutter-x: 0rem; /* ปรับค่าตัวแปรแทนการลบ Property */
+    }
     /* 1. จัดการ Grid ให้เป็น 2 คอลัมน์ และเว้นระยะห่างให้พอดี */
     .product-example-grid {
         grid-template-columns: repeat(2, 1fr) !important; /* ✅ บังคับเป็น 2 คอลัมน์ดิ่งลงมา */

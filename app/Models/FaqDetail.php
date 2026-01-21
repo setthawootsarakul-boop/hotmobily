@@ -15,9 +15,10 @@ class FaqDetail extends Model
         'faq_id',
         'question',
         'answer',
-        'show_product_page',
+        'status',          
         'faq_image_1',
         'faq_image_2',
         'created_by',
     ];
+
 }

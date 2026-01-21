@@ -1,7 +1,6 @@
 /* public/css/contact-success.css */
 
 .success-section { 
-    /* คำนวณความสูงโดยลบขนาด Navbar และ Footer เพื่อให้ Content อยู่กึ่งกลาง */
     min-height: calc(100vh - 250px); 
     display: flex; 
     align-items: center; 

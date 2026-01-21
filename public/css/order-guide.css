@@ -94,13 +94,13 @@ body,
 
 .step h5 {
     font-weight: 800;
-    font-size: 1.3rem;
+    font-size: 18px;
     margin: 10px 0 8px 0;
 }
 
 .step p, 
 .order-condition-list li {
-    font-size: 1.1rem;
+    font-size: 16px;
     line-height: 1.6;
     color: #333;
 }
@@ -191,108 +191,104 @@ body,
    📱 RESPONSIVE (Mobile)
    ========================================= */
 @media (max-width: 768px) {
-    /* 1. ปรับพื้นหลังและขอบเขตหน้า */
-    .order-guide-page h2 {
-        font-size: 28px;
-        font-weight: normal;
-        margin-top: 40px;
+    /* 1. บังคับโครงสร้างหลักให้ชิดขอบจอ (แก้ปัญหาติดขอบซ้าย) */
+    body .order-guide-page,
+    body .order-guide-page .container,
+    body .order-guide-page .container-fluid {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
     }
-    
-    .order-guide-page { padding: 0; }
 
+    /* 2. กล่องขาวหลัก (Order Box) เต็มจอ */
     .order-box {
-        width: 100%;
-        max-width: none;
-        padding: 25px 20px;
-        box-shadow: none;
-        margin-top: -40px;
-        overflow: hidden; /* ป้องกันวงกลมหลุดขอบซ้าย */
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 40px 15px !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
     }
 
-    /* 2. ปรับระยะ Wrapper ของ Step (กึ่งกลางวงกลม 55px คือ 27.5px) */
+    .order-guide-page h2 {
+    font-weight: normal;
+    font-size: 28px;
+    margin-bottom: 40px;
+    }
+
+    .order-guide-page {
+        padding: 40px 0 20px !important;
+    }
+
     .steps-wrapper {
-        margin-left: 27.5px; 
-        padding-left: 30px; /* ระยะห่างข้อความจากเส้น */
-        border-left: none; /* ป้องกันเส้นซ้ำซ้อน */
-    }
-
-    /* 3. จัดการเส้น Timeline (::before) */
-    .step {
-        padding: 10px 0 50px 10px;
+        margin-left: 55px !important;
+        padding-left: 20px !important;
     }
 
     .step::before {
-        content: "";
-        position: absolute;
-        /* ระยะจัดวางกึ่งกลางเส้น (ครึ่งหนึ่งของ 55px คือ 27.5px + ความหนาเส้นเล็กน้อย) */
-        left: -31px; 
-        top: 27.5px; /* เริ่มจากกึ่งกลางวงกลมเลขปัจจุบัน */
+        left: -41px !important;
         width: 2px;
-        height: 100%;
-        background-color: #ddd;
-        z-index: 1;
     }
 
-    /* สั่งหยุดเส้นที่เลข 7 (ตัวสุดท้ายของกลุ่ม) */
-    .step:last-child::before {
-        display: none;
-    }
-
-    /* 4. ปรับวงกลมตัวเลขในมือถือ */
     .step-number {
-        position: absolute;
         width: 55px;
         height: 55px;
-        /* สูตรคำนวณ: (ความกว้างวงกลม + ระยะ padding-left ของ wrapper) *-1 */
-        left: -57.5px; 
-        top: 0;
-        font-size: 1.1rem;
-        z-index: 2;
+        left: -68px !important;
+        font-size: 1.2rem;
     }
 
-    /* 5. ปรับแต่งเนื้อหาข้อความ */
-    .step h5 {
-        margin-top: 5px;
-        font-size: 16px;
-        font-weight: bold;
+    /* 4. ส่วนของ FAQ (บทความที่คุณอาจสนใจ) - แก้ให้เต็มจอ */
+    .faq-header {
+        padding: 40px 15px 10px !important;
+        background-color: #fff8ec !important; /* ให้สีเนียนไปกับพื้นหลัง */
     }
 
-    .step p { 
-        font-size: 14px;
-        margin-bottom: 0;
+    .faq-header h1 {
+        font-size: 28px !important;
+        font-weight: normal !important;
     }
-    .step p, 
-    .order-condition-list li {
-      font-size: 14px;
+
+    .faq-section {
+        /* ลบ padding 16% เดิมออก เพื่อให้แสดงผลเต็มจออ่านง่ายขึ้น */
+        padding: 10px 15px 50px !important; 
+        background-color: #fff8ec !important;
     }
-    /* 6. ส่วนบัญชีชำระเงินและปุ่มคัดลอก */
+
+    .faq-item {
+        font-size: 1.1rem !important;
+        padding: 20px 0 !important;
+        border-bottom: 1px solid #ddd !important;
+    }
+
+    /* 5. ส่วนชำระเงินและปุ่ม Copy */
     .payment-title { 
-        font-size: 28px;
-        font-weight: normal; 
-        padding: 0px 0 15px;
-    }
-    
-    .payment-box {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        position: relative;
+        font-size: 24px !important;
+        margin-top: -50px !important;
+        font-weight: normal !important;
     }
 
+    .step {
+        padding: 0px 0 30px 15px !important;
+    }
     #copyBtn {
-        position: absolute;  
-        left: 50%;           
-        transform: translateX(-50%); 
-        bottom: 20px;        
-        top: auto;
-        width: auto;             
-        min-width: 102px;        
-        padding: 10px 20px;       
-        font-size: 18px;      
-        border-radius: 8px;      
-        white-space: nowrap;
+        position: relative;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        margin-top: -60px;
+        width: 60% !important;
+        bottom: 0;
     }
+}
 
-    .faq-header h1 { font-size: 24px; }
-    .faq-header { padding: 30px 0px 10px; }
+/* ดักซ้ำสำหรับจอเล็กพิเศษ */
+@media (max-width: 576px) {
+    .order-guide-page .container, 
+    .faq-section {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
 }

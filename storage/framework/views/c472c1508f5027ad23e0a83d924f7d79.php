@@ -5,8 +5,6 @@
 <?php $__env->startSection('content'); ?>
 
 
-<link rel="stylesheet" href="<?php echo e(asset('css/cart.css')); ?>">
-
 <div class="container py-5">
     
     <h1 class="cart-title">ตะกร้าสินค้า</h1>

@@ -1,7 +1,6 @@
 
 
 <?php $__env->startSection('content'); ?>
-<link rel="stylesheet" href="<?php echo e(asset('css/design-guide.css')); ?>">
 
 <div class="design-guide-wrapper">
     <div class="container">

@@ -101,22 +101,14 @@
 
 .gallery-grid {
     display: grid;
-    /* ปรับเป็น repeat(4, 237px) เพื่อล็อกขนาดคอลัมน์ให้เท่ากับขนาดรูป */
     grid-template-columns: repeat(4, 237px); 
-    
-    /* ใช้ justify-content: space-between เพื่อให้ Grid กระจายตัวชิดขอบซ้าย-ขวาของกล่องขาว */
-    /* หรือใช้ center หากต้องการให้กลุ่มรูปอยู่รวมกันตรงกลาง */
     justify-content: space-between; 
-    
-    /* ปรับ gap ให้เป็นค่าที่แน่นอน หรือปล่อยให้ space-between จัดการเอง */
     row-gap: 30px; 
-    
     margin-bottom: 40px;
 }
 
 .gallery-item {
-    background-color: #F9F9F9;
-    /* ขนาดเป๊ะๆ ตามที่ต้องการ */
+    background-color: #ffffff;
     width: 237px;
     height: 254px; 
     border-radius: 12px;
@@ -125,12 +117,12 @@
     justify-content: center;
     padding: 15px;
     box-sizing: border-box;
-    transition: transform 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.5);
 }
 
 .gallery-item img {
-    max-width: 125%;
-    max-height: 125%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
 }
 
@@ -142,7 +134,6 @@
     margin-bottom: 60px;
 }
 
-/* --- ส่วนปุ่มหมวดหมู่ที่คุณปรับใหม่ (อยู่นอกกล่อง) --- */
 .gallery-category-nav {
     margin-top: 40px;
     display: flex;
@@ -206,7 +197,6 @@
     display: inline-block;
 }
 
-/* ตกแต่งทุกลิงก์ (ตัวเลขและลูกศร) */
 .gallery-pagination-wrapper .page-link {
     border: none !important;
     background: transparent !important;
@@ -236,7 +226,6 @@
     pointer-events: none;
 }
 
-/* เอฟเฟกต์ตอน Hover */
 .gallery-pagination-wrapper .page-link:hover {
     background-color: #eeeeee !important;
 }

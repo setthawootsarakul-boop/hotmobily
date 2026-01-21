@@ -11,6 +11,77 @@ use App\Http\Controllers\AccessoriesController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\NewsletterController;
+// use App\Http\Controllers\BannerController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\admin\AuthController as AdminAuthController;
+
+// Route::redirect(
+//     '/pvc/keycover.php',
+//     '/products/key-cover',
+//     301
+// );
+
+// Route::redirect(
+//     '/products/acrylic.php',
+//     '/products/acrylic-keychain',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic',
+//     '/products/acrylic-keychain',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic/figure.php',
+//     '/products/acrylic-standee',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic/coaster.php',
+//     '/products/acrylic-coaster',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic/hair.php',
+//     '/products/acrylic-hair-tie',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic/badge.php',
+//     '/products/acrylic-pin',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic/keyholder.php',
+//     '/products/acrylic-keychain',
+//     301
+// );
+
+// Route::redirect(
+//     '/acrylic/griptok.php',
+//     '/products/griptok',
+//     301
+// );
+
+// Route::redirect(
+//     'acrylic/gallery/index.php',
+//     '/gallery',
+//     301
+// );
+
+// Route::redirect(
+//     'acrylic/contact/index.php',
+//     '/contact-full',
+//     301
+// );
+
+
 // =========================================================
 // 🏠 General Pages
 // =========================================================
@@ -84,3 +155,21 @@ Route::get('/gallery', [GalleryController::class, 'index'])->name('gallery.index
 Route::get('/payment/success', [PaymentController::class, 'success'])->name('payment.success');
 
 Route::post('/newsletter-subscribe', [NewsletterController::class, 'store'])->name('newsletter.subscribe');
+
+// Route::get('/', [BannerController::class, 'index'])->name('home');
+
+Route::controller(AdminAuthController::class)->group(function () {
+    Route::get('/admin/login', 'showLoginForm')->name('admin.login');
+    Route::post('/admin/login', 'login');
+    Route::post('/admin/logout', 'logout')->name('admin.logout');
+});
+
+Route::middleware('auth:admin')->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+    Route::post('/update', [AdminController::class, 'updateData'])->name('update');
+    
+    Route::get('/quotation/view/{number}', [AdminController::class, 'viewQuotation'])->name('quotation.view');
+    
+    Route::get('/contact-webview/{id}', [ContactController::class, 'showWebview'])->name('contact.webview');
+    Route::get('/payment-webview/{id}', [PaymentController::class, 'showWebview'])->name('payment.webview');
+});

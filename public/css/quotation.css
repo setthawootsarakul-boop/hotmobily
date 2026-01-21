@@ -7,11 +7,13 @@
     --text-color: #333;
     --border-color: #eee;
     --error-color: #dc3545; /* สีแดง Error */
+    --bg-light: #f9f9f9;
 }
 
 body {
     background-color: #fff;
     color: var(--text-color);
+    line-height: 1.6;
 }
 
 /* =========================================
@@ -53,6 +55,7 @@ body.modal-open .navbar {
     margin-top: 40px; 
     margin-bottom: 25px;
     margin-left: 0px;
+    display: block;
 }
 
 /* =========================================
@@ -68,16 +71,14 @@ body.modal-open .navbar {
 .form-control, .form-select {
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    
-    /* 🔥 Key Point: บังคับความสูงและ Padding ให้เท่า Choices.js */
     min-height: 44px; 
-    padding: 8px 15px; /* ปรับ Padding บนล่างให้ข้อความอยู่กึ่งกลาง */
-    
+    padding: 8px 15px;
     font-size: 14px;
     color: #333;
     background-color: #fff;
     display: flex;
-    align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+    align-items: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .form-control[readonly] {
@@ -88,23 +89,19 @@ body.modal-open .navbar {
 .form-control:focus, .form-select:focus {
     border-color: var(--primary-orange);
     box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25);
+    outline: none;
 }
 
-/* 🔥 Styles สำหรับ Error Validation 🔥 */
-
-/* 1. Input ปกติ */
+/* Styles สำหรับ Error Validation */
 .form-control.is-invalid {
     border-color: var(--error-color) !important;
     background-image: none !important;
-    padding-right: calc(1.5em + .75rem);
 }
 
-/* 2. Choices.js Dropdown (เมื่อเราใส่ class is-invalid ที่ wrapper) */
 .choices.is-invalid .choices__inner {
     border-color: var(--error-color) !important;
 }
 
-/* ข้อความ Error */
 .invalid-feedback {
     display: none;
     width: 100%;
@@ -114,7 +111,6 @@ body.modal-open .navbar {
     font-weight: 500;
 }
 
-/* Helper Class เพื่อแสดง Error */
 .d-block {
     display: block !important;
 }
@@ -122,42 +118,226 @@ body.modal-open .navbar {
 /* =========================================
    5. TAX INVOICE OPTIONS
    ========================================= */
-.tax-options-container { display: flex; flex-direction: column; gap: 15px; }
-.tax-option-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 15px 20px; cursor: pointer; transition: all 0.2s; background-color: #fff; position: relative; flex: 1; }
-.tax-option-card:hover { border-color: #ccc; }
-.tax-option-card.selected { border-color: #e0e0e0; }
-.custom-radio-icon { width: 24px; height: 24px; border: 2px solid #ccc; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; transition: 0.2s; flex-shrink: 0; }
-.custom-radio-icon.checked { background-color: #0d6efd; border-color: #0d6efd; }
+.tax-options-container { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+}
+
+.tax-option-card { 
+    border: 1px solid #e0e0e0; 
+    border-radius: 8px; 
+    padding: 15px 20px; 
+    cursor: pointer; 
+    transition: all 0.2s; 
+    background-color: #fff; 
+    position: relative; 
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.tax-option-card:hover { 
+    border-color: var(--primary-orange); 
+}
+
+.tax-option-card.selected { 
+    border-color: var(--primary-orange);
+    background-color: rgba(255, 167, 38, 0.05);
+}
+
+.custom-radio-icon { 
+    width: 24px; 
+    height: 24px; 
+    border: 2px solid #ccc; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: white; 
+    transition: 0.2s; 
+    flex-shrink: 0; 
+}
+
+.custom-radio-icon.checked { 
+    background-color: #0d6efd; 
+    border-color: #0d6efd; 
+}
 
 /* =========================================
    6. RADIO & CHOICES.JS
    ========================================= */
-.person-type-label { cursor: pointer; display: flex; align-items: center; gap: 8px; margin-right: 20px; font-weight: 500; }
-.person-type-radio { width: 18px; height: 18px; accent-color: #0d6efd; cursor: pointer; }
+.person-type-label { 
+    cursor: pointer; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin-right: 20px; 
+    font-weight: 500; 
+}
+
+.person-type-radio { 
+    width: 18px; 
+    height: 18px; 
+    accent-color: #0d6efd; 
+    cursor: pointer; 
+}
 
 .choices { margin-bottom: 0; }
-.choices__inner { background-color: #fff; border: 1px solid #e0e0e0; border-radius: 6px; min-height: 44px; padding: 4px 10px; display: flex; align-items: center; font-size: 14px; }
-.choices.is-focused .choices__inner { border-color: #FFA726; box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25); }
-.choices.is-disabled .choices__inner { background-color: #E9ECEF; cursor: not-allowed; }
-.choices__placeholder { color: #6c757d; opacity: 1; }
-.choices__list--dropdown .choices__input { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 10px center; background-size: 16px; padding-left: 35px !important; border-radius: 4px; background-color: #f8f9fa; border: 1px solid #eee; margin-bottom: 5px; }
+
+.choices__inner { 
+    background-color: #fff; 
+    border: 1px solid #e0e0e0; 
+    border-radius: 6px; 
+    min-height: 44px; 
+    padding: 4px 10px; 
+    display: flex; 
+    align-items: center; 
+    font-size: 14px; 
+}
+
+.choices.is-focused .choices__inner { 
+    border-color: var(--primary-orange); 
+    box-shadow: 0 0 0 0.2rem rgba(255, 167, 38, 0.25); 
+}
+
+.choices.is-disabled .choices__inner { 
+    background-color: #E9ECEF; 
+    cursor: not-allowed; 
+}
+
+.choices__list--dropdown .choices__input { 
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23999' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E"); 
+    background-repeat: no-repeat; 
+    background-position: 10px center; 
+    background-size: 16px; 
+    padding-left: 35px !important; 
+    border-radius: 4px; 
+    background-color: #f8f9fa; 
+    border: 1px solid #eee; 
+    margin-bottom: 5px; 
+}
 
 /* =========================================
    7. BUTTONS & SWEETALERT
    ========================================= */
-.btn-back { background-color: #FFA726; color: #fff; border: none; border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s; white-space: nowrap; }
-.btn-back:hover { background-color: #e69520; color: #fff; }
-.btn-create-quote { background-color: #b00020; color: #fff; border: none; border-radius: 6px; padding: 10px 30px; font-weight: 500; transition: 0.3s; white-space: nowrap; }
-.btn-create-quote:hover { background-color: #8a0019; color: #fff; }
+.btn-back { 
+    background-color: #FFA726; 
+    color: #fff; 
+    border: none; 
+    border-radius: 6px; 
+    padding: 10px 30px; 
+    font-weight: 500; 
+    transition: 0.3s; 
+    white-space: nowrap; 
+}
+
+.btn-back:hover { 
+    background-color: #e69520; 
+    color: #fff; 
+}
+
+.btn-create-quote { 
+    background-color: #b00020; 
+    color: #fff; 
+    border: none; 
+    border-radius: 6px; 
+    padding: 10px 30px; 
+    font-weight: 500; 
+    transition: 0.3s; 
+    white-space: nowrap; 
+}
+
+.btn-create-quote:hover { 
+    background-color: #8a0019; 
+    color: #fff; 
+}
 
 .custom-swal-popup { border-radius: 20px !important; padding-top: 30px !important; padding-bottom: 30px !important; }
 .custom-swal-confirm { border-radius: 50px !important; padding: 12px 30px !important; font-weight: 600 !important; box-shadow: none !important; }
 .custom-swal-cancel { border-radius: 50px !important; padding: 12px 30px !important; font-weight: 600 !important; color: #666 !important; border: 1px solid #ddd !important; background-color: transparent !important; margin-right: 15px !important; }
-.custom-swal-cancel:hover { background-color: #f8f9fa !important; border-color: #ccc !important; color: #000 !important; }
 
 /* =========================================
-   8. RESPONSIVE
+   8. RESPONSIVE & SPACING FIX
    ========================================= */
-@media (min-width: 768px) and (max-width: 1399px) { .quotation-title { font-size: 40px; } .section-header { margin-left: 0px !important; } }
-@media (min-width: 1400px) { .quotation-title { font-size: 48px; } .section-header { margin-left: -60px !important; } .btn-back, .btn-create-quote { padding: 10px 40px; font-size: 16px; } }
-@media (max-width: 576px) { .container { padding-left: 20px; padding-right: 20px; } .tax-option-card span { font-size: 14px; } .bi-file-earmark-text, .bi-file-earmark-x { font-size: 1.5rem !important; } }
+
+/* Desktop & Large Screen */
+@media (min-width: 1400px) { 
+    .quotation-title { font-size: 48px; } 
+    .section-header { margin-left: 0px !important; } 
+    .btn-back, .btn-create-quote { padding: 12px 40px; font-size: 16px; } 
+}
+
+/* Tablet & Smaller Desktop */
+@media (min-width: 768px) and (max-width: 1399px) { 
+    .quotation-title { font-size: 40px; } 
+    .section-header { margin-left: 0px !important; } 
+}
+
+/* Mobile Devices (จุดที่แก้เรื่องชิดขอบ) */
+@media (max-width: 576px) { 
+    /* เพิ่ม Padding ให้ container หลัก */
+    .container { 
+        padding-left: 20px !important; 
+        padding-right: 20px !important; 
+    }
+
+    /* เพิ่มระยะห่างระหว่างแถวของ Form (Bootstrap Gutter) */
+    .row {
+        --bs-gutter-y: 1rem; 
+    }
+
+    .quotation-title { 
+        font-size: 26px; 
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+
+    .section-header { 
+        font-size: 18px; 
+        margin-top: 30px; 
+        margin-bottom: 15px;
+        display: inline-block;
+        padding-bottom: 4px;
+    }
+
+    /* ปรับช่อง Input ในมือถือให้ไม่อึดอัด */
+    .form-control, .form-select, .choices__inner {
+        font-size: 16px; /* ป้องกัน iOS Auto Zoom */
+        padding: 10px 12px;
+    }
+
+    /* ปรับแต่ง Card ตัวเลือกใบกำกับภาษี */
+    .tax-option-card {
+        padding: 12px 15px;
+        gap: 10px;
+    }
+    
+    .tax-option-card span { 
+        font-size: 14px; 
+        line-height: 1.3;
+    }
+
+    .btn-back, .btn-create-quote {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        gap: 10px;
+        font-size: 16px;
+    }
+
+    .bi-file-earmark-text, .bi-file-earmark-x { 
+        font-size: 1.3rem !important; 
+    }
+
+    /* แก้ไข Choices.js เบียดในมือถือ */
+    .choices__list--single {
+        padding-left: 0;
+    }
+}
+
+/* สำหรับมือถือขนาดเล็กมาก */
+@media (max-width: 375px) {
+    .quotation-title { font-size: 22px; }
+    .section-header { font-size: 17px; }
+}

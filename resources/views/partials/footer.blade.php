@@ -12,7 +12,7 @@
           <p class="mb-2">
             ที่อยู่ : 23/34-35<br>
             อาคารโครงการเดอะโฟร์ม หัวลำโพง<br>
-            อาคาร A ห้องเลขที่ 303 ชั้นที่ 3<br>
+            อาคาร A ห้องเลขที่ 404 ชั้นที่ 4<br>
             ซอยสุกร แขวงตลาดน้อย<br>
             เขตสัมพันธวงศ์ กรุงเทพมหานคร<br>
             10100
@@ -55,7 +55,7 @@
             <img src="{{ asset('images/line.png') }}" class="social-img" alt="LINE">
             </a>
             <a href="#"><img src="{{ asset('images/x.png') }}" class="social-img" alt="X"></a>
-            <a href="mailto:setthawootsarakul@gmail.com?subject=Inquiry&body="><img src="{{ asset('images/gmail.png') }}" class="social-img" alt="Gmail"></a>
+            <a href="mailto:sales.ye@youandearth-th.com?subject=Inquiry&body="><img src="{{ asset('images/gmail.png') }}" class="social-img" alt="Gmail"></a>
           </div>
           <p>Line : <span>hotstrapthai</span></p>
           <a href="https://line.me/R/ti/p/@842kcbjl?oat__id=4123351#~" target="_blank"><img src="{{ asset('images/line-qr.png') }}" alt="Line QR Code" class="qr-code">
@@ -105,7 +105,8 @@
   .btn-back-to-top {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    left: 30px; 
+    
     z-index: 9999;
     
     width: 50px;
@@ -113,33 +114,27 @@
     border-radius: 50%;
     border: none;
     
-    /* สีพื้นหลังแบบไล่เฉด (Modern Gradient) เข้ากับธีมสีส้ม/เหลือง */
     background: linear-gradient(135deg, #ffc107, #fbab00);
     color: #fff;
     
-
     display: flex;
     align-items: center;
     justify-content: center;
 
     opacity: 0;
     visibility: hidden;
-    transform: translateY(20px); /* ดันลงไปข้างล่างนิดหน่อยตอนซ่อน */
+    transform: translateY(20px); 
     
-    /* Animation Settings */
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* เด้งดึ๋งนิดๆ */
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
     cursor: pointer;
   }
 
-  /* สถานะตอนโชว์ (Class นี้จะถูกใส่ด้วย JS) */
   .btn-back-to-top.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
 
-  
-  /* Active Effect (ตอนกด) */
   .btn-back-to-top:active {
     transform: scale(0.95);
   }

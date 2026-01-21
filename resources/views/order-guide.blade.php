@@ -111,15 +111,50 @@
   </div>
 </div>
 
-<!-- 🔸 Script คัดลอก -->
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const copyBtn = document.getElementById('copyBtn');
-    copyBtn.addEventListener('click', function() {
-      navigator.clipboard.writeText('1912139535');
-      copyBtn.innerText = 'คัดลอกแล้ว ✓';
-      setTimeout(() => copyBtn.innerText = 'คัดลอก', 2000);
-    });
+    
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function() {
+        // ดึงเลขบัญชีจาก data-account
+        const accountNumber = this.getAttribute('data-account');
+
+        // ฟังก์ชันหลักในการคัดลอก
+        if (navigator.clipboard && window.isSecureContext) {
+          // ใช้ Clipboard API (สำหรับ Modern Browser & HTTPS)
+          navigator.clipboard.writeText(accountNumber).then(() => {
+            updateButtonStatus(copyBtn);
+          });
+        } else {
+          // ใช้ fallback (สำหรับ Browser เก่า หรือ HTTP ปกติ)
+          const textArea = document.createElement("textarea");
+          textArea.value = accountNumber;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            updateButtonStatus(copyBtn);
+          } catch (err) {
+            console.error('ไม่สามารถคัดลอกได้', err);
+          }
+          document.body.removeChild(textArea);
+        }
+      });
+    }
+
+    // ฟังก์ชันเปลี่ยนข้อความบนปุ่ม
+    function updateButtonStatus(btn) {
+      const originalText = btn.innerText;
+      btn.innerText = 'คัดลอกแล้ว ✓';
+      btn.classList.add('active'); 
+      
+      setTimeout(() => {
+        btn.innerText = originalText;
+        btn.classList.remove('active');
+      }, 2000);
+    }
   });
 </script>
 @endsection

@@ -116,7 +116,7 @@ html {
 }
 
 /* --- Related Nav --- */
-.nav-title { text-align: center; font-weight: 800; font-size: 48px; margin: 80px 0 40px; }
+.nav-title { text-align: center; font-weight: normal; font-size: 48px; margin: 80px 0 40px; }
 .nav-link-item {
     /* เพิ่ม transition เพื่อให้การเคลื่อนไหวลื่นไหล */
     transition: all 0.2s ease-in-out;
@@ -214,9 +214,11 @@ html {
 
 @media (max-width: 768px) {
     .main-title {
-        font-size: 24px;
-        margin-top: 25px;
+        font-size: 28px;
+        margin-top: 0px;
+        margin-bottom: 40px;
     }
+
     .note-highlight-text {
         font-size: 14px !important;
         /* ชิดซ้ายให้ตรงแนวเดียวกับข้อความอื่นในกล่องบนมือถือ */

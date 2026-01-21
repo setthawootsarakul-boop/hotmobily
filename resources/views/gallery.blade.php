@@ -9,13 +9,7 @@
         display: block;
         cursor: zoom-in;
     }
-    .gallery-item {
-        transition: transform 0.3s ease;
-    }
-    .gallery-item:hover {
-        transform: scale(1.02);
-    }
-    /* ปรับแต่งตำแหน่งคำอธิบายใต้รูปใน Lightbox */
+
     .lb-caption {
         font-family: 'Prompt', sans-serif;
         font-size: 16px;
@@ -59,18 +53,17 @@
         </div>
 
         <div class="gallery-content-box">
-            <div class="gallery-grid">
-                @foreach($galleries as $item)
-                    {{-- 2. เปลี่ยนมาใช้ data-lightbox สำหรับระบบ Lightbox2 --}}
-                    <a href="{{ asset('images/gallery/' . $item->image_path) }}" 
-                       data-lightbox="product-gallery" 
-                       data-title="{{ $item->title ?? 'ผลงานจาก Hotmobily' }}">
-                        <div class="gallery-item">
-                            <img src="{{ asset('images/gallery/' . $item->image_path) }}" alt="{{ $item->title }}">
-                        </div>
-                    </a>
-                @endforeach
-            </div>
+                <div class="gallery-grid">
+                    @foreach($galleries as $item)
+                        <a href="{{ asset('images/gallery/' . $item->image_path) }}" 
+                        data-lightbox="product-gallery" 
+                        data-title="{{ $item->title ?? 'ผลงานจาก Hotmobily' }}">
+                            <div class="gallery-item">
+                                <img src="{{ asset('images/gallery/' . $item->image_path) }}" alt="{{ $item->title }}">
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
             <div class="gallery-pagination-wrapper mt-5">
                 {{ $galleries->links('pagination::bootstrap-4') }}
             </div>

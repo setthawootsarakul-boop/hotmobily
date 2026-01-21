@@ -16,7 +16,7 @@ class ProductController extends Controller
     // 1. หน้าสินค้าทั้งหมด (Index)
     public function index(Request $request)
     {
-        $query = Product::with(['category','images','prices']);
+        $query = Product::where('status', 1)->with(['category','images','prices']);
         $pageTitle = 'สินค้าทั้งหมด';
 
         if ($request->filled('category')) {
@@ -41,9 +41,11 @@ class ProductController extends Controller
     {
         $category = Category::where('slug', $slug)->firstOrFail();
         
-        $products = Product::with(['category','images','prices'])
+        $products = Product::where('status', 1)
+                            ->with(['category', 'images', 'prices'])
                             ->where('category_id', $category->id)
-                            ->orderBy('rank', 'asc')->orderBy('name', 'asc')
+                            ->orderBy('rank', 'asc')
+                            ->orderBy('name', 'asc')
                             ->get();
 
         $categories = Category::orderBy('rank', 'asc')->orderBy('name', 'asc')->get();
@@ -52,38 +54,59 @@ class ProductController extends Controller
         return view('products.index', compact('products', 'categories', 'category', 'pageTitle'));
     }
 
-    // 3. หน้ารายละเอียดสินค้า (Product Detail)
     public function show($slug)
-    {
-        // 1. ดึงข้อมูลสินค้าพร้อมความสัมพันธ์ทั้งหมด
-        $product = Product::where('slug', $slug)
-                    ->with([
-                        'images' => function($q) { $q->orderBy('sort_order', 'asc'); },
-                        'sizes',
-                        'prices',
-                        'parts',
-                        'printings',
-                        'paperbacks',
-                        'materials',
-                        'category'
-                    ])
-                    ->firstOrFail();
+        {
+            // 1. ดึงข้อมูลสินค้า 
+            $product = Product::where('slug', $slug)
+                        ->where('status', 1) // ✅ ถูกต้องครับ เพิ่มตรงนี้ได้เลย
+                        ->with([
+                            'images' => function($q) { 
+                                $q->orderBy('sort_order', 'asc'); 
+                            },
+                            'sizes', 
+                            'parts' => function($q) {
+                                $q->whereNotNull('part_name') 
+                                ->where('part_name', '!=', '') 
+                                ->where('part_name', '!=', 'อุปกรณ์ใหม่ (รอแก้ไข)') 
+                                ->whereNotNull('image_url') 
+                                ->where('image_url', '!=', ''); 
+                            },
+                            'printings', 
+                            'paperbacks', 
+                            'materials', 
+                            'category'
+                        ])
+                        ->firstOrFail();
 
-        // 2. [เพิ่มใหม่] ดึงข้อมูล Gallery ที่เกี่ยวข้องกับสินค้านี้เพื่อแสดง "ตัวอย่างผลงาน"
-        // โดยกรองจาก product_id และเรียงลำดับตามที่กำหนดไว้
-        $productGalleries = Gallery::where('product_id', $product->id)
-                            ->orderBy('sort_order', 'asc')
-                            ->get();
+            // 2. ดึงข้อมูล Gallery (คงเดิม)
+            $productGalleries = Gallery::where('product_id', $product->id)
+                                        ->orderBy('sort_order', 'asc')
+                                        ->get();
 
-        // 3. เตรียมข้อมูลสำหรับ "ตารางราคา" (Matrix)
-        $quantities = $product->prices
-                        ->unique('quantity_min')
-                        ->sortBy('quantity_min')
-                        ->pluck('quantity_min');
+            $quantities = DB::table('product_price')
+                            ->where('product_id', $product->id)
+                            ->where('price_per_unit', '>', 0) // ดึงเฉพาะที่มีราคา
+                            ->distinct()
+                            ->orderBy('quantity_min', 'asc')
+                            ->pluck('quantity_min');
 
-        // 4. ส่งค่า $productGalleries ไปยัง View
-        return view('products.show', compact('product', 'quantities', 'productGalleries'));
-    }
+            $banners = [];
+            try {
+                $response = \Illuminate\Support\Facades\Http::withOptions([
+                    'verify' => false,
+                ])->get('https://hotstrapthai.com/api/get-banner.php', [
+                    'mkey' => 'HM@2025'
+                ]);
+
+                if ($response->successful()) {
+                    $banners = $response->json();
+                }
+            } catch (\Exception $e) {
+                \Log::error("API Banner Error in ProductController: " . $e->getMessage());
+            }
+
+            return view('products.show', compact('product', 'quantities', 'productGalleries', 'banners'));
+        }
     // 4. [NEW] ฟังก์ชันคำนวณราคา (AJAX)
     public function calculatePrice(Request $request)
     {
@@ -97,7 +120,6 @@ class ProductController extends Controller
 
         $qty = $request->quantity;
 
-        // 1. หา "ราคาต่อชิ้น" จากตาราง product_price (Tier Price)
         $priceTier = DB::table('product_price')
             ->where('product_id', $request->product_id)
             ->where('product_size_id', $request->size_id)
@@ -106,7 +128,6 @@ class ProductController extends Controller
             ->where('quantity_max', '>=', $qty)
             ->first();
 
-        // ถ้าไม่เจอช่วงราคา (เช่น สั่งเยอะเกิน Max) ให้ใช้ราคาของขั้นบันไดสูงสุดที่มี
         if (!$priceTier) {
             $priceTier = DB::table('product_price')
                 ->where('product_id', $request->product_id)
@@ -166,5 +187,10 @@ class ProductController extends Controller
                 'grand_total' => number_format($grandTotal, 2)
             ]
         ]);
+    }
+
+    public function store()
+    {
+        
     }
 }

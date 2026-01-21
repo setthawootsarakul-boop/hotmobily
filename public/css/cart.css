@@ -15,6 +15,7 @@ body { background-color: #fff; }
    2. COMMON STYLES (Shared)
    ========================================= */
 .cart-title {
+    padding-top: 40px;
     color: var(--accent);
     font-weight: 800;
     margin-bottom: 40px;

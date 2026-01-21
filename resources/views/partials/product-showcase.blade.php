@@ -26,7 +26,7 @@
                 <a href="{{ route('products.index', ['category' => 7]) }}" class="d-block text-decoration-none product-showcase-item">
                     <div class="showcase-box mb-3">
                         <div class="img-wrapper">
-                            <img src="{{ asset('images/Hotmobilyfile/Top-page/357-02.jpg') }}" alt="ที่รองแก้ว" class="img-fluid showcase-img">
+                            <img src="{{ asset('images/3Toppage/3Toppage/357_2/357-01.jpg') }}" alt="ที่รองแก้ว" class="img-fluid showcase-img">
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">ที่รองแก้ว</h5>
@@ -40,7 +40,7 @@
                 <a href="{{ route('products.index', ['category' => 9]) }}" class="d-block text-decoration-none product-showcase-item">
                     <div class="showcase-box mb-3">
                         <div class="img-wrapper">
-                            <img src="{{ asset('images/Hotmobilyfile/Top-page/357-08.jpg') }}" alt="สแตนดี้" class="img-fluid showcase-img">
+                            <img src="{{ asset('images/3Toppage/3Toppage/357_2/357-03.jpg') }}" alt="สแตนดี้" class="img-fluid showcase-img">
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">สแตนดี้</h5>
@@ -50,11 +50,11 @@
                 </a>
             </div>
 
-            {{-- <div class="col-12 col-md-4 text-center">
+            <div class="col-12 col-md-4 text-center">
                 <a href="{{ route('products.index', ['category' => 8]) }}" class="d-block text-decoration-none product-showcase-item">
                     <div class="showcase-box mb-3">
                         <div class="img-wrapper">
-                            <img src="{{ asset('images/Hotmobilyfile/Top-page/.jpg') }}" alt="แท่นวางโทรศัพท์" class="img-fluid showcase-img">
+                            <img src="{{ asset('images/3Toppage/3Toppage/357_2/357-02.jpg') }}" alt="แท่นวางโทรศัพท์" class="img-fluid showcase-img">
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">แท่นวางโทรศัพท์</h5>
@@ -62,13 +62,13 @@
                         แท่นวางโทรศัพท์อะคริลิค
                     </p>
                 </a>
-            </div> --}}
+            </div>
 
             <div class="col-12 col-md-4 text-center">
                 <a href="{{ route('products.index', ['category' => 2]) }}" class="d-block text-decoration-none product-showcase-item">
                     <div class="showcase-box mb-3">
                         <div class="img-wrapper">
-                            <img src="{{ asset('images/Hotmobilyfile/Top-page/357-06.jpg') }}" alt="เข็มกลัด" class="img-fluid showcase-img">
+                            <img src="{{ asset('images/Hotmobilyfile/Top-page/357-07.jpg') }}" alt="เข็มกลัด" class="img-fluid showcase-img">
                         </div>
                     </div>
                     <h5 class="showcase-title mt-2">เข็มกลัด</h5>

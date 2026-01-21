@@ -1,7 +1,6 @@
 @extends('layouts.main')
 
 @section('content')
-<link rel="stylesheet" href="{{ asset('css/design-guide.css') }}">
 
 <div class="design-guide-wrapper">
     <div class="container">

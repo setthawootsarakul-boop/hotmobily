@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ContactMessage;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -14,39 +16,53 @@ class ContactController extends Controller
     {
         return view('contact-full'); 
     }
+    
+    public function showWebview($id)
+    {
+        $contact = ContactMessage::findOrFail($id);
+        
+        return view('admin.contact_webview', compact('contact'));
+    }
 
     public function store(Request $request)
     {
-        // 1. Validation ข้อมูล
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'subjects' => 'nullable|array',
-            'message' => 'nullable|string',
+            'message' => 'required|string',
+            'subjects' => 'required|array|min:1',
             'attachment.*' => 'nullable|file|mimes:ai,psd,pdf,doc,xls,jpeg,jpg,png,zip|max:10240',
+            'g-recaptcha-response' => 'required',
+        ], [
+            'g-recaptcha-response.required' => 'กรุณายืนยันว่าคุณไม่ใช่โปรแกรมอัตโนมัติ',
+            'subjects.required' => 'กรุณาเลือกเรื่องที่ต้องการติดต่ออย่างน้อย 1 หัวข้อ',
         ]);
 
-        $attachmentPaths = [];
-        $fullFilePaths = []; // เก็บ Path เต็มเพื่อเอาไว้แนบไฟล์ใน Email
+        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret'   => env('RECAPTCHA_SECRET_KEY'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
 
-        // 2. จัดการไฟล์แนบ
+        if (!$response->json('success')) {
+            return back()->withErrors(['g-recaptcha-response' => 'การยืนยันตัวตนไม่สำเร็จ กรุณาลองใหม่'])->withInput();
+        }
+
+        $attachmentPaths = [];
+        $fullFilePaths = []; 
+
         if ($request->hasFile('attachment')) {
             foreach ($request->file('attachment') as $file) {
-                $originalName = $file->getClientOriginalName();
-                $fileName = time() . '_' . $originalName;
-                
-                // เก็บไฟล์
+                $fileName = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('contacts', $fileName, 'public');
                 $attachmentPaths[] = $path;
-                
-                // เก็บ Path เต็มสำหรับ PHPMailer
                 $fullFilePaths[] = storage_path('app/public/' . $path);
             }
         }
 
-        // 3. บันทึกลงฐานข้อมูล
-        $contact = ContactMessage::create([
+        // บันทึกลง Database
+        ContactMessage::create([
             'name'        => $request->name,
             'email'       => $request->email,
             'phone'       => $request->phone,
@@ -54,86 +70,126 @@ class ContactController extends Controller
             'attachments' => $attachmentPaths,
             'message'     => $request->message,
         ]);
+ 
 
-        // 4. 🚀 ส่งอีเมลแจ้งเตือนด้วย PHPMailer
         try {
+            date_default_timezone_set('Asia/Bangkok');
+            
+            
             $customerName = $request->name;
             $customerEmail = $request->email;
-            $subjectsText = implode(', ', $request->subjects ?? []);
+            $customerPhone = $request->phone;
+            $subjectsText = implode(', ', $request->subjects ?? ['ทั่วไป']);
+            $safeMessage = !empty($request->message) ? nl2br(htmlspecialchars($request->message)) : 'ไม่ได้ระบุข้อความ';
+            
+            $dateOnly = date('d/m/Y');
+            $timeOnly = date('H:i') . ' น.';
             $siteUrl = url('/');
+            $year = date('Y');
 
-            // เตรียม Template HTML สำหรับอีเมล
-            $htmlBody = '
-            <html>
-            <head>
-                <meta charset="utf-8">
+
+            $style = '
                 <style>
-                    body { font-family: "Helvetica", Arial, sans-serif; line-height: 1.6; color: #333; }
-                    .container { max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; }
-                    .header { background-color: #FFA726; color: white; padding: 20px; text-align: center; }
-                    .content { padding: 20px; }
-                    .info-box { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin: 15px 0; }
-                    .footer { text-align: center; font-size: 12px; color: #888; padding: 10px; }
-                </style>
-            </head>
-            <body>
-                <div class="container">
-                    <div class="header"><h2>มีการติดต่อใหม่ HotmobilyThai</h2></div>
-                    <div class="content">
-                        <p>สวัสดีทีมงาน,</p>
-                        <p>มีลูกค้าติดต่อเข้ามาผ่านหน้าฟอร์ม "ติดต่อเรา" โดยมีรายละเอียดดังนี้:</p>
-                        <div class="info-box">
-                            <p><strong>ชื่อ-นามสกุล:</strong> ' . htmlspecialchars($customerName) . '</p>
-                            <p><strong>อีเมล:</strong> ' . htmlspecialchars($customerEmail) . '</p>
-                            <p><strong>เบอร์โทรศัพท์:</strong> ' . htmlspecialchars($request->phone) . '</p>
-                            <p><strong>เรื่องที่ติดต่อ:</strong> ' . htmlspecialchars($subjectsText) . '</p>
-                            <p><strong>ข้อความ:</strong><br>' . nl2br(htmlspecialchars($request->message)) . '</p>
+                    .wrapper { width: 100%; background-color: #f4f7f9; padding: 20px 0; }
+                    .main-card { max-width: 600px; background-color: #ffffff; border-radius: 12px; margin: 0 auto; overflow: hidden; border: 1px solid #e0e0e0; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+                    .header { background: linear-gradient(135deg, #fbab00 0%, #f7941d 100%); padding: 30px; text-align: center; }
+                    .header h1 { margin: 0; color: #ffffff; font-family: sans-serif; font-size: 24px; text-transform: uppercase; }
+                    .content { padding: 30px; font-family: "Tahoma", Geneva, sans-serif; color: #333; }
+                    .info-table { width: 100%; border-collapse: collapse; }
+                    .info-table td { padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+                    .label { font-weight: bold; color: #fbab00; width: 35%; font-size: 13px; text-transform: uppercase; }
+                    .value { color: #222; width: 65%; font-size: 15px; }
+                    .message-box { background-color: #fff9f0; padding: 20px; border-left: 4px solid #fbab00; margin-top: 10px; line-height: 1.6; word-break: break-all; border-radius: 0 4px 4px 0; }
+                    .footer { background-color: #f9f9f9; padding: 25px; text-align: center; color: #666; font-size: 12px; }
+                </style>';
+
+            // --- 1. TEMPLATE สำหรับลูกค้า (แจ้งยืนยันการรับข้อมูล) ---
+            $customerBody = '
+                <!DOCTYPE html><html><head><meta charset="utf-8">'.$style.'</head><body>
+                    <div class="wrapper">
+                        <div class="main-card">
+                            <div class="header"><h1>HotmobilyThai</h1></div>
+                            <div class="content">
+                                <p style="font-size:18px;">สวัสดีคุณ <strong>'.htmlspecialchars($customerName).'</strong></p>
+                                <p>เราได้รับข้อความการติดต่อจากท่านเรียบร้อยแล้ว ทีมงานจะรีบตรวจสอบและติดต่อกลับหาท่านโดยเร็วที่สุด</p>
+                                <div class="message-box" style="background-color:#FFF9F0; border-left-color:#fbab00;">
+                                    <p><strong>เรื่องที่ติดต่อ:</strong> '.$subjectsText.'</p>
+                                    <p><strong>ข้อความของท่าน:</strong>'.$safeMessage.'</p>
+                                </div>
+                            </div>
+                            <div class="footer">ขอบคุณที่ติดต่อเรา <br> &copy; '.$year.' HotmobilyThai.com</div>
                         </div>
-                        <p>กรุณาตรวจสอบและดำเนินการติดต่อกลับลูกค้า</p>
                     </div>
-                    <div class="footer">ส่งจากระบบอัตโนมัติ ' . $siteUrl . '</div>
-                </div>
-            </body>
-            </html>';
+                </body></html>';
+
+            
+            $saleBody = '
+                <!DOCTYPE html><html><head><meta charset="utf-8">'.$style.'</head><body>
+                    <div class="wrapper">
+                        <div class="main-card">
+                            <div class="header"><h1>New Contact Notification</h1></div>
+                            <div class="content">
+                                <div style="margin-bottom: 20px; font-weight: bold; border-bottom: 2px solid #fbab00; padding-bottom: 5px;">ข้อมูลผู้ติดต่อ : Hotmobily</div>
+                                <table class="info-table">
+                                    <tr><td class="label">ชื่อ-นามสกุล</td><td class="value">'.htmlspecialchars($customerName).'</td></tr>
+                                    <tr><td class="label">อีเมล</td><td class="value">'.htmlspecialchars($customerEmail).'</td></tr>
+                                    <tr><td class="label">เบอร์โทรศัพท์</td><td class="value">'.htmlspecialchars($customerPhone).'</td></tr>
+                                    <tr><td class="label">เรื่องที่ติดต่อ</td><td class="value">'.htmlspecialchars($subjectsText).'</td></tr>
+                                    <tr><td class="label">วันที่ส่ง</td><td class="value">'.$dateOnly.'</td></tr>
+                                    <tr><td class="label">เวลาที่ส่ง</td><td class="value">'.$timeOnly.'</td></tr>
+                                </table>
+                                <div style="margin-top: 25px;">
+                                    <div style="font-weight:bold; color:#fbab00; font-size:13px; margin-bottom:8px;">รายละเอียดข้อความ:</div>
+                                    <div class="message-box">'.$safeMessage.'</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </body></html>';
 
             $phpmailer = new PHPMailer(true);
             $phpmailer->CharSet = "UTF-8";
-            $phpmailer->isSMTP();
-            $phpmailer->Host = 'sandbox.smtp.mailtrap.io';
-            $phpmailer->SMTPAuth = true;
-            $phpmailer->Port = 2525;
-            $phpmailer->Username = 'd67afb6d8954e9'; // จากตัวอย่างของคุณ
-            $phpmailer->Password = '280901d4fac261'; // จากตัวอย่างของคุณ
-            
-            $phpmailer->setFrom('system@hotmobilythai.com', 'Hotmobily System');
-            
-            // ส่งไปหา Admin (Mailtrap Sandbox)
-            // $phpmailer->addAddress('cd685a991d-4bf6a9+user1@inbox.mailtrap.io'); 
-            
-            // ตอบกลับไปหาลูกค้า (Reply-To)
-            $phpmailer->addReplyTo($customerEmail, $customerName);
+            $phpmailer->setFrom('contact_hs@hotstrapthai.com', 'Hotmobily Admin');
+            $phpmailer->isHTML(true);
 
-            // 🚩 แนบไฟล์ที่ลูกค้าอัปโหลดเข้าไปในเมลด้วย
             foreach ($fullFilePaths as $filePath) {
-                if (file_exists($filePath)) {
+                if (File::exists($filePath)) {
                     $phpmailer->addAttachment($filePath);
                 }
             }
 
-            $phpmailer->Subject = '🔔 มีการติดต่อใหม่จากคุณ: ' . $customerName;
-            $phpmailer->isHTML(true);
-            $phpmailer->Body = $htmlBody;
-            
+            $phpmailer->addAddress($customerEmail, $customerName);  
+            $phpmailer->Subject = 'Hotmobily ได้รับข้อความจากคุณแล้ว - ' . $subjectsText;
+            $phpmailer->Body = $customerBody;
             $phpmailer->send();
+
+            $phpmailer->clearAddresses();
+            $phpmailer->clearAttachments();
+            
+            $phpmailer->addAddress(SALE_EMAIL);
+            $phpmailer->addCC('hotmobilyweb2017@gmail.com');
+            $phpmailer->Subject = '[Sale] แจ้งเตือนใบเสนอราคาใหม่ No. ' . $quotationNo . ' (จากคุณ ' . $customerName . ')';
+            $phpmailer->Body = $saleBody;
+
+            // ✅ ต้องเพิ่มลูปนี้กลับเข้ามาอีกครั้งเพื่อให้ไฟล์แนบไปในเมล Sale ด้วย
+            if (!empty($quotation->attachments)) {
+                foreach ($quotation->attachments as $path) {
+                    $fullPath = storage_path('app/public/' . $path);
+                    if (File::exists($fullPath)) {
+                        $phpmailer->addAttachment($fullPath);
+                    }
+                }
+            }
+
+            $phpmailer->send();
+
         } catch (\Exception $mailEx) {
-            \Log::error("Contact Mail Error: " . $mailEx->getMessage());
+            \Log::error("Quotation Mail Error: " . $mailEx->getMessage());
         }
 
-        // 🚩 เปลี่ยนจาก return back() เป็นการ Redirect ไปหน้าใหม่
         return redirect()->route('contact.success');
     }
 
-    // 🚩 เพิ่มฟังก์ชันสำหรับแสดงหน้า Success
     public function success()
     {
         return view('contact-success');

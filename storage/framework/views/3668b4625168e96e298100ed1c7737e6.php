@@ -43,11 +43,6 @@
         </div>
 
         
-        <div class="text-center mt-4 mt-lg-5">
-            <a href="#" class="btn-view-all-reviews">
-                ดูรีวิวทั้งหมด <i class="bi bi-chevron-right" style="font-size: 0.9em;"></i>
-            </a>
-        </div>
 
     </div>
 </section>

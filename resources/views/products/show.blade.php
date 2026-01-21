@@ -4,11 +4,28 @@
 
 @section('content')
 
-{{-- 1. รับค่าโหมดแก้ไขจาก Query String --}}
 @php
     $isEditMode = request('mode') == 'edit';
     $editRowId = request('row_id');
     $editQty = request('qty', 1);
+
+    // 🔥 รับค่า "ชื่อ" จาก URL เพื่อใช้เปรียบเทียบล็อคปุ่ม
+    $urlSizeName  = request('size_name'); 
+    $urlPrintName = request('print_name');
+    $urlPartName  = request('part_name');
+    $urlPartColor = request('part_color');
+
+    $hasPrices = $product->prices->where('price_per_unit', '>', 0)->isNotEmpty();
+
+    if(in_array($product->id, [6, 15])) {
+        $hasPrices = false;
+    }
+
+    // กรองประเภทการสกรีนที่มีชื่อระบุไว้
+    $validPrintings = $product->printings->filter(function($p) { return !empty(trim($p->printing_type)); });
+    
+    // ดึงรายการจำนวนขั้นต่ำทั้งหมดที่มี เพื่อทำเป็นแถวในตาราง
+    $quantities = $product->prices->unique('quantity_min')->sortBy('quantity_min')->pluck('quantity_min');
 @endphp
 
 {{-- CSS & Style --}}
@@ -21,7 +38,6 @@
         border-color: #ddd !important; 
     }
     
-    /* ปุ่มประเมินราคา (สีแดง) */
     .btn-estimate-action {
         background-color: #FFA726;
         color: white;
@@ -34,7 +50,6 @@
         color: white;
     }
     
-    /* ปุ่มอัปเดต (สีเหลือง) เมื่ออยู่ในโหมดแก้ไข */
     .btn-update-action {
         background-color: #FFA726;
         color: #ffffff;
@@ -46,7 +61,6 @@
         background-color: #e69520;
     }
     
-    /* ปุ่มขอใบเสนอราคา (สีส้ม) */
     .btn-quote {
         background-color: #FFA726;
         color: white;
@@ -57,6 +71,34 @@
     .btn-quote:hover {
         background-color: #e69520;
         color: white;
+    }
+    .product-top-banner {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .product-top-banner img {
+        width: 100%;
+        aspect-ratio: 1240 / 300; 
+        object-fit: cover;
+        display: block;
+    }
+
+    /* ตารางราคาแบบ Dynamic */
+    .price-table-wrapper { margin-top: 20px; border-radius: 12px; overflow: hidden; border: 1px solid #eee; }
+    .price-table { margin-bottom: 0 !important; width: 100%; border-collapse: collapse; }
+    .price-table thead th { background-color: #f8f9fa; color: #333; font-weight: bold; text-align: center; border: 1px solid #dee2e6; padding: 12px; }
+    .price-table tbody td { text-align: center; border: 1px solid #dee2e6; padding: 12px; font-size: 14px; }
+    .qty-column { background-color: #fcfcfc; font-weight: bold; width: 120px; }
+
+    @media (max-width: 768px) {
+        .product-top-banner {
+            margin-bottom: 30px;
+        }
+        .product-top-banner img {
+            aspect-ratio: auto; 
+            max-height: 200px;
+        }
     }
 </style>
 
@@ -72,15 +114,36 @@
             </ol>
         </nav>
 
-        <div class="bg-white rounded-4 shadow-sm p-4 p-lg-5">
+    <div class="bg-white rounded-4 shadow-sm p-4 p-lg-5">
+    {{-- ✅ ค้นหา Banner ที่ตรงกับสินค้าปัจจุบัน --}}
+    @php
+        $currentBanner = "";
+        if(!empty($banners)) {
+            foreach($banners as $value) {
+                if (isset($value['product_key']) && $value['product_key'] == $product->slug) {
+                    $currentBanner = $value['banner_img']; 
+                    break; 
+                }
+            }
+        }
+    @endphp
+
+    @if(!empty($currentBanner))
+        <div class="product-info-banner mb-4">
+            <img src="{{ $currentBanner }}" 
+                    alt="Banner {{ $product->name }}" 
+                    style="width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);">
+        </div>
+    @endif
+
+    {{-- ================= SECTION 1: ข้อมูลสินค้า ================= --}}
+    <div class="row g-5">
             
-            {{-- ================= SECTION 1: ข้อมูลสินค้า ================= --}}
             <div class="row g-5">
                 
                 {{-- LEFT COLUMN: Gallery --}}
                 <div class="col-lg-5">
                     
-                    {{-- ชื่อสินค้า Mobile --}}
                     <h1 class="product-title d-lg-none mb-3 text-start">
                         {{ $product->name }}
                     </h1>
@@ -107,17 +170,16 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 text-center">
-                        <button class="btn btn-file-guide fw-bold py-2 px-5 rounded-3 shadow-sm">
-                            <i class="bi bi-file-earmark-text me-2"></i> รูปแบบไฟล์งาน
-                        </button>
+                    <div class="mt-4 text-end">
+                        <a href="https://line.me/R/ti/p/@842kcbjl" target="_blank" class="btn btn-file-guide fw-bold py-2 px-5 rounded-3 shadow-sm d-inline-block text-decoration-none">
+                            <i class="bi bi-file-earmark-text me-2"></i> กรุณาติดต่อพนักงานเพื่อขอไฟล์ Template
+                        </a>
                     </div>
                 </div>
 
-                {{-- RIGHT COLUMN: Info & Options --}}
+                
                 <div class="col-lg-7">
-                    
-                    {{-- ชื่อสินค้า Desktop --}}
+
                     <h1 class="product-title d-none d-lg-block">{{ $product->name }}</h1>
 
                     <table class="table product-info-table">
@@ -138,49 +200,37 @@
                             
                             @if($product->sizes->isNotEmpty())
                             <tr>
-                                <td class="label">ขนาด :</td>
+                                <td class="label" style="white-space: nowrap; vertical-align: top;">ขนาด :</td>
                                 <td class="value">
                                     @php
                                         $firstSize = $product->sizes->first();
                                         $hasNote = !empty($firstSize->note);
                                         $countSizes = $product->sizes->count();
                                         $shouldHideButtons = ($countSizes === 1 && $hasNote);
-                                        $isStandee = ($product->id == 13);
                                     @endphp
 
-                                    @if($isStandee)
-                                        {{-- สแตนดี้ --}}
-                                        @if(!$shouldHideButtons)
-                                            <div class="d-inline-flex gap-2 flex-wrap" id="size-group" style="vertical-align: top;">
-                                                @foreach($product->sizes as $key => $size)
-                                                    <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
-                                                            data-group="size-group" 
-                                                            onclick="selectSize(this, {{ $size->id }})">
-                                                        {{ $size->size_name }}
-                                                    </button>
-                                                @endforeach
-                                            </div>
-                                        @endif
-                                        @if($hasNote)
-                                            <div class="text-dark mt-1" style="line-height: 1.6; font-size: 0.95rem;">{{ $firstSize->note }}</div>
-                                        @endif
-                                    @else
-                                        {{-- ทั่วไป --}}
-                                        @if($hasNote)
-                                            <span class="text-dark" style="line-height: 1.6; display: inline-block; margin-bottom: 5px;">{{ $firstSize->note }}</span>
-                                            @if(!$shouldHideButtons) <br> @endif
-                                        @endif
-                                        @if(!$shouldHideButtons)
-                                            <div class="d-inline-flex gap-2 flex-wrap" id="size-group">
-                                                @foreach($product->sizes as $key => $size)
-                                                    <button class="btn btn-spec {{ $key == 0 ? 'active' : '' }} mb-1" 
-                                                            data-group="size-group" 
-                                                            onclick="selectSize(this, {{ $size->id }})">
-                                                        {{ $size->size_name }}
-                                                    </button>
-                                                @endforeach
-                                            </div>
-                                        @endif
+                                    @if($hasPrices && !$shouldHideButtons)
+                                        <div class="d-inline-flex gap-2 flex-wrap" id="size-group">
+                                            @foreach($product->sizes as $key => $size)
+                                                @php $isActiveSize = $urlSizeName ? ($urlSizeName == $size->size_name) : ($key == 0); @endphp
+                                                <button class="btn btn-spec {{ $isActiveSize ? 'active' : '' }} mb-1" 
+                                                        data-group="size-group" 
+                                                        onclick="selectSize(this, {{ $size->id }})">
+                                                    {{ $size->size_name }}
+                                                </button>
+                                            @endforeach
+                                        </div>
+                                    @endif
+
+                                    @if(!$hasPrices || $shouldHideButtons)
+                                        <span class="text-dark">
+                                            @foreach($product->sizes as $size)
+                                                {{ $size->size_name }}{{ !$loop->last ? ', ' : '' }}
+                                            @endforeach
+                                            @if($hasNote)
+                                                &nbsp;{!! nl2br(e($firstSize->note)) !!}
+                                            @endif
+                                        </span>
                                     @endif
                                 </td>
                             </tr>
@@ -210,24 +260,32 @@
                             @endif
                             
                             <tr><td class="label">ระยะเวลาผลิต :</td><td class="value">{{ $product->production_time }}</td></tr>
-                            
-                            @if($product->printings->isNotEmpty())
-                                @if(!empty($product->printings->first()->color_type))
-                                <tr><td class="label">จำนวนสี :</td><td class="value">{{ $product->printings->first()->color_type }}</td></tr>
-                                @endif
 
-                                @php
-                                    $validPrintings = $product->printings->filter(function($p) { return !empty(trim($p->printing_type)); });
-                                @endphp
-
-                                @if($validPrintings->isNotEmpty())
+                            @php $extras = json_decode($product->custom_fields, true); @endphp
+                            @if(!empty($extras))
+                                @foreach($extras as $label => $detail)
+                                    @if(!empty($detail))
+                                    <tr>
+                                        <td class="label">{{ $label }} :</td>
+                                        <td class="value">{{ $detail }}</td>
+                                    </tr>
+                                    @endif
+                                @endforeach
+                            @endif
+                                
+                            @if($validPrintings->isNotEmpty())
                                 <tr>
-                                    <td class="label">การสกรีน @if($product->id == 12) <i class="bi bi-info-circle-fill text-danger" data-bs-toggle="modal" data-bs-target="#screenInfoModal"></i> @endif :</td>
+                                    <td class="label">การสกรีน :</td>
                                     <td class="value">
-                                        <span id="printing-note">{{ $validPrintings->first()->note ?? '-' }}</span>
+                                        @php 
+                                            $currentPrint = $urlPrintName ? $validPrintings->where('printing_type', $urlPrintName)->first() : $validPrintings->first();
+                                        @endphp
+                                        <span id="printing-note">{{ $currentPrint->note ?? '-' }}</span>
+                                        @if($hasPrices)
                                         <div class="d-flex gap-3 mt-2 flex-wrap" id="screen-group">
                                             @foreach($validPrintings as $key => $printing)
-                                                <button class="btn btn-spec {{ $loop->first ? 'active' : '' }} mb-1" 
+                                                @php $isActivePrint = $urlPrintName ? ($urlPrintName == $printing->printing_type) : ($loop->first); @endphp
+                                                <button class="btn btn-spec {{ $isActivePrint ? 'active' : '' }} mb-1" 
                                                         data-group="screen-group" 
                                                         data-table-id="price-table-{{ $printing->id }}" 
                                                         data-note="{{ $printing->note ?? '-' }}" 
@@ -237,64 +295,107 @@
                                                 </button>
                                             @endforeach
                                         </div>
+                                        @endif
                                     </td>
                                 </tr>
-                                @endif
                             @endif
                         </tbody>
                     </table>
-                    
-                    {{-- Price Tables --}}
-                    @if($product->prices->isNotEmpty())
-                    <div class="price-table-wrapper mt-4">
-                        @foreach($product->printings as $key => $printing)
-                        <div id="price-table-{{ $printing->id }}" class="price-table table-responsive" style="{{ $key == 0 ? '' : 'display: none;' }}">
-                            <table class="table table-bordered text-center align-middle mb-0">
-                                <thead>
-                                    <tr>
-                                        <th style="background-color: #f8f9fa;">จำนวน</th>
-                                        @forelse($product->sizes as $size)
-                                            <th class="size-header" style="white-space: nowrap;">
-                                                <span style="color: #666; font-weight: normal;">ขนาดไม่เกิน</span> {{ $size->size_name }}
-                                            </th>
-                                        @empty
-                                            <th>ราคา / ชิ้น</th>
-                                        @endforelse
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($quantities as $qty)
-                                    <tr class="price-row">
-                                        <td class="fw-bold bg-light">{{ number_format($qty) }}</td>
-                                        @forelse($product->sizes as $size)
-                                            @php $price = $product->prices->where('product_printing_id', $printing->id)->where('product_size_id', $size->id)->where('quantity_min', $qty)->first(); @endphp
-                                            <td class="size-col">{{ ($price && $price->price_per_unit > 0) ? number_format($price->price_per_unit) : '-' }}</td>
-                                        @empty
-                                            @php $price = $product->prices->where('quantity_min', $qty)->first(); @endphp
-                                            <td class="size-col">{{ ($price && $price->price_per_unit > 0) ? number_format($price->price_per_unit) : '-' }}</td>
-                                        @endforelse
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+
+                    {{-- 🔥 [DYNAMIC PRICE TABLE SECTION] 🔥 --}}
+                    @if($hasPrices)
+                        <div class="price-table-wrapper mt-4">
+                            @foreach($validPrintings as $key => $printing)
+                                @php
+                                    // 1. ดึง ID ของขนาดเฉพาะที่ถูกบันทึกไว้ในเทคนิคการพิมพ์นี้เท่านั้น
+                                    $thisPrintSizeIds = $product->prices->where('product_printing_id', $printing->id)
+                                                                    ->pluck('product_size_id')
+                                                                    ->unique();
+                                    
+                                    // 2. กรองข้อมูลขนาดจากตาราง sizes จริงๆ
+                                    $currentSizes = $product->sizes->whereIn('id', $thisPrintSizeIds)->values();
+
+                                    // 3. ดึงรายการจำนวน (Rows) เฉพาะที่มีการบันทึกราคาไว้ในเทคนิคนี้
+                                    $thisPrintQtys = $product->prices->where('product_printing_id', $printing->id)
+                                                                    ->where('quantity_min', '>', 0)
+                                                                    ->pluck('quantity_min')
+                                                                    ->unique()
+                                                                    ->sort()
+                                                                    ->values();
+                                @endphp
+
+                                <div id="price-table-{{ $printing->id }}" 
+                                    class="price-table-item table-responsive" 
+                                    style="{{ ($urlPrintName ? ($urlPrintName == $printing->printing_type) : $loop->first) ? '' : 'display: none;' }}">
+                                    
+                                    @if($currentSizes->isNotEmpty() && $thisPrintQtys->isNotEmpty())
+                                        <table class="table table-bordered text-center align-middle mb-0 price-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="background-color: #f8f9fa;">จำนวน</th>
+                                                    @foreach($currentSizes as $size)
+                                                        <th class="size-header" style="white-space: nowrap;">
+                                                            <span style="color: #666; font-weight: normal;">ขนาดไม่เกิน</span> {{ $size->size_name }}
+                                                        </th>
+                                                    @endforeach
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($thisPrintQtys as $qty)
+                                                    <tr class="price-row">
+                                                        <td class="fw-bold bg-light">{{ number_format($qty) }}</td>
+                                                        @foreach($currentSizes as $size)
+                                                            @php 
+                                                                $price = $product->prices->where('product_printing_id', $printing->id)
+                                                                                        ->where('product_size_id', $size->id)
+                                                                                        ->where('quantity_min', $qty)
+                                                                                        ->first(); 
+                                                            @endphp
+                                                            <td class="size-col">
+                                                                {{ ($price && $price->price_per_unit > 0) ? number_format($price->price_per_unit, 2) : '-' }}
+                                                            </td>
+                                                        @endforeach
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @else
+                                        {{-- กรณีตารางว่างเปล่า (ถูกลบเกลี้ยงจากหลังบ้าน) --}}
+                                        <div class="p-5 text-center text-muted bg-light rounded-4 border border-dashed">
+                                            <i class="bi bi-table mb-2 fs-3 d-block opacity-50"></i>
+                                            <span class="fw-bold">ยังไม่มีข้อมูลตารางราคาสำหรับเทคนิค {{ $printing->printing_type }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
                         </div>
-                        @endforeach
-                    </div>
-                    <div class="price-notes mt-4 text-secondary" style="font-size: 11px; line-height: 1.6;">
-                        <p class="mb-1">1) ราคานี้เป็นราคาผลิตต่อหน่วย ไม่ใช่ราคารวมสินค้า</p>
-                        <p class="mb-1">2) ราคานี้รวมค่าบรรจุใส่ถุง และฟรีค่าจัดส่งเมื่อสั่งซื้อตั้งแต่ 1,000 บาทขึ้นไป</p>
-                        <p class="mb-0">3) หากสั่งซื้อเป็นจำนวนมากกว่าในตารางราคาจะได้ราคาพิเศษ</p>
-                    </div>
+
+                        {{-- หมายเหตุท้ายตาราง --}}
+                        <div class="price-notes mt-4 text-secondary" style="font-size: 11px; line-height: 1.6;">
+                            <p class="mb-1">1) ราคานี้เป็นราคาผลิตต่อหน่วย ไม่ใช่ราคารวมสินค้า</p>
+                            <p class="mb-1">2) ราคานี้รวมค่าบรรจุใส่ถุง และฟรีค่าจัดส่งเมื่อสั่งซื้อตั้งแต่ 1,000 บาทขึ้นไป กรณียอดการสั่งซื้อน้อยกว่า 500 บาทจะมีค่าจัดส่ง 50 บาท</p>
+                            <p class="mb-1">3) หากสินค้าที่ท่านสั่งผลิตมีจำนวนมากก็จะได้ราคาถูกมากขึ้นและทางเราจะส่งสินค้าตัวอย่างให้ตรวจสอบก่อนผลิตจริงฟรี</p>
+                            <p class="mb-1">4) อาจมีค่าใช้จ่ายเพิ่มเติม สำหรับส่วนประกอบเพิ่มเติมบางรูปแบบ</p>
+                            <p class="mb-1">5) ราคาสินค้าที่แสดงยังไม่รวมภาษีมูลค่าเพิ่ม</p>
+                            <p class="mb-0">6) หากสั่งซื้อเป็นจำนวนมากกว่าในตารางราคาจะได้ราคาพิเศษ</p>
+                        </div>
                     @endif
-                    
                     {{-- Parts --}}
-                    @if($product->parts->isNotEmpty())
+                    @if($hasPrices && $product->parts->isNotEmpty()) 
                     <div class="mt-5">
                         <h3 class="mb-4">ส่วนประกอบเพิ่มเติม</h3>
                         <div class="row g-3 parts-grid">
                             @foreach($product->parts as $part)
+                                @php
+                                    $isActivePart = false;
+                                    if ($urlPartName) {
+                                        $isActivePart = ($urlPartName == $part->part_name && ($urlPartColor == $part->color || ($urlPartColor == '-' && !$part->color)));
+                                    } else {
+                                        $isActivePart = $part->is_default;
+                                    }
+                                @endphp
                                 <div class="col-lg-3 col-md-3 col-4">
-                                    <div class="part-box p-1 text-center {{ $part->is_default ? 'active' : '' }}"
+                                    <div class="part-box p-1 text-center {{ $isActivePart ? 'active' : '' }}"
                                          data-group="part-group" 
                                          onclick="selectSpec(this, 'part-group')" 
                                          data-part-id="{{ $part->id }}" 
@@ -310,30 +411,56 @@
                     @endif
 
                     {{-- [INPUT SECTION & BUTTONS] --}}
-                    <input type="hidden" id="selected_product_id" value="{{ $product->id }}">
-                    <input type="hidden" id="selected_size_id" value="{{ $product->sizes->first()->id ?? '' }}">
-                    <input type="hidden" id="selected_printing_id" value="{{ $product->printings->first()->id ?? '' }}">
-                    {{-- Default part_id --}}
-                    <input type="hidden" id="selected_part_id" value="{{ $product->parts->where('is_default', 1)->first()->id ?? '' }}">
+                    @if($hasPrices)
+                        @php
+                            $initSizeId = $product->sizes->where('size_name', $urlSizeName)->first()->id ?? ($product->sizes->first()->id ?? '');
+                            $initPrintId = $validPrintings->where('printing_type', $urlPrintName)->first()->id ?? ($validPrintings->first()->id ?? '');
+                            $initPartId = $product->parts->filter(function($p) use ($urlPartName, $urlPartColor) {
+                                return $p->part_name == $urlPartName && ($p->color == $urlPartColor || (!$p->color && $urlPartColor == '-'));
+                            })->first()->id ?? ($product->parts->where('is_default', 1)->first()->id ?? '');
+                        @endphp
 
-                    <div class="mt-4 d-flex justify-content-end align-items-center">
-                        <label for="quantityInput" class="form-label fw-bold me-3 mb-0" style="font-size: 1.1rem;">จำนวน :</label>
-                        {{-- ถ้าเป็นโหมดแก้ไข ให้ใส่ค่าจำนวนเดิม --}}
-                        <input type="number" class="form-control text-center fw-bold me-3" id="quantityInput" value="{{ $isEditMode ? $editQty : 1 }}" min="1" style="width: 120px; height: 45px; border-radius: 8px;">
-                        
-                        {{-- ✅ 1. ปุ่มประเมินราคา --}}
-                        <button class="btn btn-estimate-action fw-bold px-4 me-2" onclick="calculatePrice()" style="height: 45px; font-size: 1rem; min-width: 140px;">
-                            ประเมินราคา
-                        </button>
-                    </div>
+                        <input type="hidden" id="selected_product_id" value="{{ $product->id }}">
+                        <input type="hidden" id="selected_size_id" value="{{ $initSizeId }}">
+                        <input type="hidden" id="selected_printing_id" value="{{ $initPrintId }}">
+                        <input type="hidden" id="selected_part_id" value="{{ $initPartId }}">
+
+                        <div class="mt-4 d-flex justify-content-end align-items-center">
+                            <label for="quantityInput" class="form-label fw-bold me-3 mb-0" style="font-size: 1.1rem;">จำนวน :</label>
+                            <input type="number" class="form-control text-center fw-bold me-3" id="quantityInput" value="{{ $isEditMode ? $editQty : 1 }}" min="1" style="width: 120px; height: 45px; border-radius: 8px;">
+                            <button class="btn btn-estimate-action fw-bold px-4 me-2" onclick="calculatePrice()" style="height: 45px; font-size: 1rem; min-width: 140px;">ประเมินราคา</button>
+                        </div>
+
+                        <div class="action-area-bottom mt-5">
+                            <div class="row justify-content-center g-3">
+                                <div class="col-md-6 col-lg-4">
+                                    <button class="btn btn-quote w-100 py-2 fw-bold" onclick="requestQuotation()">ขอใบเสนอราคา</button>
+                                </div>
+                                <div class="col-md-6 col-lg-4">
+                                    <button class="btn {{ $isEditMode ? 'btn-update-action' : 'btn-estimate-action' }} w-100 py-2 fw-bold" 
+                                            onclick="{{ $isEditMode ? 'updateCart()' : 'addToCart()' }}">
+                                        {{ $isEditMode ? 'อัปเดตตะกร้า' : 'เพิ่มใส่ตะกร้า' }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <div class="alert alert-secondary mt-5 text-center py-4 rounded-4" style="background-color: #f8f9fa; border: 1px dashed #ccc;">
+                            <p class="mb-0 text-muted">สินค้านี้ยังไม่เปิดระบบคำนวณราคาอัตโนมัติ กรุณาติดต่อสอบถามเจ้าหน้าที่เพื่อรับใบเสนอราคา</p>
+                            <div class="mt-3">
+                                <a href="https://line.me/R/ti/p/@842kcbjl" target="_blank" class="btn btn-success btn-sm rounded-pill px-4">
+                                    <i class="bi bi-line me-1"></i> ติดต่อเจ้าหน้าที่ผ่าน LINE
+                                </a>
+                            </div>
+                        </div>
+                    @endif
 
                 </div> {{-- End col-lg-7 --}}
             </div> {{-- End row g-5 --}}
 
 
-            {{-- ================= SECTION 2: Result & Actions ================= --}}
+            {{-- ================= SECTION 2: Result Area ================= --}}
             <div id="estimationResult" class="mt-5 pt-4 border-top" style="display: none;">
-                {{-- (ส่วนแสดงผลราคา) --}}
                 <div class="row g-4">
                     <div class="col-md-6">
                         <h5 class="fw-bold text-center mb-3">ข้อมูล</h5>
@@ -369,36 +496,14 @@
                 </div>
             </div>
 
-            {{-- ✅ ปุ่ม Action ด้านล่าง --}}
-            <div class="action-area-bottom mt-5">
-                <div class="row justify-content-center g-3">
-                    <div class="col-md-6 col-lg-4">
-                        <button class="btn btn-quote w-100 py-2 fw-bold" onclick="requestQuotation()">
-                            ขอใบเสนอราคา
-                        </button>
-                    </div>
-                    <div class="col-md-6 col-lg-4">
-                        {{-- ✅ ปุ่มเพิ่ม/อัปเดต ด้านล่าง --}}
-                        <button class="btn {{ $isEditMode ? 'btn-update-action' : 'btn-estimate-action' }} w-100 py-2 fw-bold" 
-                                onclick="{{ $isEditMode ? 'updateCart()' : 'addToCart()' }}">
-                            {{ $isEditMode ? 'อัปเดตตะกร้า' : 'เพิ่มใส่ตะกร้า' }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Dynamic Sections (Product 19, 12, ...) --}}
+            {{-- Dynamic Content (Product 19, 12) --}}
             @if($product->id == 19)
                 <div class="rubber-features-section mt-5 pt-4">
-                    {{-- Banner --}}
                     <div class="text-center mb-5">
-                        <img src="{{ asset('images/Hotmobilyfile/poster/keychain.jpg') }}" 
-                             alt="พวงกุญแจยาง" class="mb-4" style="width: 100vw; height: 372px; object-fit: cover; display: block; margin-left: -50vw; left: 50%; position: relative; right: 50%; margin-right: -50vw;">
+                        <img src="{{ asset('images/Hotmobilyfile/poster/keychain.jpg') }}" alt="พวงกุญแจยาง" class="mb-4" style="width: 100vw; height: 372px; object-fit: cover; display: block; margin-left: -50vw; left: 50%; position: relative; right: 50%; margin-right: -50vw;">
                         <h3 class="fw-bold" style="color: #333; margin-top: 60px; font-size: 32px;">พวงกุญแจยาง</h3>
                         <p class="mx-auto" style="max-width: 700px; line-height: 1.6; font-size: 20px; margin-top: 40px;">พวงกุญแจยางทำจาก ATBC-PVC คุณภาพดี น้ำหนักเบา ทนทาน ป้องกันรอยขีดข่วน พร้อมสีสันและดีไซน์หลากหลาย เหมาะทั้งพกพาและตกแต่งให้โดดเด่น</p>
                     </div>
-                    
-                    {{-- Feature Grid --}}
                     <div class="rubber-feature-container">
                         <div class="feature-column text-column left-text">
                             <div class="feature-item" style="top: 10%;">
@@ -445,67 +550,9 @@
                             </div>
                         </div>
                     </div>
-
-                    {{-- Thickness Section --}}
-                    <div class="rubber-thickness-container">
-                        <div class="thickness-img-wrapper left-img">
-                            <img src="{{ asset('images/Hotmobilyfile/product/Rubber(3)/base_3mm.webp') }}" alt="Base 3mm" class="thickness-img">
-                        </div>
-                        <div class="thickness-content text-center px-4">
-                            <h4 class="fw-bold mb-3">ความหนาของฐาน</h4>
-                            <p class="text-muted mb-0">
-                                คุณสามารถเลือกได้ระหว่างรุ่นมาตรฐาน 3 มม. และรุ่น 5 มม. ที่หนาและหนักกว่าได้
-                            </p>
-                        </div>
-                        <div class="thickness-img-wrapper right-img">
-                            <img src="{{ asset('images/Hotmobilyfile/product/Rubber(3)/base_5mm.webp') }}" alt="Base 5mm" class="thickness-img">
-                        </div>
-                    </div>
-
-                    {{-- Special Material --}}
-                    <div class="special-material-section mt-5">
-                        <div class="rubber-section-header text-center mb-5">
-                            <h2 class="rubber-section-title">วัสดุพิเศษ</h2>
-                        </div>
-                        <div class="material-grid-container">
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image49.png') }}" alt="ชิ้นงานเรืองแสง 1">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image51.png') }}" alt="ชิ้นงานเรืองแสง 2">
-                                </div>
-                                <div class="material-name">ชิ้นงานเรืองแสง</div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image53.png') }}" alt="ฟลูออเรสเซนต์ 1">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image54.png') }}" alt="ฟลูออเรสเซนต์ 2">
-                                </div>
-                                <div class="material-name">ฟลูออเรสเซนต์</div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image55.png') }}" alt="กลิตเตอร์ 1">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image56.png') }}" alt="กลิตเตอร์ 2">
-                                </div>
-                                <div class="material-name">กลิตเตอร์</div>
-                            </div>
-                            <div class="material-item">
-                                <div class="material-images">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image57.png') }}" alt="Golden Silver 1">
-                                    <img src="{{ asset('images/Hotmobilyfile/Material/image58.png') }}" 
-                                         alt="Golden Silver 2" 
-                                         style="width: 30% !important; max-width: 120px; height: auto;">
-                                </div>
-                                <div class="material-name">Golden Silver</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             @elseif($product->id == 12)
                 <div class="acrylic-stand-section mt-5 pt-4">
-                    <div class="acrylic-poster-wrapper mb-5">
-                        <img src="{{ asset('images/Hotmobilyfile/poster/Rectangle118.png') }}" alt="แท่นวางโทรศัพท์" class="acrylic-poster-img">
-                    </div>
                     <div class="acrylic-content text-center">
                         <h3 class="fw-bold acrylic-title">แท่นวางโทรศัพท์</h3>
                         <p class="mx-auto text-muted acrylic-desc">แท่นวางโทรศัพท์น้ำหนักเบา แข็งแรง ใช้งานสะดวก ปรับมุมมองได้ เหมาะสำหรับดูวิดีโอ ประชุมออนไลน์ หรือใช้งานมือถือโดยไม่ต้องถือให้เมื่อย</p>
@@ -515,48 +562,23 @@
                     </div>
                 </div>
             @endif
-                {{-- ================= SECTION 3: ตัวอย่างผลงาน ================= --}}
-                @if(isset($productGalleries) && $productGalleries->isNotEmpty())
-                <div class="product-gallery-section mt-5">
-                    <div class="container">
-                        <h2 class="product-gallery-title">ตัวอย่างผลงาน</h2>
 
-                        <div class="product-example-grid">
-                            @foreach($productGalleries as $gallery)
-                                <div class="example-item">
-                                    {{-- ดึงรูปจากโฟลเดอร์ images/gallery ตามที่คุณกำหนด --}}
-                                    <img src="{{ asset('images/gallery/' . $gallery->image_path) }}" 
-                                        alt="{{ $gallery->title ?? 'ตัวอย่างผลงาน' }}">
-                                </div>
-                            @endforeach
+            {{-- ตัวอย่างผลงาน --}}
+            @if(isset($productGalleries) && $productGalleries->isNotEmpty())
+            <div class="product-gallery-section mt-5 border-top pt-5">
+                <h2 class="product-gallery-title text-center mb-4">ตัวอย่างผลงาน</h2>
+                <div class="product-example-grid">
+                    @foreach($productGalleries as $gallery)
+                        <div class="example-item">
+                            <img src="{{ asset('images/gallery/' . $gallery->image_path) }}" alt="{{ $gallery->title ?? 'ตัวอย่างผลงาน' }}">
                         </div>
-                    </div>
+                    @endforeach
                 </div>
-                @endif
+            </div>
+            @endif
+
         </div> {{-- End bg-white --}}
     </div>
-</div>
-
-{{-- Modal --}}
-<div class="modal fade" id="screenInfoModal" tabindex="-1" aria-labelledby="screenInfoModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content" style="border-radius: 16px;">
-      <div class="modal-header border-0 pb-0">
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body pt-0 pb-4 px-4">
-        <h4 class="fw-bold mb-4 text-center" id="screenInfoModalLabel">การสกรีน</h4>
-        <div class="mb-3">
-            <h6 class="fw-bold" style="color: #FFC107; font-size: 1.1rem;">สกรีน UV ฟูลคัลเลอร์ + เคลือบหมึกขาว คือ</h6>
-            <p class="text-muted mb-0" style="font-size: 0.95rem;">การสกรีนแบบอิงค์เจ็ทยูวีฟูลคัลเลอร์ + ทาทับด้วยหมึกสีขาว</p>
-        </div>
-        <div>
-            <h6 class="fw-bold" style="color: #0d6efd; font-size: 1.1rem;">สกรีน UV ด้านเดียว + เคลือบหมึกขาว คือ</h6>
-            <p class="text-muted mb-0" style="font-size: 0.95rem;">การสกรีนยูวี + ทาทับด้วยหมึกสีขาว</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 
 {{-- Scripts --}}
@@ -565,6 +587,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
+    // --- 1. ระบบรูปภาพและ Lightbox ---
     const productImages = [
         @foreach($galleryImages as $img)
             { 'href': '{{ asset($img->image_url) }}', 'type': 'image', 'title': '{{ $img->alt_text }}' },
@@ -587,33 +610,49 @@
         }
     }
 
+    // --- 2. ฟังก์ชันการเลือก Options ---
     function selectSize(element, sizeId) { 
         document.querySelectorAll('[data-group="size-group"]').forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         document.getElementById('selected_size_id').value = sizeId;
     }
 
-    function selectScreen(element) { 
-        document.querySelectorAll('[data-group="screen-group"]').forEach(el => el.classList.remove('active'));
-        element.classList.add('active');
-        const printingId = element.getAttribute('data-printing-id');
-        document.getElementById('selected_printing_id').value = printingId;
-        const tableIdToShow = element.dataset.tableId;
-        document.querySelectorAll('.price-table').forEach(el => el.style.display = 'none');
-        const tableToShow = document.getElementById(tableIdToShow);
-        if(tableToShow) tableToShow.style.display = 'block';
-        const noteText = element.getAttribute('data-note');
-        const noteElement = document.getElementById('printing-note');
-        if(noteElement) noteElement.innerText = noteText;
+function selectScreen(element) { 
+    // 1. สลับปุ่ม Active
+    document.querySelectorAll('[data-group="screen-group"]').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+    
+    // 2. เก็บค่า ID ลง Hidden Input
+    const printingId = element.getAttribute('data-printing-id');
+    document.getElementById('selected_printing_id').value = printingId;
+    
+    // 3. สลับการแสดงตาราง (ซ่อนทั้งหมดก่อน แล้วเปิดเฉพาะที่เลือก)
+    const tableIdToShow = element.dataset.tableId;
+    document.querySelectorAll('.price-table-item').forEach(el => {
+        el.style.display = 'none';
+    });
+    
+    const tableToShow = document.getElementById(tableIdToShow);
+    if(tableToShow) {
+        tableToShow.style.display = 'block';
     }
+    
+    // 4. อัปเดตหมายเหตุใต้ชื่อเทคนิค
+    const noteText = element.getAttribute('data-note');
+    const noteElement = document.getElementById('printing-note');
+    if(noteElement) {
+        noteElement.innerText = noteText;
+    }
+}
     
     function selectSpec(element, groupName) { 
         document.querySelectorAll(`[data-group="${groupName}"]`).forEach(el => el.classList.remove('active'));
         element.classList.add('active');
         const partId = element.getAttribute('data-part-id');
-        document.getElementById('selected_part_id').value = partId; // ✅ ส่ง ID เพื่อให้ Controller หา color ได้
+        document.getElementById('selected_part_id').value = partId;
     }
 
+    // --- 3. ระบบคำนวณราคา ---
     function calculatePrice() { 
         const productId = document.getElementById('selected_product_id').value;
         const sizeId = document.getElementById('selected_size_id').value;
@@ -621,7 +660,10 @@
         const partId = document.getElementById('selected_part_id').value;
         const qty = document.getElementById('quantityInput').value;
 
-        if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
+        if(qty < 1) { 
+            Swal.fire({ icon: 'warning', title: 'แจ้งเตือน', text: 'กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น' });
+            return; 
+        }
 
         axios.post('{{ route("product.calculate") }}', {
             product_id: productId,
@@ -665,161 +707,71 @@
 
             document.getElementById('estimationResult').style.display = 'block';
             document.getElementById('estimationResult').scrollIntoView({ behavior: 'smooth' });
-        })
-        .catch(function (error) {
-            console.error(error);
-            alert('เกิดข้อผิดพลาดในการคำนวณราคา');
         });
     }
 
-    // ✅ ฟังก์ชันเพิ่มลงตะกร้า (โหมดปกติ)
+    // --- 4. ระบบตะกร้าสินค้า ---
     function addToCart() {
         const qty = document.getElementById('quantityInput').value;
         const productId = document.getElementById('selected_product_id').value;
-        if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
-
-        const activeSizeBtn = document.querySelector('[data-group="size-group"].active');
-        const sizeName = activeSizeBtn ? activeSizeBtn.innerText.trim() : '-';
-        const activePrintBtn = document.querySelector('[data-group="screen-group"].active');
-        const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
-        const activePartDiv = document.querySelector('[data-group="part-group"].active');
-        const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
         
-        // ✅ รับ part_id ที่เลือกไว้
-        const partId = document.getElementById('selected_part_id').value;
-
-        const data = {
-            product_id: productId,
-            quantity: qty,
-            size_name: sizeName,
-            print_name: printName,
-            part_name: partName,
-            part_id: partId, // 🔥 ส่ง part_id ไปด้วย เพื่อให้ Controller หา color ได้
-            details_text: "" 
-        };
-
-        axios.post('{{ route("cart.add") }}', { ...data, _token: '{{ csrf_token() }}' })
-        .then(function (response) {
-            // 🔥 ตรวจสอบสถานะ response
-            if (response.data.status === 'success') {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'สำเร็จ',
-                    text: response.data.message,
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(() => {
-                    window.location.href = '{{ route("cart.index") }}';
-                });
-            } else if (response.data.status === 'error') {
-                // 🔥 แจ้งเตือนเมื่อตะกร้าเต็ม (หรือ Error อื่นๆ ที่ส่งมาแบบนี้)
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'ไม่สามารถเพิ่มได้',
-                    text: response.data.message, 
-                    confirmButtonColor: '#FFA726'
-                });
-            }
-        })
-        .catch(function (error) {
-            console.error(error);
-            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้' });
-        });
-    }
-
-    // ✅ ฟังก์ชันอัปเดตตะกร้า (โหมดแก้ไข)
-    function updateCart() {
-        const qty = document.getElementById('quantityInput').value;
-        const productId = document.getElementById('selected_product_id').value;
-        const rowId = '{{ $editRowId ?? "" }}'; 
-
         if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
 
-        const activeSizeBtn = document.querySelector('[data-group="size-group"].active');
-        const sizeName = activeSizeBtn ? activeSizeBtn.innerText.trim() : '-';
-        const activePrintBtn = document.querySelector('[data-group="screen-group"].active');
-        const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
-        const activePartDiv = document.querySelector('[data-group="part-group"].active');
-        const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
-        const partId = document.getElementById('selected_part_id').value;
-
         const data = {
-            row_id: rowId,
             product_id: productId,
             quantity: qty,
-            size_name: sizeName,
-            print_name: printName,
-            part_name: partName,
-            part_id: partId,
-            details_text: "" 
+            size_name: document.querySelector('[data-group="size-group"].active')?.innerText.trim() || '-',
+            print_name: document.querySelector('[data-group="screen-group"].active')?.innerText.trim() || '-',
+            part_name: document.querySelector('[data-group="part-group"].active')?.getAttribute('title') || '-',
+            part_id: document.getElementById('selected_part_id').value,
+            _token: '{{ csrf_token() }}'
         };
 
-        axios.post('{{ route("cart.update") }}', { ...data, _token: '{{ csrf_token() }}' })
-        .then(function (response) {
-            Swal.fire({
-                icon: 'success',
-                title: 'อัปเดตตะกร้าเรียบร้อย',
-                showConfirmButton: false,
-                timer: 1500
-            }).then(() => {
+        axios.post('{{ route("cart.add") }}', data).then(function (response) {
+            if (response.data.status === 'success') {
                 window.location.href = '{{ route("cart.index") }}';
-            });
-        })
-        .catch(function (error) {
-            console.error(error);
-            Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถอัปเดตสินค้าได้' });
+            }
         });
     }
 
-    // ✅ ฟังก์ชันสำหรับปุ่ม "ขอใบเสนอราคา" (ซื้อเลย)
+    function updateCart() {
+        const data = {
+            row_id: '{{ $editRowId ?? "" }}',
+            product_id: document.getElementById('selected_product_id').value,
+            quantity: document.getElementById('quantityInput').value,
+            size_name: document.querySelector('[data-group="size-group"].active')?.innerText.trim() || '-',
+            print_name: document.querySelector('[data-group="screen-group"].active')?.innerText.trim() || '-',
+            part_name: document.querySelector('[data-group="part-group"].active')?.getAttribute('title') || '-',
+            part_id: document.getElementById('selected_part_id').value,
+            _token: '{{ csrf_token() }}'
+        };
+
+        axios.post('{{ route("cart.update") }}', data).then(() => {
+            window.location.href = '{{ route("cart.index") }}';
+        });
+    }
+
+    // --- 5. ระบบขอใบเสนอราคา ---
     function requestQuotation() {
         const qty = document.getElementById('quantityInput').value;
-        const productId = document.getElementById('selected_product_id').value;
-
         if(qty < 1) { alert('กรุณาระบุจำนวนอย่างน้อย 1 ชิ้น'); return; }
 
-        const activeSizeBtn = document.querySelector('[data-group="size-group"].active');
-        const sizeName = activeSizeBtn ? activeSizeBtn.innerText.trim() : '-';
-        
-        const activePrintBtn = document.querySelector('[data-group="screen-group"].active');
-        const printName = activePrintBtn ? activePrintBtn.innerText.trim() : '-';
-        
-        const activePartDiv = document.querySelector('[data-group="part-group"].active');
-        const partName = activePartDiv ? activePartDiv.getAttribute('title') : '-';
-        const partId = document.getElementById('selected_part_id').value;
-
         const data = {
-            product_id: productId,
+            product_id: document.getElementById('selected_product_id').value,
             quantity: qty,
-            size_name: sizeName,
-            print_name: printName,
-            part_name: partName,
-            part_id: partId,
-            details_text: "" 
+            size_name: document.querySelector('[data-group="size-group"].active')?.innerText.trim() || '-',
+            print_name: document.querySelector('[data-group="screen-group"].active')?.innerText.trim() || '-',
+            part_name: document.querySelector('[data-group="part-group"].active')?.getAttribute('title') || '-',
+            part_id: document.getElementById('selected_part_id').value,
+            _token: '{{ csrf_token() }}'
         };
 
-        axios.post('{{ route("cart.add") }}', { ...data, _token: '{{ csrf_token() }}' })
+        axios.post('{{ route("cart.add") }}', data)
             .then(function (response) {
                 if (response.data.status === 'success') {
-                    // ✅ รับ row_id ที่เพิ่งสร้างมาจาก Controller
-                    const newRowId = response.data.row_id; 
-
-                    // 3. Redirect ไปหน้า quotation.index พร้อมส่ง row_id ไปด้วย
-                    window.location.href = '{{ route("quotation.index") }}?selected_items[]=' + newRowId;
-                } else if (response.data.status === 'error') {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'ไม่สามารถทำรายการได้',
-                        text: response.data.message,
-                        confirmButtonColor: '#FFA726'
-                    });
+                    window.location.href = '{{ route("quotation.index") }}?selected_items[]=' + response.data.row_id;
                 }
-            })
-            .catch(function (error) {
-                console.error(error);
-                Swal.fire({ icon: 'error', title: 'เกิดข้อผิดพลาด', text: 'ไม่สามารถดำเนินการได้' });
             });
     }
 </script>
-
 @endsection
